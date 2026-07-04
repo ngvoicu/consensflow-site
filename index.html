@@ -1,0 +1,1298 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ConsensFlow — ask another mind, without leaving your agent</title>
+<meta name="description" content="ConsensFlow routes one question to one named AI participant — Claude Code, Codex, Pi, or OpenCode — hands it your current session as context, and brings the answer back. One tool for Pi and Claude Code." />
+<meta name="theme-color" content="#0a0e1a" />
+
+<!-- Open Graph / Twitter -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="ConsensFlow — ask another mind, without leaving your agent" />
+<meta property="og:description" content="Consult one named AI participant at a time — Claude Code, Codex, Pi, OpenCode — with a handoff of your current session. Works in Pi and Claude Code." />
+<meta property="og:image" content="./assets/og-image.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="ConsensFlow" />
+<meta name="twitter:description" content="Consult one named AI participant at a time, with a handoff of your current session. Works in Pi and Claude Code." />
+<meta name="twitter:image" content="./assets/og-image.jpg" />
+
+<link rel="icon" type="image/png" href="./assets/favicon.png" />
+<link rel="apple-touch-icon" href="./assets/apple-touch-icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+:root{
+  /* surfaces */
+  --bg:#0a0e1a; --bg-2:#080b14; --card:#10141f; --card-hover:#141a28; --surface:#161c2b;
+  --border:rgba(255,255,255,0.06); --border-hover:rgba(255,255,255,0.13);
+  /* text */
+  --text:#e6e9f2; --text-dim:#9099ad; --text-muted:#5b6479;
+  /* brand: the "flow" cyan -> indigo */
+  --cyan:#22d3ee; --blue:#3b82f6; --indigo:#6366f1; --indigo-light:#818cf8;
+  --flow:linear-gradient(120deg,#5eead4 0%,#22d3ee 28%,#3b82f6 64%,#6366f1 100%);
+  --flow-soft:linear-gradient(120deg,#22d3ee,#6366f1);
+  /* per-engine accents (used in the router diagram + preset cards) */
+  --eng-claude:#d97757;   /* Claude Code */
+  --eng-codex:#10b981;    /* Codex */
+  --eng-pi:#818cf8;       /* Pi */
+  --eng-opencode:#f59e0b; /* OpenCode */
+  --eng-image:#ec4899;    /* image / pygmalion */
+  /* sizing */
+  --maxw:1140px; --radius:14px;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --serif:'DM Serif Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);
+  font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  background-image:
+    radial-gradient(900px 520px at 78% -8%,rgba(99,102,241,0.16),transparent 60%),
+    radial-gradient(820px 480px at 10% 6%,rgba(34,211,238,0.10),transparent 60%);
+  background-attachment:fixed;
+}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:-0.01em;line-height:1.08}
+::selection{background:rgba(34,211,238,0.28)}
+.container{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
+  background-image:linear-gradient(rgba(255,255,255,0.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.022) 1px,transparent 1px);
+  background-size:46px 46px;mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 35%,transparent 78%)}
+main{position:relative;z-index:1}
+
+/* gradient text */
+.grad{background:var(--flow);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ---- nav ---- */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;height:62px;display:flex;align-items:center;
+  background:rgba(10,14,26,0.72);backdrop-filter:blur(22px) saturate(1.5);-webkit-backdrop-filter:blur(22px) saturate(1.5);
+  border-bottom:1px solid var(--border)}
+nav .container{display:flex;align-items:center;justify-content:space-between;width:100%}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:17px}
+.brand svg{width:26px;height:26px;flex:none}
+.brand-mark{flex:none;border-radius:7px;filter:drop-shadow(0 0 9px rgba(59,130,246,.45))}
+.brand b{font-weight:600}
+.nav-links{display:flex;align-items:center;gap:28px;font-size:14.5px;color:var(--text-dim)}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:600;color:var(--bg)!important;
+  background:var(--flow-soft);padding:8px 15px;border-radius:9px;box-shadow:0 0 0 1px rgba(255,255,255,.05),0 8px 26px -10px rgba(59,130,246,.7)}
+.nav-cta:hover{transform:translateY(-1px)}
+@media(max-width:860px){.nav-links a:not(.nav-cta){display:none}}
+@media(max-width:560px){.nav-cta{display:none}}
+
+/* ---- buttons ---- */
+.btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--sans);font-weight:600;font-size:15px;
+  padding:13px 22px;border-radius:11px;cursor:pointer;border:1px solid transparent;transition:.18s}
+.btn-primary{background:var(--flow-soft);color:#06121f;box-shadow:0 10px 34px -12px rgba(59,130,246,.75),inset 0 1px 0 rgba(255,255,255,.25)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 40px -12px rgba(99,102,241,.8)}
+.btn-ghost{background:rgba(255,255,255,0.03);border-color:var(--border-hover);color:var(--text)}
+.btn-ghost:hover{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,.22)}
+
+/* ---- section scaffold ---- */
+section{padding:92px 0;position:relative}
+.eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--cyan);font-weight:600;margin-bottom:14px;display:inline-block}
+.s-title{font-size:clamp(2rem,4.4vw,3.1rem);margin:0 0 16px}
+.s-desc{color:var(--text-dim);max-width:620px;font-size:18px;margin:0 0 8px}
+.center{text-align:center}.center .s-desc{margin-left:auto;margin-right:auto}
+.divider{border-top:1px solid var(--border)}
+
+/* ---- reveal ---- */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ---- hero ---- */
+.hero{padding:98px 0 64px;text-align:center}
+.hero-mark{width:112px;height:112px;display:block;margin:0 auto 18px;border-radius:24px;
+  filter:drop-shadow(0 0 46px rgba(59,130,246,.5));animation:floaty 6s ease-in-out infinite}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+.badge{display:inline-flex;align-items:center;gap:9px;font-size:13.5px;color:var(--text-dim);
+  border:1px solid var(--border-hover);background:rgba(255,255,255,0.03);padding:7px 15px;border-radius:999px;margin-bottom:30px}
+.badge .dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{font-size:clamp(2.6rem,6vw,4.6rem);margin:0 auto 20px;max-width:21ch}
+.hero h1 .grad{font-style:italic}
+.hero p.sub{font-size:clamp(18px,2.2vw,21px);color:var(--text-dim);max-width:680px;margin:0 auto 16px}
+.hero .plain{font-size:15.5px;color:var(--text-muted);max-width:600px;margin:0 auto 34px}
+.hero .plain b{color:var(--text-dim);font-weight:500}
+.hero-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}
+.works{display:flex;align-items:center;gap:14px;justify-content:center;flex-wrap:wrap;color:var(--text-muted);font-size:13px;font-family:var(--mono)}
+.works span{display:inline-flex;align-items:center;gap:6px}
+.works i{width:8px;height:8px;border-radius:2px;display:inline-block}
+
+/* ---- router diagram ---- */
+.router{margin:54px auto 0;max-width:980px}
+.router-frame{position:relative;border:1px solid var(--border);border-radius:20px;background:linear-gradient(180deg,rgba(22,28,43,.6),rgba(10,14,26,.4));
+  padding:20px 18px 14px;overflow:hidden;box-shadow:0 40px 120px -50px rgba(99,102,241,.5)}
+.router-frame::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 220px at 50% 0%,rgba(34,211,238,.10),transparent 70%);pointer-events:none}
+.router-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:6px;flex-wrap:wrap}
+.router-toolbar .cap{font-family:var(--mono);font-size:12.5px;color:var(--text-muted)}
+.host-toggle{display:inline-flex;border:1px solid var(--border-hover);border-radius:10px;overflow:hidden;background:rgba(0,0,0,.25)}
+.host-toggle button{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--text-dim);background:none;border:none;padding:8px 16px;cursor:pointer;transition:.15s}
+.host-toggle button.active{color:var(--bg);background:var(--flow-soft)}
+.router svg{width:100%;height:auto;display:block}
+.router-cap{text-align:center;font-family:var(--mono);font-size:13px;color:var(--text-dim);margin-top:8px}
+.router-cap b{color:var(--cyan);font-weight:600}
+/* mobile stacked router (the horizontal SVG is unreadable on phones) */
+.router-mobile{display:none}
+.rm-host{text-align:center;background:rgba(99,102,241,.12);border:1px solid rgba(129,140,248,.6);border-radius:12px;padding:12px 10px;margin-bottom:2px}
+.rm-host b{display:block;font-family:var(--mono);font-size:15px;color:var(--text);font-weight:600}
+.rm-host span{font-family:var(--mono);font-size:11px;color:var(--text-muted)}
+.rm-arrow{text-align:center;font-family:var(--mono);font-size:12px;color:var(--text-muted);padding:9px 0}
+.rm-list{display:grid;gap:8px}
+.rm-row{display:flex;align-items:center;gap:11px;padding:12px 14px;border:1px solid var(--border);border-left-width:3px;border-radius:11px;background:var(--card);opacity:.5;transition:opacity .25s,background .25s,box-shadow .25s}
+.rm-row.lit{opacity:1;background:var(--card-hover);box-shadow:0 0 0 1px var(--c),0 8px 24px -10px var(--c)}
+.rm-dot{width:9px;height:9px;border-radius:50%;flex:none}
+.rm-name{font-family:var(--mono);font-weight:600;font-size:14.5px}
+.rm-sub{font-family:var(--mono);font-size:11px;color:var(--text-muted);margin-left:auto}
+@media(max-width:760px){#routerSvg{display:none}.router-mobile{display:block}.router-toolbar{justify-content:center}.router-toolbar .cap{display:none}}
+.node-label{font-family:var(--mono);font-size:13.5px;font-weight:600}
+.node-sub{font-family:var(--mono);font-size:11px;fill:var(--text-muted)}
+
+/* ---- cards ---- */
+.cards{display:grid;gap:18px}
+.cards.c3{grid-template-columns:repeat(3,1fr)}
+.cards.c2{grid-template-columns:repeat(2,1fr)}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:26px;transition:.2s}
+.card:hover{background:var(--card-hover);border-color:var(--border-hover);transform:translateY(-3px)}
+.card .ic{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;margin-bottom:16px;
+  background:rgba(34,211,238,.1);border:1px solid rgba(34,211,238,.22);font-size:20px}
+.card h3{font-size:21px;margin:0 0 9px}
+.card p{margin:0;color:var(--text-dim);font-size:15.5px;line-height:1.6}
+@media(max-width:820px){.cards.c3,.cards.c2{grid-template-columns:1fr}}
+
+/* ---- two hosts ---- */
+.hosts{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.host{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;position:relative;overflow:hidden}
+.host::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--flow)}
+.host .k{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted)}
+.host h3{font-size:24px;margin:6px 0 6px}
+.host .meta{color:var(--text-dim);font-size:15px;margin-bottom:16px}
+.host ul{list-style:none;padding:0;margin:0;font-size:14.5px;color:var(--text-dim)}
+.host li{padding:7px 0 7px 24px;position:relative;border-top:1px solid var(--border)}
+.host li::before{content:"→";position:absolute;left:0;color:var(--cyan)}
+.parity{margin-top:18px;text-align:center;font-family:var(--mono);font-size:13px;color:var(--text-muted)}
+.parity b{color:var(--indigo-light)}
+@media(max-width:820px){.hosts{grid-template-columns:1fr}}
+
+/* ---- terminal window ---- */
+.terminal{background:#0b0f1a;border:1px solid var(--border-hover);border-radius:13px;overflow:hidden;
+  font-family:var(--mono);box-shadow:0 30px 80px -40px rgba(0,0,0,.9)}
+.term-head{display:flex;align-items:center;gap:8px;padding:11px 15px;background:rgba(255,255,255,0.025);border-bottom:1px solid var(--border)}
+.term-head i{width:11px;height:11px;border-radius:50%;background:#ff5f57;display:inline-block}
+.term-head i:nth-child(2){background:#febc2e}.term-head i:nth-child(3){background:#28c840}
+.term-head span{margin-left:8px;font-size:12.5px;color:var(--text-muted)}
+.terminal pre{margin:0;padding:18px 18px 20px;font-size:13.5px;line-height:1.75;overflow-x:auto;white-space:pre-wrap;word-break:break-word}
+.t-host{color:var(--indigo-light)} .t-prompt{color:var(--cyan)} .t-at{color:var(--eng-image);font-weight:600}
+.t-dim{color:var(--text-muted)} .t-ok{color:#34d399} .t-warn{color:#fbbf24} .t-str{color:#a5d6ff}
+.t-think{color:var(--text-muted);font-style:italic}
+.t-claude{color:var(--eng-claude);font-weight:600}.t-codex{color:var(--eng-codex);font-weight:600}
+.t-pi{color:var(--eng-pi);font-weight:600}.t-opencode{color:var(--eng-opencode);font-weight:600}
+/* ---- session terminal ---- */
+.session{max-width:980px;margin:0 auto;box-shadow:0 42px 110px -45px rgba(99,102,241,.5)}
+.term-body{padding:22px 26px 24px;font-family:var(--mono);font-size:14.5px;line-height:1.8;color:var(--text)}
+@media(max-width:600px){.term-body{padding:16px 16px 18px;font-size:12.5px;line-height:1.7}}
+.term-body .tl{padding:2px 0}
+.term-body .tl.sp{height:10px;padding:0}
+.route{display:inline-flex;align-items:center;gap:6px;font-size:11px;padding:2px 9px;border-radius:7px;border:1px solid;white-space:nowrap;vertical-align:middle}
+.route .rd{width:6px;height:6px;border-radius:50%}
+.route.r-claude{color:var(--eng-claude);border-color:rgba(217,119,87,.4)}.route.r-claude .rd{background:var(--eng-claude)}
+.route.r-codex{color:var(--eng-codex);border-color:rgba(16,185,129,.4)}.route.r-codex .rd{background:var(--eng-codex)}
+.route.r-image{color:var(--eng-image);border-color:rgba(236,72,153,.4)}.route.r-image .rd{background:var(--eng-image)}
+.route.r-opencode{color:var(--eng-opencode);border-color:rgba(245,158,11,.4)}.route.r-opencode .rd{background:var(--eng-opencode)}
+.cursor{display:inline-block;width:8px;height:14px;background:var(--cyan);vertical-align:text-bottom;margin-left:4px;animation:blink 1.1s steps(2,end) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* ---- install tabs ---- */
+.tabs{display:inline-flex;gap:6px;padding:5px;background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:12px;margin-bottom:22px}
+.tab{font-family:var(--mono);font-size:13.5px;font-weight:600;color:var(--text-dim);background:none;border:none;padding:9px 18px;border-radius:8px;cursor:pointer;transition:.15s;display:flex;align-items:center;gap:8px}
+.tab.active{color:var(--bg);background:var(--flow-soft)}
+.tab i{width:9px;height:9px;border-radius:2px}
+.panel{display:none}.panel.active{display:block}
+.steps{display:grid;gap:14px;margin-top:4px}
+.step{display:flex;gap:16px;align-items:flex-start}
+.step .n{flex:none;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-family:var(--mono);font-weight:600;font-size:14px;
+  background:rgba(99,102,241,.14);border:1px solid rgba(99,102,241,.3);color:var(--indigo-light)}
+.step .body{flex:1;min-width:0}
+.step .body p{margin:3px 0 0;color:var(--text-dim);font-size:14.5px}
+.cmd{font-family:var(--mono);font-size:13.5px;background:#0b0f1a;border:1px solid var(--border);border-radius:9px;padding:11px 14px;color:var(--text);overflow-x:auto;white-space:nowrap}
+.cmd .c-sel{color:var(--cyan)}
+
+/* ---- how to use ---- */
+.usebox{margin:34px auto 0;max-width:780px;border:1px solid var(--border);border-radius:18px;
+  background:linear-gradient(180deg,rgba(22,28,43,.5),rgba(10,14,26,.3));padding:6px 26px 22px}
+.use-h{font-family:var(--mono);font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);font-weight:600;text-align:center;padding:20px 0 8px}
+.use-row{display:grid;grid-template-columns:128px 1fr;gap:20px;padding:18px 0;border-top:1px solid var(--border)}
+.use-k{font-family:var(--mono);font-size:13px;color:var(--indigo-light);font-weight:600;padding-top:9px}
+.use-b p{margin:0;color:var(--text-dim);font-size:14.5px;line-height:1.55}
+.use-b .cmd{margin-top:10px}
+.use-foot{border-top:1px solid var(--border);margin-top:4px;padding-top:16px;text-align:center;color:var(--text-muted);font-size:13.5px}
+.use-foot b{color:var(--text-dim);font-weight:600}
+@media(max-width:640px){.use-row{grid-template-columns:1fr;gap:9px}.use-k{padding-top:0}}
+
+/* ---- presets ---- */
+.preset-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+.filt{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--text-dim);background:rgba(255,255,255,.03);
+  border:1px solid var(--border);border-radius:999px;padding:8px 15px;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:8px}
+.filt:hover{border-color:var(--border-hover);color:var(--text)}
+.filt.active{color:var(--text);border-color:transparent;background:rgba(255,255,255,.07)}
+.filt i{width:9px;height:9px;border-radius:2px}
+.filt .ct{color:var(--text-muted);font-weight:500}
+.preset-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:12px}
+.pcard{background:var(--card);border:1px solid var(--border);border-left-width:3px;border-radius:11px;padding:15px 16px;transition:.18s}
+.pcard:hover{background:var(--card-hover);transform:translateY(-2px)}
+.pcard .top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:5px}
+.pcard .at{font-family:var(--mono);font-weight:600;font-size:15px}
+.pcard .kind{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);padding:3px 7px;border-radius:6px;border:1px solid var(--border)}
+.pcard .lbl{font-size:13px;color:var(--text-dim);margin-bottom:4px}
+.pcard .mdl{font-family:var(--mono);font-size:11.5px;color:var(--text-muted);word-break:break-all}
+.pcard .star{color:var(--cyan);font-size:12px}
+.preset-note{margin-top:16px;font-family:var(--mono);font-size:13px;color:var(--text-muted)}
+
+/* ---- safety ---- */
+.safe{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.safe .card .ic{background:rgba(52,211,153,.1);border-color:rgba(52,211,153,.25)}
+@media(max-width:820px){.safe{grid-template-columns:1fr}}
+
+/* ---- CTA ---- */
+.cta{margin:40px auto;max-width:var(--maxw);text-align:center;padding:70px 24px;border:1px solid var(--border-hover);border-radius:24px;position:relative;overflow:hidden;
+  background:linear-gradient(180deg,rgba(22,28,43,.7),rgba(10,14,26,.5))}
+.cta::before{content:"";position:absolute;inset:0;background:radial-gradient(700px 300px at 50% 120%,rgba(99,102,241,.22),transparent 70%);pointer-events:none}
+.cta h2{font-size:clamp(2rem,4.5vw,3rem);margin:0 0 14px;position:relative}
+.cta p{color:var(--text-dim);max-width:560px;margin:0 auto 28px;position:relative}
+
+/* ---- footer ---- */
+footer{border-top:1px solid var(--border);padding:48px 0 60px;text-align:center;color:var(--text-muted);font-size:14px}
+footer .brand{justify-content:center;margin-bottom:14px}
+footer .fam{display:flex;gap:18px;justify-content:center;margin:16px 0;font-family:var(--mono);font-size:13px}
+footer .fam a{color:var(--text-dim)}footer .fam a:hover{color:var(--cyan)}
+footer .soc{display:flex;gap:14px;justify-content:center;margin-top:10px}
+footer .soc a{color:var(--text-muted)}footer .soc a:hover{color:var(--text)}
+
+code.inl{font-family:var(--mono);font-size:.88em;background:rgba(255,255,255,.06);padding:2px 6px;border-radius:5px;color:var(--text)}
+@media(max-width:600px){section{padding:68px 0}.hero{padding:118px 0 50px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+
+<!-- ============ NAV ============ -->
+<nav>
+  <div class="container">
+    <a class="brand" href="#top">
+      <img class="brand-mark" src="./assets/mark.png" width="28" height="28" alt="" />
+      <b>Consens<span class="grad">Flow</span></b>
+    </a>
+    <div class="nav-links">
+      <a href="#how">How it works</a>
+      <a href="#diagram">Routing</a>
+      <a href="#install">Install</a>
+      <a href="#presets">Presets</a>
+      <a href="#examples">Examples</a>
+      <a class="nav-cta" href="#install">Get started →</a>
+    </div>
+  </div>
+</nav>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="container">
+    <img class="hero-mark reveal" src="./assets/mark.png" width="112" height="112" alt="ConsensFlow — streams converging into one node" />
+    <div class="badge reveal"><span class="dot"></span> One tool · works in Pi <b style="color:var(--text-muted)">&amp;</b> Claude Code</div>
+    <h1 class="reveal">Ask another mind.<br><span class="grad">Without leaving your agent.</span></h1>
+    <p class="sub reveal">ConsensFlow routes one question to one named AI participant — Claude&nbsp;Code, Codex, Pi, or OpenCode — hands it your current session as context, and brings the answer back.</p>
+    <p class="plain reveal"><b>In plain terms:</b> a fast second opinion from another AI — without switching tools or re-explaining your code, and you decide what to keep.</p>
+    <div class="hero-cta reveal">
+      <a class="btn btn-primary" href="#install">Install it →</a>
+      <a class="btn btn-ghost" href="#diagram">See how it works</a>
+    </div>
+    <div class="works reveal">
+      <span><i style="background:var(--eng-claude)"></i>Claude Code</span>
+      <span><i style="background:var(--eng-codex)"></i>Codex</span>
+      <span><i style="background:var(--eng-pi)"></i>Pi</span>
+      <span><i style="background:var(--eng-opencode)"></i>OpenCode</span>
+      <span><i style="background:var(--eng-image)"></i>image</span>
+    </div>
+
+    <!-- router diagram -->
+    <div class="router reveal" id="diagram-top">
+      <div class="router-frame">
+        <div class="router-toolbar">
+          <span class="cap">// your host routes to one participant at a time</span>
+          <div class="host-toggle" id="hostToggle">
+            <button class="active" data-host="pi">host: Pi</button>
+            <button data-host="cc">host: Claude Code</button>
+          </div>
+        </div>
+        <svg id="routerSvg" viewBox="0 0 920 470" role="img" aria-label="ConsensFlow routes one prompt from your host to one named participant on any engine">
+          <defs>
+            <linearGradient id="wire" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#6366f1"/></linearGradient>
+            <filter id="glow"><feGaussianBlur stdDeviation="3.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+          <!-- wires (drawn first, behind nodes) -->
+          <g id="wires" fill="none" stroke-width="2"></g>
+          <!-- traveling pulse -->
+          <circle id="pulse" r="5" fill="#22d3ee" filter="url(#glow)" opacity="0"></circle>
+          <!-- host node -->
+          <g id="hostNode">
+            <rect x="40" y="200" width="178" height="70" rx="14" fill="rgba(99,102,241,.12)" stroke="url(#wire)" stroke-width="1.6"/>
+            <text x="129" y="231" text-anchor="middle" class="node-label" fill="#e6e9f2" id="hostName">You — in Pi</text>
+            <text x="129" y="251" text-anchor="middle" class="node-sub">your prompt + session</text>
+          </g>
+          <!-- target nodes injected by JS into #targets -->
+          <g id="targets"></g>
+        </svg>
+        <div class="router-mobile" aria-hidden="true">
+          <div class="rm-host"><b id="rmHost">You — in Pi</b><span>your prompt + session</span></div>
+          <div class="rm-arrow">routes your prompt to one of these ↓</div>
+          <div class="rm-list" id="rmList"></div>
+        </div>
+        <div class="router-cap">One prompt&nbsp; → &nbsp;<b id="capName">one named participant</b>&nbsp; → &nbsp;one handoff back. Never a broadcast.</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ WHAT IS IT ============ -->
+<section id="how" class="divider">
+  <div class="container">
+    <div class="center" style="margin-bottom:46px">
+      <span class="eyebrow reveal">What it is</span>
+      <h2 class="s-title reveal">A second opinion, one prompt away</h2>
+      <p class="s-desc reveal">No tab-switching, no copy-pasting your code into another tool. You stay in your agent; ConsensFlow does the round-trip.</p>
+    </div>
+    <div class="cards c3">
+      <div class="card reveal"><div class="ic">🎯</div><h3>One at a time</h3><p>You name one participant — <code class="inl">@zeus</code>, <code class="inl">@athena</code> — and ask. It's a focused consult, not a noisy panel. The next question can go to someone else.</p></div>
+      <div class="card reveal"><div class="ic">🧠</div><h3>They see your session</h3><p>Each participant gets a <b style="color:var(--text-dim)">handoff</b> of your current conversation as context, runs once as an isolated helper, answers, and exits. No setup, no shared memory to manage.</p></div>
+      <div class="card reveal"><div class="ic">🔒</div><h3>You stay in control</h3><p>Consulting is free and encouraged. A participant runs as a standard read-write CLI call, but <b style="color:var(--text-dim)">keeping</b> any of its work — or acting on its answer — is always your call.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DIAGRAM (explainer) ============ -->
+<section id="diagram" class="divider">
+  <div class="container center">
+    <span class="eyebrow reveal">The routing model</span>
+    <h2 class="s-title reveal">Any host. Any engine. One path at a time.</h2>
+    <p class="s-desc reveal">Whether your host is <b style="color:var(--eng-pi)">Pi</b> or <b style="color:var(--eng-claude)">Claude Code</b>, the same five destinations are available — participants backed by Claude Code, Codex, Pi, OpenCode, or an image model. Use the toggle on the diagram above to switch hosts; watch one route light up at a time.</p>
+    <div class="cards c2" style="margin-top:40px;text-align:left">
+      <div class="card reveal" style="border-left:3px solid var(--eng-pi)"><h3 style="color:var(--eng-pi)">From Pi</h3><p>Routes to participants on <b style="color:var(--text-dim)">Pi, Claude&nbsp;Code, Codex, and OpenCode</b> — plus image generation. The Pi extension reads your live session and hands it off.</p></div>
+      <div class="card reveal" style="border-left:3px solid var(--eng-claude)"><h3 style="color:var(--eng-claude)">From Claude Code</h3><p>Routes to participants on <b style="color:var(--text-dim)">Claude&nbsp;Code, Codex, Pi, and OpenCode</b> — plus image generation. The plugin stashes your transcript and hands it off.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TWO HOSTS ============ -->
+<section class="divider">
+  <div class="container">
+    <div class="center" style="margin-bottom:46px">
+      <span class="eyebrow reveal">Two hosts, one product</span>
+      <h2 class="s-title reveal">Same idea, native to each tool</h2>
+      <p class="s-desc reveal">ConsensFlow ships as a Pi extension and a Claude Code plugin. Same participants, same presets, same safety model — kept in parity.</p>
+    </div>
+    <div class="hosts">
+      <div class="host reveal">
+        <div class="k">Pi extension</div>
+        <h3>consensflow-pi</h3>
+        <div class="meta">Built on <code class="inl">@earendil-works/pi-coding-agent</code>. Routes from inside a Pi session.</div>
+        <ul>
+          <li>Install with <code class="inl">pi install</code> from git or npm</li>
+          <li>Streams the participant's thinking into the Pi UI</li>
+          <li>Reads session state through Pi's own APIs</li>
+        </ul>
+      </div>
+      <div class="host reveal">
+        <div class="k">Claude Code plugin</div>
+        <h3>consensflow-cc</h3>
+        <div class="meta">Zero-dependency plugin: skill + <code class="inl">/consensflow:cf</code> command + hooks + a <code class="inl">cf</code> CLI.</div>
+        <ul>
+          <li>Install from a marketplace or <code class="inl">--plugin-dir</code></li>
+          <li>Hooks stash the session transcript for the handoff</li>
+          <li><code class="inl">--stream</code> relays the run as it happens</li>
+        </ul>
+      </div>
+    </div>
+    <div class="parity reveal">Shared roster at <code class="inl">~/.consensflow/participants.json</code> — define a participant in either tool and it shows up in <b>both</b>.</div>
+  </div>
+</section>
+
+<!-- ============ LOGINS & MODELS ============ -->
+<section class="divider">
+  <div class="container">
+    <div class="center" style="margin-bottom:46px">
+      <span class="eyebrow reveal">Logins &amp; models</span>
+      <h2 class="s-title reveal">Use what you already pay for</h2>
+      <p class="s-desc reveal">ConsensFlow rides each engine's own CLI, so a participant signs in the way that engine already does — <b style="color:var(--text-dim)">no new API keys to wire up</b>. Reuse the subscriptions you have, and reach almost any model through Pi and OpenCode.</p>
+    </div>
+    <div class="cards c3">
+      <div class="card reveal" style="border-top:2px solid var(--eng-claude)">
+        <div class="ic" style="background:rgba(217,119,87,.12);border-color:rgba(217,119,87,.3)">🔑</div>
+        <h3 style="color:var(--eng-claude)">Your Claude subscription</h3>
+        <p>Claude&nbsp;Code participants run on your existing <b style="color:var(--text-dim)">Claude OAuth login</b> — Opus&nbsp;4.8, Fable&nbsp;5, Haiku, at any effort. Your Max/Pro plan, not per-token API billing.</p>
+      </div>
+      <div class="card reveal" style="border-top:2px solid var(--eng-codex)">
+        <div class="ic" style="background:rgba(16,185,129,.12);border-color:rgba(16,185,129,.3)">🪪</div>
+        <h3 style="color:var(--eng-codex)">Your Codex login</h3>
+        <p>Codex participants — and image generation via <code class="inl">@pygmalion</code> — ride your <b style="color:var(--text-dim)">ChatGPT / Codex subscription</b>: GPT&nbsp;5.5 and gpt-image-2 on the plan you already have.</p>
+      </div>
+      <div class="card reveal" style="border-top:2px solid var(--eng-pi)">
+        <div class="ic" style="background:rgba(129,140,248,.12);border-color:rgba(129,140,248,.3)">🌐</div>
+        <h3>Any provider — <span style="color:var(--eng-pi)">Pi</span> + <span style="color:var(--eng-opencode)">OpenCode</span></h3>
+        <p>Point them at <b style="color:var(--text-dim)">OpenRouter</b> (or Anthropic / OpenAI / Google directly) and reach dozens of models by name — DeepSeek, Qwen, Gemini, Grok, Llama, Mistral, Kimi, GLM, MiniMax…</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INSTALL ============ -->
+<section id="install" class="divider">
+  <div class="container">
+    <div class="center" style="margin-bottom:40px">
+      <span class="eyebrow reveal">Install</span>
+      <h2 class="s-title reveal">Up and running in a minute</h2>
+      <p class="s-desc reveal">Pick your host. Both pull the same participants from the shared roster.</p>
+    </div>
+    <div class="center"><div class="tabs reveal">
+      <button class="tab active" data-tab="cc"><i style="background:var(--eng-claude)"></i>Claude Code</button>
+      <button class="tab" data-tab="pi"><i style="background:var(--eng-pi)"></i>Pi</button>
+    </div></div>
+
+    <div class="panel active" data-panel="cc">
+      <div class="steps reveal">
+        <div class="step"><div class="n">1</div><div class="body"><b>Add the marketplace</b><p>One time — points Claude Code at the ConsensFlow plugin repo.</p><div class="cmd">claude plugin marketplace add <span class="c-sel">ngvoicu/consensflow-cc</span></div></div></div>
+        <div class="step"><div class="n">2</div><div class="body"><b>Install the plugin</b><p>Or, to try a local checkout, launch with <code class="inl">claude --plugin-dir consensflow-cc</code>.</p><div class="cmd">claude plugin install <span class="c-sel">consensflow@consensflow-cc</span></div></div></div>
+        <div class="step"><div class="n">3</div><div class="body"><b>Add some participants &amp; restart</b><p>Then just mention one in chat — <code class="inl">@zeus what do you think?</code></p><div class="cmd">cf participants add <span class="c-sel">zeus athena prometheus pygmalion</span></div></div></div>
+      </div>
+    </div>
+
+    <div class="panel" data-panel="pi">
+      <div class="steps reveal">
+        <div class="step"><div class="n">1</div><div class="body"><b>Install the extension</b><p>From GitHub (or any git/npm source Pi accepts).</p><div class="cmd">pi install <span class="c-sel">https://github.com/ngvoicu/consensflow-pi</span></div></div></div>
+        <div class="step"><div class="n">2</div><div class="body"><b>Add some participants &amp; reload</b><p>The same shared roster Claude Code reads. Reload Pi to pick them up — then see "how to use it" below.</p><div class="cmd">cf participants add <span class="c-sel">zeus athena prometheus pygmalion</span></div></div></div>
+      </div>
+    </div>
+
+    <!-- how to use -->
+    <div class="usebox reveal">
+      <div class="use-h">Then — how to use it</div>
+      <div class="use-row">
+        <div class="use-k">Ask by name</div>
+        <div class="use-b">
+          <p>The main way: just mention a participant in your session. The lead does the round-trip and relays the answer.</p>
+          <div class="cmd"><span class="t-dim">claude code ›</span> <span class="c-sel">@zeus</span> is this approach sound?</div>
+          <div class="cmd"><span class="t-dim">pi ›</span> ask <span class="c-sel">@zeus</span> is this approach sound?</div>
+        </div>
+      </div>
+      <div class="use-row">
+        <div class="use-k">Manage anytime</div>
+        <div class="use-b">
+          <p>One roster, shared across Pi and Claude Code.</p>
+          <div class="cmd">cf participants list&nbsp;&nbsp;·&nbsp;&nbsp;cf participants add <span class="c-sel">&lt;preset&gt;</span>&nbsp;&nbsp;·&nbsp;&nbsp;cf status</div>
+        </div>
+      </div>
+      <div class="use-foot">Consulting is free and <b>one at a time</b>. Acting on an answer — or keeping any file edits — waits for <b>your approval</b>.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRESETS ============ -->
+<section id="presets" class="divider">
+  <div class="container">
+    <div class="center" style="margin-bottom:36px">
+      <span class="eyebrow reveal">Presets</span>
+      <h2 class="s-title reveal"><span id="presetCount">50</span> ready-made participants</h2>
+      <p class="s-desc reveal">Curated model + effort combos, named after Greek gods (Pi), Norse gods (OpenCode), and the Muses (Claude). Add one by name — or define your own. Filter by engine:</p>
+    </div>
+    <div class="preset-controls reveal" id="presetFilters"></div>
+    <div class="preset-grid" id="presetGrid"></div>
+    <p class="preset-note reveal">★ = part of the default starter roster. Models are free strings — bring any identifier your engine accepts, or build a fully custom participant.</p>
+  </div>
+</section>
+
+<!-- ============ EXAMPLES ============ -->
+<section id="examples" class="divider">
+  <div class="container">
+    <div class="center" style="margin-bottom:46px">
+      <span class="eyebrow reveal">In a coding session</span>
+      <h2 class="s-title reveal">What it looks like</h2>
+      <p class="s-desc reveal">You're in your agent. You hit a fork, want a second take, or need an asset. You ask by name.</p>
+    </div>
+    <div class="terminal session reveal">
+      <div class="term-head"><i></i><i></i><i></i><span>your-project — claude code session</span></div>
+      <div class="term-body">
+        <div class="tl"><span class="t-host">you</span> <span class="t-dim">▸</span> <span class="t-at">@zeus</span> should this job queue be Redis or Postgres? <span class="route r-claude"><span class="rd"></span>Claude Code · Opus 4.8 · max</span></div>
+        <div class="tl"><span class="t-dim">↳</span> <span class="t-think">reading your session handoff…</span></div>
+        <div class="tl"><span class="t-claude">@zeus</span> You already run Postgres at &lt;1k&nbsp;jobs/s — <span class="t-ok">use Postgres with SKIP&nbsp;LOCKED</span>. Redis adds an HA dependency you don't need yet; revisit past ~10k/s.</div>
+        <div class="tl sp"></div>
+        <div class="tl"><span class="t-host">you</span> <span class="t-dim">▸</span> <span class="t-at">@athena</span> poke holes in that Postgres call <span class="route r-codex"><span class="rd"></span>Codex · GPT 5.5 · xhigh</span></div>
+        <div class="tl"><span class="t-codex">@athena</span> Agreed — one caveat: add a partial index on <span class="t-str">(status, run_at)</span> or SKIP&nbsp;LOCKED scans will degrade under load. Otherwise sound.</div>
+        <div class="tl sp"></div>
+        <div class="tl"><span class="t-host">you</span> <span class="t-dim">▸</span> <span class="t-at">@odin</span> draft the migration with that index <span class="route r-opencode"><span class="rd"></span>OpenCode · DeepSeek V4 Pro</span></div>
+        <div class="tl"><span class="t-opencode">@odin</span> Here's the table + the partial index Athena flagged:</div>
+        <div class="tl t-dim">&nbsp;&nbsp;create table job (id bigint …, status text, run_at timestamptz);</div>
+        <div class="tl t-dim">&nbsp;&nbsp;create index job_claim on job (status, run_at) where status = <span class="t-str">'queued'</span>;</div>
+        <div class="tl sp"></div>
+        <div class="tl"><span class="t-host">you</span> <span class="t-dim">▸</span> <span class="t-at">@pygmalion</span> diagram the final queue flow <span class="route r-image"><span class="rd"></span>image · gpt-image-2</span></div>
+        <div class="tl"><span class="t-dim">↳ saved ▸</span> <span class="t-ok">runs/image-…/queue-flow.png</span></div>
+        <div class="tl sp"></div>
+        <div class="tl"><span class="t-host">you</span> <span class="t-dim">▸</span> looks good — apply odin's solution to <span class="t-str">db/migrate.sql</span></div>
+        <div class="tl"><span class="t-ok">✓ wrote db/migrate.sql</span> <span class="t-dim">— the lead only ever acts when you ask</span><span class="cursor"></span></div>
+      </div>
+    </div>
+
+    <div class="center" style="margin-top:34px">
+      <p class="s-desc reveal" style="margin-bottom:18px">Add participants any time — by preset, renamed, or fully custom:</p>
+      <div style="max-width:560px;margin:0 auto;text-align:left;display:grid;gap:10px">
+        <div class="cmd reveal">cf participants add <span class="c-sel">odin</span> --name reviewer  <span class="t-dim"># names it @reviewer</span></div>
+        <div class="cmd reveal">cf participants add <span class="c-sel">all</span>  <span class="t-dim"># the entire preset catalog</span></div>
+        <div class="cmd reveal">cf participants list</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SAFETY ============ -->
+<section class="divider">
+  <div class="container">
+    <div class="center" style="margin-bottom:46px">
+      <span class="eyebrow reveal" style="color:#34d399">Safety model</span>
+      <h2 class="s-title reveal">Helpful by default. Harmless by default.</h2>
+      <p class="s-desc reveal">A consult runs as a standard read-write CLI call and may touch files — but nothing it changes is kept unless you decide to keep it.</p>
+    </div>
+    <div class="safe">
+      <div class="card reveal"><div class="ic">👁️</div><h3>Workspace-write by default</h3><p>A participant runs like the CLI you'd run yourself — read, edit, run commands — but stays inside the project workspace (<code class="inl">workspace-write</code>). Only <code class="inl">--tools full-auto</code> lifts that boundary.</p></div>
+      <div class="card reveal"><div class="ic">✋</div><h3>Acting is gated</h3><p>The lead consults freely, but never applies a participant's advice or keeps its file edits without your approval — unless you pre-authorized it.</p></div>
+      <div class="card reveal"><div class="ic">📁</div><h3>Stays in its lane</h3><p>Run artifacts live under <code class="inl">~/.consensflow/</code>, never in your project. Any working directory a subprocess touches is validated as inside the workspace first.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<div class="cta reveal">
+  <h2>Bring a second mind to your <span class="grad">next decision.</span></h2>
+  <p>Free to consult, one at a time, inside the agent you already use.</p>
+  <div class="hero-cta"><a class="btn btn-primary" href="#install">Install ConsensFlow →</a><a class="btn btn-ghost" href="https://github.com/ngvoicu?tab=repositories&amp;q=consensflow">View on GitHub</a></div>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <a class="brand" href="#top"><img class="brand-mark" src="./assets/mark.png" width="24" height="24" alt="" /> <b>Consens<span class="grad">Flow</span></b></a>
+    <p style="max-width:440px;margin:0 auto;color:var(--text-muted)">Consult one named AI participant at a time — with a handoff of your current session. For Pi and Claude Code.</p>
+    <div class="fam">
+      <a href="https://kluris.ngvoicu.dev">kluris ↗</a>
+      <a href="https://specmint.io">specmint ↗</a>
+      <a href="https://github.com/ngvoicu/consensflow-cc">consensflow-cc ↗</a>
+      <a href="https://github.com/ngvoicu/consensflow-pi">consensflow-pi ↗</a>
+    </div>
+    <div class="soc">
+      <a href="https://github.com/ngvoicu" aria-label="GitHub"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 4.6 18 4.9 18 4.9c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg></a>
+    </div>
+    <p style="margin-top:18px;color:var(--text-muted);font-size:12.5px">MIT</p>
+  </div>
+</footer>
+</main>
+
+<!-- preset data, generated from consensflow's presets.js (source of truth) -->
+<script id="cf-presets" type="application/json">[
+  {
+    "preset": "calliope",
+    "id": "calliope",
+    "name": "Calliope",
+    "label": "Claude Code Fable 5 MAX",
+    "kind": "claude-code",
+    "model": "claude-fable-5",
+    "effort": "max",
+    "thinking": null,
+    "description": "Chief muse: Claude Fable 5 at max effort — the deepest Claude-powered collaborator in the catalog. Turns can run many minutes."
+  },
+  {
+    "preset": "clio",
+    "id": "clio",
+    "name": "Clio",
+    "label": "Claude Code Fable 5 XHIGH",
+    "kind": "claude-code",
+    "model": "claude-fable-5",
+    "effort": "xhigh",
+    "thinking": null,
+    "description": "Muse of history: Claude Fable 5 at xhigh effort, the recommended tier for coding, planning, and agentic work."
+  },
+  {
+    "preset": "euterpe",
+    "id": "euterpe",
+    "name": "Euterpe",
+    "label": "Claude Code Fable 5 HIGH",
+    "kind": "claude-code",
+    "model": "claude-fable-5",
+    "effort": "high",
+    "thinking": null,
+    "description": "Muse of music: Claude Fable 5 at high effort — strong reasoning without the xhigh wait."
+  },
+  {
+    "preset": "thalia",
+    "id": "thalia",
+    "name": "Thalia",
+    "label": "Claude Code Fable 5 MEDIUM",
+    "kind": "claude-code",
+    "model": "claude-fable-5",
+    "effort": "medium",
+    "thinking": null,
+    "description": "Muse of comedy: Claude Fable 5 at medium effort for quicker takes from the top model."
+  },
+  {
+    "preset": "zeus",
+    "id": "zeus",
+    "name": "Zeus",
+    "label": "Claude Code Opus 4.8 MAX",
+    "kind": "claude-code",
+    "model": "claude-opus-4-8",
+    "effort": "max",
+    "thinking": null,
+    "description": "Most expensive/deep Claude Code participant for high-stakes architecture, implementation plans, and final checks."
+  },
+  {
+    "preset": "apollo",
+    "id": "apollo",
+    "name": "Apollo",
+    "label": "Claude Code Opus 4.8 XHIGH",
+    "kind": "claude-code",
+    "model": "claude-opus-4-8",
+    "effort": "xhigh",
+    "thinking": null,
+    "description": "Deep but slightly cheaper/faster Claude Code participant for spec critique, design alternatives, and implementation plans."
+  },
+  {
+    "preset": "artemis",
+    "id": "artemis",
+    "name": "Artemis",
+    "label": "Claude Code Opus 4.8 MEDIUM",
+    "kind": "claude-code",
+    "model": "claude-opus-4-8",
+    "effort": "medium",
+    "thinking": null,
+    "description": "Apollo's twin: Opus 4.8 at medium effort for quicker, cheaper Claude Code takes."
+  },
+  {
+    "preset": "athena",
+    "id": "athena",
+    "name": "Athena",
+    "label": "Codex GPT 5.5 XHIGH",
+    "kind": "codex",
+    "model": "gpt-5.5",
+    "effort": "xhigh",
+    "thinking": null,
+    "description": "Codex planner/doer with GPT 5.5 and xhigh reasoning effort."
+  },
+  {
+    "preset": "perseus",
+    "id": "perseus",
+    "name": "Perseus",
+    "label": "Codex GPT 5.5 HIGH",
+    "kind": "codex",
+    "model": "gpt-5.5",
+    "effort": "high",
+    "thinking": null,
+    "description": "Codex participant between Athena (xhigh) and Loki (medium): GPT 5.5 at high effort."
+  },
+  {
+    "preset": "iris",
+    "id": "iris",
+    "name": "Iris",
+    "label": "Pi GPT 5.5 XHIGH",
+    "kind": "pi",
+    "model": "openai-codex/gpt-5.5",
+    "effort": null,
+    "thinking": "xhigh",
+    "description": "Pi-backed GPT 5.5 participant with xhigh thinking and normal Pi skills available."
+  },
+  {
+    "preset": "hermes",
+    "id": "hermes",
+    "name": "Hermes",
+    "label": "Pi GPT 5.5 HIGH",
+    "kind": "pi",
+    "model": "openai-codex/gpt-5.5",
+    "effort": null,
+    "thinking": "high",
+    "description": "Iris's fellow messenger: Pi-backed GPT 5.5 with high thinking."
+  },
+  {
+    "preset": "eos",
+    "id": "eos",
+    "name": "Eos",
+    "label": "Pi GPT 5.5 MEDIUM",
+    "kind": "pi",
+    "model": "openai-codex/gpt-5.5",
+    "effort": null,
+    "thinking": "medium",
+    "description": "Pi-backed GPT 5.5 with medium thinking for quicker takes."
+  },
+  {
+    "preset": "luna",
+    "id": "luna",
+    "name": "Luna",
+    "label": "OpenCode Kimi K2.7 Code",
+    "kind": "opencode",
+    "model": "openrouter/moonshotai/kimi-k2.7-code",
+    "effort": null,
+    "thinking": null,
+    "description": "OpenCode-backed Kimi K2.7 Code participant — Moonshot's coding-first model (OpenRouter defines no effort variants for it)."
+  },
+  {
+    "preset": "orpheus",
+    "id": "orpheus",
+    "name": "Orpheus",
+    "label": "Pi Fable 5 XHIGH (Anthropic)",
+    "kind": "pi",
+    "model": "anthropic/claude-fable-5",
+    "effort": null,
+    "thinking": "xhigh",
+    "description": "The legendary bard: Pi-backed Claude Fable 5 with xhigh thinking; needs Anthropic auth in pi."
+  },
+  {
+    "preset": "linus",
+    "id": "linus",
+    "name": "Linus",
+    "label": "Pi Fable 5 HIGH (Anthropic)",
+    "kind": "pi",
+    "model": "anthropic/claude-fable-5",
+    "effort": null,
+    "thinking": "high",
+    "description": "Orpheus's bard brother: Pi-backed Claude Fable 5 with high thinking; needs Anthropic auth in pi."
+  },
+  {
+    "preset": "erato",
+    "id": "erato",
+    "name": "Erato",
+    "label": "Pi Fable 5 MEDIUM (Anthropic)",
+    "kind": "pi",
+    "model": "anthropic/claude-fable-5",
+    "effort": null,
+    "thinking": "medium",
+    "description": "Muse of lyric poetry: Pi-backed Claude Fable 5 with medium thinking; needs Anthropic auth in pi."
+  },
+  {
+    "preset": "saga",
+    "id": "saga",
+    "name": "Saga",
+    "label": "OpenCode Fable 5 XHIGH",
+    "kind": "opencode",
+    "model": "openrouter/anthropic/claude-fable-5",
+    "effort": "xhigh",
+    "thinking": null,
+    "description": "Norse goddess of storytelling: OpenCode-backed Claude Fable 5 at xhigh variant (via OpenRouter)."
+  },
+  {
+    "preset": "gunnlod",
+    "id": "gunnlod",
+    "name": "Gunnlod",
+    "label": "OpenCode Fable 5 HIGH",
+    "kind": "opencode",
+    "model": "openrouter/anthropic/claude-fable-5",
+    "effort": "high",
+    "thinking": null,
+    "description": "Guardian of the mead of poetry: OpenCode-backed Claude Fable 5 at high variant (via OpenRouter)."
+  },
+  {
+    "preset": "kvasir",
+    "id": "kvasir",
+    "name": "Kvasir",
+    "label": "OpenCode Fable 5 MEDIUM",
+    "kind": "opencode",
+    "model": "openrouter/anthropic/claude-fable-5",
+    "effort": "medium",
+    "thinking": null,
+    "description": "Source of the mead of poetry: OpenCode-backed Claude Fable 5 at medium variant (via OpenRouter)."
+  },
+  {
+    "preset": "kronos",
+    "id": "kronos",
+    "name": "Kronos",
+    "label": "Pi Opus 4.8 XHIGH (Anthropic)",
+    "kind": "pi",
+    "model": "anthropic/claude-opus-4-8",
+    "effort": null,
+    "thinking": "xhigh",
+    "description": "Pi-backed Claude Opus 4.8 with xhigh thinking; needs Anthropic auth in pi."
+  },
+  {
+    "preset": "atlas",
+    "id": "atlas",
+    "name": "Atlas",
+    "label": "Pi Opus 4.8 MEDIUM (Anthropic)",
+    "kind": "pi",
+    "model": "anthropic/claude-opus-4-8",
+    "effort": null,
+    "thinking": "medium",
+    "description": "Pi-backed Claude Opus 4.8 with medium thinking; needs Anthropic auth in pi."
+  },
+  {
+    "preset": "baldr",
+    "id": "baldr",
+    "name": "Baldr",
+    "label": "OpenCode Opus 4.8 XHIGH",
+    "kind": "opencode",
+    "model": "openrouter/anthropic/claude-opus-4.8",
+    "effort": "xhigh",
+    "thinking": null,
+    "description": "OpenCode-backed Claude Opus 4.8 at xhigh variant, its OpenRouter ceiling."
+  },
+  {
+    "preset": "vali",
+    "id": "vali",
+    "name": "Vali",
+    "label": "OpenCode Opus 4.8 MEDIUM",
+    "kind": "opencode",
+    "model": "openrouter/anthropic/claude-opus-4.8",
+    "effort": "medium",
+    "thinking": null,
+    "description": "OpenCode-backed Claude Opus 4.8 at medium variant (via OpenRouter)."
+  },
+  {
+    "preset": "forseti",
+    "id": "forseti",
+    "name": "Forseti",
+    "label": "OpenCode GPT 5.5 XHIGH",
+    "kind": "opencode",
+    "model": "openrouter/openai/gpt-5.5",
+    "effort": "xhigh",
+    "thinking": null,
+    "description": "OpenCode-backed GPT 5.5 at xhigh variant (via OpenRouter); god of judgement for tough calls."
+  },
+  {
+    "preset": "bragi",
+    "id": "bragi",
+    "name": "Bragi",
+    "label": "OpenCode GPT 5.5 HIGH",
+    "kind": "opencode",
+    "model": "openrouter/openai/gpt-5.5",
+    "effort": "high",
+    "thinking": null,
+    "description": "OpenCode-backed GPT 5.5 at high variant (via OpenRouter)."
+  },
+  {
+    "preset": "ullr",
+    "id": "ullr",
+    "name": "Ullr",
+    "label": "OpenCode GPT 5.5 MEDIUM",
+    "kind": "opencode",
+    "model": "openrouter/openai/gpt-5.5",
+    "effort": "medium",
+    "thinking": null,
+    "description": "OpenCode-backed GPT 5.5 at medium variant (via OpenRouter)."
+  },
+  {
+    "preset": "hermod",
+    "id": "hermod",
+    "name": "Hermod",
+    "label": "Claude Code Haiku 4.5 (fast)",
+    "kind": "claude-code",
+    "model": "claude-haiku-4-5",
+    "effort": "low",
+    "thinking": null,
+    "description": "Fast, cheap Claude Code participant (Haiku) for quick gut-checks."
+  },
+  {
+    "preset": "loki",
+    "id": "loki",
+    "name": "Loki",
+    "label": "Codex GPT 5.5 (fast/medium)",
+    "kind": "codex",
+    "model": "gpt-5.5",
+    "effort": "medium",
+    "thinking": null,
+    "description": "Nimbler Codex participant: GPT 5.5 at medium effort for quicker turnarounds."
+  },
+  {
+    "preset": "nike",
+    "id": "nike",
+    "name": "Nike",
+    "label": "Pi Gemini 3.5 Flash (fast)",
+    "kind": "pi",
+    "model": "openrouter/google/gemini-3.5-flash",
+    "effort": null,
+    "thinking": "low",
+    "description": "Swift, cheap Pi-backed Gemini 3.5 Flash for quick second opinions."
+  },
+  {
+    "preset": "freya",
+    "id": "freya",
+    "name": "Freya",
+    "label": "OpenCode DeepSeek V4 Flash (fast)",
+    "kind": "opencode",
+    "model": "openrouter/deepseek/deepseek-v4-flash",
+    "effort": null,
+    "thinking": null,
+    "description": "Cheap, fast OpenCode-backed DeepSeek V4 Flash (via OpenRouter)."
+  },
+  {
+    "preset": "zephyros",
+    "id": "zephyros",
+    "name": "Zephyros",
+    "label": "Pi DeepSeek V4 Flash (fast)",
+    "kind": "pi",
+    "model": "openrouter/deepseek/deepseek-v4-flash",
+    "effort": null,
+    "thinking": "low",
+    "description": "Swift west wind: Pi-backed DeepSeek V4 Flash (via OpenRouter)."
+  },
+  {
+    "preset": "sif",
+    "id": "sif",
+    "name": "Sif",
+    "label": "OpenCode Gemini 3.5 Flash (fast)",
+    "kind": "opencode",
+    "model": "openrouter/google/gemini-3.5-flash",
+    "effort": "low",
+    "thinking": null,
+    "description": "Swift, cheap OpenCode-backed Gemini 3.5 Flash at low variant (via OpenRouter)."
+  },
+  {
+    "preset": "hades",
+    "id": "hades",
+    "name": "Hades",
+    "label": "Pi DeepSeek V4 Pro",
+    "kind": "pi",
+    "model": "openrouter/deepseek/deepseek-v4-pro",
+    "effort": null,
+    "thinking": "high",
+    "description": "Pi-backed DeepSeek V4 Pro participant (via OpenRouter)."
+  },
+  {
+    "preset": "helios",
+    "id": "helios",
+    "name": "Helios",
+    "label": "Pi Gemini 3.1 Pro",
+    "kind": "pi",
+    "model": "openrouter/google/gemini-3.1-pro-preview",
+    "effort": null,
+    "thinking": "high",
+    "description": "Pi-backed Google Gemini 3.1 Pro participant (via OpenRouter)."
+  },
+  {
+    "preset": "ares",
+    "id": "ares",
+    "name": "Ares",
+    "label": "Pi Grok 4.3",
+    "kind": "pi",
+    "model": "openrouter/x-ai/grok-4.3",
+    "effort": null,
+    "thinking": "high",
+    "description": "Pi-backed xAI Grok 4.3 participant (via OpenRouter)."
+  },
+  {
+    "preset": "hephaestus",
+    "id": "hephaestus",
+    "name": "Hephaestus",
+    "label": "Pi Qwen3.7 Max",
+    "kind": "pi",
+    "model": "openrouter/qwen/qwen3.7-max",
+    "effort": null,
+    "thinking": "high",
+    "description": "Pi-backed Qwen3.7 Max participant (via OpenRouter)."
+  },
+  {
+    "preset": "pan",
+    "id": "pan",
+    "name": "Pan",
+    "label": "Pi Llama 4 Maverick",
+    "kind": "pi",
+    "model": "openrouter/meta-llama/llama-4-maverick",
+    "effort": null,
+    "thinking": "high",
+    "description": "Pi-backed Meta Llama 4 Maverick participant (via OpenRouter)."
+  },
+  {
+    "preset": "aeolus",
+    "id": "aeolus",
+    "name": "Aeolus",
+    "label": "Pi Mistral Large",
+    "kind": "pi",
+    "model": "openrouter/mistralai/mistral-large-2512",
+    "effort": null,
+    "thinking": "high",
+    "description": "Pi-backed Mistral Large participant (via OpenRouter); wind god for 'mistral'."
+  },
+  {
+    "preset": "metis",
+    "id": "metis",
+    "name": "Metis",
+    "label": "Pi MiniMax M3",
+    "kind": "pi",
+    "model": "openrouter/minimax/minimax-m3",
+    "effort": null,
+    "thinking": "high",
+    "description": "Pi-backed MiniMax M3 participant (via OpenRouter); goddess of cunning strategy for 'minimax'."
+  },
+  {
+    "preset": "prometheus",
+    "id": "prometheus",
+    "name": "Prometheus",
+    "label": "Pi GLM 5.2",
+    "kind": "pi",
+    "model": "openrouter/z-ai/glm-5.2",
+    "effort": null,
+    "thinking": "high",
+    "description": "Pi-backed Zhipu GLM 5.2 participant (via OpenRouter); the Titan who brought knowledge to mortals."
+  },
+  {
+    "preset": "selene",
+    "id": "selene",
+    "name": "Selene",
+    "label": "Pi Kimi K2.7 Code",
+    "kind": "pi",
+    "model": "openrouter/moonshotai/kimi-k2.7-code",
+    "effort": null,
+    "thinking": "high",
+    "description": "Greek moon goddess to Luna's Roman: Pi-backed Kimi K2.7 Code participant with high thinking (via OpenRouter)."
+  },
+  {
+    "preset": "daedalus",
+    "id": "daedalus",
+    "name": "Daedalus",
+    "label": "Pi Kimi K2.7 Code",
+    "kind": "pi",
+    "model": "openrouter/moonshotai/kimi-k2.7-code",
+    "effort": null,
+    "thinking": "high",
+    "description": "Greek master craftsman: Pi-backed Kimi K2.7 Code participant with high thinking (via OpenRouter)."
+  },
+  {
+    "preset": "odin",
+    "id": "odin",
+    "name": "Odin",
+    "label": "OpenCode DeepSeek V4 Pro",
+    "kind": "opencode",
+    "model": "openrouter/deepseek/deepseek-v4-pro",
+    "effort": null,
+    "thinking": null,
+    "description": "OpenCode-backed DeepSeek V4 Pro participant (via OpenRouter)."
+  },
+  {
+    "preset": "heimdall",
+    "id": "heimdall",
+    "name": "Heimdall",
+    "label": "OpenCode Gemini 3.1 Pro",
+    "kind": "opencode",
+    "model": "openrouter/google/gemini-3.1-pro-preview",
+    "effort": "high",
+    "thinking": null,
+    "description": "OpenCode-backed Google Gemini 3.1 Pro participant at high variant (via OpenRouter)."
+  },
+  {
+    "preset": "thor",
+    "id": "thor",
+    "name": "Thor",
+    "label": "OpenCode Grok 4.3",
+    "kind": "opencode",
+    "model": "openrouter/x-ai/grok-4.3",
+    "effort": null,
+    "thinking": null,
+    "description": "OpenCode-backed xAI Grok 4.3 participant (via OpenRouter)."
+  },
+  {
+    "preset": "tyr",
+    "id": "tyr",
+    "name": "Tyr",
+    "label": "OpenCode Qwen3.7 Max",
+    "kind": "opencode",
+    "model": "openrouter/qwen/qwen3.7-max",
+    "effort": null,
+    "thinking": null,
+    "description": "OpenCode-backed Qwen3.7 Max participant (via OpenRouter)."
+  },
+  {
+    "preset": "vidar",
+    "id": "vidar",
+    "name": "Vidar",
+    "label": "OpenCode Llama 4 Maverick",
+    "kind": "opencode",
+    "model": "openrouter/meta-llama/llama-4-maverick",
+    "effort": null,
+    "thinking": null,
+    "description": "OpenCode-backed Meta Llama 4 Maverick participant (via OpenRouter)."
+  },
+  {
+    "preset": "njord",
+    "id": "njord",
+    "name": "Njord",
+    "label": "OpenCode Mistral Large",
+    "kind": "opencode",
+    "model": "openrouter/mistralai/mistral-large-2512",
+    "effort": null,
+    "thinking": null,
+    "description": "OpenCode-backed Mistral Large participant (via OpenRouter); sea/wind god for 'mistral'."
+  },
+  {
+    "preset": "mimir",
+    "id": "mimir",
+    "name": "Mimir",
+    "label": "OpenCode MiniMax M3",
+    "kind": "opencode",
+    "model": "openrouter/minimax/minimax-m3",
+    "effort": null,
+    "thinking": null,
+    "description": "OpenCode-backed MiniMax M3 participant (via OpenRouter); god of wisdom for 'minimax'."
+  },
+  {
+    "preset": "pygmalion",
+    "id": "pygmalion",
+    "name": "Pygmalion",
+    "label": "Image — gpt-image-2 (via Codex login)",
+    "kind": "image",
+    "model": "gpt-5.5",
+    "effort": null,
+    "thinking": null,
+    "description": "Generates images with gpt-image-2 through your existing Codex (ChatGPT) login. Accepts optional reference images (`--image <path>`, repeatable) to edit/condition on. The model field is only the trigger model; the image backend is always gpt-image-2."
+  }
+]</script>
+<script>
+(function(){
+  "use strict";
+  var reduce = matchMedia("(prefers-reduced-motion:reduce)").matches;
+
+  /* ---- scroll reveal ---- */
+  var io = new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});},{threshold:.08,rootMargin:"0px 0px -40px 0px"});
+  document.querySelectorAll(".reveal").forEach(function(el){io.observe(el);});
+
+  /* ---- install + host tabs ---- */
+  document.querySelectorAll(".tabs").forEach(function(group){
+    group.querySelectorAll(".tab").forEach(function(t){
+      t.addEventListener("click",function(){
+        group.querySelectorAll(".tab").forEach(function(x){x.classList.remove("active");});
+        t.classList.add("active");
+        var k=t.getAttribute("data-tab");
+        document.querySelectorAll(".panel").forEach(function(p){p.classList.toggle("active",p.getAttribute("data-panel")===k);});
+      });
+    });
+  });
+
+  /* ---- router diagram ---- */
+  var ENGINES=[
+    {key:"claude",label:"Claude Code",sub:"Opus · Fable · Haiku",color:"#d97757"},
+    {key:"codex",label:"Codex",sub:"GPT 5.5",color:"#10b981"},
+    {key:"pi",label:"Pi",sub:"model zoo",color:"#818cf8"},
+    {key:"opencode",label:"OpenCode",sub:"via OpenRouter",color:"#f59e0b"},
+    {key:"image",label:"image",sub:"gpt-image-2",color:"#ec4899"}
+  ];
+  var SVGNS="http://www.w3.org/2000/svg";
+  var wires=document.getElementById("wires"), targets=document.getElementById("targets"), pulse=document.getElementById("pulse");
+  var hx=218, hy=235, tx=720; // host edge x, host y, target x
+  var ys=[70,150,235,320,400];
+  var paths=[];
+  ENGINES.forEach(function(e,i){
+    var ty=ys[i];
+    var d="M "+hx+" "+hy+" C "+(hx+150)+" "+hy+", "+(tx-150)+" "+ty+", "+tx+" "+ty;
+    var p=document.createElementNS(SVGNS,"path");
+    p.setAttribute("d",d);p.setAttribute("stroke",e.color);p.setAttribute("stroke-opacity",".22");p.setAttribute("class","wire");
+    wires.appendChild(p);paths.push(p);
+    // node
+    var g=document.createElementNS(SVGNS,"g");
+    var w=170,h=54,x=tx-6,y=ty-h/2;
+    var r=document.createElementNS(SVGNS,"rect");
+    r.setAttribute("x",x);r.setAttribute("y",y);r.setAttribute("width",w);r.setAttribute("height",h);r.setAttribute("rx",12);
+    r.setAttribute("fill","rgba(255,255,255,.02)");r.setAttribute("stroke",e.color);r.setAttribute("stroke-opacity",".5");
+    var dotc=document.createElementNS(SVGNS,"circle");
+    dotc.setAttribute("cx",x+18);dotc.setAttribute("cy",ty);dotc.setAttribute("r",5);dotc.setAttribute("fill",e.color);
+    var t1=document.createElementNS(SVGNS,"text");
+    t1.setAttribute("x",x+32);t1.setAttribute("y",ty-2);t1.setAttribute("class","node-label");t1.setAttribute("fill","#e6e9f2");t1.textContent=e.label;
+    var t2=document.createElementNS(SVGNS,"text");
+    t2.setAttribute("x",x+32);t2.setAttribute("y",ty+13);t2.setAttribute("class","node-sub");t2.textContent=e.sub;
+    g.appendChild(r);g.appendChild(dotc);g.appendChild(t1);g.appendChild(t2);
+    g.dataset.i=i; targets.appendChild(g);
+  });
+
+  // mobile stacked layout (readable when the horizontal SVG is hidden on phones)
+  var routerSvg=document.getElementById("routerSvg");
+  var rmList=document.getElementById("rmList"), rmRows=[];
+  if(rmList){ ENGINES.forEach(function(e){
+    var row=document.createElement("div"); row.className="rm-row";
+    row.style.borderLeftColor=e.color; row.style.setProperty("--c",e.color);
+    row.innerHTML='<span class="rm-dot" style="background:'+e.color+'"></span><span class="rm-name">'+e.label+'</span><span class="rm-sub">'+e.sub+'</span>';
+    rmList.appendChild(row); rmRows.push(row);
+  }); }
+
+  var active=-1;
+  function light(i){
+    active=i;
+    paths.forEach(function(p,k){
+      p.setAttribute("stroke-opacity", k===i? "1":".18");
+      p.setAttribute("stroke-width", k===i? "3":"2");
+    });
+    targets.childNodes.forEach(function(g,k){
+      var r=g.querySelector("rect");
+      r.setAttribute("stroke-opacity", k===i? "1":".5");
+      r.setAttribute("fill", k===i? "rgba(255,255,255,.05)":"rgba(255,255,255,.02)");
+    });
+    rmRows.forEach(function(row,k){ row.classList.toggle("lit", k===i); });
+    document.getElementById("capName").textContent = ENGINES[i].label==="image" ? "@pygmalion (image)" : "@your-"+ENGINES[i].key+"-pick";
+    // animate pulse along the path (skip when the SVG is hidden on mobile, or reduced motion)
+    if(reduce || routerSvg.getBoundingClientRect().width===0) return;
+    var path=paths[i], len=path.getTotalLength(), start=null, dur=900;
+    pulse.setAttribute("opacity","1");
+    function step(ts){
+      if(!start)start=ts; var t=Math.min((ts-start)/dur,1);
+      var pt=path.getPointAtLength(t*len);
+      pulse.setAttribute("cx",pt.x);pulse.setAttribute("cy",pt.y);
+      pulse.setAttribute("fill",ENGINES[i].color);
+      if(t<1 && active===i){requestAnimationFrame(step);} else {pulse.setAttribute("opacity","0");}
+    }
+    requestAnimationFrame(step);
+  }
+  var ri=0; light(0);
+  if(!reduce){ setInterval(function(){ ri=(ri+1)%ENGINES.length; light(ri); }, 2100); }
+
+  // host toggle
+  document.getElementById("hostToggle").addEventListener("click",function(ev){
+    var b=ev.target.closest("button"); if(!b)return;
+    this.querySelectorAll("button").forEach(function(x){x.classList.remove("active");});
+    b.classList.add("active");
+    var host = b.dataset.host==="pi" ? "You — in Pi" : "You — in Claude Code";
+    document.getElementById("hostName").textContent = host;
+    var rmHost=document.getElementById("rmHost"); if(rmHost) rmHost.textContent = host;
+  });
+
+  /* ---- presets ---- */
+  var DEFAULT7={prometheus:1,luna:1,odin:1,hephaestus:1,pygmalion:1,athena:1,zeus:1};
+  var ENGMETA={ "claude-code":{label:"Claude Code",color:"#d97757"},"codex":{label:"Codex",color:"#10b981"},"pi":{label:"Pi",color:"#818cf8"},"opencode":{label:"OpenCode",color:"#f59e0b"},"image":{label:"image",color:"#ec4899"} };
+  var data=[]; try{ data=JSON.parse(document.getElementById("cf-presets").textContent); }catch(e){ data=[]; }
+  document.getElementById("presetCount").textContent=data.length;
+  var grid=document.getElementById("presetGrid"), filtersEl=document.getElementById("presetFilters");
+  var counts={all:data.length}; data.forEach(function(p){counts[p.kind]=(counts[p.kind]||0)+1;});
+  var order=["all","claude-code","codex","pi","opencode","image"];
+  var current="all";
+  order.forEach(function(k){
+    if(k!=="all" && !counts[k]) return;
+    var b=document.createElement("button"); b.className="filt"+(k==="all"?" active":"");
+    var col=k==="all"?"#9099ad":ENGMETA[k].color, lbl=k==="all"?"All":ENGMETA[k].label;
+    b.innerHTML='<i style="background:'+col+'"></i>'+lbl+' <span class="ct">'+counts[k]+'</span>';
+    b.addEventListener("click",function(){current=k;filtersEl.querySelectorAll(".filt").forEach(function(x){x.classList.remove("active");});b.classList.add("active");render();});
+    filtersEl.appendChild(b);
+  });
+  function render(){
+    grid.innerHTML="";
+    data.filter(function(p){return current==="all"||p.kind===current;}).forEach(function(p){
+      var col=ENGMETA[p.kind]?ENGMETA[p.kind].color:"#9099ad";
+      var tier=p.effort?("· "+p.effort):p.thinking?("· "+p.thinking):"";
+      var card=document.createElement("div"); card.className="pcard"; card.style.borderLeftColor=col;
+      card.innerHTML=
+        '<div class="top"><span class="at" style="color:'+col+'">@'+p.id+(DEFAULT7[p.id]?' <span class="star" title="default starter roster">★</span>':'')+'</span>'+
+        '<span class="kind">'+(ENGMETA[p.kind]?ENGMETA[p.kind].label:p.kind)+'</span></div>'+
+        '<div class="lbl">'+(p.label||p.name)+'</div>'+
+        '<div class="mdl">'+p.model+' '+tier+'</div>';
+      grid.appendChild(card);
+    });
+  }
+  render();
+})();
+</script>
+</body>
+</html>
