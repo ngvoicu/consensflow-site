@@ -3,7 +3,7 @@
 The marketing landing page for **ConsensFlow** — consult one named AI participant at a time, with a
 handoff of your current session, from inside Pi or Claude Code.
 
-Sibling of [kluris-site](https://kluris.ngvoicu.dev) and [specmint-site](https://specmint.io); same
+Sibling of [kluris-site](https://kluris.ngvoicu.dev) and [specmint-site](https://specmint.ngvoicu.dev); same
 zero-build, single-file static stack.
 
 ## Stack
