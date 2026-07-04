@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://consensflow.ngvoicu.dev/sitemap.xml
