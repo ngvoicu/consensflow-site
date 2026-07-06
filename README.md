@@ -48,3 +48,14 @@ then inline the JSON into `index.html` in place of the `<script id="cf-presets">
 
 GitHub Pages from the repo root, like the sibling sites. Add a `CNAME` file for a custom domain when
 one is chosen (left unset for now).
+
+## Deploying (read this — Pages builds get stuck)
+
+Push `main` to `upstream` (GitHub) and Pages builds automatically — but builds **regularly hang in `"building"`**. After every push:
+
+```bash
+gh api repos/ngvoicu/consensflow-site/pages/builds/latest --jq .status   # expect "built" within ~1 min
+gh api -X POST repos/ngvoicu/consensflow-site/pages/builds               # re-queue if it sits in "building"
+```
+
+Then confirm the change is actually live: `curl -s https://consensflow.ngvoicu.dev/ | grep '<something-from-your-change>'`.
