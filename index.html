@@ -278,7 +278,6 @@ section{padding:92px 0;position:relative}
 .pcard .kind{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);padding:3px 7px;border-radius:6px;border:1px solid var(--border)}
 .pcard .lbl{font-size:13px;color:var(--text-dim);margin-bottom:4px}
 .pcard .mdl{font-family:var(--mono);font-size:11.5px;color:var(--text-muted);word-break:break-all}
-.pcard .star{color:var(--cyan);font-size:12px}
 .preset-note{margin-top:16px;font-family:var(--mono);font-size:13px;color:var(--text-muted)}
 
 /* ---- safety ---- */
@@ -564,7 +563,7 @@ code.inl{font-family:var(--mono);font-size:.88em;background:rgba(255,255,255,.06
     </div>
     <div class="preset-controls reveal" id="presetFilters"></div>
     <div class="preset-grid" id="presetGrid"></div>
-    <p class="preset-note reveal">★ = part of the default starter roster. Models are free strings — bring any identifier your engine accepts, or build a fully custom participant.</p>
+    <p class="preset-note reveal">Add any of them by name with <code class="inl">cf participants add &lt;preset&gt;</code>. Models are free strings — bring any identifier your engine accepts, or build a fully custom participant.</p>
   </div>
 </section>
 
@@ -1285,7 +1284,6 @@ code.inl{font-family:var(--mono);font-size:.88em;background:rgba(255,255,255,.06
   });
 
   /* ---- presets ---- */
-  var DEFAULT7={prometheus:1,luna:1,odin:1,hephaestus:1,pygmalion:1,athena:1,zeus:1};
   var ENGMETA={ "claude-code":{label:"Claude Code",color:"#d97757"},"codex":{label:"Codex",color:"#10b981"},"pi":{label:"Pi",color:"#818cf8"},"opencode":{label:"OpenCode",color:"#f59e0b"},"image":{label:"image",color:"#ec4899"} };
   var data=[]; try{ data=JSON.parse(document.getElementById("cf-presets").textContent); }catch(e){ data=[]; }
   document.getElementById("presetCount").textContent=data.length;
@@ -1308,7 +1306,7 @@ code.inl{font-family:var(--mono);font-size:.88em;background:rgba(255,255,255,.06
       var tier=p.effort?("· "+p.effort):p.thinking?("· "+p.thinking):p.trigger?("· via "+p.trigger+" trigger"):"";
       var card=document.createElement("div"); card.className="pcard"; card.style.borderLeftColor=col;
       card.innerHTML=
-        '<div class="top"><span class="at" style="color:'+col+'">@'+p.id+(DEFAULT7[p.id]?' <span class="star" title="default starter roster">★</span>':'')+'</span>'+
+        '<div class="top"><span class="at" style="color:'+col+'">@'+p.id+'</span>'+
         '<span class="kind">'+(ENGMETA[p.kind]?ENGMETA[p.kind].label:p.kind)+'</span></div>'+
         '<div class="lbl">'+(p.label||p.name)+'</div>'+
         '<div class="mdl">'+p.model+' '+tier+'</div>';
