@@ -1174,7 +1174,8 @@ code.inl{font-family:var(--mono);font-size:.88em;background:rgba(255,255,255,.06
     "name": "Pygmalion",
     "label": "Image — gpt-image-2 (via Codex login)",
     "kind": "image",
-    "model": "gpt-5.5"
+    "model": "gpt-image-2",
+    "trigger": "gpt-5.5"
   }
 ]</script>
 <script>
@@ -1304,7 +1305,7 @@ code.inl{font-family:var(--mono);font-size:.88em;background:rgba(255,255,255,.06
     grid.innerHTML="";
     data.filter(function(p){return current==="all"||p.kind===current;}).forEach(function(p){
       var col=ENGMETA[p.kind]?ENGMETA[p.kind].color:"#9099ad";
-      var tier=p.effort?("· "+p.effort):p.thinking?("· "+p.thinking):"";
+      var tier=p.effort?("· "+p.effort):p.thinking?("· "+p.thinking):p.trigger?("· via "+p.trigger+" trigger"):"";
       var card=document.createElement("div"); card.className="pcard"; card.style.borderLeftColor=col;
       card.innerHTML=
         '<div class="top"><span class="at" style="color:'+col+'">@'+p.id+(DEFAULT7[p.id]?' <span class="star" title="default starter roster">★</span>':'')+'</span>'+
