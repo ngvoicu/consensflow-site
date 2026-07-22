@@ -420,7 +420,7 @@ code.inl{font-family:var(--mono);font-size:.88em;background:rgba(255,255,255,.06
       <p class="s-desc reveal">No tab-switching, no copy-pasting your code into another tool. You stay in your agent; ConsensFlow does the round-trip.</p>
     </div>
     <div class="cards c3">
-      <div class="card reveal"><div class="ic">🎯</div><h3>One at a time</h3><p>You name one participant — <code class="inl">@zeus</code>, <code class="inl">@athena</code> — and ask. It's a focused consult, not a noisy panel. The next question can go to someone else.</p></div>
+      <div class="card reveal"><div class="ic">🎯</div><h3>One at a time</h3><p>You name one participant — <code class="inl">@zeus</code>, <code class="inl">@gaia</code> — and ask. It's a focused consult, not a noisy panel. The next question can go to someone else.</p></div>
       <div class="card reveal"><div class="ic">🧠</div><h3>They see your session</h3><p>Each participant gets a <b style="color:var(--text-dim)">handoff</b> of your current conversation as context, runs once as an isolated helper, answers, and exits. No setup, no shared memory to manage.</p></div>
       <div class="card reveal"><div class="ic">🔒</div><h3>You stay in control</h3><p>Consulting is free and encouraged. A participant runs as a standard read-write CLI call, but <b style="color:var(--text-dim)">keeping</b> any of its work — or acting on its answer — is always your call.</p></div>
     </div>
@@ -519,14 +519,14 @@ code.inl{font-family:var(--mono);font-size:.88em;background:rgba(255,255,255,.06
       <div class="steps reveal">
         <div class="step"><div class="n">1</div><div class="body"><b>Add the marketplace</b><p>One time — points Claude Code at the ConsensFlow plugin repo.</p><div class="cmd">claude plugin marketplace add <span class="c-sel">ngvoicu/consensflow-cc</span></div></div></div>
         <div class="step"><div class="n">2</div><div class="body"><b>Install the plugin</b><p>Or, to try a local checkout, launch with <code class="inl">claude --plugin-dir consensflow-cc</code>.</p><div class="cmd">claude plugin install <span class="c-sel">consensflow@consensflow-cc</span></div></div></div>
-        <div class="step"><div class="n">3</div><div class="body"><b>Add some participants &amp; restart</b><p>Then just mention one in chat — <code class="inl">@zeus what do you think?</code></p><div class="cmd">cf participants add <span class="c-sel">zeus athena prometheus pygmalion</span></div></div></div>
+        <div class="step"><div class="n">3</div><div class="body"><b>Add some participants &amp; restart</b><p>Then just mention one in chat — <code class="inl">@zeus what do you think?</code></p><div class="cmd">cf participants add <span class="c-sel">zeus gaia prometheus pygmalion</span></div></div></div>
       </div>
     </div>
 
     <div class="panel" data-panel="pi">
       <div class="steps reveal">
         <div class="step"><div class="n">1</div><div class="body"><b>Install the extension</b><p>From GitHub (or any git/npm source Pi accepts).</p><div class="cmd">pi install <span class="c-sel">https://github.com/ngvoicu/consensflow-pi</span></div></div></div>
-        <div class="step"><div class="n">2</div><div class="body"><b>Add some participants &amp; reload</b><p>The same shared roster Claude Code reads. Reload Pi to pick them up — then see "how to use it" below.</p><div class="cmd">cf participants add <span class="c-sel">zeus athena prometheus pygmalion</span></div></div></div>
+        <div class="step"><div class="n">2</div><div class="body"><b>Add some participants &amp; reload</b><p>The same shared roster Claude Code reads. Reload Pi to pick them up — then see "how to use it" below.</p><div class="cmd">cf participants add <span class="c-sel">zeus gaia prometheus pygmalion</span></div></div></div>
       </div>
     </div>
 
@@ -582,11 +582,11 @@ code.inl{font-family:var(--mono);font-size:.88em;background:rgba(255,255,255,.06
         <div class="tl"><span class="t-dim">↳</span> <span class="t-think">reading your session handoff…</span></div>
         <div class="tl"><span class="t-claude">@zeus</span> You already run Postgres at &lt;1k&nbsp;jobs/s — <span class="t-ok">use Postgres with SKIP&nbsp;LOCKED</span>. Redis adds an HA dependency you don't need yet; revisit past ~10k/s.</div>
         <div class="tl sp"></div>
-        <div class="tl"><span class="t-host">you</span> <span class="t-dim">▸</span> <span class="t-at">@athena</span> poke holes in that Postgres call <span class="route r-codex"><span class="rd"></span>Codex · GPT 5.5 · xhigh</span></div>
-        <div class="tl"><span class="t-codex">@athena</span> Agreed — one caveat: add a partial index on <span class="t-str">(status, run_at)</span> or SKIP&nbsp;LOCKED scans will degrade under load. Otherwise sound.</div>
+        <div class="tl"><span class="t-host">you</span> <span class="t-dim">▸</span> <span class="t-at">@gaia</span> poke holes in that Postgres call <span class="route r-codex"><span class="rd"></span>Codex · GPT 5.6 Terra · xhigh</span></div>
+        <div class="tl"><span class="t-codex">@gaia</span> Agreed — one caveat: add a partial index on <span class="t-str">(status, run_at)</span> or SKIP&nbsp;LOCKED scans will degrade under load. Otherwise sound.</div>
         <div class="tl sp"></div>
         <div class="tl"><span class="t-host">you</span> <span class="t-dim">▸</span> <span class="t-at">@odin</span> draft the migration with that index <span class="route r-opencode"><span class="rd"></span>OpenCode · DeepSeek V4 Pro</span></div>
-        <div class="tl"><span class="t-opencode">@odin</span> Here's the table + the partial index Athena flagged:</div>
+        <div class="tl"><span class="t-opencode">@odin</span> Here's the table + the partial index Gaia flagged:</div>
         <div class="tl t-dim">&nbsp;&nbsp;create table job (id bigint …, status text, run_at timestamptz);</div>
         <div class="tl t-dim">&nbsp;&nbsp;create index job_claim on job (status, run_at) where status = <span class="t-str">'queued'</span>;</div>
         <div class="tl sp"></div>
@@ -781,51 +781,6 @@ code.inl{font-family:var(--mono);font-size:.88em;background:rgba(255,255,255,.06
     "effort": "medium"
   },
   {
-    "preset": "athena",
-    "id": "athena",
-    "name": "Athena",
-    "label": "Codex GPT 5.5 XHIGH",
-    "kind": "codex",
-    "model": "gpt-5.5",
-    "effort": "xhigh"
-  },
-  {
-    "preset": "perseus",
-    "id": "perseus",
-    "name": "Perseus",
-    "label": "Codex GPT 5.5 HIGH",
-    "kind": "codex",
-    "model": "gpt-5.5",
-    "effort": "high"
-  },
-  {
-    "preset": "iris",
-    "id": "iris",
-    "name": "Iris",
-    "label": "Pi GPT 5.5 XHIGH",
-    "kind": "pi",
-    "model": "openai-codex/gpt-5.5",
-    "thinking": "xhigh"
-  },
-  {
-    "preset": "hermes",
-    "id": "hermes",
-    "name": "Hermes",
-    "label": "Pi GPT 5.5 HIGH",
-    "kind": "pi",
-    "model": "openai-codex/gpt-5.5",
-    "thinking": "high"
-  },
-  {
-    "preset": "eos",
-    "id": "eos",
-    "name": "Eos",
-    "label": "Pi GPT 5.5 MEDIUM",
-    "kind": "pi",
-    "model": "openai-codex/gpt-5.5",
-    "thinking": "medium"
-  },
-  {
     "preset": "luna",
     "id": "luna",
     "name": "Luna",
@@ -924,33 +879,6 @@ code.inl{font-family:var(--mono);font-size:.88em;background:rgba(255,255,255,.06
     "effort": "medium"
   },
   {
-    "preset": "forseti",
-    "id": "forseti",
-    "name": "Forseti",
-    "label": "OpenCode GPT 5.5 XHIGH",
-    "kind": "opencode",
-    "model": "openrouter/openai/gpt-5.5",
-    "effort": "xhigh"
-  },
-  {
-    "preset": "bragi",
-    "id": "bragi",
-    "name": "Bragi",
-    "label": "OpenCode GPT 5.5 HIGH",
-    "kind": "opencode",
-    "model": "openrouter/openai/gpt-5.5",
-    "effort": "high"
-  },
-  {
-    "preset": "ullr",
-    "id": "ullr",
-    "name": "Ullr",
-    "label": "OpenCode GPT 5.5 MEDIUM",
-    "kind": "opencode",
-    "model": "openrouter/openai/gpt-5.5",
-    "effort": "medium"
-  },
-  {
     "preset": "hermod",
     "id": "hermod",
     "name": "Hermod",
@@ -958,15 +886,6 @@ code.inl{font-family:var(--mono);font-size:.88em;background:rgba(255,255,255,.06
     "kind": "claude-code",
     "model": "claude-haiku-4-5",
     "effort": "low"
-  },
-  {
-    "preset": "loki",
-    "id": "loki",
-    "name": "Loki",
-    "label": "Codex GPT 5.5 (fast/medium)",
-    "kind": "codex",
-    "model": "gpt-5.5",
-    "effort": "medium"
   },
   {
     "preset": "nike",
