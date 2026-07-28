@@ -486,7 +486,7 @@ code.inl{font-family:var(--mono);font-size:.88em;background:rgba(255,255,255,.06
       <div class="card reveal" style="border-top:2px solid var(--eng-claude)">
         <div class="ic" style="background:rgba(217,119,87,.12);border-color:rgba(217,119,87,.3)">🔑</div>
         <h3 style="color:var(--eng-claude)">Your Claude subscription</h3>
-        <p>Claude&nbsp;Code participants run on your existing <b style="color:var(--text-dim)">Claude OAuth login</b> — Opus&nbsp;4.8, Fable&nbsp;5, Haiku, at any effort. Your Max/Pro plan, not per-token API billing.</p>
+        <p>Claude&nbsp;Code participants run on your existing <b style="color:var(--text-dim)">Claude OAuth login</b> — Opus&nbsp;5, Fable&nbsp;5, Haiku, at any effort. Your Max/Pro plan, not per-token API billing.</p>
       </div>
       <div class="card reveal" style="border-top:2px solid var(--eng-codex)">
         <div class="ic" style="background:rgba(16,185,129,.12);border-color:rgba(16,185,129,.3)">🪪</div>
@@ -548,6 +548,16 @@ code.inl{font-family:var(--mono);font-size:.88em;background:rgba(255,255,255,.06
           <div class="cmd">cf participants list&nbsp;&nbsp;·&nbsp;&nbsp;cf participants add <span class="c-sel">&lt;preset&gt;</span>&nbsp;&nbsp;·&nbsp;&nbsp;cf status</div>
         </div>
       </div>
+      <div class="use-row">
+        <div class="use-k">Keep it current</div>
+        <div class="use-b">
+          <p>Each release brings a new preset catalog — new models, retired ones. Update, then <b>sync</b>: participants you already added keep their old model until you do. ConsensFlow tells you when you're behind.</p>
+          <div class="cmd"><span class="t-dim">claude code ›</span> claude plugin update <span class="c-sel">consensflow@consensflow-cc</span></div>
+          <div class="cmd"><span class="t-dim">pi ›</span> pi update <span class="c-sel">--extensions</span></div>
+          <div class="cmd"><span class="t-dim">then ›</span> cf participants sync <span class="c-sel">--dry-run</span>&nbsp;&nbsp;·&nbsp;&nbsp;cf participants sync</div>
+          <p style="margin-top:10px">Only the preset's own fields move — model, effort, tool policy. Your renames, per-participant folders, and custom participants stay exactly as you set them.</p>
+        </div>
+      </div>
       <div class="use-foot">Consulting is free and <b>one at a time</b>. Acting on an answer — or keeping any file edits — waits for <b>your approval</b>.</div>
     </div>
   </div>
@@ -578,7 +588,7 @@ code.inl{font-family:var(--mono);font-size:.88em;background:rgba(255,255,255,.06
     <div class="terminal session reveal">
       <div class="term-head"><i></i><i></i><i></i><span>your-project — claude code session</span></div>
       <div class="term-body">
-        <div class="tl"><span class="t-host">you</span> <span class="t-dim">▸</span> <span class="t-at">@zeus</span> should this job queue be Redis or Postgres? <span class="route r-claude"><span class="rd"></span>Claude Code · Opus 4.8 · max</span></div>
+        <div class="tl"><span class="t-host">you</span> <span class="t-dim">▸</span> <span class="t-at">@zeus</span> should this job queue be Redis or Postgres? <span class="route r-claude"><span class="rd"></span>Claude Code · Opus 5 · max</span></div>
         <div class="tl"><span class="t-dim">↳</span> <span class="t-think">reading your session handoff…</span></div>
         <div class="tl"><span class="t-claude">@zeus</span> You already run Postgres at &lt;1k&nbsp;jobs/s — <span class="t-ok">use Postgres with SKIP&nbsp;LOCKED</span>. Redis adds an HA dependency you don't need yet; revisit past ~10k/s.</div>
         <div class="tl sp"></div>
@@ -811,36 +821,28 @@ code.inl{font-family:var(--mono);font-size:.88em;background:rgba(255,255,255,.06
     "preset": "zeus",
     "id": "zeus",
     "name": "Zeus",
-    "label": "Claude Code Opus 4.8 MAX",
+    "label": "Claude Code Opus 5 MAX",
     "kind": "claude-code",
-    "model": "claude-opus-4-8",
+    "model": "claude-opus-5",
     "effort": "max"
   },
   {
     "preset": "apollo",
     "id": "apollo",
     "name": "Apollo",
-    "label": "Claude Code Opus 4.8 XHIGH",
+    "label": "Claude Code Opus 5 XHIGH",
     "kind": "claude-code",
-    "model": "claude-opus-4-8",
+    "model": "claude-opus-5",
     "effort": "xhigh"
   },
   {
     "preset": "artemis",
     "id": "artemis",
     "name": "Artemis",
-    "label": "Claude Code Opus 4.8 MEDIUM",
+    "label": "Claude Code Opus 5 MEDIUM",
     "kind": "claude-code",
-    "model": "claude-opus-4-8",
+    "model": "claude-opus-5",
     "effort": "medium"
-  },
-  {
-    "preset": "luna",
-    "id": "luna",
-    "name": "Luna",
-    "label": "OpenCode Kimi K2.7 Code",
-    "kind": "opencode",
-    "model": "openrouter/moonshotai/kimi-k2.7-code"
   },
   {
     "preset": "orpheus",
@@ -900,36 +902,36 @@ code.inl{font-family:var(--mono);font-size:.88em;background:rgba(255,255,255,.06
     "preset": "kronos",
     "id": "kronos",
     "name": "Kronos",
-    "label": "Pi Opus 4.8 XHIGH (Anthropic)",
+    "label": "Pi Opus 5 XHIGH (Anthropic)",
     "kind": "pi",
-    "model": "anthropic/claude-opus-4-8",
+    "model": "anthropic/claude-opus-5",
     "thinking": "xhigh"
   },
   {
     "preset": "atlas",
     "id": "atlas",
     "name": "Atlas",
-    "label": "Pi Opus 4.8 MEDIUM (Anthropic)",
+    "label": "Pi Opus 5 MEDIUM (Anthropic)",
     "kind": "pi",
-    "model": "anthropic/claude-opus-4-8",
+    "model": "anthropic/claude-opus-5",
     "thinking": "medium"
   },
   {
     "preset": "baldr",
     "id": "baldr",
     "name": "Baldr",
-    "label": "OpenCode Opus 4.8 XHIGH",
+    "label": "OpenCode Opus 5 XHIGH",
     "kind": "opencode",
-    "model": "openrouter/anthropic/claude-opus-4.8",
+    "model": "openrouter/anthropic/claude-opus-5",
     "effort": "xhigh"
   },
   {
     "preset": "vali",
     "id": "vali",
     "name": "Vali",
-    "label": "OpenCode Opus 4.8 MEDIUM",
+    "label": "OpenCode Opus 5 MEDIUM",
     "kind": "opencode",
-    "model": "openrouter/anthropic/claude-opus-4.8",
+    "model": "openrouter/anthropic/claude-opus-5",
     "effort": "medium"
   },
   {
@@ -945,9 +947,9 @@ code.inl{font-family:var(--mono);font-size:.88em;background:rgba(255,255,255,.06
     "preset": "nike",
     "id": "nike",
     "name": "Nike",
-    "label": "Pi Gemini 3.5 Flash (fast)",
+    "label": "Pi Gemini 3.6 Flash (fast)",
     "kind": "pi",
-    "model": "openrouter/google/gemini-3.5-flash",
+    "model": "openrouter/google/gemini-3.6-flash",
     "thinking": "low"
   },
   {
@@ -971,9 +973,9 @@ code.inl{font-family:var(--mono);font-size:.88em;background:rgba(255,255,255,.06
     "preset": "sif",
     "id": "sif",
     "name": "Sif",
-    "label": "OpenCode Gemini 3.5 Flash (fast)",
+    "label": "OpenCode Gemini 3.6 Flash (fast)",
     "kind": "opencode",
-    "model": "openrouter/google/gemini-3.5-flash",
+    "model": "openrouter/google/gemini-3.6-flash",
     "effort": "low"
   },
   {
@@ -998,9 +1000,9 @@ code.inl{font-family:var(--mono);font-size:.88em;background:rgba(255,255,255,.06
     "preset": "ares",
     "id": "ares",
     "name": "Ares",
-    "label": "Pi Grok 4.3",
+    "label": "Pi Grok 4.5",
     "kind": "pi",
-    "model": "openrouter/x-ai/grok-4.3",
+    "model": "openrouter/x-ai/grok-4.5",
     "thinking": "high"
   },
   {
@@ -1049,24 +1051,6 @@ code.inl{font-family:var(--mono);font-size:.88em;background:rgba(255,255,255,.06
     "thinking": "high"
   },
   {
-    "preset": "selene",
-    "id": "selene",
-    "name": "Selene",
-    "label": "Pi Kimi K2.7 Code",
-    "kind": "pi",
-    "model": "openrouter/moonshotai/kimi-k2.7-code",
-    "thinking": "high"
-  },
-  {
-    "preset": "daedalus",
-    "id": "daedalus",
-    "name": "Daedalus",
-    "label": "Pi Kimi K2.7 Code",
-    "kind": "pi",
-    "model": "openrouter/moonshotai/kimi-k2.7-code",
-    "thinking": "high"
-  },
-  {
     "preset": "endymion",
     "id": "endymion",
     "name": "Endymion",
@@ -1096,9 +1080,9 @@ code.inl{font-family:var(--mono);font-size:.88em;background:rgba(255,255,255,.06
     "preset": "thor",
     "id": "thor",
     "name": "Thor",
-    "label": "OpenCode Grok 4.3",
+    "label": "OpenCode Grok 4.5",
     "kind": "opencode",
-    "model": "openrouter/x-ai/grok-4.3"
+    "model": "openrouter/x-ai/grok-4.5"
   },
   {
     "preset": "tyr",

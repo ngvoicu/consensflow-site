@@ -44,23 +44,133 @@
     "description": "Muse of comedy: Claude Fable 5 at medium effort for quicker takes from the top model."
   },
   {
+    "preset": "hyperion",
+    "id": "hyperion",
+    "name": "Hyperion",
+    "label": "Codex GPT 5.6 Sol ULTRA",
+    "kind": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "ultra",
+    "thinking": null,
+    "description": "Titan of heavenly light: GPT 5.6 Sol — the flagship variant — at ultra effort (maximum reasoning with automatic task delegation), the deepest Codex participant in the catalog. Turns can run many minutes."
+  },
+  {
+    "preset": "phoebus",
+    "id": "phoebus",
+    "name": "Phoebus",
+    "label": "Codex GPT 5.6 Sol XHIGH",
+    "kind": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "xhigh",
+    "thinking": null,
+    "description": "The radiant sun: GPT 5.6 Sol at xhigh effort — flagship depth without the ultra wait."
+  },
+  {
+    "preset": "gaia",
+    "id": "gaia",
+    "name": "Gaia",
+    "label": "Codex GPT 5.6 Terra XHIGH",
+    "kind": "codex",
+    "model": "gpt-5.6-terra",
+    "effort": "xhigh",
+    "thinking": null,
+    "description": "Primordial earth: GPT 5.6 Terra — the mid-size variant — at xhigh effort for strong everyday coding and planning."
+  },
+  {
+    "preset": "diana",
+    "id": "diana",
+    "name": "Diana",
+    "label": "Codex GPT 5.6 Luna XHIGH",
+    "kind": "codex",
+    "model": "gpt-5.6-luna",
+    "effort": "xhigh",
+    "thinking": null,
+    "description": "Roman moon goddess: GPT 5.6 Luna — the compact, fast variant — at xhigh effort for quick, sharp takes."
+  },
+  {
+    "preset": "aether",
+    "id": "aether",
+    "name": "Aether",
+    "label": "Pi GPT 5.6 Sol XHIGH",
+    "kind": "pi",
+    "model": "openai-codex/gpt-5.6-sol",
+    "effort": null,
+    "thinking": "xhigh",
+    "description": "Primordial upper air and light: GPT 5.6 Sol — the flagship variant — on Pi, riding your ChatGPT (Codex) login at xhigh thinking."
+  },
+  {
+    "preset": "rhea",
+    "id": "rhea",
+    "name": "Rhea",
+    "label": "Pi GPT 5.6 Terra XHIGH",
+    "kind": "pi",
+    "model": "openai-codex/gpt-5.6-terra",
+    "effort": null,
+    "thinking": "xhigh",
+    "description": "Titaness of the earth: GPT 5.6 Terra — the balanced variant — on Pi via your ChatGPT (Codex) login at xhigh thinking."
+  },
+  {
+    "preset": "phoebe",
+    "id": "phoebe",
+    "name": "Phoebe",
+    "label": "Pi GPT 5.6 Luna XHIGH",
+    "kind": "pi",
+    "model": "openai-codex/gpt-5.6-luna",
+    "effort": null,
+    "thinking": "xhigh",
+    "description": "Titaness of the moon: GPT 5.6 Luna — the compact, fast variant — on Pi via your ChatGPT (Codex) login at xhigh thinking."
+  },
+  {
+    "preset": "sunna",
+    "id": "sunna",
+    "name": "Sunna",
+    "label": "OpenCode GPT 5.6 Sol XHIGH",
+    "kind": "opencode",
+    "model": "openrouter/openai/gpt-5.6-sol",
+    "effort": "xhigh",
+    "thinking": null,
+    "description": "Norse sun goddess: GPT 5.6 Sol — the flagship variant — through OpenCode on OpenRouter at xhigh effort."
+  },
+  {
+    "preset": "jord",
+    "id": "jord",
+    "name": "Jord",
+    "label": "OpenCode GPT 5.6 Terra XHIGH",
+    "kind": "opencode",
+    "model": "openrouter/openai/gpt-5.6-terra",
+    "effort": "xhigh",
+    "thinking": null,
+    "description": "Norse earth goddess, mother of Thor: GPT 5.6 Terra — the balanced variant — through OpenCode on OpenRouter at xhigh effort."
+  },
+  {
+    "preset": "bil",
+    "id": "bil",
+    "name": "Bil",
+    "label": "OpenCode GPT 5.6 Luna XHIGH",
+    "kind": "opencode",
+    "model": "openrouter/openai/gpt-5.6-luna",
+    "effort": "xhigh",
+    "thinking": null,
+    "description": "The child who follows Mani across the night sky: GPT 5.6 Luna — the compact, fast variant — through OpenCode on OpenRouter at xhigh effort."
+  },
+  {
     "preset": "zeus",
     "id": "zeus",
     "name": "Zeus",
-    "label": "Claude Code Opus 4.8 MAX",
+    "label": "Claude Code Opus 5 MAX",
     "kind": "claude-code",
-    "model": "claude-opus-4-8",
+    "model": "claude-opus-5",
     "effort": "max",
     "thinking": null,
-    "description": "Most expensive/deep Claude Code participant for high-stakes architecture, implementation plans, and final checks."
+    "description": "Deepest Opus-tier Claude Code participant for high-stakes architecture, implementation plans, and final checks; half the price of Fable 5, which stays the catalog ceiling (@calliope)."
   },
   {
     "preset": "apollo",
     "id": "apollo",
     "name": "Apollo",
-    "label": "Claude Code Opus 4.8 XHIGH",
+    "label": "Claude Code Opus 5 XHIGH",
     "kind": "claude-code",
-    "model": "claude-opus-4-8",
+    "model": "claude-opus-5",
     "effort": "xhigh",
     "thinking": null,
     "description": "Deep but slightly cheaper/faster Claude Code participant for spec critique, design alternatives, and implementation plans."
@@ -69,78 +179,12 @@
     "preset": "artemis",
     "id": "artemis",
     "name": "Artemis",
-    "label": "Claude Code Opus 4.8 MEDIUM",
+    "label": "Claude Code Opus 5 MEDIUM",
     "kind": "claude-code",
-    "model": "claude-opus-4-8",
+    "model": "claude-opus-5",
     "effort": "medium",
     "thinking": null,
-    "description": "Apollo's twin: Opus 4.8 at medium effort for quicker, cheaper Claude Code takes."
-  },
-  {
-    "preset": "athena",
-    "id": "athena",
-    "name": "Athena",
-    "label": "Codex GPT 5.5 XHIGH",
-    "kind": "codex",
-    "model": "gpt-5.5",
-    "effort": "xhigh",
-    "thinking": null,
-    "description": "Codex planner/doer with GPT 5.5 and xhigh reasoning effort."
-  },
-  {
-    "preset": "perseus",
-    "id": "perseus",
-    "name": "Perseus",
-    "label": "Codex GPT 5.5 HIGH",
-    "kind": "codex",
-    "model": "gpt-5.5",
-    "effort": "high",
-    "thinking": null,
-    "description": "Codex participant between Athena (xhigh) and Loki (medium): GPT 5.5 at high effort."
-  },
-  {
-    "preset": "iris",
-    "id": "iris",
-    "name": "Iris",
-    "label": "Pi GPT 5.5 XHIGH",
-    "kind": "pi",
-    "model": "openai-codex/gpt-5.5",
-    "effort": null,
-    "thinking": "xhigh",
-    "description": "Pi-backed GPT 5.5 participant with xhigh thinking and normal Pi skills available."
-  },
-  {
-    "preset": "hermes",
-    "id": "hermes",
-    "name": "Hermes",
-    "label": "Pi GPT 5.5 HIGH",
-    "kind": "pi",
-    "model": "openai-codex/gpt-5.5",
-    "effort": null,
-    "thinking": "high",
-    "description": "Iris's fellow messenger: Pi-backed GPT 5.5 with high thinking."
-  },
-  {
-    "preset": "eos",
-    "id": "eos",
-    "name": "Eos",
-    "label": "Pi GPT 5.5 MEDIUM",
-    "kind": "pi",
-    "model": "openai-codex/gpt-5.5",
-    "effort": null,
-    "thinking": "medium",
-    "description": "Pi-backed GPT 5.5 with medium thinking for quicker takes."
-  },
-  {
-    "preset": "luna",
-    "id": "luna",
-    "name": "Luna",
-    "label": "OpenCode Kimi K2.7 Code",
-    "kind": "opencode",
-    "model": "openrouter/moonshotai/kimi-k2.7-code",
-    "effort": null,
-    "thinking": null,
-    "description": "OpenCode-backed Kimi K2.7 Code participant — Moonshot's coding-first model (OpenRouter defines no effort variants for it)."
+    "description": "Apollo's twin: Opus 5 at medium effort for quicker, cheaper Claude Code takes."
   },
   {
     "preset": "orpheus",
@@ -212,78 +256,45 @@
     "preset": "kronos",
     "id": "kronos",
     "name": "Kronos",
-    "label": "Pi Opus 4.8 XHIGH (Anthropic)",
+    "label": "Pi Opus 5 XHIGH (Anthropic)",
     "kind": "pi",
-    "model": "anthropic/claude-opus-4-8",
+    "model": "anthropic/claude-opus-5",
     "effort": null,
     "thinking": "xhigh",
-    "description": "Pi-backed Claude Opus 4.8 with xhigh thinking; needs Anthropic auth in pi."
+    "description": "Pi-backed Claude Opus 5 with xhigh thinking; needs Anthropic auth in pi."
   },
   {
     "preset": "atlas",
     "id": "atlas",
     "name": "Atlas",
-    "label": "Pi Opus 4.8 MEDIUM (Anthropic)",
+    "label": "Pi Opus 5 MEDIUM (Anthropic)",
     "kind": "pi",
-    "model": "anthropic/claude-opus-4-8",
+    "model": "anthropic/claude-opus-5",
     "effort": null,
     "thinking": "medium",
-    "description": "Pi-backed Claude Opus 4.8 with medium thinking; needs Anthropic auth in pi."
+    "description": "Pi-backed Claude Opus 5 with medium thinking; needs Anthropic auth in pi."
   },
   {
     "preset": "baldr",
     "id": "baldr",
     "name": "Baldr",
-    "label": "OpenCode Opus 4.8 XHIGH",
+    "label": "OpenCode Opus 5 XHIGH",
     "kind": "opencode",
-    "model": "openrouter/anthropic/claude-opus-4.8",
+    "model": "openrouter/anthropic/claude-opus-5",
     "effort": "xhigh",
     "thinking": null,
-    "description": "OpenCode-backed Claude Opus 4.8 at xhigh variant, its OpenRouter ceiling."
+    "description": "OpenCode-backed Claude Opus 5 at xhigh variant (via OpenRouter)."
   },
   {
     "preset": "vali",
     "id": "vali",
     "name": "Vali",
-    "label": "OpenCode Opus 4.8 MEDIUM",
+    "label": "OpenCode Opus 5 MEDIUM",
     "kind": "opencode",
-    "model": "openrouter/anthropic/claude-opus-4.8",
+    "model": "openrouter/anthropic/claude-opus-5",
     "effort": "medium",
     "thinking": null,
-    "description": "OpenCode-backed Claude Opus 4.8 at medium variant (via OpenRouter)."
-  },
-  {
-    "preset": "forseti",
-    "id": "forseti",
-    "name": "Forseti",
-    "label": "OpenCode GPT 5.5 XHIGH",
-    "kind": "opencode",
-    "model": "openrouter/openai/gpt-5.5",
-    "effort": "xhigh",
-    "thinking": null,
-    "description": "OpenCode-backed GPT 5.5 at xhigh variant (via OpenRouter); god of judgement for tough calls."
-  },
-  {
-    "preset": "bragi",
-    "id": "bragi",
-    "name": "Bragi",
-    "label": "OpenCode GPT 5.5 HIGH",
-    "kind": "opencode",
-    "model": "openrouter/openai/gpt-5.5",
-    "effort": "high",
-    "thinking": null,
-    "description": "OpenCode-backed GPT 5.5 at high variant (via OpenRouter)."
-  },
-  {
-    "preset": "ullr",
-    "id": "ullr",
-    "name": "Ullr",
-    "label": "OpenCode GPT 5.5 MEDIUM",
-    "kind": "opencode",
-    "model": "openrouter/openai/gpt-5.5",
-    "effort": "medium",
-    "thinking": null,
-    "description": "OpenCode-backed GPT 5.5 at medium variant (via OpenRouter)."
+    "description": "OpenCode-backed Claude Opus 5 at medium variant (via OpenRouter)."
   },
   {
     "preset": "hermod",
@@ -297,26 +308,15 @@
     "description": "Fast, cheap Claude Code participant (Haiku) for quick gut-checks."
   },
   {
-    "preset": "loki",
-    "id": "loki",
-    "name": "Loki",
-    "label": "Codex GPT 5.5 (fast/medium)",
-    "kind": "codex",
-    "model": "gpt-5.5",
-    "effort": "medium",
-    "thinking": null,
-    "description": "Nimbler Codex participant: GPT 5.5 at medium effort for quicker turnarounds."
-  },
-  {
     "preset": "nike",
     "id": "nike",
     "name": "Nike",
-    "label": "Pi Gemini 3.5 Flash (fast)",
+    "label": "Pi Gemini 3.6 Flash (fast)",
     "kind": "pi",
-    "model": "openrouter/google/gemini-3.5-flash",
+    "model": "openrouter/google/gemini-3.6-flash",
     "effort": null,
     "thinking": "low",
-    "description": "Swift, cheap Pi-backed Gemini 3.5 Flash for quick second opinions."
+    "description": "Swift, cheap Pi-backed Gemini 3.6 Flash for quick second opinions."
   },
   {
     "preset": "freya",
@@ -344,12 +344,12 @@
     "preset": "sif",
     "id": "sif",
     "name": "Sif",
-    "label": "OpenCode Gemini 3.5 Flash (fast)",
+    "label": "OpenCode Gemini 3.6 Flash (fast)",
     "kind": "opencode",
-    "model": "openrouter/google/gemini-3.5-flash",
+    "model": "openrouter/google/gemini-3.6-flash",
     "effort": "low",
     "thinking": null,
-    "description": "Swift, cheap OpenCode-backed Gemini 3.5 Flash at low variant (via OpenRouter)."
+    "description": "Swift, cheap OpenCode-backed Gemini 3.6 Flash at low variant (via OpenRouter)."
   },
   {
     "preset": "hades",
@@ -377,12 +377,12 @@
     "preset": "ares",
     "id": "ares",
     "name": "Ares",
-    "label": "Pi Grok 4.3",
+    "label": "Pi Grok 4.5",
     "kind": "pi",
-    "model": "openrouter/x-ai/grok-4.3",
+    "model": "openrouter/x-ai/grok-4.5",
     "effort": null,
     "thinking": "high",
-    "description": "Pi-backed xAI Grok 4.3 participant (via OpenRouter)."
+    "description": "Pi-backed xAI Grok 4.5 participant (via OpenRouter)."
   },
   {
     "preset": "hephaestus",
@@ -440,26 +440,15 @@
     "description": "Pi-backed Zhipu GLM 5.2 participant (via OpenRouter); the Titan who brought knowledge to mortals."
   },
   {
-    "preset": "selene",
-    "id": "selene",
-    "name": "Selene",
-    "label": "Pi Kimi K2.7 Code",
+    "preset": "endymion",
+    "id": "endymion",
+    "name": "Endymion",
+    "label": "Pi Kimi K3 XHIGH",
     "kind": "pi",
-    "model": "openrouter/moonshotai/kimi-k2.7-code",
+    "model": "openrouter/moonshotai/kimi-k3",
     "effort": null,
-    "thinking": "high",
-    "description": "Greek moon goddess to Luna's Roman: Pi-backed Kimi K2.7 Code participant with high thinking (via OpenRouter)."
-  },
-  {
-    "preset": "daedalus",
-    "id": "daedalus",
-    "name": "Daedalus",
-    "label": "Pi Kimi K2.7 Code",
-    "kind": "pi",
-    "model": "openrouter/moonshotai/kimi-k2.7-code",
-    "effort": null,
-    "thinking": "high",
-    "description": "Greek master craftsman: Pi-backed Kimi K2.7 Code participant with high thinking (via OpenRouter)."
+    "thinking": "xhigh",
+    "description": "Beloved of the moon goddess: Pi-backed Kimi K3 — Moonshot's 1M-context flagship reasoner — at xhigh thinking, OpenRouter's effort ceiling (needs the kimi-k3 entry in ~/.pi/agent/models.json for sane token limits and xhigh support)."
   },
   {
     "preset": "odin",
@@ -487,12 +476,12 @@
     "preset": "thor",
     "id": "thor",
     "name": "Thor",
-    "label": "OpenCode Grok 4.3",
+    "label": "OpenCode Grok 4.5",
     "kind": "opencode",
-    "model": "openrouter/x-ai/grok-4.3",
+    "model": "openrouter/x-ai/grok-4.5",
     "effort": null,
     "thinking": null,
-    "description": "OpenCode-backed xAI Grok 4.3 participant (via OpenRouter)."
+    "description": "OpenCode-backed xAI Grok 4.5 participant (via OpenRouter)."
   },
   {
     "preset": "tyr",
@@ -537,6 +526,17 @@
     "effort": null,
     "thinking": null,
     "description": "OpenCode-backed MiniMax M3 participant (via OpenRouter); god of wisdom for 'minimax'."
+  },
+  {
+    "preset": "mani",
+    "id": "mani",
+    "name": "Mani",
+    "label": "OpenCode Kimi K3",
+    "kind": "opencode",
+    "model": "openrouter/moonshotai/kimi-k3",
+    "effort": null,
+    "thinking": null,
+    "description": "Norse moon god: OpenCode-backed Kimi K3 — Moonshot's 1M-context flagship reasoner (via OpenRouter). Runs at K3's default max thinking; the catalog defines no effort variants for it."
   },
   {
     "preset": "pygmalion",
