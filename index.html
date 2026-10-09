@@ -3,22 +3,26 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>ConsensFlow — named AI agents your coding agent can consult</title>
-<meta name="description" content="Keep a roster of named AI agents. ConsensFlow generates one skill from it and installs it into Claude Code, Codex, pi, OpenCode and Kimi Code — then “ask hyperion whether this migration is safe” just works. No accounts, no API keys. MIT licensed." />
+<title>ConsensFlow: run a team of AI coding agents on your project</title>
+<meta name="description" content="A desktop app that runs a team of AI coding agents on your project: a Chief of Staff plans the work on a board, and its staff take the tasks in Claude Code, Codex, OpenCode, Pi or Devin. Mac and Windows, MIT." />
 <link rel="canonical" href="https://consensflow.ngvoicu.dev/" />
-<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0A0E1A" />
-<meta name="theme-color" media="(prefers-color-scheme: light)" content="#E8EEF6" />
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#08181d" />
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#eef4f2" />
 <meta name="color-scheme" content="dark light" />
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": "ConsensFlow",
-  "description": "Named AI agents your coding agent can consult, in every harness on your machine. ConsensFlow generates one skill from your roster and installs it into Claude Code, Codex, pi, OpenCode and Kimi Code. No accounts, no API keys.",
+  "description": "A desktop app that runs a team of AI coding agents on your project. You talk to a Chief of Staff; it plans the work on a board, and its staff (workers, advisors and reviewers) take the tasks, each in its own terminal of Claude Code, Codex, OpenCode, Pi or Devin, with your own logins. No API keys.",
   "url": "https://consensflow.ngvoicu.dev/",
   "applicationCategory": "DeveloperApplication",
-  "operatingSystem": "macOS",
+  "operatingSystem": "macOS, Windows",
+  "softwareRequirements": "macOS 13.5 or later on Apple silicon, or Windows 10 or 11 (64-bit); at least one of Claude Code, Codex, OpenCode, Pi or Devin",
+  "downloadUrl": "https://github.com/ngvoicu/consensflow/releases",
+  "screenshot": "https://consensflow.ngvoicu.dev/assets/screenshots/board.webp",
   "license": "https://opensource.org/licenses/MIT",
+  "isAccessibleForFree": true,
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
   "author": {
     "@type": "Person",
@@ -35,7 +39,7 @@
   "@type": "WebSite",
   "name": "ConsensFlow",
   "url": "https://consensflow.ngvoicu.dev/",
-  "description": "Named AI agents your coding agent can consult — one roster, one skill, every harness on your machine.",
+  "description": "ConsensFlow, a desktop app that runs a team of AI coding agents on your project, across Claude Code, Codex, OpenCode, Pi and Devin.",
   "publisher": { "@type": "Person", "name": "Gabriel Voicu", "url": "https://ngvoicu.dev" }
 }
 </script>
@@ -45,639 +49,521 @@
 <meta property="og:url" content="https://consensflow.ngvoicu.dev/" />
 <meta property="og:site_name" content="ConsensFlow" />
 <meta property="og:locale" content="en_US" />
-<meta property="og:title" content="ConsensFlow — named AI agents your coding agent can consult" />
-<meta property="og:description" content="One roster of named AI agents, one generated skill, every harness on your machine: Claude Code, Codex, pi, OpenCode, Kimi Code. Say “ask hyperion” and your coding agent runs it, waits, and reports back. No accounts, no API keys." />
+<meta property="og:title" content="ConsensFlow: run a team of AI coding agents on your project" />
+<meta property="og:description" content="A desktop app for Mac and Windows. A Chief of Staff plans the work on a board; its staff take the tasks, each in its own terminal of Claude Code, Codex, OpenCode, Pi or Devin. Your own logins, no API keys. MIT." />
 <meta property="og:image" content="https://consensflow.ngvoicu.dev/assets/og-image.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="ConsensFlow — named AI agents your coding agent can consult" />
+<meta property="og:image:alt" content="ConsensFlow: run a team of AI coding agents on your project. Beside the words, the app's board: tasks from backlog to finished, one row per agent." />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="ConsensFlow" />
-<meta name="twitter:description" content="Named AI agents your coding agent can consult — in Claude Code, Codex, pi, OpenCode and Kimi Code. No accounts, no API keys. MIT licensed." />
+<meta name="twitter:title" content="ConsensFlow: run a team of AI coding agents on your project" />
+<meta name="twitter:description" content="A Chief of Staff plans the work on a board; its staff take the tasks in Claude Code, Codex, OpenCode, Pi or Devin. Mac and Windows. MIT." />
 <meta name="twitter:image" content="https://consensflow.ngvoicu.dev/assets/og-image.png" />
+<meta name="twitter:image:alt" content="ConsensFlow: run a team of AI coding agents on your project, beside the app's board." />
 
 <link rel="icon" href="/favicon.ico" sizes="any" />
-<link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
-<link rel="icon" type="image/png" href="./assets/favicon.png" />
+<link rel="icon" type="image/png" sizes="64x64" href="./assets/favicon.png" />
 <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png" />
+<link rel="preload" href="./assets/fonts/archivo-800.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="./assets/fonts/archivo-400.woff2" as="font" type="font/woff2" crossorigin />
 
 <style>
-/* self-hosted brand fonts: Archivo + IBM Plex Mono (no CDN) */
+/* Archivo and IBM Plex Mono, the brand's faces (the app's own Agents screen
+   names them), self-hosted: no CDN. */
 @font-face{font-family:'Archivo';font-style:normal;font-weight:400;font-display:swap;src:url('./assets/fonts/archivo-400.woff2') format('woff2')}
 @font-face{font-family:'Archivo';font-style:normal;font-weight:500;font-display:swap;src:url('./assets/fonts/archivo-500.woff2') format('woff2')}
-@font-face{font-family:'Archivo';font-style:normal;font-weight:600;font-display:swap;src:url('./assets/fonts/archivo-600.woff2') format('woff2')}
 @font-face{font-family:'Archivo';font-style:normal;font-weight:700;font-display:swap;src:url('./assets/fonts/archivo-700.woff2') format('woff2')}
 @font-face{font-family:'Archivo';font-style:normal;font-weight:800;font-display:swap;src:url('./assets/fonts/archivo-800.woff2') format('woff2')}
 @font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;src:url('./assets/fonts/ibm-plex-mono-400.woff2') format('woff2')}
 @font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:500;font-display:swap;src:url('./assets/fonts/ibm-plex-mono-500.woff2') format('woff2')}
-@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:600;font-display:swap;src:url('./assets/fonts/ibm-plex-mono-600.woff2') format('woff2')}
 
+/* The app's palette: marine ink, foam text, and the colours its board gives
+   a task's state. On this page a state colour means what it means on the
+   board: slate waits in the backlog, seafoam is at work, amber waits for
+   someone, foam is done, deep seafoam is finished, buoy is a warning. */
 :root{
   color-scheme:dark;
-  /* brand palette: ink / seafoam / buoy / foam */
-  --ink:#0C1E23; --seafoam:#63C7B2; --buoy:#FF6B5A; --foam:#E9F1EF;
-  /* the blue that leads: the "flow" cyan -> indigo */
-  --cyan:#22d3ee; --blue:#3b82f6; --indigo:#6366f1; --indigo-light:#818cf8;
-  --flow:linear-gradient(120deg,#5eead4 0%,#22d3ee 28%,#3b82f6 64%,#6366f1 100%);
-  --flow-soft:linear-gradient(120deg,#22d3ee,#6366f1);
-  /* dark theme (default): deep navy surfaces — the blue leads */
-  --bg:#0A0E1A; --bg-2:#080B14; --card:#10141F; --card-hover:#151B29; --surface:#121829;
-  --border:rgba(233,241,239,.08); --border-hover:rgba(233,241,239,.18);
-  --text:#E9F1EF; --text-dim:#9AA5BC; --text-muted:#6B7690;
-  --accent:#22d3ee; --accent-ink:#06121f; --accent-soft:rgba(34,211,238,.12);
-  --term-bg:#0B0F1A;
-  --shadow:0 30px 90px -40px rgba(0,0,0,.8);
-  --grid-line:rgba(129,140,248,.05);
-  --maxw:1140px; --radius:14px;
-  --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --ink:#08181d; --deep:#0c2026; --panel:#112a31;
+  --line:#28464d; --line-soft:#1c373e;
+  --text:#e9f1ef; --muted:#9db4b8;
+  --accent:#63c7b2; --accent-fill:#63c7b2; --on-accent:#08181d;
+  --amber:#e7b968; --buoy:#ff7868;
+  --grid:rgba(99,199,178,.035);
+  --shadow:0 40px 90px -50px rgba(0,0,0,.9);
+  /* The board is dark in the app, so it is dark here in either theme. */
+  --b-ink:#08181d; --b-deep:#0c2026; --b-card:#0e252b; --b-line:#1c373e; --b-text:#e9f1ef; --b-muted:#8ea8ad;
+  --s-open:#3d5b62; --s-working:#63c7b2; --s-waiting:#e7b968; --s-done:#e9f1ef; --s-accepted:#2b7569;
   --sans:'Archivo',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --wrap:1180px; --gutter:clamp(20px,4vw,40px);
 }
 @media (prefers-color-scheme: light){
   :root{
     color-scheme:light;
-    --bg:#E8EEF6; --bg-2:#DEE6F2; --card:#F4F8FC; --card-hover:#FFFFFF; --surface:#ECF2F9;
-    --border:rgba(11,27,51,.12); --border-hover:rgba(11,27,51,.26);
-    --text:#0B1B33; --text-dim:#3D4E6B; --text-muted:#68779A;
-    --cyan:#0E7490; --indigo-light:#4F46E5;
-    --accent:#0E7490; --accent-ink:#E9F1EF; --accent-soft:rgba(14,116,144,.12);
-    --term-bg:#0B0F1A;
-    --shadow:0 30px 70px -45px rgba(11,27,51,.45);
-    --grid-line:rgba(79,70,229,.07);
+    --ink:#eef4f2; --deep:#e2ecea; --panel:#ffffff;
+    --line:#bfd2cf; --line-soft:#d5e2e0;
+    --text:#0b1f24; --muted:#4a646a;
+    --accent:#16766a; --accent-fill:#16766a; --on-accent:#ffffff;
+    --amber:#8a5d12; --buoy:#b93a2b;
+    --grid:rgba(22,118,106,.05);
+    --shadow:0 40px 80px -50px rgba(8,24,29,.55);
   }
 }
+
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-top:76px;-webkit-text-size-adjust:100%}
 body{
-  margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);
-  font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;
-  background-image:
-    radial-gradient(1000px 560px at 78% -8%,rgba(99,102,241,.22),transparent 62%),
-    radial-gradient(880px 500px at 10% 6%,rgba(34,211,238,.14),transparent 60%),
-    radial-gradient(1200px 700px at 50% 110%,rgba(59,130,246,.12),transparent 65%);
-  background-attachment:fixed;
-  transition:background .25s ease,color .25s ease;
+  margin:0;color:var(--text);font:400 18px/1.6 var(--sans);
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  /* the app's own ruled background: a hair every 24px */
+  background:linear-gradient(90deg,var(--grid) 1px,transparent 1px) 0 0/24px 24px,var(--ink);
 }
-@media (prefers-color-scheme: light){
-  body{background-image:
-    radial-gradient(1000px 560px at 78% -8%,rgba(99,102,241,.13),transparent 62%),
-    radial-gradient(880px 500px at 10% 6%,rgba(34,211,238,.15),transparent 60%),
-    radial-gradient(1200px 700px at 50% 110%,rgba(59,130,246,.10),transparent 65%)}
-}
-a{color:inherit;text-decoration:none}
-h1,h2,h3{font-family:var(--sans);font-weight:800;letter-spacing:-.02em;line-height:1.08}
-::selection{background:rgba(34,211,238,.28)}
-.container{max-width:var(--maxw);margin:0 auto;padding:0 24px}
-.grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
-  background-image:linear-gradient(var(--grid-line) 1px,transparent 1px),linear-gradient(90deg,var(--grid-line) 1px,transparent 1px);
-  background-size:46px 46px;mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 35%,transparent 78%);
-  -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 35%,transparent 78%)}
-main{position:relative;z-index:1}
+img{display:block;max-width:100%;height:auto}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+code,kbd{font-family:var(--mono);font-size:.86em}
+p{margin:0 0 1em}
+strong{font-weight:700}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--gutter)}
+.skip{position:absolute;left:12px;top:-60px;z-index:100;background:var(--accent-fill);color:var(--on-accent);
+  padding:10px 14px;border-radius:6px;font-weight:700;text-decoration:none}
+.skip:focus{top:12px}
 
-/* gradient text — the blue signature */
-.grad{background:var(--flow);-webkit-background-clip:text;background-clip:text;color:transparent}
+/* ---- top bar ---- */
+.bar{position:sticky;top:0;z-index:50;border-bottom:1px solid var(--line-soft);
+  background:var(--ink);background:color-mix(in srgb,var(--ink) 86%,transparent);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.bar .wrap{display:flex;align-items:center;gap:28px;height:60px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;font-weight:800;font-size:18px;letter-spacing:-.01em}
+.brand img{width:26px;height:26px;border-radius:6px}
+.bar nav{display:flex;gap:24px;margin-left:auto;font-size:15px}
+.bar nav a{color:var(--muted);text-decoration:none}
+.bar nav a:hover{color:var(--text)}
+@media (max-width:900px){.bar nav{display:none}.bar .button{margin-left:auto}}
 
-/* ---- nav ---- */
-nav{position:fixed;top:0;left:0;right:0;z-index:50;height:62px;display:flex;align-items:center;
-  background:color-mix(in srgb,var(--bg) 78%,transparent);backdrop-filter:blur(22px) saturate(1.4);-webkit-backdrop-filter:blur(22px) saturate(1.4);
-  border-bottom:1px solid var(--border)}
-nav .container{display:flex;align-items:center;justify-content:space-between;width:100%}
-.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px}
-.brand-mark{flex:none;border-radius:7px;display:block}
-.brand b{font-weight:800;letter-spacing:-.01em}
-.nav-links{display:flex;align-items:center;gap:28px;font-size:14.5px;color:var(--text-dim)}
-.nav-links a:hover{color:var(--text)}
-.nav-cta{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:13px;font-weight:600;color:#06121f!important;
-  background:var(--flow-soft);padding:8px 15px;border-radius:9px;box-shadow:0 0 0 1px rgba(255,255,255,.05),0 8px 26px -10px rgba(59,130,246,.7)}
-.nav-cta:hover{transform:translateY(-1px)}
-@media(max-width:900px){.nav-links a:not(.nav-cta){display:none}}
+.button{display:inline-flex;align-items:center;gap:8px;border-radius:8px;padding:11px 18px;
+  font:700 16px/1.2 var(--sans);text-decoration:none;border:1px solid transparent;cursor:pointer}
+.button-go{background:var(--accent-fill);color:var(--on-accent)}
+.button-go:hover{filter:brightness(1.08)}
+.button-quiet{color:var(--text);border-color:var(--line)}
+.button-quiet:hover{border-color:var(--accent);color:var(--accent)}
+.bar .button{padding:8px 14px;font-size:15px}
 
-/* ---- buttons ---- */
-.btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--sans);font-weight:700;font-size:15px;
-  padding:13px 22px;border-radius:11px;cursor:pointer;border:1px solid transparent;transition:.18s}
-.btn-primary{background:var(--flow-soft);color:#06121f;box-shadow:0 10px 34px -12px rgba(59,130,246,.75),inset 0 1px 0 rgba(255,255,255,.25)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 40px -12px rgba(99,102,241,.8)}
-.btn-ghost{background:rgba(255,255,255,.03);border-color:var(--border-hover);color:var(--text)}
-.btn-ghost:hover{background:rgba(255,255,255,.06);border-color:var(--cyan);color:var(--cyan)}
-@media (prefers-color-scheme: light){
-  .btn-ghost{background:rgba(12,30,35,.03)}
-  .btn-ghost:hover{background:rgba(12,30,35,.06)}
-}
-
-/* ---- section scaffold ---- */
-section{padding:88px 0;position:relative}
-.eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--cyan);font-weight:600;margin-bottom:14px;display:inline-block}
-.s-title{font-size:clamp(2rem,4.4vw,3rem);margin:0 0 16px}
-.s-desc{color:var(--text-dim);max-width:680px;font-size:18px;margin:0 0 8px}
-.center{text-align:center}.center .s-desc{margin-left:auto;margin-right:auto}
-.divider{border-top:1px solid var(--border)}
-
-/* ---- reveal ---- */
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
-.reveal.in{opacity:1;transform:none}
+/* ---- headings and sections (the page's own: the shared band below keeps its styles) ---- */
+main :is(h1,h2,h3){font-family:var(--sans);font-weight:800;color:var(--text);margin:0;text-wrap:balance}
+main h1{font-size:clamp(2.55rem,1.25rem + 5.1vw,4.75rem);line-height:1.02;letter-spacing:-.035em}
+main h2{font-size:clamp(2rem,1.3rem + 2.5vw,3rem);line-height:1.08;letter-spacing:-.03em;max-width:24ch}
+main h3{font-size:1.3rem;line-height:1.25;letter-spacing:-.015em}
+@media (max-width:720px){main h1 br{display:none}}
+.section{padding:clamp(72px,10vw,128px) 0 0}
+.intro{color:var(--muted);font-size:1.15rem;max-width:60ch;margin:18px 0 0}
+.intro strong{color:var(--text)}
 
 /* ---- hero ---- */
-.hero{padding:150px 0 70px;text-align:center}
-.hero-mark{width:104px;height:104px;display:block;margin:0 auto 26px;border-radius:24px;
-  filter:drop-shadow(0 0 42px rgba(59,130,246,.45))}
-.badge{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:13px;color:var(--text-dim);
-  border:1px solid var(--border-hover);background:var(--surface);padding:7px 15px;border-radius:999px;margin-bottom:30px}
-.badge .dot{width:7px;height:7px;border-radius:50%;background:#22d3ee;box-shadow:0 0 12px #22d3ee;animation:pulse 2.4s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.hero h1{font-size:clamp(2.5rem,6vw,4.4rem);margin:0 auto 22px;max-width:20ch}
-.hero p.sub{font-size:clamp(17px,2.1vw,20px);color:var(--text-dim);max-width:700px;margin:0 auto 16px}
-.hero p.sub b{color:var(--text);font-weight:600}
-.hero .plain{font-size:15.5px;color:var(--text-muted);max-width:640px;margin:0 auto 34px}
-.hero .plain b{color:var(--text-dim);font-weight:500}
-.hero-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:26px}
-.works{display:flex;align-items:center;gap:10px;justify-content:center;flex-wrap:wrap}
-.works span{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--text-dim);
-  border:1px solid var(--border);border-radius:999px;padding:5px 13px;background:var(--surface)}
+.hero{padding:clamp(48px,8vw,96px) 0 0}
+.lede{font-size:clamp(1.15rem,1rem + .5vw,1.35rem);line-height:1.55;max-width:58ch;margin:26px 0 0}
+.lede + .lede{color:var(--muted)}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin:32px 0 0}
+.fine{font-size:15px;color:var(--muted);margin:16px 0 0;max-width:62ch}
 
-/* ---- flow terminal ---- */
-.flow{max-width:820px;margin:56px auto 0;text-align:left}
-.terminal{background:var(--term-bg);border:1px solid var(--border-hover);border-radius:13px;overflow:hidden;
-  font-family:var(--mono);box-shadow:var(--shadow)}
-.term-head{display:flex;align-items:center;gap:8px;padding:11px 15px;background:rgba(233,241,239,.03);border-bottom:1px solid var(--border)}
-.term-head i{width:11px;height:11px;border-radius:50%;background:#FF6B5A;display:inline-block}
-.term-head i:nth-child(2){background:#E9B44C}.term-head i:nth-child(3){background:#63C7B2}
-.term-head span{margin-left:8px;font-size:12.5px;color:#6E8A86}
-.term-body{padding:20px 24px 22px;font-size:14px;line-height:1.9;color:#E9F1EF}
-@media(max-width:600px){.term-body{padding:16px;font-size:12px;line-height:1.8}}
-.tl{display:flex;gap:14px;padding:1px 0}
-.tl .who{flex:none;width:92px;text-align:right;font-weight:600;font-size:12px;padding-top:2px}
-.who.you{color:#9EB5B1}.who.lead{color:#22d3ee}.who.agent{color:#FF6B5A}
-.tl .what{flex:1;min-width:0;color:#C7D6D3;word-break:break-word}
-.what b{color:#E9F1EF;font-weight:600}
-.what .cmdline{color:#22d3ee}
-.what .dim{color:#6E8A86}
-
-/* ---- cards ---- */
-.cards{display:grid;gap:18px}
-.cards.c3{grid-template-columns:repeat(3,1fr)}
-.cards.c2{grid-template-columns:repeat(2,1fr)}
-.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:26px;transition:.2s}
-.card:hover{background:var(--card-hover);border-color:var(--border-hover);transform:translateY(-3px)}
-.card .n{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--indigo-light);letter-spacing:.14em;margin-bottom:14px;display:block}
-.card h3{font-size:20px;margin:0 0 10px}
-.card p{margin:0;color:var(--text-dim);font-size:15px;line-height:1.6}
-/* Who can ask, who can answer — the shape of a mode in one look. The list
-   below each card says the same in words, so this is decoration to a screen
-   reader and marked as such. */
-.modeflow{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;
-  margin:16px 0 4px;padding:13px 12px;border:1px solid var(--border);border-radius:11px;background:var(--bg-2)}
-.modeflow-col{display:flex;flex-direction:column;gap:5px;min-width:0}
-.modeflow-head{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.13em;
-  text-transform:uppercase;color:var(--text-muted);margin-bottom:3px}
-.modeflow .pill{font-family:var(--mono);font-size:11px;line-height:1.3;color:var(--text-dim);
-  border:1px solid var(--border);border-radius:6px;padding:4px 7px;white-space:nowrap;
-  overflow:hidden;text-overflow:ellipsis;background:var(--card)}
-.modeflow .pill.lead{color:var(--accent);border-color:rgba(34,211,238,.4);background:rgba(34,211,238,.09);font-weight:600}
-.modeflow .pill.off{opacity:.4}
-.modeflow-arrow{font-size:18px;line-height:1;color:var(--accent);opacity:.85}
-@media(max-width:900px){.modeflow{gap:8px;padding:11px 9px}.modeflow .pill{font-size:10.5px}}
-.card p+p{margin-top:8px}
-@media(max-width:820px){.cards.c3,.cards.c2{grid-template-columns:1fr}}
-
-/* ---- modes ---- */
-.mode-card{display:flex;flex-direction:column;position:relative}
-.mode-card .use{align-self:flex-start;font-family:var(--mono);font-size:13px;font-weight:600;color:var(--cyan);
-  background:var(--accent-soft);border:1px solid var(--border);border-radius:8px;padding:6px 11px;margin-bottom:18px}
-.mode-card ul{list-style:none;padding:0;margin:14px 0 0;font-size:14.5px;color:var(--text-dim)}
-.mode-card li{padding:8px 0 8px 24px;position:relative;border-top:1px solid var(--border)}
-.mode-card li::before{content:"→";position:absolute;left:0;color:var(--cyan)}
-.mode-card li b{color:var(--text);font-weight:600}
-.mode-card.mesh{border-color:rgba(129,140,248,.6);box-shadow:0 0 0 1px rgba(99,102,241,.45),0 24px 60px -28px rgba(99,102,241,.45)}
-.mode-card .tag{position:absolute;top:18px;right:18px;font-family:var(--mono);font-size:11px;font-weight:600;
-  letter-spacing:.1em;text-transform:uppercase;color:#06121f;background:var(--flow-soft);border-radius:6px;padding:4px 9px}
-.mode-key{margin:34px auto 0;max-width:820px;padding:18px 22px;border:1px solid var(--border);
-  border-left:3px solid var(--cyan);border-radius:12px;background:var(--surface);
-  font-size:15.5px;line-height:1.65;color:var(--text-dim)}
-.mode-key b{color:var(--text);font-weight:700}
-.mode-key .cmd{margin-top:10px}
-
-/* per-mode example exchange */
-.ex{margin-top:18px;background:var(--term-bg);border:1px solid var(--border);border-radius:10px;
-  padding:13px 15px;font-family:var(--mono);font-size:12px;line-height:1.75}
-.ex span,.ex code{display:block;word-break:break-word}
-.ex .ex-q{color:#9EB5B1}
-.ex code{color:#22d3ee;font-weight:500;margin:4px 0}
-.ex .ex-a{color:#C7D6D3}
-.ex .ex-a.dim{color:#6E8A86}
-.ex .ex-a b{color:#63C7B2;font-weight:600}
-
-/* ---- window (cmux) ---- */
-.window-grid{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:start}
-@media(max-width:900px){.window-grid{grid-template-columns:1fr}}
-.window-copy p{color:var(--text-dim);font-size:16px;margin:0 0 14px}
-.window-copy p b{color:var(--text);font-weight:600}
-.window-copy ul{list-style:none;padding:0;margin:18px 0 0;font-size:15px;color:var(--text-dim)}
-.window-copy li{padding:9px 0 9px 26px;position:relative;border-top:1px solid var(--border)}
-.window-copy li::before{content:"→";position:absolute;left:0;color:var(--cyan)}
-.window-copy li b{color:var(--text);font-weight:600}
-
-/* ---- screenshots ---- */
-.shots{columns:2;column-gap:20px}
-@media(max-width:760px){.shots{columns:1}}
-.shot{break-inside:avoid;margin:0 0 20px;background:var(--term-bg);border:1px solid var(--border-hover);
-  border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
-.shot img{display:block;width:100%;height:auto}
-.shot figcaption{padding:14px 18px 16px;border-top:1px solid var(--border)}
-.shot figcaption b{display:block;font-size:15px;color:#E9F1EF;font-weight:700;margin-bottom:3px}
-.shot figcaption span{font-size:13.5px;color:#9EB5B1;line-height:1.5;display:block}
-/* Full-size capture on click. The affordance is added by script, so a page
-   without JS shows plain screenshots rather than a cursor that promises
-   something no click will deliver. */
+/* ---- the app, as captured ---- */
+.shot{margin:0}
+.shot img{border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);background:var(--b-ink)}
+.shot figcaption{font-size:15px;line-height:1.5;color:var(--muted);margin:14px 0 0;max-width:68ch}
+.hero .shot{margin-top:clamp(40px,6vw,64px)}
+/* Full size on click: the affordance comes with the script that opens it. */
 .shot img.zoomable{cursor:zoom-in}
-.shot img.zoomable:focus-visible{outline:2px solid var(--seafoam);outline-offset:3px}
-.lightbox{border:0;padding:0;background:transparent;width:100vw;height:100vh;max-width:100vw;max-height:100vh;overflow:hidden}
+.lightbox{border:0;padding:0;background:transparent;width:100vw;height:100vh;max-width:100vw;max-height:100vh;overflow:auto}
 .lightbox[open]{display:grid;place-items:center}
-.lightbox::backdrop{background:rgba(12,30,35,.94)}
-.lightbox img{display:block;width:auto;height:auto;max-width:100vw;max-height:100vh;object-fit:contain;cursor:zoom-out}
-.lightbox-close{position:fixed;top:14px;right:16px;z-index:1;appearance:none;border:1px solid var(--border-hover);
-  background:rgba(12,30,35,.7);color:var(--foam);border-radius:9px;font:600 13px/1 'Archivo',system-ui,sans-serif;
-  padding:9px 12px;cursor:pointer}
-.lightbox-close:hover{border-color:var(--seafoam);color:var(--seafoam)}
+.lightbox::backdrop{background:rgba(4,12,15,.94)}
+.lightbox img{width:auto;max-width:100vw;max-height:100vh;object-fit:contain;cursor:zoom-out}
+.lightbox-close{position:fixed;top:14px;right:16px;z-index:1;border:1px solid #28464d;background:rgba(8,24,29,.8);
+  color:#e9f1ef;border-radius:8px;font:700 14px/1 var(--sans);padding:10px 13px;cursor:pointer}
+.lightbox-close:hover{border-color:#63c7b2;color:#63c7b2}
 
-/* ---- commands ---- */
-.cmds{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-@media(max-width:820px){.cmds{grid-template-columns:1fr}}
-.cmdrow{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;transition:.18s}
-.cmdrow:hover{background:var(--card-hover);border-color:var(--border-hover)}
-.cmdrow>code{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--cyan);display:block;margin-bottom:6px;word-break:break-word}
-.cmdrow p{margin:0;color:var(--text-dim);font-size:14px;line-height:1.55}
-.cmds-note{margin-top:18px;font-size:14.5px;color:var(--text-muted);text-align:center}
-.cmds-note b{color:var(--text-dim);font-weight:600}
+/* ---- how it works: one task across the board's columns ---- */
+.relay{margin-top:48px}
+.relay-board{background:var(--b-deep);color:var(--b-text);border:1px solid var(--b-line);border-radius:12px;padding:16px 16px 18px;
+  --gap:12px;--row:68px}
+.relay-cols,.relay-lane{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:var(--gap)}
+.relay-cols{list-style:none;margin:0;padding:0 0 12px;border-bottom:1px solid var(--b-line);font:500 13px/1.2 var(--mono);color:var(--b-muted)}
+.relay-lane{position:relative;margin-top:14px}
+.relay-cell{min-height:var(--row);border-radius:6px;background:rgba(255,255,255,.015);outline:1px dashed rgba(142,168,173,.16);outline-offset:-1px}
+.relay-cell:nth-child(6){background:rgba(0,0,0,.14)}
+/* The card rides over the lane, one column wide, moved by --at columns. */
+.relay-card{position:absolute;top:0;left:0;width:calc((100% - 5 * var(--gap)) / 6);z-index:1;
+  --state:var(--s-open);--state-ink:var(--b-text);
+  display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"num title" "num state";column-gap:10px;
+  min-height:var(--row);background:var(--b-card);border:1px solid #28464d;border-radius:6px;overflow:hidden;
+  box-shadow:0 10px 24px -14px rgba(0,0,0,.8);
+  transform:translateX(calc(var(--at,0) * (100% + var(--gap))));
+  transition:transform .75s cubic-bezier(.3,.7,.2,1)}
+.relay-num{grid-area:num;display:flex;align-items:center;padding:0 9px;background:var(--state);color:var(--state-ink);
+  font:500 13px var(--mono);transition:background-color .35s ease,color .35s ease}
+.relay-title{grid-area:title;padding-top:9px;font-size:15px;line-height:1.25;color:var(--b-text)}
+.relay-state{grid-area:state;padding:3px 0 9px;font:12px var(--mono);color:var(--b-muted)}
+.relay-card[data-state="working"]{--state:var(--s-working);--state-ink:var(--b-ink)}
+.relay-card[data-state="done"]{--state:var(--s-done);--state-ink:var(--b-ink)}
+.relay-card[data-state="accepted"]{--state:var(--s-accepted)}
+.relay-foot{display:flex;justify-content:flex-end;margin-top:10px;min-height:34px}
+.replay{font:500 14px var(--sans);color:var(--muted);background:none;border:1px solid var(--line);border-radius:7px;padding:6px 12px;cursor:pointer}
+.replay:hover{color:var(--text);border-color:var(--accent)}
+.steps{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(20px,3vw,40px);counter-reset:step}
+.step{counter-increment:step;border-top:2px solid var(--line);padding-top:16px;transition:border-color .35s ease}
+.step h3{display:flex;gap:10px;align-items:baseline}
+.step h3::before{content:counter(step);font:500 15px var(--mono);color:var(--muted)}
+.step p{color:var(--muted);font-size:16.5px;line-height:1.55;margin:10px 0 0}
+.step-cols{display:flex;flex-wrap:wrap;gap:6px 14px;margin:0 0 10px;padding:0;list-style:none;font:500 13px var(--mono);color:var(--muted)}
+.step-cols li{display:flex;align-items:center;gap:7px}
+.step-cols li::before{content:"";width:10px;height:10px;border-radius:3px;background:var(--dot);box-shadow:inset 0 0 0 1px rgba(8,24,29,.35)}
+.step[aria-current="step"]{border-top-color:var(--accent)}
+.step[aria-current="step"] h3::before{color:var(--accent)}
+@media (max-width:1000px){
+  .relay-card{grid-template-columns:minmax(0,1fr);grid-template-areas:"num" "title" "state"}
+  .relay-num{padding:3px 8px}
+  .relay-title,.relay-state{padding-left:8px;padding-right:8px}
+  .relay-title{padding-top:6px;font-size:14px}
+  .relay-board{--row:96px}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+/* Narrow: the columns read top to bottom, and the card goes down them. */
+@media (max-width:640px){
+  .relay-board{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:14px;--row:52px;--gap:8px}
+  .relay-cols,.relay-lane{grid-template-columns:none;grid-template-rows:repeat(6,var(--row));gap:var(--gap)}
+  .relay-cols{padding:0;border:0;align-items:center}
+  .relay-lane{margin:0}
+  .relay-cell{min-height:0}
+  .relay-card{width:100%;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"num title" "num state";height:var(--row);min-height:0;
+    transform:translateY(calc(var(--at,0) * (var(--row) + var(--gap))))}
+  .relay-num{padding:0 8px}
+  .relay-title{padding:6px 8px 0 0;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .relay-state{padding:0 8px 6px 0}
+  .steps{grid-template-columns:minmax(0,1fr)}
+}
+
+/* ---- what it does ---- */
+.does{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(32px,5vw,72px);margin-top:48px;align-items:start}
+.group + .group{margin-top:44px}
+.group h3{font-size:1.45rem;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.group dl{margin:0}
+.group dt{font-weight:700;margin:20px 0 4px}
+.group dd{margin:0;color:var(--muted);max-width:60ch}
+.figures{display:grid;gap:40px;position:sticky;top:92px}
+@media (max-width:900px){.does{grid-template-columns:minmax(0,1fr)}.figures{position:static}}
+
+/* ---- harnesses ---- */
+.split{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(32px,5vw,72px);margin-top:48px;align-items:start}
+@media (max-width:900px){.split{grid-template-columns:minmax(0,1fr)}}
+.harnesses{width:100%;border-collapse:collapse;font-size:16px}
+.harnesses th{text-align:left;font-weight:700;color:var(--muted);font-size:14px;padding:0 12px 10px 0;border-bottom:1px solid var(--line)}
+.harnesses td{padding:14px 12px 14px 0;border-bottom:1px solid var(--line-soft);vertical-align:top}
+.harnesses td:first-child{font-weight:700;white-space:nowrap;width:1%}
+.harnesses code{color:var(--text);overflow-wrap:anywhere}
+.harnesses .or{color:var(--muted)}
+.after-table{margin:24px 0 0;color:var(--muted);max-width:60ch}
+.after-table strong{color:var(--text)}
+@media (max-width:560px){
+  .harnesses thead{display:none}
+  .harnesses tr{display:block;padding:12px 0;border-bottom:1px solid var(--line-soft)}
+  .harnesses td{display:block;padding:0;border:0;width:auto}
+  .harnesses td:first-child{margin-bottom:4px}
+}
 
 /* ---- install ---- */
-.install-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:34px;align-items:start}
-@media(max-width:900px){.install-grid{grid-template-columns:1fr}}
-.steps{display:grid;gap:16px;margin-top:6px}
-.step{display:flex;gap:16px;align-items:flex-start}
-.step .n{flex:none;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-family:var(--mono);font-weight:600;font-size:14px;
-  background:rgba(99,102,241,.14);border:1px solid rgba(99,102,241,.3);color:var(--indigo-light)}
-.step .body{flex:1;min-width:0}
-.step .body b{font-weight:700}
-.step .body p{margin:3px 0 0;color:var(--text-dim);font-size:14.5px}
-.cmd{font-family:var(--mono);font-size:13px;background:var(--term-bg);border:1px solid var(--border);border-radius:9px;
-  padding:11px 14px;color:#E9F1EF;overflow-x:auto;white-space:nowrap;margin-top:10px}
-.cmd .dim{color:#6E8A86}
-.req{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px 26px}
-.req h3{font-size:18px;margin:0 0 12px}
-.req ul{list-style:none;padding:0;margin:0;font-size:14.5px;color:var(--text-dim)}
-.req li{padding:8px 0 8px 24px;position:relative;border-top:1px solid var(--border)}
-.req li::before{content:"·";position:absolute;left:6px;color:var(--cyan);font-weight:800}
-.req li b{color:var(--text);font-weight:600}
-.req .fine{margin-top:14px;font-size:13px;color:var(--text-muted)}
+.platforms{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(24px,4vw,56px);margin-top:48px}
+.platform{border-top:2px solid var(--line);padding-top:20px}
+.platform h3{font-size:1.6rem}
+.platform .needs{font:500 14px var(--mono);color:var(--muted);margin:6px 0 18px}
+.platform p,.platform li{color:var(--muted)}
+.platform strong{color:var(--text)}
+.platform ul{margin:0 0 1em;padding-left:20px}
+.platform li + li{margin-top:8px}
+.platform code{color:var(--text);overflow-wrap:anywhere}
+.caution{border-left:3px solid var(--amber);padding:2px 0 2px 16px;margin:0 0 1em;color:var(--text)}
+.caution strong{color:var(--amber)}
+@media (max-width:760px){.platforms{grid-template-columns:minmax(0,1fr)}}
+.started{margin-top:clamp(56px,7vw,88px)}
+.started ol{margin:20px 0 0;padding:0;list-style:none;counter-reset:go}
+.started li{counter-increment:go;display:grid;grid-template-columns:36px minmax(0,1fr);gap:4px;padding:12px 0;border-bottom:1px solid var(--line-soft)}
+.started li::before{content:counter(go);font:500 15px/1.75 var(--mono);color:var(--accent)}
+.started li:first-child{border-top:1px solid var(--line-soft)}
 
-/* ---- CTA ---- */
-.cta{margin:40px auto;max-width:var(--maxw);text-align:center;padding:64px 24px;border:1px solid var(--border-hover);border-radius:24px;
-  background:linear-gradient(180deg,var(--card),var(--bg-2));position:relative;overflow:hidden}
-.cta::before{content:"";position:absolute;inset:0;background:radial-gradient(700px 300px at 50% 120%,rgba(99,102,241,.2),transparent 70%);pointer-events:none}
-.cta h2{font-size:clamp(1.9rem,4.2vw,2.8rem);margin:0 0 14px;position:relative}
-.cta p{color:var(--text-dim);max-width:560px;margin:0 auto 28px;position:relative}
-.cta .hero-cta{position:relative}
+/* ---- your data ---- */
+.data{list-style:none;margin:40px 0 0;padding:0;display:grid;gap:22px;max-width:70ch}
+.data li{padding-left:18px;border-left:3px solid var(--line)}
+.data li.risk{border-left-color:var(--buoy)}
+.data strong{color:var(--text)}
+.data li.risk strong{color:var(--buoy)}
 
-/* ---- footer (same structure as kluris.ngvoicu.dev, our palette) ---- */
-footer{border-top:1px solid var(--border);padding:56px 24px}
-.foot{max-width:1280px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:24px}
-.foot-brand{display:flex;align-items:center;gap:12px}
-.foot-brand img{width:28px;height:28px;object-fit:contain;border-radius:8px;display:block}
-.foot-brand .wm{font-weight:800;font-size:20px;letter-spacing:-.01em}
-.foot-brand .tag{color:var(--text-muted);font-size:14px;margin-left:8px}
-.foot-links{display:flex;align-items:center;justify-content:center;gap:24px;font-size:14px;color:var(--text-dim);flex-wrap:wrap}
-.foot-links a{display:inline-flex;align-items:center;gap:6px;transition:color .15s}
-.foot-links a:hover{color:var(--cyan)}
-.foot-links svg{width:14px;height:14px;fill:currentColor;flex:none}
-.foot-mit{font-size:12px;color:var(--text-muted);margin:0}
-@media(max-width:767px){.foot-brand .tag{display:none}}
+/* ---- open source ---- */
+.source{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px 40px;
+  margin-top:clamp(72px,10vw,128px);padding:clamp(32px,5vw,48px) 0 clamp(56px,7vw,80px);border-top:1px solid var(--line)}
+.source p{max-width:52ch;margin:14px 0 0;color:var(--muted)}
+.source .actions{margin:0}
 
-code.inl{font-family:var(--mono);font-size:.88em;background:var(--accent-soft);padding:2px 6px;border-radius:5px;color:var(--text)}
-@media(max-width:600px){section{padding:64px 0}.hero{padding:120px 0 50px}}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}html{scroll-behavior:auto}}
+/* ---- footer ---- */
+footer{padding:44px 0 56px}
+.foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px 32px;font-size:15px}
+.foot .brand{font-size:17px}
+.foot ul{display:flex;flex-wrap:wrap;gap:10px 22px;list-style:none;margin:0;padding:0}
+.foot a{color:var(--muted);text-decoration:none}
+.foot a:hover{color:var(--text);text-decoration:underline}
+.foot .mit{width:100%;color:var(--muted);margin:0;font-size:14px}
+
+@media (max-width:600px){body{font-size:17px}}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition:none!important;animation:none!important}
+}
 </style>
 </head>
-<body id="top">
-<div class="grid-bg" aria-hidden="true"></div>
+<body>
+<a class="skip" href="#main">Skip to content</a>
 
-<nav>
-  <div class="container">
-    <a class="brand" href="#top">
-      <img class="brand-mark" src="./assets/mark.png" width="26" height="26" alt="" />
-      <b>Consens<span class="grad">Flow</span></b>
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="ConsensFlow, back to the top">
+      <img src="./assets/favicon.png" width="26" height="26" alt="" />
+      ConsensFlow
     </a>
-    <div class="nav-links">
+    <nav aria-label="On this page">
       <a href="#how">How it works</a>
-      <a href="#modes">Modes</a>
-      <a href="#screenshots">Screenshots</a>
-      <a href="#commands">Commands</a>
+      <a href="#does">What it does</a>
+      <a href="#harnesses">Harnesses</a>
       <a href="#install">Install</a>
-      <a class="nav-cta" href="https://github.com/ngvoicu/consensflow/releases">download ↗</a>
-    </div>
-  </div>
-</nav>
-
-<main>
-
-<!-- ============ HERO ============ -->
-<header class="hero">
-  <div class="container">
-    <img class="hero-mark" src="./assets/mark.png" width="104" height="104" alt="The ConsensFlow mark: streams from two sides converging into one node" />
-    <div class="badge"><span class="dot"></span> no accounts · no API keys · MIT licensed</div>
-    <h1>Named AI agents your coding agent can <span class="grad">consult</span>.</h1>
-    <p class="sub">You keep a roster — <b>zeus</b> is Claude Opus at max effort, <b>hyperion</b> is GPT 5.6 Sol at ultra. ConsensFlow generates <b>one skill</b> from it and installs that skill into your coding harnesses. From then on you say <b>“ask hyperion whether this migration is safe”</b> — and your coding agent runs it, waits, and reports the answer back, attributed. You never type a command.</p>
-    <p class="plain">Five harnesses, each a real CLI you already have installed and logged into — your Claude subscription, your ChatGPT login, whatever you configured. <b>No accounts, no API keys</b> — ConsensFlow stores no credentials. No daemon, no database: <b>the skill is the product</b>.</p>
-    <div class="hero-cta">
-      <a class="btn btn-primary" href="https://github.com/ngvoicu/consensflow/releases">Download the app ↗</a>
-      <a class="btn btn-ghost" href="#modes">See the three modes</a>
-    </div>
-    <div class="works">
-      <span>CLAUDE CODE</span><span>CODEX</span><span>PI</span><span>OPENCODE</span><span>KIMI CODE</span>
-    </div>
-
-    <div class="flow reveal">
-      <div class="terminal">
-        <div class="term-head"><i></i><i></i><i></i><span>a consult, end to end</span></div>
-        <div class="term-body">
-          <div class="tl"><span class="who you">you say</span><span class="what"><b>“ask hyperion whether this migration is safe”</b></span></div>
-          <div class="tl"><span class="who lead">your agent</span><span class="what"><span class="cmdline">$ cf run @hyperion "is this migration safe?"</span></span></div>
-          <div class="tl"><span class="who agent">hyperion</span><span class="what"><span class="dim">conversation: silver-waves (new) — read it back with: cf catchup silver-waves</span></span></div>
-          <div class="tl"><span class="who lead">your agent</span><span class="what"><span class="cmdline">$ cf catchup silver-waves --wait</span></span></div>
-          <div class="tl"><span class="who agent">hyperion</span><span class="what">“Safe — if the backfill lands before the cutover. Two things to check first…”</span></div>
-          <div class="tl"><span class="who lead">your agent</span><span class="what"><b>reports the answer back to you — attributed to hyperion</b></span></div>
-        </div>
-      </div>
-    </div>
+      <a href="#data">Your data</a>
+    </nav>
+    <a class="button button-go" href="https://github.com/ngvoicu/consensflow/releases">Download</a>
   </div>
 </header>
 
-<!-- ============ HOW IT WORKS ============ -->
-<section id="how" class="divider">
-  <div class="container">
-    <div class="center reveal">
-      <span class="eyebrow">How it works</span>
-      <h2 class="s-title">One roster, one skill, every harness</h2>
-      <p class="s-desc">All five harnesses read the same Agent Skills format. ConsensFlow is the thing that writes it — from your roster, into whichever harnesses your mode puts in scope.</p>
+<main id="main">
+
+<section class="hero" id="top">
+  <div class="wrap">
+    <h1>Run a team of<br> AI coding agents<br> on your project.</h1>
+    <p class="lede">ConsensFlow is a desktop app. You talk to one agent, the Chief of Staff. It plans the work and puts tasks on a board, and the rest of your staff pick them up, each in a terminal of its own. Every result comes back to the board.</p>
+    <p class="lede">It works through the coding agents you already use, Claude Code, Codex, OpenCode, Pi and Devin, with your own logins. It stores no passwords and needs no API keys.</p>
+    <div class="actions">
+      <a class="button button-go" href="https://github.com/ngvoicu/consensflow/releases">Download for Mac or Windows</a>
+      <a class="button button-quiet" href="https://github.com/ngvoicu/consensflow">Source on GitHub</a>
     </div>
-    <div class="cards c3" style="margin-top:44px">
-      <div class="card reveal">
-        <span class="n">01</span>
-        <h3>Build your roster</h3>
-        <p>Each agent is a name, a harness CLI, a model, an effort. Pick from <b>53+ ready-made presets</b> grouped by engine — one click to add — or define your own with any model string its harness accepts.</p>
-      </div>
-      <div class="card reveal">
-        <span class="n">02</span>
-        <h3>One skill installs itself</h3>
-        <p>The moment your first agent exists, ConsensFlow generates a single skill from the roster and installs it. Every change rewrites it — no install step, no sync step. The skill's description names your actual agents, which is what makes a harness reach for it when you say a name.</p>
-      </div>
-      <div class="card reveal">
-        <span class="n">03</span>
-        <h3>Ask by name</h3>
-        <p>Say “ask hyperion whether this migration is safe.” Your coding agent runs the consult, waits for the answer, and reports it back — attributed to hyperion. You never type a command; the commands below are its, not yours.</p>
-      </div>
-    </div>
+    <p class="fine">Mac with Apple silicon, macOS 13.5 or later. Windows 10 or 11, 64-bit. Free and open source under the MIT license.</p>
+
+    <figure class="shot">
+      <img src="./assets/screenshots/board.webp" width="1440" height="1087" fetchpriority="high" decoding="async"
+        alt="The ConsensFlow window on a demo project, pantry. On the left, the projects. At the top of the board, a note from the chief: the shopping list API is in, reviewed, and the page is under way. Below it the board: columns Backlog, Queued, Working, Waiting, Done and Finished, and a row for the Chief of Staff and for each member of the staff, theia (a Codex worker), merope (a Pi worker), audhumla (an OpenCode advisor) and seshat (a Devin reviewer). Tasks T-1 to T-9 sit in the columns of their states." />
+      <figcaption>A demo project's board. Each row is a member of the staff, each column a state of a task, from backlog to finished. When agents are at work, their terminals sit to the right of the board.</figcaption>
+    </figure>
   </div>
 </section>
 
-<!-- ============ MODES ============ -->
-<section id="modes" class="divider">
-  <div class="container">
-    <div class="center reveal">
-      <span class="eyebrow">The three modes</span>
-      <h2 class="s-title">Choosing a mode <em>is</em> the install</h2>
-      <p class="s-desc">A machine runs exactly one of these. A mode is a <b>scope</b>, not a different product: all three install the same generated skill and differ only in who receives it.</p>
-    </div>
-    <div class="cards c3" style="margin-top:44px">
-      <div class="card mode-card reveal">
-        <span class="use">cf use claude</span>
-        <h3>Claude Code leads</h3>
-        <p>Only Claude Code gets the skill. Nothing else on this machine can start a consult.</p>
-        <div class="modeflow" aria-hidden="true">
-          <div class="modeflow-col"><span class="modeflow-head">asks</span><span class="pill lead">Claude Code</span><span class="pill off">Codex</span><span class="pill off">pi</span><span class="pill off">OpenCode</span><span class="pill off">Kimi Code</span></div><span class="modeflow-arrow">→</span><div class="modeflow-col"><span class="modeflow-head">answers</span><span class="pill">Claude Code</span><span class="pill">Codex</span><span class="pill">pi</span><span class="pill">OpenCode</span><span class="pill">Kimi Code</span></div>
-        </div>
-        <ul>
-          <li><b>Leads:</b> Claude Code</li>
-          <li><b>Reaches:</b> agents on all five harnesses</li>
-        </ul>
-        <div class="ex">
-          <span class="ex-q">you, in Claude Code: “ask hyperion whether this migration is safe”</span>
-          <code>cf run @hyperion "is this migration safe?"</code>
-          <span class="ex-a">— the answer streams back, reported to you attributed to <b>hyperion</b> (hyperion runs on Codex; Claude Code never left its window)</span>
-        </div>
-      </div>
-      <div class="card mode-card reveal">
-        <span class="use">cf use pi</span>
-        <h3>pi leads</h3>
-        <p>Only pi gets the skill. Nothing else on this machine can start a consult.</p>
-        <div class="modeflow" aria-hidden="true">
-          <div class="modeflow-col"><span class="modeflow-head">asks</span><span class="pill off">Claude Code</span><span class="pill off">Codex</span><span class="pill lead">pi</span><span class="pill off">OpenCode</span><span class="pill off">Kimi Code</span></div><span class="modeflow-arrow">→</span><div class="modeflow-col"><span class="modeflow-head">answers</span><span class="pill">Claude Code</span><span class="pill">Codex</span><span class="pill">pi</span><span class="pill">OpenCode</span><span class="pill">Kimi Code</span></div>
-        </div>
-        <ul>
-          <li><b>Leads:</b> pi</li>
-          <li><b>Reaches:</b> agents on all five harnesses</li>
-        </ul>
-        <div class="ex">
-          <span class="ex-q">you, in pi: “ask ymir to review this diff”</span>
-          <code>cf run @ymir "review this diff"</code>
-          <span class="ex-a">— the review streams back, attributed to <b>ymir</b> (ymir runs on OpenCode; pi stays the lead)</span>
-        </div>
-      </div>
-      <div class="card mode-card mesh reveal">
-        <span class="tag">Full mesh</span>
-        <span class="use">cf use cmux</span>
-        <h3>cmux mode</h3>
-        <p>Every harness gets the skill. Any of the five can lead — and a consult opens the agent's own window in its cmux pane.</p>
-        <div class="modeflow" aria-hidden="true">
-          <div class="modeflow-col"><span class="modeflow-head">any asks</span><span class="pill lead">Claude Code</span><span class="pill lead">Codex</span><span class="pill lead">pi</span><span class="pill lead">OpenCode</span><span class="pill lead">Kimi Code</span></div><span class="modeflow-arrow">⇄</span><div class="modeflow-col"><span class="modeflow-head">any answers</span><span class="pill">Claude Code</span><span class="pill">Codex</span><span class="pill">pi</span><span class="pill">OpenCode</span><span class="pill">Kimi Code</span></div>
-        </div>
-        <ul>
-          <li><b>Leads:</b> Claude Code, Codex, pi, OpenCode, Kimi Code</li>
-          <li><b>Reaches:</b> agents on all five harnesses</li>
-        </ul>
-        <div class="ex">
-          <span class="ex-q">any harness leads: “ask triton whether the retry path is sound”</span>
-          <code>cf run @triton "is the retry path sound?"</code>
-          <span class="ex-a dim">conversation: bubble-sky (new) — the pane beside you is now <b>triton</b>'s own window; type into it directly</span>
-          <span class="ex-a">your lead follows along: <code>cf catchup bubble-sky --wait</code></span>
-        </div>
-      </div>
-    </div>
-    <div class="mode-key reveal">
-      <b>The mode decides who can lead — never which agents you can reach.</b> In every mode, a lead consults agents running on any of the five harnesses; what changes is how many things on your machine are allowed to be the lead. In the two host modes a consult streams its answer back to the lead — only cmux mode opens a window. Switching takes the skill back from whoever leaves scope, so two paths are never live at once — and a harness that ships its own ConsensFlow is left alone.
-      <div class="cmd">cf mode <span class="dim"># which one is active, and what it costs</span></div>
-    </div>
-  </div>
-</section>
+<section class="section" id="how" aria-labelledby="how-title">
+  <div class="wrap">
+    <h2 id="how-title">How it works</h2>
+    <p class="intro">Everything happens in one window: the board on the left, the agents' terminals on the right. A task moves across the board as the work moves.</p>
 
-<!-- ============ THE AGENT'S WINDOW (cmux) ============ -->
-<section id="window" class="divider">
-  <div class="container">
-    <div class="window-grid">
-      <div class="window-copy reveal">
-        <span class="eyebrow">cmux mode</span>
-        <h2 class="s-title">A consult is the agent's own window</h2>
-        <p>In cmux mode, in a terminal, a consult does not print an answer and exit. It opens the harness's <b>own interface</b> — claude's, pi's, OpenCode's real interface — in its own cmux pane, seeded with your task, and stays. You watch the agent work in its real window and type follow-ups straight into it.</p>
-        <p>Your coding agent follows along by reading the harness's <b>own session</b> with <code class="inl">cf catchup</code> — read-only, never written, and never the screen: screen text is a picture of an answer, not an answer. Codex and Kimi Code can't pre-set an interactive session, so they stream their first answer — then the pane becomes their window too.</p>
-        <ul>
-          <li>One agent can hold <b>several named conversations</b> at once, each in its own pane — “ask ares in bubble-sky about the migration.”</li>
-          <li>A conversation <b>belongs to the session that started it</b> — a new coding session starts fresh, never inherits the last one's.</li>
-          <li><b>The harness owns the session;</b> ConsensFlow only remembers which one. No daemon, no database, no long-lived child.</li>
-        </ul>
-      </div>
-      <div class="reveal">
-        <div class="terminal">
-          <div class="term-head"><i></i><i></i><i></i><span>cmux pane · hyperion's window</span></div>
-          <div class="term-body">
-            <div class="tl"><span class="what"><span class="cmdline">$ cf run @hyperion "is the retry path sound?"</span></span></div>
-            <div class="tl"><span class="what"><span class="dim">conversation: silver-waves (new)</span></span></div>
-            <div class="tl"><span class="what"><span class="dim">read it back with: cf catchup silver-waves</span></span></div>
-            <div class="tl"><span class="what"><span class="dim">… the pane is now hyperion's own window …</span></span></div>
+    <div class="relay">
+      <div class="relay-board" role="img" aria-label="A task card, T-5, Shopping list page, moving across the board's columns: Backlog, Queued, Working, then Done and Finished.">
+        <ol class="relay-cols">
+          <li>Backlog</li><li>Queued</li><li>Working</li><li>Waiting</li><li>Done</li><li>Finished</li>
+        </ol>
+        <div class="relay-lane">
+          <span class="relay-cell"></span><span class="relay-cell"></span><span class="relay-cell"></span>
+          <span class="relay-cell"></span><span class="relay-cell"></span><span class="relay-cell"></span>
+          <div class="relay-card" data-state="working" style="--at:2">
+            <span class="relay-num">T-5</span>
+            <span class="relay-title">Shopping list page</span>
+            <span class="relay-state">Working</span>
           </div>
         </div>
       </div>
+      <div class="relay-foot"><button class="replay" type="button" hidden>Play it again</button></div>
+
+      <ol class="steps">
+        <li class="step">
+          <ul class="step-cols" aria-label="Column"><li style="--dot:var(--s-open)">Backlog</li></ul>
+          <h3>You tell the chief what you want</h3>
+          <p>In its terminal, in your own words. The chief breaks the goal into tasks, does what is its own, and puts the rest on the board.</p>
+        </li>
+        <li class="step">
+          <ul class="step-cols" aria-label="Column"><li style="--dot:var(--s-open)">Queued</li></ul>
+          <h3>A member of the right tier takes it</h3>
+          <p>The chief asks for the kind of member a task needs: critical, complex, standard or light. ConsensFlow gives the task to a free member of that tier.</p>
+        </li>
+        <li class="step" aria-current="step">
+          <ul class="step-cols" aria-label="Column"><li style="--dot:var(--s-working)">Working</li></ul>
+          <h3>It works in a terminal of its own</h3>
+          <p>A fresh terminal of the member's harness, with your login. Open it from the member's row to watch it work, or send it an urgent word.</p>
+        </li>
+        <li class="step">
+          <ul class="step-cols" aria-label="Columns"><li style="--dot:var(--s-done)">Done</li><li style="--dot:var(--s-accepted)">Finished</li></ul>
+          <h3>The result comes back to the board</h3>
+          <p>A reviewer can check it, and the chief accepts it. The window closes, and the task keeps everything its agent wrote.</p>
+        </li>
+      </ol>
     </div>
   </div>
 </section>
 
-<!-- ============ SCREENSHOTS ============ -->
-<section id="screenshots" class="divider">
-  <div class="container">
-    <div class="center reveal">
-      <span class="eyebrow">The app</span>
-      <h2 class="s-title">The app is the installation</h2>
-      <p class="s-desc">One window around the roster: your agents, the ready-made catalog, the mode this machine runs, and the commands — everything else happens from here.</p>
-    </div>
-    <div class="shots" style="margin-top:44px">
-      <figure class="shot reveal">
-        <img src="./assets/screenshots/roster.png" width="1638" height="1442" loading="lazy" decoding="async"
-          alt="The “Your agents” roster editor: ymir on OpenCode, nyx and triton on pi, ilmarinen on Kimi Code — each row shows the agent's model, effort, Edit and Remove buttons, and its cf run @name command" />
-        <figcaption><b>Your agents</b><span>The roster. Each agent is a harness, a model and an effort — and every change rewrites the skill installed in your harnesses.</span></figcaption>
-      </figure>
-      <figure class="shot reveal">
-        <img src="./assets/screenshots/catalog.png" width="1580" height="2182" loading="lazy" decoding="async"
-          alt="The “Ready-made” catalog: 57 preset agents available across every engine, grouped under Claude, Codex and pi headings, each row with its model, effort and an Add button" />
-        <figcaption><b>Ready-made</b><span>The catalog: 57 presets grouped by engine, one click to add. Or define your own with any model string its harness accepts.</span></figcaption>
-      </figure>
-      <figure class="shot reveal">
-        <img src="./assets/screenshots/modes.png" width="1586" height="1450" loading="lazy" decoding="async"
-          alt="The “How this machine consults” panel: Claude Code and pi marked available with a “Use this” button each, cmux (pi, cc, codex, opencode, kimi) marked active, and the installed state below listing all five harnesses carrying the generated skill" />
-        <figcaption><b>How this machine consults</b><span>The three modes as they appear in the app — one active at a time — plus the installed state: every harness, and what it carries.</span></figcaption>
-      </figure>
-      <figure class="shot reveal">
-        <img src="./assets/screenshots/commands.png" width="1592" height="1582" loading="lazy" decoding="async"
-          alt="The “Talking to an agent” reference: cf run, cf sessions, cf catchup, cf last and cf attach with one-line explanations, above the define-your-own-agent form with callsign, harness, model and effort fields" />
-        <figcaption><b>Talking to an agent</b><span>The command reference, and the define-your-own form. Your coding agent runs these for you — they're here so you can drive it yourself.</span></figcaption>
-      </figure>
-      <figure class="shot reveal">
-        <img src="./assets/screenshots/cmux-consult.png" width="3600" height="2266" loading="lazy" decoding="async"
-          alt="One lead and four consulted agents on screen at once: Claude Code leads at the top left, and around it four agent windows — prometheus on GLM 5.3 at max, ares on Grok 4.6 at xhigh, hyperion on GPT 5.6 Sol at ultra and calliope on Claude Fable 5 — each a named conversation in its own pane, mid-answer on the same question" />
-        <figcaption><b>cmux mode, live</b><span>The lead leads at the top left; every other pane is a consulted agent's own window, on a named conversation — GLM 5.3, Grok 4.6, GPT 5.6 Sol and Claude Fable 5, four independent answers to one question. Type into any of them directly; the lead catches up with cf catchup.</span></figcaption>
-      </figure>
-    </div>
-  </div>
-</section>
-
-<!-- ============ COMMANDS ============ -->
-<section id="commands" class="divider">
-  <div class="container">
-    <div class="center reveal">
-      <span class="eyebrow">Talking to an agent</span>
-      <h2 class="s-title">One spawn verb, named conversations</h2>
-      <p class="s-desc">Your coding agent runs these for you — you just say “ask hyperion…”. They are here so you can drive it yourself when you want to.</p>
-    </div>
-    <div class="cmds" style="margin-top:44px">
-      <div class="cmdrow reveal"><code>cf run @name "&lt;task&gt;"</code><p>One consult. In cmux mode, in a terminal, this <b>is</b> the agent's own window — seeded with your task, and you just talk. Everywhere else it streams in the foreground.</p></div>
-      <div class="cmdrow reveal"><code>cf run @name "&lt;task&gt;" --new</code><p>Start a fresh conversation instead, in its own window, and print its name.</p></div>
-      <div class="cmdrow reveal"><code>cf run @name "&lt;task&gt;" --session &lt;name&gt;</code><p>A specific existing conversation, by name — or a fresh one under a name you minted with <code class="inl">cf mint</code>.</p></div>
-      <div class="cmdrow reveal"><code>cf sessions</code><p>The conversations alive in this folder — name, agent, how many turns.</p></div>
-      <div class="cmdrow reveal"><code>cf catchup &lt;name&gt; [--unread] [--wait]</code><p>What has been said, read from the harness's own session — whoever said it, window or not. <code class="inl">--unread</code> is only what's new; <code class="inl">--wait</code> sits out the next answer. This is how your coding agent follows along.</p></div>
-      <div class="cmdrow reveal"><code>cf last &lt;name&gt;</code><p>The last answer a streamed run left, and where its transcript is.</p></div>
-      <div class="cmdrow reveal"><code>cf attach &lt;name&gt;</code><p>Reopen a conversation's window later, in any terminal — whole history in it.</p></div>
-      <div class="cmdrow reveal"><code>cf mode · cf doctor · cf off</code><p>Which mode is active and what it costs; harnesses, agents, skills and runtime checked; every installed file removed — your agents and runs are kept.</p></div>
-    </div>
-    <p class="cmds-note reveal">Each coding session gets its own conversation — <b>nobody inherits yours.</b> Ones somebody else started stay reachable by name.</p>
-  </div>
-</section>
-
-<!-- ============ HONEST DEFAULTS ============ -->
-<section id="safety" class="divider">
-  <div class="container">
-    <div class="center reveal">
-      <span class="eyebrow">Honest defaults</span>
-      <h2 class="s-title">What it does — and what it never does</h2>
-    </div>
-    <div class="cards c2" style="margin-top:44px">
-      <div class="card reveal">
-        <h3>Full permissions, on purpose</h3>
-        <p>Agents run with the harness's full-permissions flag. There is no knob, and that is deliberate: an agent is a helper you hand a task to — it reads and writes files and reaches the network. <b>The protection is the approval gate on keeping its work</b>, not a fence around the run — the skill tells your coding agent never to apply or keep an agent's changes without asking you first.</p>
-      </div>
-      <div class="card reveal">
-        <h3>Nothing rides along</h3>
-        <p>An agent sees the brief, the task, and whatever you hand it with <code class="inl">--handoff-file</code>. <b>No conversation is stashed or attached automatically, in any mode.</b> The handoff is the lead's to give — everywhere, the same way.</p>
-      </div>
-      <div class="card reveal">
-        <h3>Your logins stay yours</h3>
-        <p>Agents run through the harness CLIs you already have installed and logged in. ConsensFlow stores no credentials and asks for none — and the generated commands strip a stray <code class="inl">ANTHROPIC_API_KEY</code> / <code class="inl">OPENAI_API_KEY</code> for the one command they run, so a leftover export cannot silently move a subscription login onto per-token API billing.</p>
-      </div>
-      <div class="card reveal">
-        <h3>Drift is sacred</h3>
-        <p>Ownership is a hash manifest. A file you edited by hand is <b>drifted</b>: never overwritten or deleted without <code class="inl">--force</code>, and a file ConsensFlow did not write is never touched. Claude Code's <code class="inl">settings.json</code> is never written at all.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ INSTALL ============ -->
-<section id="install" class="divider">
-  <div class="container">
-    <div class="center reveal">
-      <span class="eyebrow">Install</span>
-      <h2 class="s-title">Drag it to Applications. Open it.</h2>
-      <p class="s-desc">The app carries its own Node runtime and its own copy of ConsensFlow, so nothing has to be installed first — agents, modes and the skill all happen in its window.</p>
-    </div>
-    <div class="install-grid" style="margin-top:44px">
-      <div class="reveal">
-        <div class="steps">
-          <div class="step"><span class="n">1</span><div class="body"><b>Get the app.</b> Download a release, or build it from source:
-            <div class="cmd">cd app &amp;&amp; npm install &amp;&amp; npm run build <span class="dim"># → the .dmg</span></div>
-          </div></div>
-          <div class="step"><span class="n">2</span><div class="body"><b>Drag it to Applications and open it.</b>
-            <p>Unsigned for now, so macOS blocks the first launch. Right-click → <b>Open</b> still works on older systems; since Sequoia, Gatekeeper no longer offers that for unnotarized apps, so open it once, let it be refused, then allow it in <b>System Settings → Privacy &amp; Security → Open Anyway</b>. About 148 MB installed — nearly all of it the Node runtime.</p>
-          </div></div>
-          <div class="step"><span class="n">3</span><div class="body"><b>Add your first agent.</b>
-            <p>Nothing is seeded. Pick from the ready-made list — zeus, hyperion, athena, endymion… — or define your own. <b>The skill installs itself the moment your first agent exists</b>, and rewrites itself on every change after. Choosing a mode is the install.</p>
-          </div></div>
+<section class="section" id="does" aria-labelledby="does-title">
+  <div class="wrap">
+    <h2 id="does-title">What it does</h2>
+    <div class="does">
+      <div>
+        <div class="group">
+          <h3>The staff</h3>
+          <dl>
+            <dt>One chief, a whole staff</dt>
+            <dd>Give the chief your goal in its terminal. It breaks the work into tasks, does what is its own, and hands the rest to the staff you picked for the project.</dd>
+            <dt>Workers, advisors and reviewers</dt>
+            <dd>Workers do the tasks. Advisors answer the chief's questions with findings. Reviewers check finished work. Advisors and reviewers never change a file.</dd>
+            <dt>Work by tier, not by name</dt>
+            <dd>The chief asks for the kind of member a task needs, and ConsensFlow gives the task to a free member of that tier. Work is shared across the staff.</dd>
+            <dt>Switch the chief anytime</dt>
+            <dd>Move the chief to another agent or harness. The new chief starts with a handoff: what is on the board, your last words, and the history of the chiefs before it.</dd>
+          </dl>
+        </div>
+        <div class="group">
+          <h3>The board</h3>
+          <dl>
+            <dt>A board you can read</dt>
+            <dd>Each task shows who has it and where it stands, from backlog to done. Open a task to read its brief, its result, and everything its agent wrote.</dd>
+            <dt>Each task in its own window</dt>
+            <dd>A task opens a fresh terminal of its agent's harness, and the window closes when the work is done. Its conversation is kept, so a follow-up continues where it stopped.</dd>
+            <dt>Plans with an order</dt>
+            <dd>A task can wait for others to be accepted first, so a plan of many tasks runs in its own order, in parallel where it can.</dd>
+          </dl>
+        </div>
+        <div class="group">
+          <h3>You stay in charge</h3>
+          <dl>
+            <dt>Pause, resume and tell</dt>
+            <dd>Stop any task and keep its window and work, or send an urgent word into a window mid-task.</dd>
+            <dt>Quota-aware</dt>
+            <dd>When an agent runs out of quota, its task waits for the reset or goes to another member of the same tier.</dd>
+            <dt>Your approval, if you want it</dt>
+            <dd>Turn on human approval for a project, and every message between agents waits for you to pass it on.</dd>
+          </dl>
         </div>
       </div>
-      <div class="req reveal">
-        <h3>What it needs</h3>
-        <ul>
-          <li><b>macOS.</b> The app is a Mac app; the window is the product.</li>
-          <li><b>At least one of the five harness CLIs</b> — claude, codex, pi, opencode, kimi — installed and logged in.</li>
-          <li><b>cmux, for cmux mode.</b> The two host modes need no terminal multiplexer at all.</li>
-        </ul>
-        <p class="fine">The roster lives at <code class="inl">~/.consensflow/agents.json</code>, shared by everything that reads it. The <code class="inl">cf</code> launcher goes on your PATH in every mode. <code class="inl">cf off</code> removes every file ConsensFlow installed — your agents and runs are kept. MIT licensed.</p>
+      <div class="figures">
+        <figure class="shot">
+          <img src="./assets/screenshots/task.webp" width="540" height="461" loading="lazy" decoding="async"
+            alt="Task T-2, Shopping list API, open: the chief asked a Codex worker's session, and the task is accepted. Its story shows the request, then the result: three routes, 18 new tests, and the test suite passing. Under it, folded, what the agent did, 31 items, and the buttons Show terminal and Delete task." />
+          <figcaption>A task, open: its brief and its result, and, folded under them, everything its agent did.</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="./assets/screenshots/staff.webp" width="640" height="834" loading="lazy" decoding="async"
+            alt="The Project staff dialog: merope and theia as workers, audhumla as advisor, seshat as reviewer, each with its model, harness, effort and tier; a form to add a member by role and agent; and the Human approval required switch." />
+          <figcaption>The project's staff: each member's agent, harness, model and tier, and the role it holds.</figcaption>
+        </figure>
       </div>
-    </div>
-    <div class="mode-key reveal">
-      <b>Coming from the old Claude Code plugin or the pi extension? Those are deprecated.</b> They were how ConsensFlow worked before the app — now the app is the whole thing: one install gives you the roster, the catalog, the three modes and the generated skill. On a machine that still has them, ConsensFlow takes their leftovers back — and a harness that ships its own ConsensFlow is left alone, never given a second skill with the same name.
     </div>
   </div>
 </section>
 
-<!-- ============ CTA ============ -->
-<div class="container reveal">
-  <div class="cta">
-    <h2>Keep a roster. Ask by name.</h2>
-    <p>One skill, generated from your agents, installed into every harness you choose. No accounts, no API keys, no daemon — and MIT licensed.</p>
-    <div class="hero-cta" style="margin-bottom:0">
-      <a class="btn btn-primary" href="https://github.com/ngvoicu/consensflow/releases">Download ConsensFlow ↗</a>
-      <a class="btn btn-ghost" href="https://github.com/ngvoicu/consensflow">View on GitHub ↗</a>
+<section class="section" id="harnesses" aria-labelledby="harnesses-title">
+  <div class="wrap">
+    <h2 id="harnesses-title">Works with Claude Code, Codex, OpenCode, Pi and Devin</h2>
+    <p class="intro">ConsensFlow runs each agent through its harness's own command-line tool. Install the ones you want to use and sign in to each once in a terminal. You don't need all five: <strong>one is enough to start.</strong></p>
+    <div class="split">
+      <div>
+        <table class="harnesses">
+          <thead><tr><th scope="col">Harness</th><th scope="col">Install</th></tr></thead>
+          <tbody>
+            <tr><td>Claude Code</td><td><code>npm install -g @anthropic-ai/claude-code</code><span class="or">, or Anthropic's installer</span></td></tr>
+            <tr><td>Codex</td><td><code>npm install -g @openai/codex</code><span class="or">, or its own installer</span></td></tr>
+            <tr><td>OpenCode</td><td><code>npm install -g opencode-ai</code><span class="or">, or its own installer</span></td></tr>
+            <tr><td>Pi</td><td><code>npm install -g @earendil-works/pi-coding-agent</code><span class="or">, or its own installer</span></td></tr>
+            <tr><td>Devin</td><td><span class="or">Devin's own CLI installer, version 3000.10.21 or later</span></td></tr>
+          </tbody>
+        </table>
+        <p class="after-table"><strong>Settings → Harnesses</strong> shows which are installed, their versions, and whether ConsensFlow is set up for each. ConsensFlow prepares what it needs for a harness by itself, the first time one of its windows opens.</p>
+        <p class="after-table"><strong>Settings → Agents</strong> lists ready-made agents, each a harness, a model and an effort, and lets you define your own with any model your harness accepts.</p>
+      </div>
+      <figure class="shot">
+        <img src="./assets/screenshots/agents.webp" width="640" height="1000" loading="lazy" decoding="async"
+          alt="The Agents screen under Settings, grouped by work tier: search, filters for agents and tiers, and the first critical-work agents, calliope on Claude Code and thoth on Devin, both Claude Fable 5.1 at max effort, each with the account it uses." />
+        <figcaption>Settings → Agents, grouped by work tier: the tier is what a task finds an agent by.</figcaption>
+      </figure>
     </div>
   </div>
-</div>
+</section>
 
-<!-- ============ FOOTER ============ -->
+<section class="section" id="install" aria-labelledby="install-title">
+  <div class="wrap">
+    <h2 id="install-title">Install</h2>
+    <p class="intro">Download the latest version from <a href="https://github.com/ngvoicu/consensflow/releases">the releases on GitHub</a>; for now every release is an alpha, marked Pre-release. Everything ConsensFlow needs comes with it. The only other things to install are the harnesses you want to use.</p>
+
+    <div class="platforms">
+      <div class="platform">
+        <h3>Mac</h3>
+        <p class="needs">Apple silicon, macOS 13.5 or later</p>
+        <p>Download the <code>.dmg</code>, open it, and drag ConsensFlow to Applications. The app is signed and notarized by Apple, so it opens like any other app.</p>
+        <p><strong>Updates.</strong> ConsensFlow checks for updates by itself, and you can check from <strong>ConsensFlow → Check for Updates…</strong> Updates install in the app.</p>
+      </div>
+      <div class="platform">
+        <h3>Windows</h3>
+        <p class="needs">Windows 10 or 11, 64-bit</p>
+        <ul>
+          <li><strong>Installer:</strong> run <code>ConsensFlow_&lt;version&gt;_x64-setup.exe</code>.</li>
+          <li><strong>Portable:</strong> <code>ConsensFlow_&lt;version&gt;_x64-portable.exe</code> is a single file you can run from anywhere, with nothing to install.</li>
+        </ul>
+        <p class="caution"><strong>SmartScreen asks the first time</strong> you run it, because the app is not signed yet: choose <strong>More info → Run anyway</strong>.</p>
+        <p><strong>Updates.</strong> Check for Updates tells you when a new version is out and opens its download page.</p>
+      </div>
+    </div>
+
+    <div class="started split">
+      <div>
+        <h3>Getting started</h3>
+        <ol>
+          <li><span>Install at least one harness and sign in to it.</span></li>
+          <li><span>Open ConsensFlow and choose <strong>New project</strong>: pick the project's folder, the agent the chief runs on, and the staff.</span></li>
+          <li><span>Tell the chief what you want, in its terminal.</span></li>
+          <li><span>Watch the board. Open a task to read it, or open a member's terminal from its row to see it work.</span></li>
+        </ol>
+      </div>
+      <figure class="shot">
+        <img src="./assets/screenshots/new-project.webp" width="640" height="938" loading="lazy" decoding="async"
+          alt="The New project dialog: the project folder, the chief running on zeus (Claude Opus 5.5 on Claude Code, max effort), the staff of four filled in from the last project with a role each, a form to add another, the Human approval required switch, and Start project." />
+        <figcaption>New project: its folder, the agent the chief runs on, and its staff, filled in from the last project.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="data" aria-labelledby="data-title">
+  <div class="wrap">
+    <h2 id="data-title">Your data, and what the agents can do</h2>
+    <ul class="data">
+      <li>ConsensFlow keeps its data in <code>~/.consensflow</code> (on Windows, <code>%USERPROFILE%\.consensflow</code>).</li>
+      <li>It never sees your passwords: each agent uses its own harness's login.</li>
+      <li class="risk"><strong>Agents work with full permissions</strong> in their windows, as they would if you ran them yourself. Your protection is the review, the chief's acceptance and, if you turn it on, your approval. Use ConsensFlow on projects kept in version control.</li>
+      <li class="risk"><strong>Every agent starts with its harness's MCP servers and connectors</strong> (your browser, your accounts, your IDE), the chief and its staff alike, as it would if you ran it yourself. The staff use them with full permissions while you aren't watching, so keep in a harness only the servers you would let any agent use.</li>
+    </ul>
+  </div>
+</section>
+
+<section aria-labelledby="source-title">
+  <div class="wrap">
+    <div class="source">
+      <div>
+        <h2 id="source-title">Open source, MIT</h2>
+        <p>ConsensFlow is free, and its source is on GitHub under the MIT license, with every release and its notes. Its engine is written in Rust.</p>
+      </div>
+      <div class="actions">
+        <a class="button button-go" href="https://github.com/ngvoicu/consensflow/releases">Download</a>
+        <a class="button button-quiet" href="https://github.com/ngvoicu/consensflow">Source on GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
 <!-- ===== ngvoicu consulting section — shared across all ngvoicu sites, keep in sync ===== -->
 <section class="ngv-consult" id="ngv-consulting">
   <style>
@@ -707,46 +593,83 @@ code.inl{font-family:var(--mono);font-size:.88em;background:var(--accent-soft);p
 </section>
 
 <footer>
-  <div class="foot">
-    <div class="foot-brand">
-      <img src="./assets/mark.png" alt="ConsensFlow mark" width="28" height="28" />
-      <span class="wm">Consens<span class="grad">Flow</span></span>
-      <span class="tag">· The council your coding agent never had.</span>
-    </div>
-    <div class="foot-links">
-      <a href="https://github.com/ngvoicu/consensflow" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg> consensflow</a>
-      <a href="https://github.com/ngvoicu" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg> ngvoicu</a>
-      <a href="https://www.linkedin.com/in/ngvoicu/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a>
-      <a href="https://kluris.ngvoicu.dev" target="_blank" rel="noopener">Kluris — the SME your team never had</a>
-      <a href="https://specmint.ngvoicu.dev" target="_blank" rel="noopener">Specmint — spec-driven development for AI coding agents</a>
-    </div>
-    <p class="foot-mit">Open source and free forever &middot; MIT License</p>
+  <div class="wrap foot">
+    <a class="brand" href="#top" aria-label="ConsensFlow, back to the top">
+      <img src="./assets/favicon.png" width="26" height="26" alt="" />
+      ConsensFlow
+    </a>
+    <ul>
+      <li><a href="https://github.com/ngvoicu/consensflow">Source on GitHub</a></li>
+      <li><a href="https://github.com/ngvoicu/consensflow/releases">Releases</a></li>
+      <li><a href="https://ngvoicu.dev/">ngvoicu.dev</a></li>
+      <li><a href="https://kluris.ngvoicu.dev">Kluris</a></li>
+      <li><a href="https://specmint.ngvoicu.dev">Specmint</a></li>
+      <li><a href="https://www.linkedin.com/in/ngvoicu/">LinkedIn</a></li>
+    </ul>
+    <p class="mit">ConsensFlow is open source under the <a href="https://github.com/ngvoicu/consensflow/blob/main/LICENSE">MIT license</a>. Made by <a href="https://ngvoicu.dev/">ngvoicu.dev</a>.</p>
   </div>
 </footer>
-</main>
 
 <script>
-// reveal-on-scroll; skipped entirely under prefers-reduced-motion (CSS forces .reveal visible)
+// How it works: the card goes across the board once, as the steps say, when
+// the board comes into view; "Play it again" runs it again. With reduced
+// motion it stays where the journey ends. Without this script it shows at work.
 (function(){
+  var relay = document.querySelector('.relay');
+  if (!relay) return;
+  var card = relay.querySelector('.relay-card');
+  var said = card.querySelector('.relay-state');
+  var steps = relay.querySelectorAll('.step');
+  var replay = relay.querySelector('.replay');
+  // Each stop: the column the card is in, its state as the board says it, and the step that tells it.
+  var STOPS = [
+    { at: 0, state: 'open', label: 'Open', step: 0 },
+    { at: 1, state: 'queued', label: 'Queued', step: 1 },
+    { at: 2, state: 'working', label: 'Working', step: 2 },
+    { at: 4, state: 'done', label: 'Done', step: 3 },
+    { at: 5, state: 'accepted', label: 'Accepted', step: 3 }
+  ];
+  var timer = null;
+  function show(stop){
+    card.style.setProperty('--at', stop.at);
+    card.dataset.state = stop.state;
+    said.textContent = stop.label;
+    Array.prototype.forEach.call(steps, function(step, n){
+      if (n === stop.step) step.setAttribute('aria-current', 'step');
+      else step.removeAttribute('aria-current');
+    });
+  }
+  function play(){
+    clearTimeout(timer);
+    replay.hidden = true;
+    var n = 0;
+    (function next(){
+      show(STOPS[n]);
+      n += 1;
+      if (n < STOPS.length) timer = setTimeout(next, n === 1 ? 900 : 1500);
+      else timer = setTimeout(function(){ replay.hidden = false; }, 900);
+    })();
+  }
   if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
-    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+    show(STOPS[STOPS.length - 1]);
     return;
   }
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  show(STOPS[0]);
+  replay.addEventListener('click', play);
+  var watch = new IntersectionObserver(function(entries){
+    if (!entries.some(function(entry){ return entry.isIntersecting; })) return;
+    watch.disconnect();
+    play();
+  }, { threshold: 0.6 });
+  watch.observe(relay.querySelector('.relay-board'));
 })();
 
-// The captures are real terminal text, and the two-column layout shrinks them
-// to where that text is the one thing you cannot read. Click (or Enter/Space)
-// opens the full image at the size the screen allows; Esc, the backdrop, the
-// image itself and the button all close it — `dialog` gives us Esc and the
-// focus trap for nothing.
+// The captures are the app's own text, at the size the page can give them;
+// a click (or Enter or Space) opens one at full size. Esc, the backdrop, the
+// image and the button close it; a dialog gives Esc and the focus trap.
 (function(){
   var shots = document.querySelectorAll('.shot img');
   if (!shots.length || typeof HTMLDialogElement === 'undefined') return;
-
   var box = document.createElement('dialog');
   box.className = 'lightbox';
   box.setAttribute('aria-label', 'Screenshot, full size');
@@ -754,24 +677,22 @@ code.inl{font-family:var(--mono);font-size:.88em;background:var(--accent-soft);p
   var close = document.createElement('button');
   close.type = 'button';
   close.className = 'lightbox-close';
-  close.textContent = 'Close ✕';
+  close.textContent = 'Close';
   box.append(close, full);
   document.body.append(box);
-
   box.addEventListener('click', function(){ box.close(); });
   box.addEventListener('close', function(){ full.removeAttribute('src'); });
-
-  var open = function(img){
+  function open(img){
     full.src = img.currentSrc || img.src;
     full.alt = img.alt;
     box.showModal();
-  };
-
+  }
   Array.prototype.forEach.call(shots, function(img){
-    // Made interactive here rather than in the markup: no script, no promise.
+    // Made interactive here, not in the markup: no script, no promise of a click.
     img.classList.add('zoomable');
     img.tabIndex = 0;
     img.setAttribute('role', 'button');
+    img.setAttribute('aria-label', 'Open full size: ' + img.alt);
     img.addEventListener('click', function(){ open(img); });
     img.addEventListener('keydown', function(e){
       if (e.key !== 'Enter' && e.key !== ' ') return;

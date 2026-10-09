@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="robots" content="noindex" />
+<title>ConsensFlow share card</title>
+<style>
+@font-face{font-family:'Archivo';font-weight:400;src:url('../assets/fonts/archivo-400.woff2') format('woff2')}
+@font-face{font-family:'Archivo';font-weight:800;src:url('../assets/fonts/archivo-800.woff2') format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-weight:500;src:url('../assets/fonts/ibm-plex-mono-500.woff2') format('woff2')}
+*{box-sizing:border-box}
+html,body{margin:0}
+/* The share card, 1200 by 630: what ConsensFlow is, beside the app's own board. */
+.card{position:relative;width:1200px;height:630px;overflow:hidden;color:#e9f1ef;font-family:'Archivo',sans-serif;
+  background:linear-gradient(90deg,rgba(99,199,178,.045) 1px,transparent 1px) 0 0/24px 24px,#08181d}
+.words{position:absolute;left:72px;top:64px;width:560px}
+.brand{display:flex;align-items:center;gap:14px;font-weight:800;font-size:30px;letter-spacing:-.01em}
+.brand img{width:52px;height:52px;border-radius:12px}
+h1{margin:44px 0 0;font-weight:800;font-size:60px;line-height:1.02;letter-spacing:-.035em}
+p{margin:26px 0 0;font-size:24px;line-height:1.45;color:#9db4b8;max-width:30ch}
+.url{position:absolute;left:72px;bottom:56px;font:500 21px 'IBM Plex Mono',monospace;color:#63c7b2}
+.board{position:absolute;left:668px;top:72px;width:760px;height:620px;border:1px solid #28464d;border-radius:12px;overflow:hidden;
+  box-shadow:0 40px 90px -40px rgba(0,0,0,.9)}
+/* The board from its column heads and its staff column on, at 0.7 of the capture. */
+.board img{display:block;width:1008px;margin:-173px 0 0 -168px}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="words">
+    <div class="brand"><img src="../assets/favicon.png" alt="" />ConsensFlow</div>
+    <h1>Run a team of AI coding agents on your project.</h1>
+    <p>A desktop app for Mac and Windows. Claude Code, Codex, OpenCode, Pi and Devin, with your own logins.</p>
+  </div>
+  <div class="url">consensflow.ngvoicu.dev</div>
+  <div class="board"><img src="../assets/screenshots/board.webp" alt="" /></div>
+</div>
+</body>
+</html>
