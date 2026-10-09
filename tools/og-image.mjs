@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Makes assets/og-image.png, the share card (1200x630), from tools/og-image.html:
- * the page's own fonts and mark, beside a crop of assets/screenshots/board.webp.
+ * the page's own fonts and mark, beside the board of assets/screenshots/window.webp.
  * Run it after capture-screenshots.mjs, with the same checkout (for Playwright):
  *
  *   node tools/og-image.mjs ../consensflow

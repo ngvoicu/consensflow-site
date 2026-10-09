@@ -24,6 +24,19 @@ same zero-build, single-file static stack.
 - The "How it works" strip plays once when it comes into view (a task card crossing the board's
   columns); with reduced motion it stays at its last step.
 
+## Copy
+
+The page says what the app's README and its releases support, from the user's side. On what the
+agents can do, it says:
+
+- Agents work with full permissions in their windows, as they would if you ran them yourself. Your
+  protection is the review, the chief's acceptance and, if you turn it on, your approval. Use
+  ConsensFlow on projects kept in version control.
+- Every agent, the chief and its staff alike, starts with its harness's MCP servers and connectors,
+  skills, settings and customizations, as it would if you ran it yourself. The staff use them with
+  full permissions while you aren't watching, so keep in a harness only what you would let any agent
+  use.
+
 ## Local dev
 
 ```bash
@@ -43,7 +56,7 @@ python3 -m http.server 4500   # then open http://localhost:4500
 
 The app's window is a web page (`app/ui` in the app repo) that talks to its daemon through the app's
 bridge. The capture serves that page from a checkout of the app, as the app's own page tests do, and
-opens it in Chromium:
+opens it in Chromium with its real terminals (xterm, as the app has them):
 
 ```bash
 # in the app repo, once: npm run build:cf   (puts the built cf in bin/)
@@ -56,9 +69,23 @@ Playwright comes from the app repo's `app/node_modules`; nothing is installed he
 
 - The board, a task, the staff and New project show the demo in `tools/demo.mjs` (a small web app,
   "pantry", with a chief on Claude Code and a staff on Codex, Pi, OpenCode and Devin), answered to
-  the page by the same stand-in for the app that `app/tests/core-page.spec.mjs` uses. No agent runs,
-  so no terminal is shown: the terminals are folded in the board shot, and what the board says of
-  windows (a lamp at work, "1 terminal open", a task's 31 items) is the demo's, not a live run's.
+  the page by the same stand-in for the app that `app/tests/core-page.spec.mjs` uses. Its ledger
+  reads as the daemon's would: messages numbered in the order they were sent, and T-2's thread (a
+  brief, the worker's question and the chief's answer, a result, the chief's follow-up after a
+  review, the second result) in the shape `task.get` gives it.
+- The terminals show screens written for the demo in `tools/screens.mjs`: the chief's Claude Code
+  putting tasks on the board with `cf task add`, and a Codex, a Pi and an OpenCode window of the staff,
+  each drawn as that harness draws a session at work, with the `cf` commands and outputs the app
+  really has. The stand-in hands each terminal its screen as the app hands it a window's output, for
+  the size the terminal took. **No harness runs**: the screens, and what the board says of windows (a
+  lamp at work, "1 terminal open", a task's 58 items), are the demo's, not a live run's.
+- Switching the chief: `switch-chief.webp` is the page's Switch the chief dialog with an agent
+  picked; the stand-in then switches as the daemon would, and `new-chief.webp` is the chief's new
+  window, on Codex, opening on its handoff, written as `crates/cf-engine/src/handoff.rs` writes one.
+- The page lays its terminals out in one row that scrolls sideways: with the board folded, the chief
+  takes two thirds of it and each other window a third, so the chief and one more window show at
+  once. `chief-and-staff.webp` is that row from its start, `staff-windows.webp` the same row scrolled
+  to the staff's three windows.
 - The agents the pickers offer, and Settings → Agents, come from the real daemon (`cf ui`), started
   on a home made under the system's temp folder and deleted after.
 - Nothing reads or writes `~/.consensflow` or the harnesses on the machine, and the demo shows no

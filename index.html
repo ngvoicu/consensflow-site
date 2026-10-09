@@ -20,7 +20,7 @@
   "operatingSystem": "macOS, Windows",
   "softwareRequirements": "macOS 13.5 or later on Apple silicon, or Windows 10 or 11 (64-bit); at least one of Claude Code, Codex, OpenCode, Pi or Devin",
   "downloadUrl": "https://github.com/ngvoicu/consensflow/releases",
-  "screenshot": "https://consensflow.ngvoicu.dev/assets/screenshots/board.webp",
+  "screenshot": "https://consensflow.ngvoicu.dev/assets/screenshots/window.webp",
   "license": "https://opensource.org/licenses/MIT",
   "isAccessibleForFree": true,
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
@@ -172,6 +172,7 @@ main h3{font-size:1.3rem;line-height:1.25;letter-spacing:-.015em}
 .shot img{border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);background:var(--b-ink)}
 .shot figcaption{font-size:15px;line-height:1.5;color:var(--muted);margin:14px 0 0;max-width:68ch}
 .hero .shot{margin-top:clamp(40px,6vw,64px)}
+.shot.wide{margin-top:clamp(40px,5vw,56px)}
 /* Full size on click: the affordance comes with the script that opens it. */
 .shot img.zoomable{cursor:zoom-in}
 .lightbox{border:0;padding:0;background:transparent;width:100vw;height:100vh;max-width:100vw;max-height:100vh;overflow:auto}
@@ -243,14 +244,16 @@ main h3{font-size:1.3rem;line-height:1.25;letter-spacing:-.015em}
 }
 
 /* ---- what it does ---- */
-.does{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(32px,5vw,72px);margin-top:48px;align-items:start}
-.group + .group{margin-top:44px}
+/* A row per group: its items beside the captures that show them. */
+.does{display:grid;gap:clamp(48px,6vw,72px);margin-top:48px}
+.does-row{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(32px,5vw,72px);align-items:start}
 .group h3{font-size:1.45rem;padding-bottom:12px;border-bottom:1px solid var(--line)}
 .group dl{margin:0}
 .group dt{font-weight:700;margin:20px 0 4px}
 .group dd{margin:0;color:var(--muted);max-width:60ch}
-.figures{display:grid;gap:40px;position:sticky;top:92px}
-@media (max-width:900px){.does{grid-template-columns:minmax(0,1fr)}.figures{position:static}}
+/* Switching the chief, under the item that says it: the dialog, and the new chief's window. */
+.switching .shot:first-child{max-width:600px}
+@media (max-width:900px){.does-row{grid-template-columns:minmax(0,1fr)}}
 
 /* ---- harnesses ---- */
 .split{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(32px,5vw,72px);margin-top:48px;align-items:start}
@@ -352,9 +355,9 @@ footer{padding:44px 0 56px}
     <p class="fine">Mac with Apple silicon, macOS 13.5 or later. Windows 10 or 11, 64-bit. Free and open source under the MIT license.</p>
 
     <figure class="shot">
-      <img src="./assets/screenshots/board.webp" width="1440" height="1087" fetchpriority="high" decoding="async"
-        alt="The ConsensFlow window on a demo project, pantry. On the left, the projects. At the top of the board, a note from the chief: the shopping list API is in, reviewed, and the page is under way. Below it the board: columns Backlog, Queued, Working, Waiting, Done and Finished, and a row for the Chief of Staff and for each member of the staff, theia (a Codex worker), merope (a Pi worker), audhumla (an OpenCode advisor) and seshat (a Devin reviewer). Tasks T-1 to T-9 sit in the columns of their states." />
-      <figcaption>A demo project's board. Each row is a member of the staff, each column a state of a task, from backlog to finished. When agents are at work, their terminals sit to the right of the board.</figcaption>
+      <img src="./assets/screenshots/window.webp" width="1840" height="1270" fetchpriority="high" decoding="async"
+        alt="The ConsensFlow window on a demo project, pantry. On the left, the board: a note from the chief at the top, then columns Backlog, Queued, Working, Waiting, Done and Finished, and a row for the chief and for each member of the staff: theia on Codex, merope on Pi, audhumla on OpenCode, and seshat on Devin as reviewer and as advisor. Tasks T-1 to T-10 sit in the columns of their states. On the right, the chief's terminal: Claude Code reading an advisor's result and running cf task add three times to put the next tasks on the board." />
+      <figcaption>A demo project. The board on the left: a row for each member of the staff, a column for each state of a task. The chief's terminal on the right: Claude Code reads an advisor's result and puts the next three tasks on the board.</figcaption>
     </figure>
   </div>
 </section>
@@ -404,6 +407,12 @@ footer{padding:44px 0 56px}
         </li>
       </ol>
     </div>
+
+    <figure class="shot wide">
+      <img src="./assets/screenshots/chief-and-staff.webp" width="1600" height="1000" loading="lazy" decoding="async"
+        alt="The ConsensFlow window with the board folded and the terminals side by side. On the left, the chief's Claude Code: results arriving from ConsensFlow, cf task accept, a note to the human, and cf task add for the next tasks. On the right, a worker's Codex session on T-4, the shopping list page: its brief from the chief, the files it read and edited, its tests passing, and Working." />
+      <figcaption>The board folded, the terminals have the window: the chief's Claude Code beside a worker's Codex session at work on the list page. The dock scrolls sideways to the other windows.</figcaption>
+    </figure>
   </div>
 </section>
 
@@ -411,7 +420,7 @@ footer{padding:44px 0 56px}
   <div class="wrap">
     <h2 id="does-title">What it does</h2>
     <div class="does">
-      <div>
+      <div class="does-row">
         <div class="group">
           <h3>The staff</h3>
           <dl>
@@ -425,6 +434,27 @@ footer{padding:44px 0 56px}
             <dd>Move the chief to another agent or harness. The new chief starts with a handoff: what is on the board, your last words, and the history of the chiefs before it.</dd>
           </dl>
         </div>
+        <figure class="shot">
+          <img src="./assets/screenshots/staff.webp" width="640" height="896" loading="lazy" decoding="async"
+            alt="The Project staff dialog: merope, theia and audhumla as workers, seshat as reviewer and as advisor, each with its model, harness, effort and tier; a form to add a member by role and agent; and the Human approval required switch." />
+          <figcaption>The project's staff: each member's agent, harness, model and tier, and the role it holds. One member may hold more than one.</figcaption>
+        </figure>
+      </div>
+
+      <div class="does-row switching">
+        <figure class="shot">
+          <img src="./assets/screenshots/switch-chief.webp" width="640" height="436" loading="lazy" decoding="async"
+            alt="The Switch the chief dialog: the chief runs on hyperion, GPT-6.1 Sol on Codex at max effort, picked from the saved agents; Let it finish its turn, then switch, chosen; First ask the chief to write down where things stand, checked; Cancel and Switch." />
+          <figcaption>Switching the chief, from its card: the agent it goes on, and whether it finishes its turn first.</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="./assets/screenshots/new-chief.webp" width="628" height="952" loading="lazy" decoding="async"
+            alt="The chief's terminal after the switch, now Codex on gpt-6.1-sol. Its first message is ConsensFlow's handoff: you are the chief now, switched from Claude Code (zeus) to Codex (hyperion); read cf history before you act; the human's last message; and what waits, a question from merope on T-5. Then the new chief runs cf history, cf task list and cf answer, and tells the human it has taken over and what comes next." />
+          <figcaption>The new chief, here on Codex, opens on its handoff: what you said last, what waits on the board, and where to read the chiefs before it.</figcaption>
+        </figure>
+      </div>
+
+      <div class="does-row">
         <div class="group">
           <h3>The board</h3>
           <dl>
@@ -436,6 +466,14 @@ footer{padding:44px 0 56px}
             <dd>A task can wait for others to be accepted first, so a plan of many tasks runs in its own order, in parallel where it can.</dd>
           </dl>
         </div>
+        <figure class="shot">
+          <img src="./assets/screenshots/task.webp" width="540" height="645" loading="lazy" decoding="async"
+            alt="Task T-2, Shopping list API, open and accepted. Its story: Request 1 from the chief; a question from the worker, whether clearing should delete the checked rows, and the chief's answer, delete them; Result 1; Request 2, the chief's follow-up after a review found two things to fix; and Result 2, both fixed, 64 tests passing. Under it, folded, what the agent did, 58 items, and the buttons Show terminal and Delete task." />
+          <figcaption>A task after some back and forth: the brief, the worker's question and the chief's answer, a result, the chief's follow-up after a review, and the second result.</figcaption>
+        </figure>
+      </div>
+
+      <div class="does-row">
         <div class="group">
           <h3>You stay in charge</h3>
           <dl>
@@ -448,19 +486,13 @@ footer{padding:44px 0 56px}
           </dl>
         </div>
       </div>
-      <div class="figures">
-        <figure class="shot">
-          <img src="./assets/screenshots/task.webp" width="540" height="461" loading="lazy" decoding="async"
-            alt="Task T-2, Shopping list API, open: the chief asked a Codex worker's session, and the task is accepted. Its story shows the request, then the result: three routes, 18 new tests, and the test suite passing. Under it, folded, what the agent did, 31 items, and the buttons Show terminal and Delete task." />
-          <figcaption>A task, open: its brief and its result, and, folded under them, everything its agent did.</figcaption>
-        </figure>
-        <figure class="shot">
-          <img src="./assets/screenshots/staff.webp" width="640" height="834" loading="lazy" decoding="async"
-            alt="The Project staff dialog: merope and theia as workers, audhumla as advisor, seshat as reviewer, each with its model, harness, effort and tier; a form to add a member by role and agent; and the Human approval required switch." />
-          <figcaption>The project's staff: each member's agent, harness, model and tier, and the role it holds.</figcaption>
-        </figure>
-      </div>
     </div>
+
+    <figure class="shot wide">
+      <img src="./assets/screenshots/staff-windows.webp" width="1600" height="1000" loading="lazy" decoding="async"
+        alt="Three terminals of the staff side by side, each on its task. A Codex session building the shopping list page: the files it edited, its tests, and Working. A Pi session on the decimal bug: the grep and the file that round quantities, then cf ask putting a question to the chief, and the agent waiting for the answer. An OpenCode session seeding a demo household: the files it read and wrote, npm run seed twice, and its progress." />
+      <figcaption>Each task in its own window: a worker's Codex session on the list page, a Pi session that asked the chief a question and waits for the answer, and an OpenCode session seeding test data.</figcaption>
+    </figure>
   </div>
 </section>
 
@@ -542,7 +574,7 @@ footer{padding:44px 0 56px}
       <li>ConsensFlow keeps its data in <code>~/.consensflow</code> (on Windows, <code>%USERPROFILE%\.consensflow</code>).</li>
       <li>It never sees your passwords: each agent uses its own harness's login.</li>
       <li class="risk"><strong>Agents work with full permissions</strong> in their windows, as they would if you ran them yourself. Your protection is the review, the chief's acceptance and, if you turn it on, your approval. Use ConsensFlow on projects kept in version control.</li>
-      <li class="risk"><strong>Every agent starts with its harness's MCP servers and connectors</strong> (your browser, your accounts, your IDE), the chief and its staff alike, as it would if you ran it yourself. The staff use them with full permissions while you aren't watching, so keep in a harness only the servers you would let any agent use.</li>
+      <li class="risk"><strong>Every agent, the chief and its staff alike, starts with its harness's MCP servers and connectors, skills, settings and customizations</strong>, as it would if you ran it yourself. The staff use them with full permissions while you aren't watching, so keep in a harness only what you would let any agent use.</li>
     </ul>
   </div>
 </section>
