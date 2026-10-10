@@ -1,9 +1,10 @@
 # consensflow-site
 
-The website of **ConsensFlow**, a desktop app for Mac and Windows that runs a team of AI coding agents
-on your project: you talk to a Chief of Staff, it plans the work on a board, and its staff (workers,
-advisors and reviewers) take the tasks, each in its own terminal of Claude Code, Codex, OpenCode, Pi
-or Devin. Served at [consensflow.ngvoicu.dev](https://consensflow.ngvoicu.dev); the app itself is
+The website of **ConsensFlow**, a desktop app for Mac and Windows that runs a software factory on
+your project, staffed by AI coding agents: you give the goal to a Chief of Staff, it plans the work
+on a board, and its staff (workers, advisors and reviewers) take the tasks, each in its own terminal
+of Claude Code, Codex, OpenCode, Pi or Devin. Served at
+[consensflow.ngvoicu.dev](https://consensflow.ngvoicu.dev); the app itself is
 [ngvoicu/consensflow](https://github.com/ngvoicu/consensflow).
 
 Sibling of [kluris-site](https://kluris.ngvoicu.dev) and [specmint-site](https://specmint.ngvoicu.dev);
@@ -19,15 +20,29 @@ same zero-build, single-file static stack.
   buoy `#FF7868`, slate `#3D5B62`. On the page a colour means what it means on the app's board:
   slate is a task in the backlog, seafoam one at work, amber one waiting, foam one done, deep seafoam
   `#2B7569` one finished, buoy a warning.
-- Dark and light themes via `prefers-color-scheme`. The app's board is dark-only, so the screenshots
-  and the "How it works" strip stay dark in both.
+- Dark and light themes via `prefers-color-scheme`. The app's board is dark-only, so the screenshots,
+  the "How it works" strip and the factory diagram stay dark in both.
 - The "How it works" strip plays once when it comes into view (a task card crossing the board's
   columns); with reduced motion it stays at its last step.
+- The factory diagram ("A software factory": who talks to whom) is inline SVG, drawn by hand in the
+  board's language: members as the board's staff rows (a lamp, a name in mono), messages as arrows
+  labelled with what they carry, a question in the board's amber. Two drawings of the same thing,
+  wide (`.civ-wide`, a star around the chief) and tall (`.civ-tall`, one line down from the chief),
+  swapped by a media query at 1080px; each carries a `<title>` and a `<desc>` that say every exchange
+  in words. The example under it is T-2's thread from `tools/demo.mjs`, beat by beat, with the task's
+  state after each beat as the square beside it (the goal and the note, which are not states, in the
+  accent).
 
 ## Copy
 
-The page says what the app's README and its releases support, from the user's side. On what the
-agents can do, it says:
+The page says what the app's README and its releases support, from the user's side. "A software
+factory" and the "small civilization" of the chief and its staff are the framing, not features:
+every exchange the factory section and its diagram show (the goal and answers from the human, tasks,
+answers and follow-ups to workers, questions and results back, questions to advisors and findings
+back, reviews to reviewers and findings back) is one the app's README and role instructions
+(`skill/core` in the app repo) give, and the staff never talk to each other. Install stays short:
+the download, the platforms in one line, the harnesses it works with, and one link to the app's
+README for the rest. On what the agents can do, it says:
 
 - Agents work with full permissions in their windows, as they would if you ran them yourself. Your
   protection is the review, the chief's acceptance and, if you turn it on, your approval. Use
@@ -93,9 +108,10 @@ Playwright comes from the app repo's `app/node_modules`; nothing is installed he
 
 ## Deploy
 
-GitHub Pages from the repo root. `CNAME` serves `consensflow.ngvoicu.dev`. Every release of the app
-so far is a prerelease, so download links point at
-[/releases](https://github.com/ngvoicu/consensflow/releases), not `/releases/latest`.
+GitHub Pages from the repo root. `CNAME` serves `consensflow.ngvoicu.dev`. Download links point at
+[/releases](https://github.com/ngvoicu/consensflow/releases), never `/releases/latest`. The site
+never qualifies a release by its stage on GitHub, anywhere: copy, captions, alt text, structured
+data, this README.
 
 ## Deploying (read this: Pages builds get stuck)
 
