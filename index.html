@@ -407,78 +407,103 @@ footer{padding:44px 0 56px}
 
     <figure class="civ">
       <div class="civ-board">
-        <svg class="civ-wide" viewBox="0 0 1100 500" role="img" aria-labelledby="civ-wide-title civ-wide-desc">
+        <svg class="civ-wide" viewBox="0 0 1120 520" role="img" aria-labelledby="civ-wide-title civ-wide-desc">
           <title id="civ-wide-title">Who talks to whom in ConsensFlow</title>
-          <desc id="civ-wide-desc">You give the goal to the Chief of Staff and answer its questions; the chief answers you and leaves notes on the board. The chief sends tasks, answers and follow-ups to the workers; the workers send questions and results back. The chief sends questions to the advisors, who send findings back and change no file. The chief sends reviews to the reviewers, who send findings back, ready or not. The workers change the files of your project. Every message goes through the chief: members of the staff never talk to each other. Testers, who check finished work by running it, and the image designer, who draws images, are not drawn: the chief sends them tasks, and their results come back to it the same way.</desc>
+          <desc id="civ-wide-desc">You give the goal to the Chief of Staff and answer its questions; the chief answers you and leaves notes on the board. The chief sends tasks, answers and follow-ups to the workers; the workers send questions and results back. The chief sends questions to the advisors, who send findings back and change no file. The chief sends reviews to the reviewers, who send findings back, ready or not. The chief sends tests to the testers, who run the finished work and send back results with evidence, and change no product code. The chief sends the image designer what to draw, what to use as reference and where to save it, and the designer sends back the path of the image it saved. The workers change the files of your project. Every message goes through the chief: members of the staff never talk to each other.</desc>
           <defs>
             <marker id="tip-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="tip"/></marker>
           </defs>
           <!-- you and the chief -->
-          <path class="flow" d="M150,243 L273,243" marker-end="url(#tip-w)"/>
-          <path class="flow" d="M275,257 L152,257" marker-end="url(#tip-w)"/>
-          <text class="lbl" x="212" y="237" text-anchor="middle">goal, answers</text>
-          <text class="lbl" x="212" y="272" text-anchor="middle">questions, notes</text>
-          <!-- the chief and the workers -->
-          <path class="flow" d="M495,243 L698,243" marker-end="url(#tip-w)"/>
-          <path class="flow" d="M700,257 L497,257" marker-end="url(#tip-w)"/>
-          <text class="lbl" x="597" y="238" text-anchor="middle">tasks, answers, follow-ups</text>
-          <text class="lbl" x="597" y="270" text-anchor="middle"><tspan class="ask">questions</tspan>, results</text>
-          <!-- the chief and the advisors: out along the top, back along the bottom -->
-          <path class="flow" d="M495,206 H582 A8,8 0 0 0 590,198 V72 A8,8 0 0 1 598,64 H698" marker-end="url(#tip-w)"/>
-          <path class="flow" d="M698,78 H612 A8,8 0 0 0 604,86 V212 A8,8 0 0 1 596,220 H497" marker-end="url(#tip-w)"/>
-          <text class="lbl" x="696" y="57" text-anchor="end">questions</text>
-          <text class="lbl" x="696" y="93" text-anchor="end">findings</text>
+          <path class="flow" d="M150,253 L273,253" marker-end="url(#tip-w)"/>
+          <path class="flow" d="M275,267 L152,267" marker-end="url(#tip-w)"/>
+          <text class="lbl" x="212" y="247" text-anchor="middle">goal, answers</text>
+          <text class="lbl" x="212" y="282" text-anchor="middle">questions, notes</text>
+          <!-- everything else goes through the chief: one line from it, and each member of the staff off that line -->
+          <path class="flow" d="M475,260 L490,260"/>
+          <path class="flow" d="M490,53 L490,467"/>
+          <circle class="tip" cx="490" cy="260" r="3"/>
+          <!-- the chief and the advisors -->
+          <path class="flow" d="M490,53 L698,53" marker-end="url(#tip-w)"/>
+          <path class="flow" d="M700,67 L492,67" marker-end="url(#tip-w)"/>
+          <text class="lbl" x="595" y="48" text-anchor="middle">questions</text>
+          <text class="lbl" x="595" y="81" text-anchor="middle">findings</text>
           <!-- the chief and the reviewers -->
-          <path class="flow" d="M495,294 H582 A8,8 0 0 1 590,302 V428 A8,8 0 0 0 598,436 H698" marker-end="url(#tip-w)"/>
-          <path class="flow" d="M698,422 H612 A8,8 0 0 1 604,414 V288 A8,8 0 0 0 596,280 H497" marker-end="url(#tip-w)"/>
-          <text class="lbl" x="696" y="451" text-anchor="end">reviews</text>
-          <text class="lbl" x="696" y="403" text-anchor="end">findings,</text>
-          <text class="lbl" x="696" y="415" text-anchor="end">ready or not</text>
+          <path class="flow" d="M490,153 L698,153" marker-end="url(#tip-w)"/>
+          <path class="flow" d="M700,167 L492,167" marker-end="url(#tip-w)"/>
+          <text class="lbl" x="595" y="148" text-anchor="middle">reviews</text>
+          <text class="lbl" x="595" y="181" text-anchor="middle">findings, ready or not</text>
+          <!-- the chief and the workers -->
+          <path class="flow" d="M490,253 L698,253" marker-end="url(#tip-w)"/>
+          <path class="flow" d="M700,267 L492,267" marker-end="url(#tip-w)"/>
+          <text class="lbl" x="595" y="248" text-anchor="middle">tasks, answers, follow-ups</text>
+          <text class="lbl" x="595" y="281" text-anchor="middle"><tspan class="ask">questions</tspan>, results</text>
+          <!-- the chief and the testers -->
+          <path class="flow" d="M490,353 L698,353" marker-end="url(#tip-w)"/>
+          <path class="flow" d="M700,367 L492,367" marker-end="url(#tip-w)"/>
+          <text class="lbl" x="595" y="348" text-anchor="middle">tests to run</text>
+          <text class="lbl" x="595" y="381" text-anchor="middle">results with evidence</text>
+          <!-- the chief and the image designer -->
+          <path class="flow" d="M490,453 L698,453" marker-end="url(#tip-w)"/>
+          <path class="flow" d="M700,467 L492,467" marker-end="url(#tip-w)"/>
+          <text class="lbl" x="595" y="448" text-anchor="middle">what to draw</text>
+          <text class="lbl" x="595" y="481" text-anchor="middle">the file's path</text>
           <!-- the workers and your project -->
-          <path class="flow" d="M880,250 L943,250" marker-end="url(#tip-w)"/>
-          <text class="lbl" x="912" y="241" text-anchor="middle">changes</text>
+          <path class="flow" d="M900,260 L963,260" marker-end="url(#tip-w)"/>
+          <text class="lbl" x="931" y="251" text-anchor="middle">changes</text>
           <!-- the people -->
           <g class="node you">
-            <rect class="card" x="10" y="219" width="140" height="62" rx="8"/>
-            <circle class="lamp" cx="28" cy="243" r="4"/>
-            <text class="name" x="40" y="247">YOU</text>
-            <text class="sub" x="40" y="267">give the goal</text>
+            <rect class="card" x="10" y="229" width="140" height="62" rx="8"/>
+            <circle class="lamp" cx="28" cy="253" r="4"/>
+            <text class="name" x="40" y="257">YOU</text>
+            <text class="sub" x="40" y="277">give the goal</text>
           </g>
           <g class="node chief">
-            <rect class="card" x="275" y="200" width="220" height="100" rx="8"/>
-            <circle class="lamp" cx="293" cy="232" r="4"/>
-            <text class="name" x="305" y="236">CHIEF OF STAFF</text>
-            <text class="sub" x="305" y="257">plans, answers, decides:</text>
-            <text class="sub" x="305" y="275">accepts, or sends back</text>
+            <rect class="card" x="275" y="210" width="200" height="100" rx="8"/>
+            <circle class="lamp" cx="293" cy="242" r="4"/>
+            <text class="name" x="305" y="246">CHIEF OF STAFF</text>
+            <text class="sub" x="305" y="267">plans, answers, decides:</text>
+            <text class="sub" x="305" y="285">accepts, or sends back</text>
           </g>
           <g class="node">
-            <rect class="card" x="700" y="40" width="180" height="62" rx="8"/>
-            <circle class="lamp" cx="718" cy="64" r="4"/>
-            <text class="name" x="730" y="68">ADVISORS</text>
-            <text class="sub" x="730" y="88">findings, no edits</text>
+            <rect class="card" x="700" y="29" width="200" height="62" rx="8"/>
+            <circle class="lamp" cx="718" cy="53" r="4"/>
+            <text class="name" x="730" y="57">ADVISORS</text>
+            <text class="sub" x="730" y="77">findings, no edits</text>
           </g>
           <g class="node">
-            <rect class="card" x="700" y="219" width="180" height="62" rx="8"/>
-            <circle class="lamp" cx="718" cy="243" r="4"/>
-            <text class="name" x="730" y="247">WORKERS</text>
-            <text class="sub" x="730" y="267">do the tasks</text>
+            <rect class="card" x="700" y="129" width="200" height="62" rx="8"/>
+            <circle class="lamp" cx="718" cy="153" r="4"/>
+            <text class="name" x="730" y="157">REVIEWERS</text>
+            <text class="sub" x="730" y="177">check finished work</text>
           </g>
           <g class="node">
-            <rect class="card" x="700" y="398" width="180" height="62" rx="8"/>
-            <circle class="lamp" cx="718" cy="422" r="4"/>
-            <text class="name" x="730" y="426">REVIEWERS</text>
-            <text class="sub" x="730" y="446">check finished work</text>
+            <rect class="card" x="700" y="229" width="200" height="62" rx="8"/>
+            <circle class="lamp" cx="718" cy="253" r="4"/>
+            <text class="name" x="730" y="257">WORKERS</text>
+            <text class="sub" x="730" y="277">do the tasks</text>
+          </g>
+          <g class="node">
+            <rect class="card" x="700" y="329" width="200" height="62" rx="8"/>
+            <circle class="lamp" cx="718" cy="353" r="4"/>
+            <text class="name" x="730" y="357">TESTERS</text>
+            <text class="sub" x="730" y="377">run it, no product code</text>
+          </g>
+          <g class="node">
+            <rect class="card" x="700" y="429" width="200" height="62" rx="8"/>
+            <circle class="lamp" cx="718" cy="453" r="4"/>
+            <text class="name" x="730" y="457">IMAGE DESIGNER</text>
+            <text class="sub" x="730" y="477">draws the images</text>
           </g>
           <g class="node out">
-            <rect class="card" x="945" y="219" width="150" height="62" rx="8"/>
-            <circle class="lamp" cx="963" cy="243" r="4"/>
-            <text class="name" x="975" y="247">YOUR PROJECT</text>
-            <text class="sub" x="975" y="267">the software</text>
+            <rect class="card" x="965" y="229" width="150" height="62" rx="8"/>
+            <circle class="lamp" cx="983" cy="253" r="4"/>
+            <text class="name" x="995" y="257">YOUR PROJECT</text>
+            <text class="sub" x="995" y="277">the software</text>
           </g>
         </svg>
-        <svg class="civ-tall" viewBox="0 0 360 650" role="img" aria-labelledby="civ-tall-title civ-tall-desc">
+        <svg class="civ-tall" viewBox="0 0 360 850" role="img" aria-labelledby="civ-tall-title civ-tall-desc">
           <title id="civ-tall-title">Who talks to whom in ConsensFlow</title>
-          <desc id="civ-tall-desc">You give the goal to the Chief of Staff and answer its questions; the chief answers you and leaves notes on the board. The chief sends tasks, answers and follow-ups to the workers; the workers send questions and results back. The chief sends questions to the advisors, who send findings back and change no file. The chief sends reviews to the reviewers, who send findings back, ready or not. The workers change the files of your project. Every message goes through the chief: members of the staff never talk to each other. Testers, who check finished work by running it, and the image designer, who draws images, are not drawn: the chief sends them tasks, and their results come back to it the same way.</desc>
+          <desc id="civ-tall-desc">You give the goal to the Chief of Staff and answer its questions; the chief answers you and leaves notes on the board. The chief sends tasks, answers and follow-ups to the workers; the workers send questions and results back. The chief sends questions to the advisors, who send findings back and change no file. The chief sends reviews to the reviewers, who send findings back, ready or not. The chief sends tests to the testers, who run the finished work and send back results with evidence, and change no product code. The chief sends the image designer what to draw, what to use as reference and where to save it, and the designer sends back the path of the image it saved. The workers change the files of your project. Every message goes through the chief: members of the staff never talk to each other.</desc>
           <defs>
             <marker id="tip-t" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="tip"/></marker>
           </defs>
@@ -488,27 +513,38 @@ footer{padding:44px 0 56px}
           <text class="lbl" x="156" y="104" text-anchor="end">goal, answers</text>
           <text class="lbl" x="204" y="104">questions, notes</text>
           <!-- everything else goes through the chief: one line down from it -->
-          <path class="flow" d="M36,208 L36,486"/>
+          <path class="flow" d="M26,208 L26,686"/>
           <!-- the advisors -->
-          <path class="flow" d="M36,270 L188,270" marker-end="url(#tip-t)"/>
-          <path class="flow" d="M190,286 L38,286" marker-end="url(#tip-t)"/>
-          <text class="lbl" x="113" y="263" text-anchor="middle">questions</text>
-          <text class="lbl" x="113" y="300" text-anchor="middle">findings</text>
+          <path class="flow" d="M26,270 L163,270" marker-end="url(#tip-t)"/>
+          <path class="flow" d="M165,286 L28,286" marker-end="url(#tip-t)"/>
+          <text class="lbl" x="95" y="263" text-anchor="middle">questions</text>
+          <text class="lbl" x="95" y="300" text-anchor="middle">findings</text>
           <!-- the reviewers -->
-          <path class="flow" d="M36,370 L188,370" marker-end="url(#tip-t)"/>
-          <path class="flow" d="M190,386 L38,386" marker-end="url(#tip-t)"/>
-          <text class="lbl" x="113" y="363" text-anchor="middle">reviews</text>
-          <text class="lbl" x="113" y="400" text-anchor="middle">findings,</text>
-          <text class="lbl" x="113" y="412" text-anchor="middle">ready or not</text>
+          <path class="flow" d="M26,370 L163,370" marker-end="url(#tip-t)"/>
+          <path class="flow" d="M165,386 L28,386" marker-end="url(#tip-t)"/>
+          <text class="lbl" x="95" y="363" text-anchor="middle">reviews</text>
+          <text class="lbl" x="95" y="400" text-anchor="middle">findings,</text>
+          <text class="lbl" x="95" y="412" text-anchor="middle">ready or not</text>
+          <!-- the testers -->
+          <path class="flow" d="M26,470 L163,470" marker-end="url(#tip-t)"/>
+          <path class="flow" d="M165,486 L28,486" marker-end="url(#tip-t)"/>
+          <text class="lbl" x="95" y="463" text-anchor="middle">tests to run</text>
+          <text class="lbl" x="95" y="500" text-anchor="middle">results with</text>
+          <text class="lbl" x="95" y="512" text-anchor="middle">evidence</text>
+          <!-- the image designer -->
+          <path class="flow" d="M26,570 L163,570" marker-end="url(#tip-t)"/>
+          <path class="flow" d="M165,586 L28,586" marker-end="url(#tip-t)"/>
+          <text class="lbl" x="95" y="563" text-anchor="middle">what to draw</text>
+          <text class="lbl" x="95" y="600" text-anchor="middle">the file's path</text>
           <!-- the workers -->
-          <path class="flow" d="M36,470 L188,470" marker-end="url(#tip-t)"/>
-          <path class="flow" d="M190,486 L38,486" marker-end="url(#tip-t)"/>
-          <text class="lbl" x="113" y="451" text-anchor="middle">tasks, answers,</text>
-          <text class="lbl" x="113" y="463" text-anchor="middle">follow-ups</text>
-          <text class="lbl" x="113" y="500" text-anchor="middle"><tspan class="ask">questions</tspan>, results</text>
+          <path class="flow" d="M26,670 L163,670" marker-end="url(#tip-t)"/>
+          <path class="flow" d="M165,686 L28,686" marker-end="url(#tip-t)"/>
+          <text class="lbl" x="95" y="651" text-anchor="middle">tasks, answers,</text>
+          <text class="lbl" x="95" y="663" text-anchor="middle">follow-ups</text>
+          <text class="lbl" x="95" y="700" text-anchor="middle"><tspan class="ask">questions</tspan>, results</text>
           <!-- the workers and your project -->
-          <path class="flow" d="M265,506 L265,578" marker-end="url(#tip-t)"/>
-          <text class="lbl" x="255" y="546" text-anchor="end">changes</text>
+          <path class="flow" d="M265,706 L265,778" marker-end="url(#tip-t)"/>
+          <text class="lbl" x="255" y="746" text-anchor="end">changes</text>
           <!-- the people -->
           <g class="node you">
             <rect class="card" x="90" y="12" width="180" height="56" rx="8"/>
@@ -524,32 +560,44 @@ footer{padding:44px 0 56px}
             <text class="sub" x="50" y="196">accepts, or sends back</text>
           </g>
           <g class="node">
-            <rect class="card" x="190" y="250" width="150" height="56" rx="8"/>
-            <circle class="lamp" cx="208" cy="272" r="4"/>
-            <text class="name" x="220" y="276">ADVISORS</text>
-            <text class="sub" x="220" y="294">findings, no edits</text>
+            <rect class="card" x="165" y="250" width="175" height="56" rx="8"/>
+            <circle class="lamp" cx="183" cy="272" r="4"/>
+            <text class="name" x="195" y="276">ADVISORS</text>
+            <text class="sub" x="195" y="294">findings, no edits</text>
           </g>
           <g class="node">
-            <rect class="card" x="190" y="350" width="150" height="56" rx="8"/>
-            <circle class="lamp" cx="208" cy="372" r="4"/>
-            <text class="name" x="220" y="376">REVIEWERS</text>
-            <text class="sub" x="220" y="394">check finished work</text>
+            <rect class="card" x="165" y="350" width="175" height="56" rx="8"/>
+            <circle class="lamp" cx="183" cy="372" r="4"/>
+            <text class="name" x="195" y="376">REVIEWERS</text>
+            <text class="sub" x="195" y="394">check finished work</text>
           </g>
           <g class="node">
-            <rect class="card" x="190" y="450" width="150" height="56" rx="8"/>
-            <circle class="lamp" cx="208" cy="472" r="4"/>
-            <text class="name" x="220" y="476">WORKERS</text>
-            <text class="sub" x="220" y="494">do the tasks</text>
+            <rect class="card" x="165" y="450" width="175" height="56" rx="8"/>
+            <circle class="lamp" cx="183" cy="472" r="4"/>
+            <text class="name" x="195" y="476">TESTERS</text>
+            <text class="sub" x="195" y="494">run it, no product code</text>
+          </g>
+          <g class="node">
+            <rect class="card" x="165" y="550" width="175" height="56" rx="8"/>
+            <circle class="lamp" cx="183" cy="572" r="4"/>
+            <text class="name" x="195" y="576">IMAGE DESIGNER</text>
+            <text class="sub" x="195" y="594">draws the images</text>
+          </g>
+          <g class="node">
+            <rect class="card" x="165" y="650" width="175" height="56" rx="8"/>
+            <circle class="lamp" cx="183" cy="672" r="4"/>
+            <text class="name" x="195" y="676">WORKERS</text>
+            <text class="sub" x="195" y="694">do the tasks</text>
           </g>
           <g class="node out">
-            <rect class="card" x="190" y="580" width="150" height="56" rx="8"/>
-            <circle class="lamp" cx="208" cy="602" r="4"/>
-            <text class="name" x="220" y="606">YOUR PROJECT</text>
-            <text class="sub" x="220" y="624">the software</text>
+            <rect class="card" x="165" y="780" width="175" height="56" rx="8"/>
+            <circle class="lamp" cx="183" cy="802" r="4"/>
+            <text class="name" x="195" y="806">YOUR PROJECT</text>
+            <text class="sub" x="195" y="824">the software</text>
           </g>
         </svg>
       </div>
-      <figcaption>Who talks to whom. Between the chief and its staff, every arrow is a message on the board, numbered in the order it was sent. The staff talk only to the chief, never to each other; you talk to the chief in its terminal, and can step into any window. Testers and the image designer, not drawn, take tasks from the chief and answer it the same way. With human approval on, every message between them waits for you.</figcaption>
+      <figcaption>Who talks to whom. Between the chief and its staff, every arrow is a message on the board, numbered in the order it was sent. The staff talk only to the chief, never to each other; you talk to the chief in its terminal, and can step into any window. With human approval on, every message between them waits for you.</figcaption>
     </figure>
 
     <div class="story">

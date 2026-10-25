@@ -26,10 +26,13 @@ same zero-build, single-file static stack.
   columns); with reduced motion it stays at its last step.
 - The factory diagram ("A software factory": who talks to whom) is inline SVG, drawn by hand in the
   board's language: members as the board's staff rows (a lamp, a name in mono), messages as arrows
-  labelled with what they carry, a question in the board's amber. Two drawings of the same thing,
-  wide (`.civ-wide`, a star around the chief) and tall (`.civ-tall`, one line down from the chief),
-  swapped by a media query at 1080px; each carries a `<title>` and a `<desc>` that say every exchange
-  in words. The example under it is T-2's thread from `tools/demo.mjs`, beat by beat, with the task's
+  labelled with what they carry, a question in the board's amber. All five roles are drawn: advisors,
+  reviewers, workers, testers and the image designer. Two drawings of the same thing, wide
+  (`.civ-wide`: the chief, and one line from it with each role off that line, workers in the middle
+  with the arrow to your project) and tall (`.civ-tall`: one line down from the chief, the workers last,
+  above your project), swapped by a media query at 1080px; each carries a `<title>` and a `<desc>` that
+  say every exchange in words. A role's drawing is one line off the chief's own line, so the rule that
+  the staff talk only to the chief shows in it: no member is joined to another. The example under it is T-2's thread from `tools/demo.mjs`, beat by beat, with the task's
   state after each beat as the square beside it (the goal and the note, which are not states, in the
   accent).
 
@@ -52,8 +55,8 @@ answers and follow-ups to workers, questions and results back, questions to advi
 back, reviews to reviewers and findings back) is one the app's README and role instructions
 (`skill/core` in the app repo) give, and the staff never talk to each other. The testers (tests to
 them, results with evidence back) and the image designer (a task naming what to draw and where to
-save it, the file's path back) work the same way; the diagram does not draw them, and its `<desc>` and
-caption say so in words. The groups under What it does take their words from the releases' notes
+save it, the file's path back) are drawn like the others, and their exchanges are in each drawing's
+`<desc>`. The groups under What it does take their words from the releases' notes
 (3.0.4 and 3.0.5 for specs, wake-up calls, Project settings and the project menu; 3.0.6 for History)
 and the app's README. Install stays short:
 the download, the platforms in one line, the harnesses it works with, and one link to the app's
