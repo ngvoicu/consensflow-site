@@ -6,8 +6,11 @@
  * app's own page tests write theirs (consensflow/app/tests/core-page.spec.mjs),
  * and its ids follow one another as the ledger would number them.
  * Times are minutes before the capture, so the page reads them as it would.
- * What the open windows show is in tools/screens.mjs.
+ * What the open windows show is in tools/screens.mjs; the specs folder its
+ * chief wrote is in tools/specs.mjs.
  */
+
+import { specs } from './specs.mjs'
 
 const DIRECTORY = '/Users/demo/projects/pantry'
 const PROJECT = 1
@@ -253,7 +256,14 @@ export const panes = {
 }
 
 const board = {
-  project: { id: PROJECT, name: 'pantry', directory: DIRECTORY, state: 'open', gate: false },
+  project: {
+    id: PROJECT,
+    name: 'pantry',
+    directory: DIRECTORY,
+    state: 'open',
+    gate: false,
+    specs: { on: true, folder: '.specs', variant: 'core' },
+  },
   open: [tasks.t9, tasks.t10],
   gated: [],
   lanes: [
@@ -329,6 +339,99 @@ const note = {
   createdAt: at(39),
 }
 
+/**
+ * The chief's history, as `history.get` pages it: its Claude Code conversation
+ * of the afternoon (the one going on now) and the one `/clear` ended before it.
+ * A result, a question or an advisor's answer reaches the chief as a delivery,
+ * which the history folds to its line: `at` is where in the text it starts.
+ */
+const delivered = (id, number, kind, from, text) => ({
+  text: `[ConsensFlow m-${id} · T-${number} · ${kind} from @${from}]\n${text}`,
+  delivery: { line: `· m-${id}: @${from}'s ${kind} on T-${number} (cf task get T-${number})`, at: 0 },
+})
+const entry = (conversation, row, role, minutesAgo, said) => ({
+  conversation,
+  row: conversation * 100 + row,
+  id: `h-${conversation}-${row}`,
+  role,
+  complete: true,
+  at: at(minutesAgo),
+  ...(typeof said === 'string' ? { text: said } : said),
+})
+const chiefHistory = {
+  conversations: [
+    {
+      id: 1,
+      harness: 'claude-code',
+      agent: 'zeus',
+      startedAt: at(1620),
+      endedAt: at(1590),
+      endedBy: { by: 'window', resumed: false },
+    },
+    { id: 2, harness: 'claude-code', agent: 'zeus', startedAt: at(185), endedAt: null, endedBy: null },
+  ],
+  items: [
+    entry(1, 0, 'user', 1620, 'Read the pantry app and tell me what it does and how it is tested.'),
+    entry(
+      1,
+      1,
+      'assistant',
+      1619,
+      'A Node and SQLite app: households keep pantry items, with a form and a page to list them. `npm test` runs 46 tests.',
+    ),
+    entry(
+      2,
+      0,
+      'user',
+      180,
+      "The pantry app needs a shopping list: add items, check them off, clear what's done. Keep the list on the server, and have the API reviewed before the page is built on it.",
+    ),
+    entry(
+      2,
+      1,
+      'assistant',
+      179,
+      'I will read the routes the app has, then put the list on the board: the API first, a review of it, and the page waiting for both.',
+    ),
+    entry(2, 2, 'tool', 179, 'server/routes/items.ts  server/routes/households.ts  server/app.ts'),
+    entry(
+      2,
+      3,
+      'assistant',
+      176,
+      'T-2 is the API for a standard worker, T-3 its review, and T-4 the page, waiting until T-2 is accepted.',
+    ),
+    entry(2, 4, 'user', 114, delivered(4, 2, 'question', 'theia', T2.question)),
+    entry(2, 5, 'assistant', 113, 'Delete them: the list is a scratch pad, and `items` keeps the history that matters.'),
+    entry(2, 6, 'user', 62, delivered(6, 2, 'result', 'theia', T2.result1)),
+    entry(2, 7, 'user', 48, delivered(8, 3, 'result', 'seshat', REVIEW)),
+    entry(2, 8, 'assistant', 47, 'The review found two things to fix, so T-2 goes back to the same window.'),
+    entry(
+      2,
+      9,
+      'user',
+      30,
+      'Next: expiry reminders by email, the morning before an item expires. Households are in different time zones, so take care there.',
+    ),
+    entry(
+      2,
+      10,
+      'assistant',
+      29,
+      'Time zones are the open question. I will ask an advisor before I write the tasks: which zone is "the morning", and what has to be stored.',
+    ),
+    entry(2, 11, 'tool', 29, 'cf task add --advice --tier complex "How should expiry reminders handle time zones?"'),
+    entry(2, 12, 'user', 14, delivered(16, 6, 'result', 'seshat', ADVICE)),
+    entry(
+      2,
+      13,
+      'assistant',
+      12,
+      "The advice is clear: store each household's time zone (T-8), then send the reminders (T-9) once the page, the advice and the time zone are in.",
+    ),
+  ],
+}
+
 const projects = [
   { id: PROJECT, name: 'pantry', directory: DIRECTORY, state: 'open', resumeOnStart: false },
   {
@@ -375,4 +478,13 @@ export const demo = {
   // What its window wrote is not shown: the fold stays shut, with its count.
   transcripts: { [`${PROJECT}:2`]: { items: [], total: 58 } },
   lastStaff,
+  // The project's specs folder, its chief's history, and its wake-up calls (every two hours, the default words).
+  specs,
+  histories: { chief: chiefHistory },
+  wakeUps: { [PROJECT]: { on: true, everyMs: 2 * 3_600_000, text: null } },
+  // Agents the human adds to the staff in Project settings: a tester and the image designer.
+  joining: {
+    diana: { harness: 'codex', tier: 'light', designer: false },
+    pygmalion: { harness: 'codex', tier: null, designer: true },
+  },
 }

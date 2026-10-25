@@ -2,7 +2,7 @@
 
 The website of **ConsensFlow**, a desktop app for Mac and Windows that runs a software factory on
 your project, staffed by AI coding agents: you give the goal to a Chief of Staff, it plans the work
-on a board, and its staff (workers, advisors and reviewers) take the tasks, each in its own terminal
+on a board, and its staff (workers, advisors, reviewers, testers and an image designer) take the tasks, each in its own terminal
 of Claude Code, Codex, OpenCode, Pi or Devin. Served at
 [consensflow.ngvoicu.dev](https://consensflow.ngvoicu.dev); the app itself is
 [ngvoicu/consensflow](https://github.com/ngvoicu/consensflow).
@@ -33,6 +33,16 @@ same zero-build, single-file static stack.
   state after each beat as the square beside it (the goal and the note, which are not states, in the
   accent).
 
+## The page
+
+One page, top to bottom: the hero and its capture of the window; **A software factory** (who talks to
+whom, and one goal from start to finish); **How it works** (a task across the board's columns);
+**What it does**, a group of items beside or under the captures that show them: The staff, The
+agents, switching the chief, The board, Specs (its viewer under it), History, Wake-up calls and
+Project settings (beside the dialog), You stay in charge, and the staff's windows; then Install, Your
+data, and the source. Specs, History, Wake-up calls and Project settings are the groups added for
+3.0.4 to 3.0.6; The History viewer carries a "New in 3.0.6" mark (the chief's `cf history --find` is older, from 3.0.5 and before): the version, never its stage.
+
 ## Copy
 
 The page says what the app's README and its releases support, from the user's side. "A software
@@ -40,7 +50,12 @@ factory" and the "small civilization" of the chief and its staff are the framing
 every exchange the factory section and its diagram show (the goal and answers from the human, tasks,
 answers and follow-ups to workers, questions and results back, questions to advisors and findings
 back, reviews to reviewers and findings back) is one the app's README and role instructions
-(`skill/core` in the app repo) give, and the staff never talk to each other. Install stays short:
+(`skill/core` in the app repo) give, and the staff never talk to each other. The testers (tests to
+them, results with evidence back) and the image designer (a task naming what to draw and where to
+save it, the file's path back) work the same way; the diagram does not draw them, and its `<desc>` and
+caption say so in words. The groups under What it does take their words from the releases' notes
+(3.0.4 and 3.0.5 for specs, wake-up calls, Project settings and the project menu; 3.0.6 for History)
+and the app's README. Install stays short:
 the download, the platforms in one line, the harnesses it works with, and one link to the app's
 README for the rest. On what the agents can do, it says:
 
@@ -76,13 +91,20 @@ opens it in Chromium with its real terminals (xterm, as the app has them):
 ```bash
 # in the app repo, once: npm run build:cf   (puts the built cf in bin/)
 # here, once: brew install webp             (cwebp makes the .webp files)
-node tools/capture-screenshots.mjs ../consensflow
-node tools/og-image.mjs ../consensflow
+node tools/capture-screenshots.mjs ../../consensflow
+node tools/og-image.mjs ../../consensflow
+# only some captures (the page still goes through every step):
+node tools/capture-screenshots.mjs ../../consensflow specs history staff project-settings
 ```
+
+The path given is the app's checkout: from `sites/consensflow-site` it is `../../consensflow`, the
+app repo beside the `sites` folder (the tools' default). The captures of the hero, the task, the
+windows, Agents and the chief's switch were made on 2026-10-09, before 3.0.4; remaking them takes the app's
+window of today (a Project settings button where they show Staff).
 
 Playwright comes from the app repo's `app/node_modules`; nothing is installed here.
 
-- The board, a task, the staff and New project show the demo in `tools/demo.mjs` (a small web app,
+- The board, a task and New project show the demo in `tools/demo.mjs` (a small web app,
   "pantry", with a chief on Claude Code and a staff on Codex, Pi, OpenCode and Devin), answered to
   the page by the same stand-in for the app that `app/tests/core-page.spec.mjs` uses. Its ledger
   reads as the daemon's would: messages numbered in the order they were sent, and T-2's thread (a
@@ -101,7 +123,19 @@ Playwright comes from the app repo's `app/node_modules`; nothing is installed he
   takes two thirds of it and each other window a third, so the chief and one more window show at
   once. `chief-and-staff.webp` is that row from its start, `staff-windows.webp` the same row scrolled
   to the staff's three windows.
-- The agents the pickers offer, and Settings → Agents, come from the real daemon (`cf ui`), started
+- Specs, History and Project settings show the same demo through the same stand-in, which answers
+  the page as the daemon does (`specs.tree`, `specs.file`, `history.get`, `wakeup.get`, `member.add`):
+  - `specs.webp` is the specs viewer on pantry's own specs folder, written for the demo in
+    `tools/specs.mjs` (a registry and four specs in Specmint's core shape; the shopping list's phases
+    are the tasks of the demo's board), with the shopping list's SPEC.md chosen.
+  - `history.webp` is the chief's History searched for "time zone": the chief's conversation going on
+    now, in `tools/demo.mjs` (`chiefHistory`), its words, the human's and the deliveries (the advisor's
+    answer, m-16, opened from its line).
+  - `staff.webp` and `project-settings.webp` are one Project settings dialog cut between its
+    sections: the staff above, human approval, wake-up calls (on, every two hours) and specs (on) below.
+    A tester and the image designer are added through the dialog's own form, as a human would.
+- The agents the pickers offer, Settings → Agents, and the version of Specmint the Specs section
+  names, come from the real daemon (`cf ui`), started
   on a home made under the system's temp folder and deleted after.
 - Nothing reads or writes `~/.consensflow` or the harnesses on the machine, and the demo shows no
   real name, path or account (its folders are under `/Users/demo/projects/`).

@@ -4,7 +4,7 @@
  * the page's own fonts and mark, beside the board of assets/screenshots/window.webp.
  * Run it after capture-screenshots.mjs, with the same checkout (for Playwright):
  *
- *   node tools/og-image.mjs ../consensflow
+ *   node tools/og-image.mjs ../../consensflow
  */
 import { readFile } from 'node:fs/promises'
 import { createServer } from 'node:http'
@@ -12,7 +12,7 @@ import { createRequire } from 'node:module'
 import { extname, join, resolve, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-const checkout = resolve(process.argv[2] ?? '../consensflow')
+const checkout = resolve(process.argv[2] ?? '../../consensflow')
 const SITE = fileURLToPath(new URL('..', import.meta.url))
 const { chromium } = createRequire(join(checkout, 'app', 'package.json'))('playwright')
 const TYPES = { '.html': 'text/html', '.png': 'image/png', '.webp': 'image/webp', '.woff2': 'font/woff2' }

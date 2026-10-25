@@ -3,7 +3,7 @@
  * Makes assets/screenshots/ from the app itself, against a ConsensFlow
  * checkout with a built `cf` (`npm run build:cf` puts it in bin/):
  *
- *   node tools/capture-screenshots.mjs ../consensflow
+ *   node tools/capture-screenshots.mjs ../../consensflow
  *
  * The app's window is a web page (app/ui) that talks to the daemon through
  * the app's bridge. Here the page is served from the checkout, as the app's
@@ -17,6 +17,9 @@
  *   demo as each harness draws a session at work: the stand-in hands each
  *   terminal its screen as the app hands it a window's output, for the size
  *   the terminal took. No harness runs.
+ * - The specs viewer, History (with a search) and Project settings show the
+ *   demo's specs folder (tools/specs.mjs), the chief's history and its settings,
+ *   answered by the same stand-in as the page tests answer them.
  * - Last, the chief is switched from its card, and the stand-in moves it as
  *   the daemon would: its new window opens on the handoff.
  * - The agents the pickers offer, and the Agents screen under Settings, are
@@ -24,6 +27,10 @@
  *   temp folder and thrown away after: the catalog as the app ships it.
  *
  * Nothing reads or writes ~/.consensflow or the real harnesses.
+ *
+ * Names after the checkout limit what is written to those captures
+ * (`node tools/capture-screenshots.mjs ../../consensflow specs history`); the
+ * page goes through all of its steps either way.
  */
 import { execFileSync } from 'node:child_process'
 import { mkdirSync, rmSync, statSync } from 'node:fs'
@@ -34,7 +41,8 @@ import { startDaemon } from './daemon.mjs'
 import { demo, panes, SWITCH } from './demo.mjs'
 import { codexChief, SCREENS } from './screens.mjs'
 
-const checkout = resolve(process.argv[2] ?? '../consensflow')
+const checkout = resolve(process.argv[2] ?? '../../consensflow')
+const only = new Set(process.argv.slice(3))
 const OUT = fileURLToPath(new URL('../assets/screenshots/', import.meta.url))
 const { chromium } = createRequire(join(checkout, 'app', 'package.json'))('playwright')
 const { serveUi } = await import(pathToFileURL(join(checkout, 'app', 'tests', 'serve-ui.mjs')))
@@ -47,6 +55,8 @@ const { serveUi } = await import(pathToFileURL(join(checkout, 'app', 'tests', 's
 const HERO = { width: 1840, height: 1270 }
 /** The app's window for its terminals, the board folded. */
 const WINDOW = { width: 1600, height: 1000 }
+/** The app's window for the specs viewer, which has a tree beside the file. */
+const VIEWER = { width: 1280, height: 1180 }
 /**
  * The window narrowed for the dialogs, which take its width (less a margin):
  * their text then reads at the size the page shows them. The app's own
@@ -82,6 +92,86 @@ function standIn({ data, screens, forward, layout }) {
     'task.transcript': ({ project, task }) => {
       const { items, total } = data.transcripts[`${project}:${task}`] ?? { items: [], total: 0 }
       return answer({ items, total, shown: items.length })
+    },
+    // The project's wake-up calls, as the daemon says them: the interval in the largest unit that holds it whole.
+    'wakeup.get': ({ project }) => {
+      const saved = data.wakeUps[project]
+      const [unit, size] = Object.entries({ days: 86_400_000, hours: 3_600_000, minutes: 60_000 }).find(
+        ([, ms]) => saved.everyMs % ms === 0,
+      )
+      const words =
+        'Do you still have work to do? If tasks are left on the board or in your plan, carry on.'
+      return answer({
+        wakeUp: {
+          on: saved.on,
+          everyMs: saved.everyMs,
+          every: saved.everyMs / size,
+          unit,
+          text: saved.text ?? words,
+          defaultText: saved.text === null,
+        },
+      })
+    },
+    // The specs folder, as the daemon reads it (app/tests/core-page.spec.mjs and specs-viewer.spec.mjs).
+    'specs.present': () => answer({ present: true }),
+    'specs.tree': () =>
+      answer({ specs: { folder: data.specs.folder, found: true, entries: data.specs.entries } }),
+    'specs.file': ({ path }) =>
+      data.specs.files[path] === undefined
+        ? { ok: false, error: `no file ${path} in the specs folder` }
+        : answer({ file: data.specs.files[path] }),
+    // A member the human adds in Project settings joins the staff, ahead of the sessions.
+    'member.add': ({ project, agent, roles }) => {
+      const joined = data.joining[agent]
+      const lanes = data.boards[project].lanes
+      const who = {
+        id: 100 + lanes.length,
+        projectId: project,
+        handle: agent,
+        role: roles[0],
+        roles,
+        agent,
+        harness: joined.harness,
+        designer: joined.designer,
+        tier: joined.tier,
+        outUntil: null,
+        memberId: null,
+        member: null,
+        session: null,
+      }
+      const first = lanes.findIndex((l) => l.participant.session !== null)
+      lanes.splice(first === -1 ? lanes.length : first, 0, {
+        participant: who,
+        tasks: [],
+        activity: { state: 'closed' },
+        pane: null,
+        agentMissing: false,
+        hidden: false,
+        switching: null,
+        holding: false,
+      })
+      return answer({ member: who })
+    },
+    // What ConsensFlow keeps of a participant's conversations, as the daemon pages it: a
+    // search keeps the items that hold its words in any case, and the tools' outputs are
+    // left out, and counted, unless asked for (app/tests/history-viewer.spec.mjs).
+    'history.get': ({ handle, find, tools }) => {
+      const history = data.histories[handle] ?? { conversations: [], items: [] }
+      const holds = (it) => !find || it.text.toLowerCase().includes(find.toLowerCase())
+      const items = history.items.filter((it) => (tools || it.role !== 'tool') && holds(it))
+      const conversations = history.conversations
+        .map((conversation) => ({
+          ...conversation,
+          toolsLeftOut: tools
+            ? 0
+            : history.items.filter((it) => it.conversation === conversation.id && it.role === 'tool')
+                .length,
+          items: items
+            .filter((it) => it.conversation === conversation.id)
+            .map(({ conversation: _, ...shown }) => shown),
+        }))
+        .filter((conversation) => !find || conversation.items.length > 0)
+      return answer({ history: { conversations, older: null, newer: null, partial: false } })
     },
     // The chief goes on the agent picked, in a new window, as the daemon's switchChief leaves it.
     'chief.switch': ({ project, agent }) => {
@@ -157,7 +247,7 @@ try {
   await page.addInitScript(standIn, {
     data: demo,
     screens: { url: daemon.url, token: daemon.token },
-    forward: ['agents.list'],
+    forward: ['agents.list', 'specs.get'],
     // The projects folded to their rail: the board and the terminals have the window.
     layout: { projects: 'hidden', dock: 'shown', board: 'shown', 'dock-share-of-window': '0.37' },
   })
@@ -166,6 +256,7 @@ try {
   await page.mouse.move(0, HERO.height - 1)
 
   const shot = async (name, options = {}) => {
+    if (only.size > 0 && !only.has(name)) return
     const png = join(OUT, `${name}.png`)
     await page.screenshot({ path: png, animations: 'disabled', ...options })
     webp(png, name)
@@ -213,6 +304,36 @@ try {
   await page.locator('.terminal-card[data-role="chief"] .xterm').waitFor()
   await screensIn(['chief'])
   await shot('window')
+
+  // The specs viewer: the Specs button on the board opens the project's specs folder.
+  await page.setViewportSize(VIEWER)
+  await page.locator('#specs-button').click()
+  const viewer = page.getByRole('dialog', { name: /^Specs of/ })
+  await viewer.waitFor()
+  // It opens on the registry; a spec is chosen from the tree.
+  await viewer.locator('.specs-file *').first().waitFor()
+  await viewer.locator('.tree-file[data-path="shopping-list/SPEC.md"]').click()
+  await viewer.locator('.specs-file h1').waitFor()
+  await page.waitForTimeout(1200)
+  await shot('specs', await around(viewer))
+  await viewer.getByRole('button', { name: 'Close' }).click()
+
+  // History, from the chief's window: everything kept of its conversations, searched for "time zone".
+  await page.setViewportSize({ width: NARROW.width, height: 750 })
+  await page
+    .locator('.terminal-card[data-role="chief"]')
+    .getByRole('button', { name: "Read everything kept of Chief of Staff's conversations" })
+    .click()
+  const history = page.getByRole('dialog', { name: 'History of Chief of Staff' })
+  await history.waitFor()
+  await history.locator('[name="history-find"]').fill('time zone')
+  await history.locator('[name="history-find"]').press('Enter')
+  await history.locator('.history-item').first().waitFor()
+  await history.locator('details.history-delivery summary').click()
+  await page.waitForTimeout(300)
+  await shot('history', await around(history, 24))
+  await history.getByRole('button', { name: 'Close' }).click()
+  await page.setViewportSize(HERO)
 
   // A task, open, after some back and forth: its question and answer read too.
   await page.locator('.card[data-task="2"]').click()
@@ -262,12 +383,34 @@ try {
   await page.locator('#toggle-dock').click()
   await page.setViewportSize(NARROW)
 
-  // The staff: who works on the project, in which role.
-  await page.getByRole('button', { name: 'Staff', exact: true }).click()
-  const staff = page.getByRole('dialog', { name: 'Project staff' })
-  await staff.waitFor()
-  await shot('staff', await around(staff, 24))
-  await staff.getByRole('button', { name: 'Close' }).click()
+  // Project settings: the staff, human approval, wake-up calls and specs in one dialog. A tester
+  // and the image designer join the staff through its form, as the human would add them.
+  await page.setViewportSize({ width: NARROW.width, height: 2400 })
+  await page.getByRole('button', { name: 'Project settings', exact: true }).click()
+  const settings = page.getByRole('dialog', { name: 'Project settings' })
+  await settings.waitFor()
+  for (const [role, agent] of [
+    ['tester', 'diana'],
+    ['designer', 'pygmalion'],
+  ]) {
+    await settings.locator('select[name="role"]').selectOption(role)
+    await settings.locator('select[name="agent"]').selectOption(agent)
+    await settings.getByRole('button', { name: 'Add to staff' }).click()
+    await settings.locator('#staff-members tr', { hasText: `@${agent}` }).waitFor()
+  }
+  await settings.locator('select[name="role"]').selectOption('worker')
+  await page.waitForTimeout(300)
+  // Two captures of the one dialog, cut between its sections: the staff above, the rest below.
+  const { clip: whole } = await around(settings, 24)
+  const sections = settings.locator('fieldset.project-section')
+  const staffBottom = await sections.nth(0).boundingBox().then((box) => Math.ceil(box.y + box.height + 14))
+  const restTop = await sections.nth(1).boundingBox().then((box) => Math.floor(box.y - 14))
+  await shot('staff', { clip: { ...whole, height: staffBottom - whole.y } })
+  await shot('project-settings', {
+    clip: { ...whole, y: restTop, height: whole.y + whole.height - restTop },
+  })
+  await settings.getByRole('button', { name: 'Close' }).click()
+  await page.setViewportSize(NARROW)
 
   // A new project: its folder, the agent its chief runs on, its staff.
   await page.getByRole('button', { name: 'New project' }).click()
@@ -280,7 +423,7 @@ try {
   await fresh.getByRole('button', { name: 'Cancel' }).click()
 
   // Settings, Agents: the daemon's own screen, the catalog as it ships.
-  await page.getByRole('button', { name: 'Settings' }).click()
+  await page.getByRole('button', { name: 'Settings', exact: true }).click()
   await page.getByRole('dialog', { name: 'Settings' }).getByRole('button', { name: 'Agents' }).click()
   const agents = page.getByRole('dialog', { name: 'Agents' })
   const screen = agents.frameLocator('iframe')
