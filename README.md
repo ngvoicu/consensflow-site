@@ -98,13 +98,14 @@ node tools/capture-screenshots.mjs ../../consensflow specs history staff project
 ```
 
 The path given is the app's checkout: from `sites/consensflow-site` it is `../../consensflow`, the
-app repo beside the `sites` folder (the tools' default). The captures of the hero, the task, the
-windows, Agents and the chief's switch were made on 2026-10-09, before 3.0.4; remaking them takes the app's
-window of today (a Project settings button where they show Staff).
+app repo beside the `sites` folder (the tools' default). Run with no names, the tool remakes every
+capture, so none shows an older window than the text describes; they were all remade on 2026-10-25,
+on the app's page of 3.0.6-alpha.2 (unchanged since). History's times are those of the day it runs.
 
 Playwright comes from the app repo's `app/node_modules`; nothing is installed here.
 
-- The board, a task and New project show the demo in `tools/demo.mjs` (a small web app,
+- The board, a task and New project (cut after its staff, between sections, as Project settings is
+  below) show the demo in `tools/demo.mjs` (a small web app,
   "pantry", with a chief on Claude Code and a staff on Codex, Pi, OpenCode and Devin), answered to
   the page by the same stand-in for the app that `app/tests/core-page.spec.mjs` uses. Its ledger
   reads as the daemon's would: messages numbered in the order they were sent, and T-2's thread (a

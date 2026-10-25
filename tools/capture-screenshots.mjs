@@ -412,15 +412,23 @@ try {
   await settings.getByRole('button', { name: 'Close' }).click()
   await page.setViewportSize(NARROW)
 
-  // A new project: its folder, the agent its chief runs on, its staff.
+  // A new project: its folder, the agent its chief runs on, its staff. The dialog goes on with the
+  // sections Project settings has (approval, wake-up calls, specs): cut after the staff, between sections.
+  await page.setViewportSize({ width: NARROW.width, height: 2400 })
   await page.getByRole('button', { name: 'New project' }).click()
   const fresh = page.getByRole('dialog', { name: 'New project' })
   await fresh.waitFor()
   const chief = fresh.locator('select[name="chief"]')
   await chief.selectOption('zeus')
   await chief.focus()
-  await shot('new-project', await around(fresh, 24))
+  const { clip: dialog } = await around(fresh, 24)
+  const pickBottom = await fresh
+    .locator('fieldset.staff-pick')
+    .boundingBox()
+    .then((box) => Math.ceil(box.y + box.height + 14))
+  await shot('new-project', { clip: { ...dialog, height: pickBottom - dialog.y } })
   await fresh.getByRole('button', { name: 'Cancel' }).click()
+  await page.setViewportSize(NARROW)
 
   // Settings, Agents: the daemon's own screen, the catalog as it ships.
   await page.getByRole('button', { name: 'Settings', exact: true }).click()
