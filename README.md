@@ -13,7 +13,8 @@ same zero-build, single-file static stack.
 ## Stack
 
 - **One self-contained `index.html`**: HTML, inline CSS and a few lines of vanilla JS. No framework,
-  no build step, no CDN, no `node_modules`.
+  no build step, no CDN, no `node_modules`. The one other page, `status/index.html` (Supported versions,
+  below), is self-contained the same way: its own inline CSS, the site's fonts and mark.
 - Fonts: **Archivo** (400, 500, 700, 800) and **IBM Plex Mono** (400, 500), self-hosted as woff2 in
   `assets/fonts/` (latin subsets).
 - Palette: the app's own. Ink `#08181D`, foam `#E9F1EF`, seafoam `#63C7B2`, amber `#E7B968`,
@@ -46,6 +47,61 @@ Project settings (beside the dialog), You stay in charge, and the staff's window
 data, and the source. Specs, History, Wake-up calls and Project settings are the groups added for
 3.0.4 to 3.0.6; The History viewer carries a "New in 3.0.6" mark (the chief's `cf history --find` is older, from 3.0.5 and before): the version, never its stage.
 
+## Supported versions (`/status/`)
+
+Which version of each harness (Claude Code, Codex, Pi, Devin and Muse Code) ConsensFlow works with on
+Mac and Windows, the newest version it has been tested on, what is known to go wrong, and which newer
+versions it has not been tested on yet. Linked from the home page where the harnesses are named (the
+agents group and Install), and listed in `sitemap.xml`. It is a page of its own because it is
+reference, and it changes on its own clock, not the story's.
+
+- **One table.** A row for each harness and platform, grouped by harness, with the columns Harness (and
+  the vendor's link), Platform, Oldest supported (marked "checked at launch" when the app refuses an
+  older one, "not checked at launch" when it only states it), Newest tested (with the date of its last
+  pass), Vendor's newest (with its date), Status (a pill) and Known issues. Under a harness's two rows
+  are its notes, and the live suites that passed. A legend above the table says what each pill means.
+  Stable 3.0.5 and Alpha 3.0.6 make the same version checks, so no row has a ConsensFlow column; the
+  page says once that the tests ran on development builds of 3.0.6 (Muse Code: 3.0.7, not in a release
+  yet). Below 1040 px each row is a card with the same fields (a `td`'s `data-label` is its card label),
+  and the column headings give way to them.
+- **Built to be generated.** Everything the page says about a version is in one block, the
+  `<script type="application/json" id="status-data">` between the `status-data:begin` and
+  `status-data:end` comments: the page's date, the releases (`app`), and per harness its link, its
+  oldest supported version (and whether the app checks it when a window opens or only states it), the
+  vendor's newest release with its date and where it was read, and per platform the newest tested
+  version, its date, the live suites that passed and the known `issues`. The rest of the file is
+  presentation: it reads the block, builds the table with `textContent` (a link only if it is https),
+  and **computes each status from the block** by one rule, written out in the legend: no tested
+  version on that platform, "Not yet measured"; `vendor.verdict: "broken"`, "Not supported"; the
+  vendor's newest newer than the newest tested, "Newer than tested"; issues listed, "Supported, with
+  known issues"; else "Supported". Nothing in the presentation names a version. The app's
+  harness-window plan has a tool write the block from the app's code (each harness's oldest supported
+  and newest tested versions) and from a check that watches each vendor's new versions, and `--check`
+  it against the page; until then the block is written by hand from the live runs.
+- **Known issues** are what a person would notice going wrong on the newest tested version, in plain
+  words, never suite names. They leave out the test kit's own failures (a `ps` that cannot start on
+  Windows, an OpenCode that is not installed, a suite's premise about a harness's record). An issue
+  carries `"state": "looking"` or `"fixing"` only while a task is on it, and the page then adds "We're
+  looking into it." or "Being fixed."
+- **Colours.** The five statuses wear the palette's own colours, each pill with its words: seafoam
+  Supported, amber Supported with known issues, slate Newer than tested, buoy Not supported, a muted
+  foam Not yet measured. This is the one place where a colour is a status and not a task's state. Every
+  pill's text keeps at least 4.5:1 against its fill in light and dark (the check measures it).
+- **Copy.** Releases are named by the version and the channel the app's updater names (`Stable`,
+  `Alpha`), never by their stage, as everywhere on this site: the check fails on `alpha.N`, `rc.N` or
+  "pre-release" in the data or on the page. A suite is listed only if it passed; "Not yet measured" is
+  said where no figure exists, never a guess.
+- **Check and preview.** The page is checked in Chromium (the data's shape and dates; a row for each
+  harness and platform, and each row's status, words and colour class against the rule; the legend; the
+  pills' contrast; nothing loaded from another origin; hostile data shown as text and a link that is not
+  https dropped; an unreadable block; the links; a table at 1280 px, cards at 390 px with nothing
+  scrolling sideways), and the check starts no harness:
+
+  ```bash
+  node tools/check-status.mjs ../../consensflow [folder for screenshots]   # 1280 and 390 px, light and dark
+  node tools/serve-site.mjs                                                # then http://localhost:4500/status/
+  ```
+
 ## Copy
 
 The page says what the app's README and its releases support, from the user's side. "A software
@@ -75,6 +131,9 @@ README for the rest. On what the agents can do, it says:
 ```bash
 python3 -m http.server 4500   # then open http://localhost:4500
 ```
+
+`node tools/serve-site.mjs` serves the site as GitHub Pages does (a folder without its slash is sent to
+the one with it); the Supported versions page is at http://localhost:4500/status/.
 
 ## Assets
 
