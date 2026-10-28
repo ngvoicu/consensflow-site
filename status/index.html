@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Supported versions: the coding agents ConsensFlow works with</title>
-<meta name="description" content="Which versions of Claude Code, Codex, Pi, Devin and Muse Code ConsensFlow works with on Mac and Windows, the newest version it has been tested on, the known issues, and the newer versions it has not been tested on yet." />
+<meta name="description" content="Which versions of Claude Code, Codex, Pi, Devin and Muse Code each ConsensFlow release supports on Mac and Windows, with the known issues and the newer versions not tested yet." />
 <link rel="canonical" href="https://consensflow.ngvoicu.dev/status/" />
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#08181d" />
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#eef4f2" />
@@ -16,14 +16,14 @@
 <meta property="og:site_name" content="ConsensFlow" />
 <meta property="og:locale" content="en_US" />
 <meta property="og:title" content="Supported versions: the coding agents ConsensFlow works with" />
-<meta property="og:description" content="The versions of Claude Code, Codex, Pi, Devin and Muse Code ConsensFlow works with, the known issues, and the newer versions it has not been tested on yet." />
+<meta property="og:description" content="The versions of Claude Code, Codex, Pi, Devin and Muse Code each ConsensFlow release supports, on Mac and Windows." />
 <meta property="og:image" content="https://consensflow.ngvoicu.dev/assets/og-image.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:image:alt" content="ConsensFlow: a software factory, staffed by AI coding agents. Beside the words, the app's board: tasks from backlog to finished, one row per agent." />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Supported versions: the coding agents ConsensFlow works with" />
-<meta name="twitter:description" content="The versions of Claude Code, Codex, Pi, Devin and Muse Code ConsensFlow works with, the known issues, and the newer versions it has not been tested on yet." />
+<meta name="twitter:description" content="The versions of Claude Code, Codex, Pi, Devin and Muse Code each ConsensFlow release supports, on Mac and Windows." />
 <meta name="twitter:image" content="https://consensflow.ngvoicu.dev/assets/og-image.png" />
 
 <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -41,9 +41,9 @@
 @font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;src:url('../assets/fonts/ibm-plex-mono-400.woff2') format('woff2')}
 @font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:500;font-display:swap;src:url('../assets/fonts/ibm-plex-mono-500.woff2') format('woff2')}
 
-/* The five statuses wear the palette's own colours, each with its words: seafoam
-   (the app's "at work"), amber (waiting), slate (backlog), buoy (a warning) and a
-   muted foam. Every pill's text has at least 4.5:1 against its fill, in both themes
+/* The statuses wear the palette's own colours: seafoam, amber, slate, buoy and a
+   muted foam. Each cell also says its status in words for a screen reader, and the
+   text of every cell has at least 4.5:1 against its fill in both themes
    (tools/check-status.mjs measures it). */
 :root{
   color-scheme:dark;
@@ -52,11 +52,11 @@
   --text:#e9f1ef; --muted:#9db4b8;
   --accent:#63c7b2; --accent-fill:#63c7b2; --on-accent:#08181d;
   --grid:rgba(99,199,178,.035);
-  --pill-supported:#63c7b2;   --pill-supported-text:#08181d;
-  --pill-issues:#e7b968;      --pill-issues-text:#08181d;
-  --pill-newer:#3d5b62;       --pill-newer-text:#e9f1ef;
-  --pill-unsupported:#ff7868; --pill-unsupported-text:#08181d;
-  --pill-unmeasured:#1c373e;  --pill-unmeasured-text:#b3c7ca;
+  --st-supported:#63c7b2;   --st-supported-text:#08181d;
+  --st-issues:#e7b968;      --st-issues-text:#08181d;
+  --st-newer:#3d5b62;       --st-newer-text:#e9f1ef;
+  --st-unsupported:#ff7868; --st-unsupported-text:#08181d;
+  --st-grey:#1c373e;        --st-grey-text:#b3c7ca;
   --sans:'Archivo',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
   --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   --wrap:1180px; --gutter:clamp(20px,4vw,40px);
@@ -69,11 +69,11 @@
     --text:#0b1f24; --muted:#4a646a;
     --accent:#16766a; --accent-fill:#16766a; --on-accent:#ffffff;
     --grid:rgba(22,118,106,.05);
-    --pill-supported:#63c7b2;   --pill-supported-text:#08181d;
-    --pill-issues:#e7b968;      --pill-issues-text:#08181d;
-    --pill-newer:#3d5b62;       --pill-newer-text:#ffffff;
-    --pill-unsupported:#ff7868; --pill-unsupported-text:#08181d;
-    --pill-unmeasured:#d5e2e0;  --pill-unmeasured-text:#334c52;
+    --st-supported:#63c7b2;   --st-supported-text:#08181d;
+    --st-issues:#e7b968;      --st-issues-text:#08181d;
+    --st-newer:#3d5b62;       --st-newer-text:#ffffff;
+    --st-unsupported:#ff7868; --st-unsupported-text:#08181d;
+    --st-grey:#d5e2e0;        --st-grey-text:#334c52;
   }
 }
 
@@ -88,7 +88,6 @@ img{display:block;max-width:100%;height:auto}
 a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:3px}
 a:hover{text-decoration-thickness:2px}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
-code{font-family:var(--mono);font-size:.86em;overflow-wrap:anywhere}
 p{margin:0 0 1em}
 .wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--gutter)}
 .sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
@@ -112,88 +111,48 @@ p{margin:0 0 1em}
 /* ---- the page ---- */
 main h1{font-family:var(--sans);font-weight:800;margin:0;font-size:clamp(2.2rem,1.2rem + 4vw,3.75rem);line-height:1.04;letter-spacing:-.035em;text-wrap:balance}
 .head{padding:clamp(40px,7vw,80px) 0 0}
-.lede{font-size:clamp(1.1rem,1rem + .4vw,1.3rem);line-height:1.55;max-width:62ch;margin:22px 0 0;color:var(--muted)}
-.lede strong{color:var(--text)}
-.updated{font:500 13px var(--mono);letter-spacing:.04em;color:var(--muted);margin:18px 0 0}
-.fine{font-size:15px;color:var(--muted);margin:16px 0 0;max-width:66ch}
+.updated{font:500 13px var(--mono);letter-spacing:.04em;color:var(--muted);margin:16px 0 0}
 .unavailable{margin:24px 0 0;max-width:62ch;font-size:1.05rem}
 .unavailable[hidden]{display:none}
 
-/* Which ConsensFlow, and how to read the rest. */
-.releases{margin:clamp(28px,4vw,40px) 0 0;display:flex;flex-wrap:wrap;gap:12px clamp(20px,4vw,48px)}
-.releases div{min-width:0}
-.releases dt{font:500 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-.releases dd{margin:2px 0 0;font-weight:700;overflow-wrap:anywhere}
-.releases dd small{display:block;font:400 14px/1.4 var(--sans);color:var(--muted);font-weight:400;max-width:34ch}
-.reading{margin:clamp(24px,3vw,32px) 0 0;max-width:68ch}
-.reading summary{cursor:pointer;color:var(--accent);font-weight:700;width:fit-content}
-.reading dl{margin:14px 0 0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px 20px}
-.reading dt{font-weight:700}
-.reading dd{margin:0;color:var(--muted);font-size:16px;line-height:1.5}
-@media (max-width:640px){.reading dl{grid-template-columns:minmax(0,1fr);gap:0}.reading dd{margin-bottom:12px}}
+/* The key: each colour in its own words. */
+.key{list-style:none;margin:clamp(22px,3vw,30px) 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px 10px}
+.chip{display:inline-block;font:700 14px/1.3 var(--sans);padding:5px 12px;border-radius:999px}
 
-/* The pills, and the legend above the table. */
-.pill{display:inline-block;font:700 14px/1.25 var(--sans);padding:4px 11px;border-radius:999px;border:1px solid transparent;letter-spacing:.005em}
-.pill-supported{background:var(--pill-supported);color:var(--pill-supported-text)}
-.pill-issues{background:var(--pill-issues);color:var(--pill-issues-text)}
-.pill-newer{background:var(--pill-newer);color:var(--pill-newer-text);border-color:color-mix(in srgb,var(--pill-newer-text) 30%,transparent)}
-.pill-unsupported{background:var(--pill-unsupported);color:var(--pill-unsupported-text)}
-.pill-unmeasured{background:var(--pill-unmeasured);color:var(--pill-unmeasured-text);border-color:var(--line)}
-.legend{list-style:none;margin:clamp(28px,4vw,40px) 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px 22px}
-.legend li{min-width:0}
-.legend p{margin:6px 0 0;font-size:14px;line-height:1.45;color:var(--muted)}
+/* A status's colours: the cell, and the chip of the key. */
+.st-supported{background:var(--st-supported);color:var(--st-supported-text)}
+.st-issues{background:var(--st-issues);color:var(--st-issues-text)}
+.st-newer{background:var(--st-newer);color:var(--st-newer-text)}
+.st-unsupported{background:var(--st-unsupported);color:var(--st-unsupported-text)}
+.st-unmeasured,.st-absent{background:var(--st-grey);color:var(--st-grey-text)}
 
-/* One table: a row for each harness and platform, grouped by harness. */
-.tablewrap{margin-top:20px}
-.versions{width:100%;border-collapse:collapse;font-size:15px;line-height:1.45}
-.versions th,.versions td{padding:14px 12px;text-align:left;vertical-align:top;overflow-wrap:break-word}
-.versions .v,.versions .name a{overflow-wrap:anywhere}
-.versions td.status .pill{overflow-wrap:normal;word-break:normal}
-.versions thead th{font:500 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);white-space:nowrap}
-.versions tbody tr.plat-row > *{border-top:1px solid var(--line-soft)}
-.versions tbody tr.plat-row.first > *{border-top:1px solid var(--line)}
-.versions tbody th[scope="row"]{font-size:1.05rem;font-weight:800;letter-spacing:-.01em}
-.versions .name a{display:block;font:500 12px/1.4 var(--mono);margin-top:2px;font-weight:500}
-.versions td.ver .v{font:500 15px var(--mono)}
-.versions td .c{min-width:0}
-.versions td small{display:block;color:var(--muted);font-size:13.5px;line-height:1.4;margin-top:2px}
-.versions .mark{display:inline-block;margin-top:5px;font:500 11.5px var(--mono);letter-spacing:.03em;border:1px solid var(--line);border-radius:5px;padding:1px 6px;color:var(--muted)}
-.versions .mark.on{border-color:var(--accent);color:var(--text)}
-.versions td.issues p{margin:0 0 .6em;font-size:14.5px;line-height:1.45}
-.versions td.issues p:last-child{margin-bottom:0}
-.versions tr.note td{padding:4px 14px 18px;color:var(--muted);font-size:14.5px;border:0}
-.versions tr.note p{margin:0 0 .5em;max-width:92ch}
-.versions tr.note details{margin-top:4px}
-.versions tr.note summary{cursor:pointer;color:var(--accent);font-weight:700;width:fit-content}
-.versions tr.note ul{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:4px 14px;font:400 12.5px var(--mono)}
-.versions tr.note .banner{padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--deep);color:var(--text);max-width:68ch}
-@media (min-width:1041px){
-  .versions{table-layout:fixed}
-  .versions thead th:nth-child(1){width:12%}
-  .versions thead th:nth-child(2){width:8%}
-  .versions thead th:nth-child(3){width:14%}
-  .versions thead th:nth-child(4){width:14%}
-  .versions thead th:nth-child(5){width:13%}
-  .versions thead th:nth-child(6){width:16%}
-  .versions thead th:nth-child(7){width:23%}
-  .versions tr.second th .again{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-}
+/* The matrix: a row for each agent, and for each release a Mac and a Windows cell. */
+.tablewrap{margin-top:clamp(22px,3vw,30px)}
+.matrix{width:100%;border-collapse:separate;border-spacing:6px;table-layout:fixed}
+.matrix th,.matrix td{text-align:left;vertical-align:middle}
+.matrix thead th{font:700 15px/1.3 var(--sans);padding:6px 8px 2px;text-align:center}
+.matrix thead tr + tr th{font:500 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:0 8px 4px}
+.matrix thead tr:first-child th:first-child{text-align:left;width:15%}
+.matrix tbody th{font-size:1.05rem;font-weight:800;letter-spacing:-.01em;padding:8px 8px 8px 2px}
+.matrix td{padding:12px 14px;border-radius:8px;font:500 14px/1.4 var(--mono);overflow-wrap:break-word}
+.matrix td .t{display:inline}
+.matrix td.st-unmeasured,.matrix td.st-absent{font:400 13.5px/1.4 var(--sans)}
+.mark{display:inline-flex;align-items:center;justify-content:center;min-width:1.4em;height:1.4em;margin-left:.5em;border:1.5px solid currentColor;border-radius:50%;font:700 11px/1 var(--sans);vertical-align:.12em}
 
-/* Narrow: one card for each row, with the same fields. */
-@media (max-width:1040px){
-  .versions thead{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0)}
-  .versions,.versions tbody,.versions tr,.versions th,.versions td{display:block}
-  .versions tbody{margin-top:clamp(28px,5vw,40px)}
-  .versions tr.plat-row{border:1px solid var(--line);border-radius:10px;background:var(--panel);padding:14px 16px;margin-top:12px}
-  .versions tr.plat-row.first{margin-top:0}
-  .versions tbody tr.plat-row > *,.versions tbody tr.plat-row.first > *{border-top:0}
-  .versions th[scope="row"]{width:auto;padding:0 0 6px;font-size:1.2rem}
-  .versions td{display:grid;grid-template-columns:minmax(96px,34%) minmax(0,1fr);gap:12px;padding:6px 0}
-  .versions td::before{content:attr(data-label);font:500 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding-top:3px}
-  .versions td.empty{display:none}
-  .versions tr.note{display:block;margin-top:10px}
-  .versions tr.note td{display:block;padding:0 2px}
-  .versions tr.note td::before{content:none}
+/* Under the table: what each mark says, in one line. */
+.issues{list-style:none;margin:20px 0 0;padding:0;max-width:78ch}
+.issues li{display:flex;gap:10px;align-items:baseline;margin:0 0 8px;font-size:15.5px;line-height:1.45}
+.issues .mark{flex:none;margin:0;color:var(--text)}
+.other{margin:20px 0 0;max-width:78ch;font-size:15.5px;color:var(--muted)}
+
+/* Narrow: one block for each agent, with the same colours. */
+@media (max-width:720px){
+  .matrix thead{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .matrix,.matrix tbody,.matrix tr,.matrix th,.matrix td{display:block}
+  .matrix{border-spacing:0}
+  .matrix tr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:14px;padding:14px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+  .matrix tbody th{grid-column:1 / -1;padding:0 0 2px;font-size:1.25rem}
+  .matrix td::before{content:attr(data-label);display:block;font:500 11px/1.3 var(--mono);letter-spacing:.06em;text-transform:uppercase;margin-bottom:3px}
 }
 
 /* ---- footer ---- */
@@ -204,8 +163,6 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
 .foot a{color:var(--muted);text-decoration:none}
 .foot a:hover{color:var(--text);text-decoration:underline}
 .foot .mit{width:100%;color:var(--muted);margin:0;font-size:14px}
-.other{margin-top:clamp(36px,5vw,56px);padding-top:24px;border-top:1px solid var(--line);max-width:66ch}
-.other h2{font-size:1.3rem;margin:0 0 6px;letter-spacing:-.02em}
 
 @media (max-width:600px){body{font-size:17px}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
@@ -228,28 +185,10 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
 <section class="head" aria-labelledby="status-title">
   <div class="wrap">
     <h1 id="status-title">Supported versions</h1>
-    <p class="lede">ConsensFlow works through the coding agents you already use. This page says which version of each it works with on Mac and Windows, the newest version it has been tested on, what is known to go wrong, and the newer versions it has <strong>not</strong> been tested on yet.</p>
     <p class="updated" id="updated" hidden></p>
+    <ul class="key" id="key" aria-label="What each colour means" hidden></ul>
     <p class="unavailable" id="unavailable" role="status" hidden></p>
     <noscript><p class="unavailable">This page needs JavaScript to show its table of versions. The releases are at <a href="https://github.com/ngvoicu/consensflow/releases">github.com/ngvoicu/consensflow/releases</a>.</p></noscript>
-
-    <dl class="releases" id="releases" hidden></dl>
-
-    <details class="reading" id="reading" hidden>
-      <summary>How to read this page</summary>
-      <dl>
-        <dt>Oldest supported</dt>
-        <dd>The oldest version ConsensFlow is built to work with. A mark says whether ConsensFlow checks it when it opens a window, and refuses an older one, or only states it.</dd>
-        <dt>Newest tested</dt>
-        <dd>The newest version of the agent on which ConsensFlow's own live suites last passed on that platform, with the date of the last pass. A live suite opens a real window of the agent, gives it work and reads what came back (<code>cargo xtask live …</code> in the source). Only the suites that passed are listed, under each agent.</dd>
-        <dt>Known issues</dt>
-        <dd>What a person would notice going wrong on the newest tested version. It leaves out failures of the test kit itself. An issue says when we are looking into it or fixing it.</dd>
-        <dt>Which builds</dt>
-        <dd>The tests ran on development builds of ConsensFlow 3.0.6 (Muse Code: of 3.0.7). Stable 3.0.5 makes the same version checks when it opens a window, and has not been run again on these versions.</dd>
-      </dl>
-    </details>
-
-    <ul class="legend" id="legend" aria-label="What each status means" hidden></ul>
   </div>
 </section>
 
@@ -273,30 +212,70 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
 </footer>
 
 <!-- status-data:begin
-     The facts, and nothing else the page says about a version. A tool may write
-     everything between these two markers (planned: the oldest supported and the newest
-     tested versions from the app's code, the vendors' newest and the verdicts from a
-     check that watches each new version). The presentation below reads it and
-     computes each status from it by the rule on the page. -->
+     The facts. Each entry of `releases` is one ConsensFlow release that is supported,
+     newest last; its `harnesses` give, for each agent and each platform, the range of
+     versions that release supports (from, to), its status and its known issue. An
+     agent missing from a release is not in it. `harnesses` (top level) gives each
+     agent's name and, behind the table, the oldest supported version, the vendor's
+     newest release and what was tested: the facts that decide a status. Adding a
+     release is adding one entry; a release no longer supported is removed, and its
+     column goes. A tool may write everything between these two markers (planned: the
+     versions from the app's code, the vendors' newest and the verdicts from a check
+     that watches each new version). The page below draws the table from it. -->
 <script type="application/json" id="status-data">
 {
   "updated": "2026-10-28",
-  "app": {
-    "stable": "3.0.5",
-    "alpha": "3.0.6",
-    "next": "3.0.7",
-    "text": {
-      "stable": "The current Stable release.",
-      "alpha": "The current Alpha release.",
-      "next": "Adds Muse Code and removes OpenCode."
+  "releases": [
+    {
+      "version": "3.0.5",
+      "channel": "Stable",
+      "harnesses": [
+        { "id": "claude-code", "platforms": {
+          "mac": { "from": "2.1.292", "to": "2.1.312", "status": "supported" },
+          "windows": { "from": "2.1.292", "to": "2.1.312", "status": "issues", "issue": { "text": "On Windows, a task whose agent started a background monitor may not finish on its own; finishing it by hand works.", "state": "fixing" } }
+        } },
+        { "id": "codex", "platforms": {
+          "mac": { "from": "0.154.0", "to": "0.165.0", "status": "supported" },
+          "windows": { "from": "0.154.0", "to": "0.164.0", "status": "newer" }
+        } },
+        { "id": "pi", "platforms": {
+          "mac": { "from": "1.2.0", "to": "1.4.0", "status": "issues", "issue": { "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished.", "state": "looking" } },
+          "windows": { "from": "1.2.0", "to": "1.4.0", "status": "supported" }
+        } },
+        { "id": "devin", "platforms": {
+          "mac": { "from": "3000.10.21", "to": "3000.11.228", "status": "issues", "issue": { "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished.", "state": "looking" } },
+          "windows": { "from": "3000.10.21", "to": "3000.11.205", "status": "newer" }
+        } }
+      ]
+    },
+    {
+      "version": "3.0.6",
+      "channel": "Alpha",
+      "harnesses": [
+        { "id": "claude-code", "platforms": {
+          "mac": { "from": "2.1.292", "to": "2.1.312", "status": "supported" },
+          "windows": { "from": "2.1.292", "to": "2.1.312", "status": "issues", "issue": { "text": "On Windows, a task whose agent started a background monitor may not finish on its own; finishing it by hand works.", "state": "fixing" } }
+        } },
+        { "id": "codex", "platforms": {
+          "mac": { "from": "0.154.0", "to": "0.165.0", "status": "supported" },
+          "windows": { "from": "0.154.0", "to": "0.164.0", "status": "newer" }
+        } },
+        { "id": "pi", "platforms": {
+          "mac": { "from": "1.2.0", "to": "1.4.0", "status": "issues", "issue": { "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished.", "state": "looking" } },
+          "windows": { "from": "1.2.0", "to": "1.4.0", "status": "supported" }
+        } },
+        { "id": "devin", "platforms": {
+          "mac": { "from": "3000.10.21", "to": "3000.11.228", "status": "issues", "issue": { "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished.", "state": "looking" } },
+          "windows": { "from": "3000.10.21", "to": "3000.11.205", "status": "newer" }
+        } }
+      ]
     }
-  },
+  ],
   "harnesses": [
     {
       "id": "claude-code",
       "name": "Claude Code",
       "link": { "label": "code.claude.com", "url": "https://code.claude.com/docs" },
-      "in": ["3.0.5", "3.0.6"],
       "oldest": {
         "version": "2.1.292",
         "enforced": false,
@@ -312,16 +291,12 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
         "mac": {
           "version": "2.1.312",
           "date": "2026-10-28",
-          "suites": ["compact-cancelled", "finish", "first-message", "folder-trust", "held-typed", "monitor-wait", "reopened", "restart-cut", "resume-cut", "stops", "tell"],
-          "issues": []
+          "suites": ["compact-cancelled", "finish", "first-message", "folder-trust", "held-typed", "monitor-wait", "reopened", "restart-cut", "resume-cut", "stops", "tell"]
         },
         "windows": {
           "version": "2.1.312",
           "date": "2026-10-28",
-          "suites": ["asks", "close-early", "commands-at-rest", "compact-cancelled", "door", "escape-unsent", "finish", "first-message", "held-typed", "image-paste", "input-box", "interrupt", "monitor-wait", "notes", "paste", "paste-screen", "reopened", "restart-cut", "resume-cut", "stops", "task-working", "unsent-box", "wake-ups"],
-          "issues": [
-            { "text": "On Windows, a task whose agent started a background monitor may not finish on its own; finishing it by hand works.", "state": "fixing" }
-          ]
+          "suites": ["asks", "close-early", "commands-at-rest", "compact-cancelled", "door", "escape-unsent", "finish", "first-message", "held-typed", "image-paste", "input-box", "interrupt", "monitor-wait", "notes", "paste", "paste-screen", "reopened", "restart-cut", "resume-cut", "stops", "task-working", "unsent-box", "wake-ups"]
         }
       }
     },
@@ -329,12 +304,10 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
       "id": "codex",
       "name": "Codex",
       "link": { "label": "github.com/openai/codex", "url": "https://github.com/openai/codex" },
-      "in": ["3.0.5", "3.0.6"],
       "oldest": {
-        "version": null,
-        "short": "Needs its native queue",
+        "version": "0.154.0",
         "enforced": true,
-        "text": "No version number is checked. ConsensFlow refuses a Codex that has no native queue (codex queue --help must list --thread and --message). The oldest Codex we know has it is 0.154.0."
+        "text": "No version number is checked. ConsensFlow refuses a Codex that has no native queue (codex queue --help must list --thread and --message). 0.154.0 is the oldest Codex we know has it."
       },
       "vendor": {
         "version": "0.165.0",
@@ -351,14 +324,12 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
             "date": "2026-10-28",
             "suites": ["close-early", "escape-unsent", "finish", "first-message", "folder-trust", "resume-cut", "resume-fresh", "stops", "tell"]
           },
-          "text": "Three suites have run on 0.165.0 so far. The rest of the set last passed on 0.164.0.",
-          "issues": []
+          "text": "Three suites have run on 0.165.0 so far. The rest of the set last passed on 0.164.0."
         },
         "windows": {
           "version": "0.164.0",
           "date": "2026-10-28",
-          "suites": ["finish", "first-message", "folder-trust", "harnesses", "restart-cut", "tell"],
-          "issues": []
+          "suites": ["finish", "first-message", "folder-trust", "harnesses", "restart-cut", "tell"]
         }
       }
     },
@@ -366,7 +337,6 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
       "id": "pi",
       "name": "Pi",
       "link": { "label": "github.com/earendil-works/pi", "url": "https://github.com/earendil-works/pi" },
-      "in": ["3.0.5", "3.0.6"],
       "oldest": {
         "version": "1.2.0",
         "enforced": false,
@@ -381,16 +351,12 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
         "mac": {
           "version": "1.4.0",
           "date": "2026-10-28",
-          "suites": ["escape-unsent", "first-message", "folder-trust", "reopened", "restart-cut", "resume-cut", "resume-fresh", "stops", "task-working"],
-          "issues": [
-            { "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished.", "state": "looking" }
-          ]
+          "suites": ["escape-unsent", "first-message", "folder-trust", "reopened", "restart-cut", "resume-cut", "resume-fresh", "stops", "task-working"]
         },
         "windows": {
           "version": "1.4.0",
           "date": "2026-10-26",
-          "suites": ["finish", "folder-trust", "harnesses", "restart-cut", "resume-cut", "resume-fresh", "stops", "wake-ups"],
-          "issues": []
+          "suites": ["finish", "folder-trust", "harnesses", "restart-cut", "resume-cut", "resume-fresh", "stops", "wake-ups"]
         }
       }
     },
@@ -398,7 +364,6 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
       "id": "devin",
       "name": "Devin",
       "link": { "label": "devin.ai", "url": "https://devin.ai" },
-      "in": ["3.0.5", "3.0.6"],
       "oldest": {
         "version": "3000.10.21",
         "enforced": true,
@@ -413,16 +378,12 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
         "mac": {
           "version": "3000.11.228",
           "date": "2026-10-28",
-          "suites": ["devin-resume", "devin-wire", "first-message", "folder-trust", "reopened", "restart-cut", "resume-cut", "stops", "task-working", "tell"],
-          "issues": [
-            { "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished.", "state": "looking" }
-          ]
+          "suites": ["devin-resume", "devin-wire", "first-message", "folder-trust", "reopened", "restart-cut", "resume-cut", "stops", "task-working", "tell"]
         },
         "windows": {
           "version": "3000.11.205",
           "date": "2026-10-28",
-          "suites": ["devin-resume", "devin-wire", "door", "escape-unsent", "first-message", "folder-trust", "harnesses", "interrupt", "paste", "restart-cut", "resume-cut", "resume-fresh", "stops", "terminal", "unsent-box"],
-          "issues": []
+          "suites": ["devin-resume", "devin-wire", "door", "escape-unsent", "first-message", "folder-trust", "harnesses", "interrupt", "paste", "restart-cut", "resume-cut", "resume-fresh", "stops", "terminal", "unsent-box"]
         }
       },
       "notes": [
@@ -433,12 +394,10 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
       "id": "muse-code",
       "name": "Muse Code",
       "link": { "label": "dev.meta.ai/docs/muse-code", "url": "https://dev.meta.ai/docs/muse-code" },
-      "in": [],
-      "arrives": "3.0.7",
       "oldest": {
         "version": "1.4.13",
         "enforced": "unreleased",
-        "text": "ConsensFlow's Muse Code support, now in development, refuses an older Muse Code before it opens a window. It is not in a release yet."
+        "text": "ConsensFlow's Muse Code support, now in development, refuses an older Muse Code before it opens a window. It is not in a release yet; it arrives with 3.0.7."
       },
       "vendor": {
         "version": "1.4.14-R7309.1",
@@ -450,8 +409,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
         "mac": {
           "version": "1.4.13-R6996.1",
           "date": "2026-10-27",
-          "suites": ["muse-window"],
-          "issues": []
+          "suites": ["muse-window"]
         },
         "windows": {
           "version": null,
@@ -469,26 +427,34 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
 <!-- status-data:end -->
 
 <script>
-// Supported versions: shows the facts in #status-data as one table, a row for each
-// harness and platform, and computes each status from them by the rule in the
-// legend. Everything the data says goes in with textContent, never as markup, and
-// a link is shown only if it is an https address. No version is named here.
+// Supported versions: draws the matrix of #status-data. A row for each agent; for
+// each release, in the order the data gives them, a Mac and a Windows cell holding
+// the range of versions that release supports, coloured by the cell's status. A
+// cell's known issue is a numbered mark, said once under the table. Everything the
+// data says goes in with textContent, never as markup. No version is named here.
 (function(){
   var PLATFORMS = [
     { id: 'mac', label: 'Mac' },
     { id: 'windows', label: 'Windows' }
   ];
-  var COLUMNS = ['Harness', 'Platform', 'Oldest supported', 'Newest tested', 'Vendor’s newest', 'Status', 'Known issues'];
-  // The statuses, in the order of the legend. The rule that picks one is `standing`.
+  // The statuses, in the order of the key. A harness that is not in a release, and
+  // a platform with nothing measured, are both grey.
   var STATES = [
-    { id: 'supported', label: 'Supported', meaning: 'The vendor’s newest version is one we have tested, and no problem is known.' },
-    { id: 'issues', label: 'Supported, with known issues', meaning: 'Tested, and something a person can meet going wrong is known. It is in the last column.' },
-    { id: 'newer', label: 'Newer than tested', meaning: 'The vendor has a newer version than the one we tested. It may work, and we’re testing it.' },
-    { id: 'unsupported', label: 'Not supported', meaning: 'Older than the oldest version supported, or a newer version we tested and found broken.' },
-    { id: 'unmeasured', label: 'Not yet measured', meaning: 'We have no test of it yet.' }
+    { id: 'supported', label: 'Supported' },
+    { id: 'issues', label: 'Supported, with a known issue' },
+    { id: 'newer', label: 'Newer than tested (we’re testing it)' },
+    { id: 'unsupported', label: 'Not supported' },
+    { id: 'unmeasured', label: 'Not yet measured, or not in this release' }
   ];
-  var LABEL = {};
-  STATES.forEach(function(s){ LABEL[s.id] = s.label; });
+  var WORDS = {
+    supported: 'Supported',
+    issues: 'Supported, with a known issue',
+    newer: 'Newer than tested',
+    unsupported: 'Not supported',
+    unmeasured: 'Not yet measured',
+    absent: 'Not in this release'
+  };
+  var SAID = { looking: ' We’re looking into it.', fixing: ' Being fixed.' };
   var UNAVAILABLE = "The list of supported versions can't be shown right now. The releases are at github.com/ngvoicu/consensflow/releases.";
 
   function el(tag, props, kids) {
@@ -500,149 +466,104 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
     return node;
   }
   function str(value) { return typeof value === 'string' ? value : ''; }
+  function known(status) { return WORDS[status] ? status : 'unmeasured'; }
 
-  // 1.4.14-R7309.1 is 1.4.14 build 7309.1: the build follows the three numbers.
-  function parts(version) {
-    return String(version).replace(/-R/i, '.').split('.').map(function(p){ return parseInt(p, 10) || 0; });
+  // The numbered issues of the table: one line for each distinct text, in the order
+  // the table first meets it.
+  function Issues() {
+    var list = [];
+    return {
+      list: list,
+      number: function(issue) {
+        var text = str(issue.text);
+        for (var i = 0; i < list.length; i++) if (list[i].text === text) return i + 1;
+        list.push({ text: text, state: str(issue.state) });
+        return list.length;
+      }
+    };
   }
-  function compare(a, b) {
-    var x = parts(a), y = parts(b);
-    for (var i = 0; i < Math.max(x.length, y.length); i++) {
-      var d = (x[i] || 0) - (y[i] || 0);
-      if (d) return d < 0 ? -1 : 1;
+
+  function range(cell) {
+    var from = str(cell.from), to = str(cell.to);
+    return from && to && from !== to ? from + ' – ' + to : to || from;
+  }
+
+  function cell(release, harness, plat, entry, issues) {
+    var data = entry || {};
+    var status = entry ? known(data.status) : 'absent';
+    if (status !== 'absent' && status !== 'unmeasured' && !range(data)) status = 'unmeasured';
+    var label = str(release.channel) + ' ' + str(release.version) + ' · ' + plat.label;
+    var kids;
+    if (status === 'absent' || status === 'unmeasured') {
+      kids = [WORDS[status]];
+    } else {
+      kids = [el('span', { 'class': 'sr', text: WORDS[status] + ': ' }), el('span', { 'class': 't', text: range(data) })];
+      if (data.issue && str(data.issue.text)) {
+        var n = issues.number(data.issue);
+        kids.push(el('span', { 'class': 'mark', role: 'img', 'aria-label': 'Known issue ' + n, text: String(n) }));
+      }
     }
-    return 0;
+    return el('td', {
+      'class': 'st st-' + status,
+      'data-label': label,
+      'data-release': str(release.version),
+      'data-harness': str(harness.id),
+      'data-platform': plat.id,
+      'data-status': status
+    }, kids);
   }
 
-  // The rule. A platform with no tested version is not yet measured; a vendor
-  // release found broken is not supported; a vendor release newer than the newest
-  // tested is newer than tested; a tested version with issues listed is supported
-  // with known issues; anything else is supported.
-  function standing(harness, platform) {
-    var tested = harness.tested && harness.tested[platform];
-    if (!tested || !tested.version) return 'unmeasured';
-    var vendor = harness.vendor || {};
-    if (vendor.verdict === 'broken') return 'unsupported';
-    if (vendor.version && compare(vendor.version, tested.version) > 0) return 'newer';
-    return (tested.issues || []).length ? 'issues' : 'supported';
-  }
-
-  function pill(kind) { return el('span', { 'class': 'pill pill-' + kind, text: LABEL[kind] }); }
-  function cell(label, cls, kids) { return el('td', { 'data-label': label, 'class': cls }, [el('div', { 'class': 'c' }, kids)]); }
-
-  // A link is shown only when it is an https address.
-  function link(h) {
-    var l = h.link || {};
-    return /^https:\/\//.test(str(l.url)) ? el('a', { href: l.url, rel: 'noopener', text: str(l.label) || l.url }) : null;
-  }
-
-  function oldestCell(h) {
-    var o = h.oldest || {};
-    var text = o.enforced === 'unreleased' ? 'checked at launch, once released' : o.enforced ? 'checked at launch' : 'not checked at launch';
-    return cell(COLUMNS[2], 'ver', [
-      o.version ? el('span', { 'class': 'v', text: o.version }) : str(o.short) || 'Not yet measured',
-      el('span', { 'class': 'mark' + (o.enforced ? ' on' : ''), text: text })
-    ]);
-  }
-  function testedCell(t) {
-    if (!t.version) return cell(COLUMNS[3], 'ver', ['Not yet measured', t.why ? el('small', { text: str(t.why) }) : null]);
-    return cell(COLUMNS[3], 'ver', [el('span', { 'class': 'v', text: t.version }), t.date ? el('small', { text: 'last passed ' + t.date }) : null]);
-  }
-  function vendorCell(v) {
-    if (!v.version) return cell(COLUMNS[4], 'ver', ['Not yet measured']);
-    return cell(COLUMNS[4], 'ver', [el('span', { 'class': 'v', text: v.version }), el('small', { text: v.date ? 'released ' + v.date : 'release date not yet measured' })]);
-  }
-  var SAID = { looking: ' We’re looking into it.', fixing: ' Being fixed.' };
-  function issuesCell(t) {
-    var issues = t.issues || [];
-    return cell(COLUMNS[6], 'issues' + (issues.length ? '' : ' empty'), issues.length
-      ? issues.map(function(i){ return el('p', { text: str(i.text) + (SAID[i.state] || '') }); })
-      : [el('span', { 'class': 'sr', text: 'None known' })]);
-  }
-
-  function row(h, plat, at) {
-    var t = (h.tested || {})[plat.id] || {};
-    var kind = standing(h, plat.id);
-    var named = [el('span', { 'class': 'again' }, [str(h.name), link(h)])];
-    var tr = el('tr', { 'class': 'plat-row ' + (at ? 'second' : 'first'), 'data-harness': str(h.id), 'data-platform': plat.id, 'data-status': kind }, [
-      el('th', { scope: 'row', 'class': 'name' }, at ? named : [str(h.name), link(h)]),
-      cell(COLUMNS[1], '', [plat.label]),
-      oldestCell(h),
-      testedCell(t),
-      vendorCell(h.vendor || {}),
-      cell(COLUMNS[5], 'status', [pill(kind)]),
-      issuesCell(t)
-    ]);
-    return tr;
-  }
-
-  function noteRow(h, app) {
-    var box = el('td', { colspan: '7' });
-    if (h.arrives) box.appendChild(el('p', { 'class': 'banner', text: 'ConsensFlow does not open ' + h.name + ' windows yet. It arrives with ConsensFlow ' + h.arrives + '.' }));
-    var oldest = h.oldest || {};
-    if (oldest.text) box.appendChild(el('p', { text: 'Oldest supported: ' + str(oldest.text) }));
-    var vendor = h.vendor || {};
-    var feed = [vendor.feed ? 'Vendor’s newest read from ' + vendor.feed + '.' : '', str(vendor.text)].filter(Boolean).join(' ');
-    if (feed) box.appendChild(el('p', { text: feed }));
-    PLATFORMS.forEach(function(plat){
-      var t = (h.tested || {})[plat.id] || {};
-      if (t.text) box.appendChild(el('p', { text: plat.label + ': ' + str(t.text) }));
-    });
-    (h.notes || []).forEach(function(n){ box.appendChild(el('p', { text: str(n) })); });
-    var lists = PLATFORMS.filter(function(plat){ return ((h.tested || {})[plat.id] || {}).version; });
-    if (lists.length) {
-      var more = el('details', {}, [el('summary', { text: 'Live suites that passed' })]);
-      lists.forEach(function(plat){
-        var t = h.tested[plat.id];
-        var suites = t.suites || [];
-        more.appendChild(el('p', { text: plat.label + ', ' + t.version + ' (' + suites.length + (suites.length === 1 ? ' suite' : ' suites') + ')' + (t.earlier ? ', and on ' + t.earlier.version + ':' : ':') }));
-        more.appendChild(el('ul', {}, suites.map(function(name){ return el('li', { text: name }); })));
-        if (t.earlier) more.appendChild(el('ul', {}, (t.earlier.suites || []).map(function(name){ return el('li', { text: name }); })));
-      });
-      box.appendChild(more);
-    }
-    return el('tr', { 'class': 'note' }, [box]);
+  function entryOf(release, id, plat) {
+    var found = (release.harnesses || []).filter(function(h){ return h && h.id === id; })[0];
+    return found && found.platforms ? found.platforms[plat] : null;
   }
 
   function show(data) {
-    var app = data.app || {};
+    var releases = (data.releases || []).filter(function(r){ return r && typeof r === 'object'; });
+    var agents = data.harnesses || [];
     var out = document.getElementById('list');
-    var releases = document.getElementById('releases');
 
     document.getElementById('updated').textContent = 'Updated ' + str(data.updated);
     document.getElementById('updated').hidden = false;
 
-    var said = app.text || {};
-    [['Stable channel', app.stable, said.stable], ['Alpha channel', app.alpha, said.alpha], ['Next', app.next, said.next]].forEach(function(r){
-      releases.appendChild(el('div', {}, [el('dt', { text: r[0] }), el('dd', {}, [str(r[1]), r[2] ? el('small', { text: r[2] }) : null])]));
+    var key = document.getElementById('key');
+    STATES.forEach(function(s){ key.appendChild(el('li', { 'data-state': s.id }, [el('span', { 'class': 'chip st-' + s.id, text: s.label })])); });
+    key.hidden = false;
+
+    var issues = Issues();
+    var head1 = el('tr', {}, [el('th', { scope: 'col', rowspan: '2', text: 'Agent' })]);
+    var head2 = el('tr');
+    releases.forEach(function(r){
+      head1.appendChild(el('th', { scope: 'colgroup', colspan: String(PLATFORMS.length), text: str(r.channel) + ' ' + str(r.version) }));
+      PLATFORMS.forEach(function(p){ head2.appendChild(el('th', { scope: 'col', text: p.label })); });
     });
-    releases.hidden = false;
-    document.getElementById('reading').hidden = false;
-
-    var legend = document.getElementById('legend');
-    STATES.forEach(function(s){ legend.appendChild(el('li', { 'data-state': s.id }, [pill(s.id), el('p', { text: s.meaning })])); });
-    legend.hidden = false;
-
-    var table = el('table', { 'class': 'versions' }, [
-      el('caption', { 'class': 'sr', text: 'The versions of each coding agent ConsensFlow works with, by platform' }),
-      el('thead', {}, [el('tr', {}, COLUMNS.map(function(c){ return el('th', { scope: 'col', text: c }); }))])
-    ]);
-    (data.harnesses || []).forEach(function(h){
-      var group = el('tbody', { id: str(h.id), 'data-harness': str(h.id) });
-      PLATFORMS.forEach(function(plat, at){ group.appendChild(row(h, plat, at)); });
-      group.appendChild(noteRow(h, app));
-      table.appendChild(group);
+    var body = el('tbody');
+    agents.forEach(function(agent){
+      var row = el('tr', { 'data-harness': str(agent.id) }, [el('th', { scope: 'row', text: str(agent.name) })]);
+      releases.forEach(function(r){
+        PLATFORMS.forEach(function(p){ row.appendChild(cell(r, agent, p, entryOf(r, agent.id, p.id), issues)); });
+      });
+      body.appendChild(row);
     });
-    out.appendChild(el('div', { 'class': 'tablewrap' }, [table]));
+    out.appendChild(el('div', { 'class': 'tablewrap' }, [el('table', { 'class': 'matrix' }, [
+      el('caption', { 'class': 'sr', text: 'The versions of each coding agent that each ConsensFlow release supports, on Mac and Windows' }),
+      el('thead', {}, [head1, head2]),
+      body
+    ])]));
 
+    if (issues.list.length) {
+      out.appendChild(el('ol', { 'class': 'issues' }, issues.list.map(function(issue, i){
+        return el('li', {}, [el('span', { 'class': 'mark', text: String(i + 1) }), el('span', { text: issue.text + (SAID[issue.state] || '') })]);
+      })));
+    }
     if (data.opencode && data.opencode.text) {
-      out.appendChild(el('section', { 'class': 'other' }, [el('h2', { text: str(data.opencode.name) }), el('p', { text: str(data.opencode.text) })]));
+      out.appendChild(el('p', { 'class': 'other', text: str(data.opencode.name) + ': ' + str(data.opencode.text) }));
     }
   }
 
   var data;
   try { data = JSON.parse(document.getElementById('status-data').textContent); } catch (e) { data = null; }
-  if (!data || !Array.isArray(data.harnesses)) {
+  if (!data || !Array.isArray(data.releases) || !Array.isArray(data.harnesses)) {
     var note = document.getElementById('unavailable');
     note.textContent = UNAVAILABLE;
     note.hidden = false;
