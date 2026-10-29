@@ -151,7 +151,7 @@ function theData() {
         if (cell.issue) {
           assert.ok(/[.]$/.test(cell.issue.text), `${where}: an issue is a sentence`)
           assert.ok(!cell.issue.state || ['looking', 'fixing'].includes(cell.issue.state), `${where}: an issue's state`)
-          assert.ok(!/\b(ps|opencode|test kit)\b/i.test(cell.issue.text), `${where}: an issue is not the test kit's`)
+          assert.ok(!/\b(ps|test kit)\b/i.test(cell.issue.text), `${where}: an issue is not the test kit's`)
         }
         if (r === newest && cell.to) {
           assert.equal(cell.from, facts.oldest.version, `${where}: the newest release starts at the oldest supported`)
@@ -275,7 +275,7 @@ async function theMatrix() {
     assert.deepEqual(key.map((k) => k.state), STATES, 'the key lists the five colours, in order')
     key.forEach((k) => { assert.equal(k.text, KEY[k.state]); assert.ok(k.cls.split(' ').includes(`st-${k.state}`)) })
     assert.equal(await page.locator('#updated').innerText(), `Updated ${data.updated}`)
-    assert.equal(await page.locator('.other').innerText(), `${data.opencode.name}: ${data.opencode.text}`)
+    assert.equal(await page.locator('.other').innerText(), 'OpenCode: supported up to 3.0.6; ConsensFlow 3.0.7 removed it.')
     assert.deepEqual(problems, [], 'nothing logged, nothing loaded from elsewhere')
     const text = await page.locator('main').innerText()
     assert.ok(!/alpha\.\d|pre-?release/i.test(text), 'no release is qualified by its stage on the page')
@@ -354,7 +354,7 @@ async function hostileData() {
   made.releases[1].harnesses[0].platforms.mac.from = bad
   made.releases[1].harnesses[0].platforms.windows.issue = { text: bad, state: 'fixing' }
   made.harnesses[0].name = bad
-  made.opencode.text = bad
+  made.removed.text = bad
   const html = HTML.replace(BLOCK, (_, a, _b, c) => a + JSON.stringify(made).replaceAll('</', '<\\/') + c)
   await withPage(async (page) => {
     assert.equal(await page.evaluate(() => window.__pwned), undefined, 'no script ran')

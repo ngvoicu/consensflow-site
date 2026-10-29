@@ -6,7 +6,7 @@ import { join } from 'node:path'
 /**
  * The app's daemon (`cf ui --json --no-open` of a built ConsensFlow) on a home
  * made for the occasion under the system's temp folder: nothing of the real
- * home (~/.consensflow) or of the real harnesses is read or written. The five
+ * home (~/.consensflow) or of the real harnesses is read or written. The four
  * harness commands on its PATH are stand-ins that only answer a version, so
  * the pickers offer the catalog's agents; none of them is ever run as an agent.
  *
@@ -28,7 +28,7 @@ export async function startDaemon(cf) {
   for (const folder of [env.HOME, env.CONSENSFLOW_HOME, env.PATH]) {
     mkdirSync(folder, { recursive: true })
   }
-  for (const command of ['claude', 'codex', 'pi', 'opencode', 'devin']) {
+  for (const command of ['claude', 'codex', 'pi', 'devin']) {
     writeFileSync(join(env.PATH, command), "#!/bin/sh\nprintf '1.2.3\\n'\n", { mode: 0o755 })
   }
 

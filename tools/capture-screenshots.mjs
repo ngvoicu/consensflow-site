@@ -359,7 +359,7 @@ try {
   for (const [member, sessions, window_] of [
     ['theia', 2, 'theia · hazel-delta'],
     ['merope', 3, 'merope · brisk-reed'],
-    ['audhumla', 1, 'audhumla · misty-glade'],
+    ['huginn', 1, 'huginn · misty-glade'],
   ]) {
     await page.getByRole('button', { name: `Show @${member}'s ${sessions} session${sessions === 1 ? '' : 's'}` }).click()
     await page.getByRole('button', { name: `Show @${window_}'s terminal` }).click()
@@ -369,7 +369,7 @@ try {
   await stage.evaluate((element) => {
     element.scrollLeft = 0
   })
-  await screensIn(['chief', 'theia-hazel-delta', 'merope-brisk-reed', 'audhumla-misty-glade'])
+  await screensIn(['chief', 'theia-hazel-delta', 'merope-brisk-reed', 'huginn-misty-glade'])
   // The chief beside the first of them; then the dock scrolled to the staff's three.
   await shot('chief-and-staff')
   await stage.evaluate((element) => {

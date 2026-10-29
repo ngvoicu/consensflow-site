@@ -1,6 +1,6 @@
 /**
  * The demo the screenshots show: one small web app, "pantry", run by a chief
- * on Claude Code and a staff of four on Codex, Pi, OpenCode and Devin, with a
+ * on Claude Code and a staff of four on Codex, Pi, Claude Code and Devin, with a
  * task in every column of the board. It is written in the shapes the daemon
  * answers the page with (`board.get`, `task.get`, `inbox.get`...), as the
  * app's own page tests write theirs (consensflow/app/tests/core-page.spec.mjs),
@@ -59,7 +59,7 @@ const human = participant(1, 'human', 'human')
 const chief = participant(2, 'chief', 'chief', { agent: 'zeus', harness: 'claude-code' })
 const theia = member(3, 'theia', ['worker'], 'codex', 'standard')
 const merope = member(4, 'merope', ['worker'], 'pi', 'standard')
-const audhumla = member(5, 'audhumla', ['worker'], 'opencode', 'light')
+const huginn = member(5, 'huginn', ['worker'], 'claude-code', 'light')
 const seshat = member(6, 'seshat', ['reviewer', 'advisor'], 'devin', 'complex')
 
 const sessions = {
@@ -69,7 +69,7 @@ const sessions = {
   t4: session(10, theia, 'hazel-delta'),
   t5: session(11, merope, 'brisk-reed'),
   t6: session(12, seshat, 'calm-brook', 'advisor'),
-  t7: session(13, audhumla, 'misty-glade'),
+  t7: session(13, huginn, 'misty-glade'),
   t8: session(14, merope, 'gentle-cove'),
 }
 
@@ -271,7 +271,7 @@ const board = {
     lane(chief, [], 'working', panes.chief),
     lane(theia, []),
     lane(merope, []),
-    lane(audhumla, []),
+    lane(huginn, []),
     lane(seshat, []),
     lane(sessions.t1, [tasks.t1]),
     lane(sessions.t2, [tasks.t2]),
@@ -451,7 +451,7 @@ const projects = [
 ]
 
 /** The staff the New project dialog starts with: the last project's, as `staff.last` gives it. */
-const lastStaff = [theia, merope, audhumla, seshat].map((who) => ({
+const lastStaff = [theia, merope, huginn, seshat].map((who) => ({
   agent: who.agent,
   harness: who.harness === 'claude-code' ? 'claude' : who.harness,
   designer: false,

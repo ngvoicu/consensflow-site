@@ -1,6 +1,6 @@
 /**
  * What the demo's open windows show (tools/demo.mjs): the chief's Claude Code,
- * and a Codex, a Pi and an OpenCode window of the staff, each drawn as that
+ * and a Codex, a Pi and a Claude Code window of the staff, each drawn as that
  * harness draws a session at work on its task, for a terminal of the size the
  * page gives it. They are written for the demo, from how these harnesses look
  * at work: no harness ran, and nothing here names a person, a path outside the
@@ -169,7 +169,8 @@ function ends(cols, left, right) {
 /* ------------------------------------------------------------------ */
 /* Claude Code: the chief, planning, putting the next tasks on the board. */
 
-export function claudeChief({ cols, rows }) {
+/** What a Claude Code window is drawn with: its screen, the lines of its transcript, and its input. */
+function claudeWindow(cols) {
   const s = new Screen(cols)
   const DIMMED = [fg('#999999')]
   const USER = [fg('#b4b4b4')]
@@ -192,6 +193,21 @@ export function claudeChief({ cols, rows }) {
     s.blank()
   }
   const user = (text) => s.para(text, { first: '> ', style: USER, lead: USER, code: null }).blank()
+  /** What it is at (`doing`, for `timing`), and its input under that line. */
+  const input = (doing, timing) => {
+    s.row([[`✻ ${doing} `, [fg('#d77757')]], [`(esc to interrupt · ${timing})`, DIMMED]])
+    s.blank()
+    const rule = [['─'.repeat(cols), [fg('#5f5f5f')]]]
+    s.row(rule)
+    s.row([['> ', []], [' ', ['7']]])
+    s.row(rule)
+    s.row([['  ⏵⏵ bypass permissions on ', [fg('#ff6b80')]], ['(shift+tab to cycle)', DIMMED]])
+  }
+  return { s, say, tool, user, input }
+}
+
+export function claudeChief({ cols, rows }) {
+  const { s, say, tool, user, input } = claudeWindow(cols)
 
   // Earlier in the session: the human's ask, the first tasks, a review and its follow-up.
   user(
@@ -201,7 +217,7 @@ export function claudeChief({ cols, rows }) {
   tool('Bash', 'cf staff', [
     '@theia · worker · standard',
     '@merope · worker · standard',
-    '@audhumla · worker · light',
+    '@huginn · worker · light',
     '@seshat · reviewer+advisor · complex',
   ])
   tool('Bash', "cf task add --tier standard - <<'BRIEF'\nShopping list API: add, check off, clear…", [
@@ -246,13 +262,7 @@ export function claudeChief({ cols, rows }) {
       'T-10 is on the board for a standard worker; the first free one gets it, and its result arrives in your inbox. It waits until T-9 is accepted.',
     ],
   )
-  s.row([['✻ Deliberating… ', [fg('#d77757')]], ['(esc to interrupt · 1m 46s · ↓ 2.1k tokens)', DIMMED]])
-  s.blank()
-  const rule = [['─'.repeat(cols), [fg('#5f5f5f')]]]
-  s.row(rule)
-  s.row([['> ', []], [' ', ['7']]])
-  s.row(rule)
-  s.row([['  ⏵⏵ bypass permissions on ', [fg('#ff6b80')]], ['(shift+tab to cycle)', DIMMED]])
+  input('Deliberating…', '1m 46s · ↓ 2.1k tokens')
   return s.render(rows)
 }
 
@@ -403,79 +413,40 @@ export function piWorker({ cols, rows }) {
 }
 
 /* ------------------------------------------------------------------ */
-/* OpenCode: audhumla, seeding a demo household (T-7). */
+/* Claude Code: huginn, seeding a demo household (T-7). */
 
-export function opencodeWorker({ cols, rows }) {
-  const s = new Screen(cols)
-  const BG = '#0a0a0a'
-  const PANEL = '#141414'
-  const TEXT = [fg('#eeeeee')]
-  const MUTED = [fg('#808080')]
-  const BLUE = [fg('#5c9cf5')]
-  const ORANGE = [fg('#fab283')]
-  const GREEN = [fg('#7fd88f')]
-  const line = (segments = []) => s.row(segments, BG)
-  const quote = (text, bar = BLUE) => {
-    for (const piece of wrap(text, cols - 4)) s.row([['┃ ', bar], [` ${piece}`, TEXT]], PANEL)
-  }
-  const say = (text) => {
-    s.para(text, { first: '  ', style: TEXT, code: ORANGE, fill: BG })
-    line()
-  }
-  const call = (icon, verb, rest) => line([[`  ${icon} `, MUTED], [verb, TEXT], [` ${rest}`, MUTED]])
+export function claudeWorker({ cols, rows }) {
+  const { s, say, tool, user, input } = claudeWindow(cols)
 
-  line([['  # Seed a demo household for local development', [BOLD, ...TEXT]]])
-  line([[`  ${'─'.repeat(Math.max(0, cols - 4))}`, [fg('#303030')]]])
-  line()
-  s.row([['┃', BLUE]], PANEL)
-  quote('[ConsensFlow m-15 · T-7 · task from @chief]')
-  quote('Seed a demo household for local development')
-  s.row([['┃', BLUE]], PANEL)
-  quote(
-    'Write server/seed.ts: one household, 20 pantry items with a mix of expiry dates (some this week, some with none) and a few shopping list entries. Make it safe to run twice, add an npm script "seed", and say how to run it.',
+  user(
+    '[ConsensFlow m-15 · T-7 · task from @chief]\nSeed a demo household for local development\n\nWrite server/seed.ts: one household, 20 pantry items with a mix of expiry dates (some this week, some with none) and a few shopping list entries. Make it safe to run twice, add an npm script "seed", and say how to run it.',
   )
-  s.row([['┃', BLUE]], PANEL)
-  line()
   say("I'll read the schema and the migrations, then write the seed so a second run finds the household and stops.")
-  call('→', 'Read', 'server/db.ts')
-  call('→', 'Read', 'server/migrations/0007_expires_on.sql')
-  call('✱', 'Grep', '"CREATE TABLE" in server/migrations (4 matches)')
-  line()
-  call('←', 'Write', 'server/seed.ts')
-  for (const [n, text] of [
-    [1, "import { db, findHousehold } from './db'"],
-    [2, ''],
-    [3, 'const DAY = 86_400_000'],
-    [4, 'const inDays = (n: number) => new Date(Date.now() + n * DAY)'],
-    [5, ''],
-    [6, "if (findHousehold('Demo')) {"],
-    [7, '  console.log(\'Household "Demo" exists; nothing to do.\')'],
-  ]) {
-    line([[`    ${String(n).padStart(2)}  `, MUTED], [text, TEXT]])
-  }
-  line([['    ⋮', MUTED]])
-  line()
-  call('←', 'Edit', 'package.json')
-  line([['     ', []], ['   "migrate": "tsx server/migrate.ts",', MUTED]])
-  line([['     ', []], ['+  "seed": "tsx server/seed.ts",', GREEN]])
-  line()
-  call('$', 'npm run seed', '')
-  for (const text of ['> pantry@0.4.0 seed', '> tsx server/seed.ts', 'Seeded household "Demo" with 20 items and 4 list entries.']) {
-    line([['    ', []], [text, MUTED]])
-  }
-  line()
-  call('$', 'npm run seed', '')
-  line([['    ', []], ['Household "Demo" exists; nothing to do.', MUTED]])
-  line()
+  tool('Read', 'server/db.ts', ['Read 64 lines'])
+  tool('Read', 'server/migrations/0007_expires_on.sql', ['Read 9 lines'])
+  tool('Search', 'pattern: "CREATE TABLE", path: "server/migrations"', ['Found 4 files'])
+  tool('Write', 'server/seed.ts', [
+    'Wrote 42 lines to server/seed.ts',
+    "      1  import { db, findHousehold } from './db'",
+    '      2',
+    '      3  const DAY = 86_400_000',
+    '      4  const inDays = (n: number) => new Date(Date.now() + n * DAY)',
+    '      5',
+    "      6  if (findHousehold('Demo')) {",
+    '      7    console.log(\'Household "Demo" exists; nothing to do.\')',
+    '      … +35 lines',
+  ])
+  tool('Update', 'package.json', [
+    'Updated package.json with 1 addition',
+    '      5    "migrate": "tsx server/migrate.ts",',
+    '      6 +  "seed": "tsx server/seed.ts",',
+  ])
+  const seeded = ['> pantry@0.4.0 seed', '> tsx server/seed.ts', 'Seeded household "Demo" with 20 items and 4 list entries.']
+  tool('Bash', 'npm run seed', seeded)
+  tool('Bash', 'npm run seed', ['Household "Demo" exists; nothing to do.'])
   say('A second run leaves one household. Now a test for the seed, beside the others in `server/`.')
-  // Its input, at the bottom of a full-screen window, whatever the transcript's length.
-  line([['  ■■■⬝⬝⬝⬝⬝ ', ORANGE], ['esc ', TEXT], ['interrupt', MUTED]])
-  line()
-  s.row([['┃', ORANGE]], PANEL)
-  s.row([['┃ ', ORANGE], ['Ask anything…', MUTED]], PANEL)
-  s.row([['┃', ORANGE]], PANEL)
-  line(ends(cols, [['  Build', ORANGE], ['  Nemotron 3 Ultra (free) ', TEXT], ['OpenCode Zen', MUTED]], [['ctrl+p commands  ', MUTED]]))
-  return s.render(rows, { pin: 6, filler: BG })
+  input('Writing…', '38s · ↓ 1.4k tokens')
+  return s.render(rows)
 }
 
 /* ------------------------------------------------------------------ */
@@ -574,5 +545,5 @@ export const SCREENS = {
   chief: claudeChief,
   'theia-hazel-delta': codexWorker,
   'merope-brisk-reed': piWorker,
-  'audhumla-misty-glade': opencodeWorker,
+  'huginn-misty-glade': claudeWorker,
 }

@@ -31,7 +31,7 @@ function fileFor(path) {
   const rel = normalize(decodeURIComponent(path)).replace(/^[/\\]+/, '')
   const file = resolve(SITE, rel)
   const hidden = rel.split(sep).some((part) => part.startsWith('.'))
-  return file.startsWith(SITE + sep) && !hidden ? file : null
+  return (file === SITE || file.startsWith(SITE + sep)) && !hidden ? file : null
 }
 
 /** Starts the server on `port` (0: any). Resolves to its URL and a way to stop it. */

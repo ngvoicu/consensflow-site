@@ -3,7 +3,7 @@
 The website of **ConsensFlow**, a desktop app for Mac and Windows that runs a software factory on
 your project, staffed by AI coding agents: you give the goal to a Chief of Staff, it plans the work
 on a board, and its staff (workers, advisors, reviewers, testers and an image designer) take the tasks, each in its own terminal
-of Claude Code, Codex, OpenCode, Pi or Devin. Served at
+of Claude Code, Codex, Pi or Devin. Served at
 [consensflow.ngvoicu.dev](https://consensflow.ngvoicu.dev); the app itself is
 [ngvoicu/consensflow](https://github.com/ngvoicu/consensflow).
 
@@ -75,7 +75,7 @@ changes on its own clock, not the story's.
       platforms.*   from, to, status, issue? { text, state? }     status: supported, issues, newer,
                                                                   unsupported, unmeasured
   harnesses[]  (the facts behind the table)   id, name, link, oldest, vendor, tested { mac, windows }
-  opencode     name, text
+  removed      name, text     the one line under the table about a harness the app no longer runs
   ```
 
   Adding a release is adding one entry to `releases` (newest last); a release that is no longer
@@ -92,7 +92,7 @@ changes on its own clock, not the story's.
   the block is written by hand from the live runs.
 - **Known issues** are what a person would notice going wrong on the newest tested version, in plain
   words, never suite names. They leave out the test kit's own failures (a `ps` that cannot start on
-  Windows, an OpenCode that is not installed, a suite's premise about a harness's record) and a red that
+  Windows, a suite's premise about a harness's record) and a red that
   one run showed and nothing explains. An issue carries `"state": "looking"` or `"fixing"` only while a
   task is on it.
 - **Copy.** Releases are named by the version and the channel the app's updater names (`Stable`,
@@ -110,6 +110,18 @@ changes on its own clock, not the story's.
   node tools/check-status.mjs ../../consensflow [folder for screenshots]   # 1280 and 390 px, light and dark
   node tools/serve-site.mjs                                                # then http://localhost:4500/status/
   ```
+
+## Every page opens clean (`tools/check-site.mjs`)
+
+The home page and Supported versions are each opened at 1280 and 390 px, light and
+dark, in Chromium: nothing logged, thrown, failed or loaded from another origin, no sideways scroll,
+every image loaded and shown at the shape of its file (a screenshot remade at another height needs its
+`height` changed too), and no page naming a harness the app has removed, but the one line of Supported
+versions about it.
+
+```bash
+node tools/check-site.mjs ../../consensflow [folder for screenshots]   # 8 openings; a folder gets each page whole
+```
 
 ## Copy
 
@@ -177,13 +189,13 @@ Playwright comes from the app repo's `app/node_modules`; nothing is installed he
 
 - The board, a task and New project (cut after its staff, between sections, as Project settings is
   below) show the demo in `tools/demo.mjs` (a small web app,
-  "pantry", with a chief on Claude Code and a staff on Codex, Pi, OpenCode and Devin), answered to
+  "pantry", with a chief on Claude Code and a staff on Codex, Pi, Claude Code and Devin), answered to
   the page by the same stand-in for the app that `app/tests/core-page.spec.mjs` uses. Its ledger
   reads as the daemon's would: messages numbered in the order they were sent, and T-2's thread (a
   brief, the worker's question and the chief's answer, a result, the chief's follow-up after a
   review, the second result) in the shape `task.get` gives it.
 - The terminals show screens written for the demo in `tools/screens.mjs`: the chief's Claude Code
-  putting tasks on the board with `cf task add`, and a Codex, a Pi and an OpenCode window of the staff,
+  putting tasks on the board with `cf task add`, and a Codex, a Pi and a Claude Code window of the staff,
   each drawn as that harness draws a session at work, with the `cf` commands and outputs the app
   really has. The stand-in hands each terminal its screen as the app hands it a window's output, for
   the size the terminal took. **No harness runs**: the screens, and what the board says of windows (a

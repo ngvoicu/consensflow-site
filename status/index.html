@@ -418,9 +418,9 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
       }
     }
   ],
-  "opencode": {
+  "removed": {
     "name": "OpenCode",
-    "text": "ConsensFlow 3.0.5 and 3.0.6 work with OpenCode 1.x and refuse OpenCode 2. ConsensFlow 3.0.7 removes OpenCode."
+    "text": "supported up to 3.0.6; ConsensFlow 3.0.7 removed it."
   }
 }
 </script>
@@ -556,8 +556,8 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
         return el('li', {}, [el('span', { 'class': 'mark', text: String(i + 1) }), el('span', { text: issue.text + (SAID[issue.state] || '') })]);
       })));
     }
-    if (data.opencode && data.opencode.text) {
-      out.appendChild(el('p', { 'class': 'other', text: str(data.opencode.name) + ': ' + str(data.opencode.text) }));
+    if (data.removed && data.removed.text) {
+      out.appendChild(el('p', { 'class': 'other', text: str(data.removed.name) + ': ' + str(data.removed.text) }));
     }
   }
 
