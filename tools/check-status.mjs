@@ -275,7 +275,6 @@ async function theMatrix() {
     assert.deepEqual(key.map((k) => k.state), STATES, 'the key lists the five colours, in order')
     key.forEach((k) => { assert.equal(k.text, KEY[k.state]); assert.ok(k.cls.split(' ').includes(`st-${k.state}`)) })
     assert.equal(await page.locator('#updated').innerText(), `Updated ${data.updated}`)
-    assert.equal(await page.locator('.other').innerText(), 'OpenCode: supported up to 3.0.6; ConsensFlow 3.0.7 removed it.')
     assert.deepEqual(problems, [], 'nothing logged, nothing loaded from elsewhere')
     const text = await page.locator('main').innerText()
     assert.ok(!/alpha\.\d|pre-?release/i.test(text), 'no release is qualified by its stage on the page')
@@ -354,7 +353,6 @@ async function hostileData() {
   made.releases[1].harnesses[0].platforms.mac.from = bad
   made.releases[1].harnesses[0].platforms.windows.issue = { text: bad, state: 'fixing' }
   made.harnesses[0].name = bad
-  made.removed.text = bad
   const html = HTML.replace(BLOCK, (_, a, _b, c) => a + JSON.stringify(made).replaceAll('</', '<\\/') + c)
   await withPage(async (page) => {
     assert.equal(await page.evaluate(() => window.__pwned), undefined, 'no script ran')

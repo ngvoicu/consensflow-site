@@ -3,7 +3,7 @@
 The website of **ConsensFlow**, a desktop app for Mac and Windows that runs a software factory on
 your project, staffed by AI coding agents: you give the goal to a Chief of Staff, it plans the work
 on a board, and its staff (workers, advisors, reviewers, testers and an image designer) take the tasks, each in its own terminal
-of Claude Code, Codex, Pi or Devin. Served at
+of Claude Code, Codex, Pi, Devin or Muse Code. Served at
 [consensflow.ngvoicu.dev](https://consensflow.ngvoicu.dev); the app itself is
 [ngvoicu/consensflow](https://github.com/ngvoicu/consensflow).
 
@@ -43,9 +43,31 @@ One page, top to bottom: the hero and its capture of the window; **A software fa
 whom, and one goal from start to finish); **How it works** (a task across the board's columns);
 **What it does**, a group of items beside or under the captures that show them: The staff, The
 agents, switching the chief, The board, Specs (its viewer under it), History, Wake-up calls and
-Project settings (beside the dialog), You stay in charge, and the staff's windows; then Install, Your
-data, and the source. Specs, History, Wake-up calls and Project settings are the groups added for
+Project settings (beside the dialog), You stay in charge, and the staff's windows; then **The
+harnesses**, Install, Your data, and the source. Specs, History, Wake-up calls and Project settings are the groups added for
 3.0.4 to 3.0.6; The History viewer carries a "New in 3.0.6" mark (the chief's `cf history --find` is older, from 3.0.5 and before): the version, never its stage.
+
+## The harnesses (`#harnesses`)
+
+A card for each harness the app runs, in the app's order (`Harness::ALL` in `cf-proto/src/agents.rs`):
+Claude Code, Codex, Pi, Devin, Muse Code. Each card has the harness's mark in a box the same size as
+the others' (64 px, the mark itself about 40 px), its name, the roles it can hold as words (never a
+colour: on this page a colour is a task's state), and the platforms. Under the cards, three lines say
+why the roles differ. The roles are the app's, never more:
+
+- **chief:** Claude Code, Codex, Pi and Devin. New project and Switch the chief offer a chief only on
+  the harnesses of `HARNESS_NAMES` (`app/ui/core/dialogs.js`, `fillChiefs`), which has no Muse Code; the
+  engine refuses an image agent as chief (`require_chief`, `crates/cf-engine/src/dispatcher.rs`).
+- **worker, advisor, reviewer, tester:** every harness. A member's roles are `MEMBER_ROLES`
+  (`crates/cf-ledger/src/model.rs`), which any agent that is not an image agent fits (`fits_role`),
+  on any harness with an adapter (`crates/cf-harness/src/launch.rs`: all five).
+- **image designer:** Codex alone. An image agent is a Codex agent (`crates/cf-catalog/src/roster/add.rs`
+  refuses one on another harness: "Codex's image tool draws"), and it can be nothing else (`fits_role`).
+- **Muse Code** has no ready-made agents in the catalog (`crates/cf-catalog/data/presets.json`): its
+  agents are the human's own, from Settings → Agents. Its card says Mac: its Windows work is not in a
+  release yet.
+
+Change a card when the app changes one of these, and `tools/check-site.mjs` with it (`HARNESSES`).
 
 ## Supported versions (`/status/`)
 
@@ -75,7 +97,6 @@ changes on its own clock, not the story's.
       platforms.*   from, to, status, issue? { text, state? }     status: supported, issues, newer,
                                                                   unsupported, unmeasured
   harnesses[]  (the facts behind the table)   id, name, link, oldest, vendor, tested { mac, windows }
-  removed      name, text     the one line under the table about a harness the app no longer runs
   ```
 
   Adding a release is adding one entry to `releases` (newest last); a release that is no longer
@@ -116,11 +137,18 @@ changes on its own clock, not the story's.
 The home page and Supported versions are each opened at 1280 and 390 px, light and
 dark, in Chromium: nothing logged, thrown, failed or loaded from another origin, no sideways scroll,
 every image loaded and shown at the shape of its file (a screenshot remade at another height needs its
-`height` changed too), and no page naming a harness the app has removed, but the one line of Supported
-versions about it.
+`height` changed too), no page naming a harness the app has removed (in its text or its markup), and
+none naming a release by its stage. On the home page, every list of the harnesses (the description, the
+share and X descriptions, both JSON-LD descriptions and the software it needs, the lede and Install)
+names all five, and the harnesses section has a card for each, in the app's order: its mark shown
+(the vendor's file loaded and at least 32 px, or its name in the badge), every mark's box one size,
+its name, and exactly the roles `HARNESSES` gives it. Each of those rules is then broken once on a copy
+of the page (a mark gone, hidden, missing, small or of another size, a badge with no name, a card with
+no roles or one role too many, a harness left out, a list or the JSON-LD leaving one out, the removed
+harness named, a stage named), and the check must see it.
 
 ```bash
-node tools/check-site.mjs ../../consensflow [folder for screenshots]   # 8 openings; a folder gets each page whole
+node tools/check-site.mjs ../../consensflow [folder for screenshots]   # 8 openings and 13 broken copies; a folder gets each page whole and the harnesses section
 ```
 
 ## Copy
@@ -162,6 +190,32 @@ the one with it); the Supported versions page is at http://localhost:4500/status
   ConsensFlow mark, resized from the app's own icons (`app/src-tauri/icons/` in the app repo).
 - `assets/screenshots/*.webp`: the app, captured fresh (lossless WebP). Remake them with
   `tools/capture-screenshots.mjs` (below).
+- `assets/harnesses/`: the harnesses' marks, each the vendor's own file, byte for byte as it was
+  downloaded (2026-11-01), never redrawn or recoloured, shown whole in its box:
+  - `pi.svg`: Pi's primary logo from its press kit, [pi.dev/press-kit](https://pi.dev/press-kit)
+    (`https://pi.dev/logo.svg`), "vector logo for light/dark usage and editorial placements": one file
+    for both themes. The kit states no other terms; Pi is MIT-licensed, by Earendil Inc. & Contributors.
+    Its file keeps a margin round the mark, so it is shown at 68 px to make the mark the others' size.
+  - `devin-on-light.svg` and `devin-on-dark.svg`: Devin's square avatar, white and black
+    (`DEVIN_AVATAR_SQUARE_WHITE.svg`, `DEVIN_AVATAR_SQUARE_BLACK.svg`), from the Devin › SVG folder of
+    "Brand Logos 2026", the Google Drive folder [cognition.ai/brand](https://cognition.ai/brand)
+    opens. The folder states no terms. A `<picture>` shows the white one in the light theme and the
+    black one in the dark.
+  - **Claude Code, Codex and Muse Code have no mark here: their vendors' terms ask for permission
+    first.** Each shows its name in a box of the same size (`.mark.badge`), set in the page's own mono:
+    - Anthropic's [trademark guidelines](https://www.anthropic.com/legal/trademark-guidelines)
+      (effective 2024-08-01): "You may only use our trademarks as specifically permitted by us and
+      only in materials we approve beforehand"; for a website, email marketing@anthropic.com.
+    - OpenAI's [brand guidelines](https://openai.com/brand/): a logo is not to be used without
+      permission; requests go to partnercomms@openai.com. (The page answers a browser only; its rules
+      were read from its indexed text.)
+    - Meta's [brand resources](https://www.meta.com/brand/resources/meta/company-brand/): "Meta's
+      trademarks are owned by Meta and may only be used as provided in these guidelines or with
+      Meta's permission", through its Brand Review. Meta publishes no Muse Code mark for others to use
+      ([dev.meta.ai/docs/muse-code](https://dev.meta.ai/docs/muse-code) has none).
+
+    A mark goes in once its vendor allows it: the file as given, in the same box, and its source and
+    terms here.
 - `assets/og-image.png`: the share card (1200×630), rendered from `tools/og-image.html` by
   `tools/og-image.mjs`.
 

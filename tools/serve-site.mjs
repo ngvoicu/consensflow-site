@@ -20,6 +20,7 @@ const TYPES = {
   '.json': 'application/json',
   '.webp': 'image/webp',
   '.png': 'image/png',
+  '.svg': 'image/svg+xml',
   '.ico': 'image/x-icon',
   '.woff2': 'font/woff2',
   '.xml': 'application/xml',

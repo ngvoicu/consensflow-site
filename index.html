@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ConsensFlow: a software factory, staffed by AI coding agents</title>
-<meta name="description" content="A desktop app that runs a software factory on your project: a Chief of Staff plans the work on a board, and a staff of workers, advisors, reviewers, testers and an image designer takes the tasks in Claude Code, Codex, Pi or Devin. You set the goal. Mac and Windows, MIT." />
+<meta name="description" content="A desktop app that runs a software factory on your project: a Chief of Staff plans the work on a board, and a staff of workers, advisors, reviewers, testers and an image designer takes the tasks in Claude Code, Codex, Pi, Devin or Muse Code. You set the goal. Mac and Windows, MIT." />
 <link rel="canonical" href="https://consensflow.ngvoicu.dev/" />
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#08181d" />
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#eef4f2" />
@@ -14,11 +14,11 @@
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": "ConsensFlow",
-  "description": "A desktop app that runs a software factory on your project, staffed by AI coding agents. You give the goal to a Chief of Staff; it plans the work on a board, and its staff (workers, advisors, reviewers, testers and an image designer) take the tasks, each in its own terminal of Claude Code, Codex, Pi or Devin, with your own logins. No API keys.",
+  "description": "A desktop app that runs a software factory on your project, staffed by AI coding agents. You give the goal to a Chief of Staff; it plans the work on a board, and its staff (workers, advisors, reviewers, testers and an image designer) take the tasks, each in its own terminal of Claude Code, Codex, Pi, Devin or Muse Code, with your own logins. No API keys.",
   "url": "https://consensflow.ngvoicu.dev/",
   "applicationCategory": "DeveloperApplication",
   "operatingSystem": "macOS, Windows",
-  "softwareRequirements": "macOS 13.5 or later on Apple silicon, or Windows 10 or 11 (64-bit); at least one of Claude Code, Codex, Pi or Devin",
+  "softwareRequirements": "macOS 13.5 or later on Apple silicon, or Windows 10 or 11 (64-bit); at least one of Claude Code, Codex, Pi or Devin, which the chief runs on; Muse Code runs the staff too",
   "downloadUrl": "https://github.com/ngvoicu/consensflow/releases",
   "screenshot": "https://consensflow.ngvoicu.dev/assets/screenshots/window.webp",
   "license": "https://opensource.org/licenses/MIT",
@@ -39,7 +39,7 @@
   "@type": "WebSite",
   "name": "ConsensFlow",
   "url": "https://consensflow.ngvoicu.dev/",
-  "description": "ConsensFlow, a desktop app that runs a software factory on your project, staffed by AI coding agents across Claude Code, Codex, Pi and Devin.",
+  "description": "ConsensFlow, a desktop app that runs a software factory on your project, staffed by AI coding agents across Claude Code, Codex, Pi, Devin and Muse Code.",
   "publisher": { "@type": "Person", "name": "Gabriel Voicu", "url": "https://ngvoicu.dev" }
 }
 </script>
@@ -50,14 +50,14 @@
 <meta property="og:site_name" content="ConsensFlow" />
 <meta property="og:locale" content="en_US" />
 <meta property="og:title" content="ConsensFlow: a software factory, staffed by AI coding agents" />
-<meta property="og:description" content="A desktop app for Mac and Windows. You give the goal; a Chief of Staff plans the work on a board, and its staff take the tasks, each in its own terminal of Claude Code, Codex, Pi or Devin. Your own logins, no API keys. MIT." />
+<meta property="og:description" content="A desktop app for Mac and Windows. You give the goal; a Chief of Staff plans the work on a board, and its staff take the tasks, each in its own terminal of Claude Code, Codex, Pi, Devin or Muse Code. Your own logins, no API keys. MIT." />
 <meta property="og:image" content="https://consensflow.ngvoicu.dev/assets/og-image.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:image:alt" content="ConsensFlow: a software factory, staffed by AI coding agents. Beside the words, the app's board: tasks from backlog to finished, one row per agent." />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="ConsensFlow: a software factory, staffed by AI coding agents" />
-<meta name="twitter:description" content="You give the goal; a Chief of Staff plans the work on a board, and its staff take the tasks in Claude Code, Codex, Pi or Devin. Mac and Windows. MIT." />
+<meta name="twitter:description" content="You give the goal; a Chief of Staff plans the work on a board, and its staff take the tasks in Claude Code, Codex, Pi, Devin or Muse Code. Mac and Windows. MIT." />
 <meta name="twitter:image" content="https://consensflow.ngvoicu.dev/assets/og-image.png" />
 <meta name="twitter:image:alt" content="ConsensFlow: a software factory, staffed by AI coding agents, beside the app's board." />
 
@@ -323,6 +323,30 @@ main h3{font-size:1.3rem;line-height:1.25;letter-spacing:-.015em}
   .across dl{display:block}
 }
 
+/* ---- the harnesses: each one's mark, its name and the roles it can hold ---- */
+/* A mark is the vendor's own file, as it comes, in a box the same size for
+   every harness; a vendor whose terms ask for permission first gets its name
+   in the box instead (README, Assets). The roles are words, not colours: on
+   this page a colour is a task's state. */
+.harnesses{list-style:none;margin:48px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px}
+.harness{border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:18px 18px 20px;display:flex;flex-direction:column;gap:16px}
+.harness-head{display:flex;align-items:center;gap:14px;min-height:64px}
+.harness h3{font-size:1.2rem}
+.harness .new{display:inline-block;margin-left:8px;vertical-align:1px;padding:1px 7px;border:1px solid var(--accent);border-radius:6px;
+  font:500 12px/1.3 var(--mono);letter-spacing:.04em;color:var(--accent);white-space:nowrap}
+.mark{flex:none;width:64px;height:64px;border:1px solid var(--line);border-radius:10px;background:var(--ink);
+  display:grid;place-items:center;overflow:hidden}
+.mark img{width:var(--size,40px);height:var(--size,40px);max-width:none}
+/* Pi's file keeps a margin round its mark: shown larger, the mark is the others' size. */
+.mark.pi img{--size:68px}
+.mark.badge{font:500 11px/1.25 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--text);text-align:center;padding:4px}
+.roles{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.roles li{padding:3px 9px;border:1px solid var(--line);border-radius:999px;font:500 13px/1.4 var(--mono);color:var(--text)}
+.harness .where{margin:auto 0 0;font-size:14.5px;color:var(--muted)}
+.harness-notes{margin:22px 0 0;padding:0;list-style:none;display:grid;gap:8px;max-width:72ch;color:var(--muted);font-size:16.5px}
+.harness-notes strong{color:var(--text)}
+@media (max-width:600px){.harnesses{grid-template-columns:minmax(0,1fr)}}
+
 /* ---- install ---- */
 .split{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(32px,5vw,72px);margin-top:48px;align-items:start}
 @media (max-width:900px){.split{grid-template-columns:minmax(0,1fr)}}
@@ -372,6 +396,7 @@ footer{padding:44px 0 56px}
       <a href="#factory">The factory</a>
       <a href="#how">How it works</a>
       <a href="#does">What it does</a>
+      <a href="#harnesses">Harnesses</a>
       <a href="#install">Install</a>
       <a href="#data">Your data</a>
     </nav>
@@ -385,7 +410,7 @@ footer{padding:44px 0 56px}
   <div class="wrap">
     <h1>A software factory,<br> staffed by<br> AI coding agents.</h1>
     <p class="lede">ConsensFlow is a desktop app. You give the goal to one agent, the Chief of Staff. It plans the work on a board, and a staff of workers, advisors, reviewers, testers and an image designer takes the tasks, each in a terminal of its own. Many exchanges later, what comes out is software, in your project.</p>
-    <p class="lede">It works through the coding agents you already use, Claude Code, Codex, Pi and Devin, with your own logins. It stores no passwords and needs no API keys.</p>
+    <p class="lede">It works through the coding agents you already use, Claude Code, Codex, Pi, Devin and Muse Code, with your own logins. It stores no passwords and needs no API keys.</p>
     <div class="actions">
       <a class="button button-go" href="https://github.com/ngvoicu/consensflow/releases">Download for Mac or Windows</a>
       <a class="button button-quiet" href="https://github.com/ngvoicu/consensflow">Source on GitHub</a>
@@ -870,12 +895,66 @@ footer{padding:44px 0 56px}
   </div>
 </section>
 
+<section class="section" id="harnesses" aria-labelledby="harnesses-title">
+  <div class="wrap">
+    <h2 id="harnesses-title">The harnesses</h2>
+    <p class="intro">Every agent runs in a coding harness you already have, signed in with your own login. These are the five ConsensFlow runs, and the roles each can hold in a project.</p>
+    <ul class="harnesses">
+      <li class="harness" data-harness="claude-code">
+        <div class="harness-head">
+          <span class="mark badge" aria-hidden="true">Claude<br>Code</span>
+          <div><h3>Claude Code</h3></div>
+        </div>
+        <ul class="roles" aria-label="The roles Claude Code can hold"><li>chief</li><li>worker</li><li>advisor</li><li>reviewer</li><li>tester</li></ul>
+        <p class="where">Mac and Windows</p>
+      </li>
+      <li class="harness" data-harness="codex">
+        <div class="harness-head">
+          <span class="mark badge" aria-hidden="true">Codex</span>
+          <div><h3>Codex</h3></div>
+        </div>
+        <ul class="roles" aria-label="The roles Codex can hold"><li>chief</li><li>worker</li><li>advisor</li><li>reviewer</li><li>tester</li><li>image designer</li></ul>
+        <p class="where">Mac and Windows</p>
+      </li>
+      <li class="harness" data-harness="pi">
+        <div class="harness-head">
+          <span class="mark pi"><img src="./assets/harnesses/pi.svg" width="68" height="68" alt="" /></span>
+          <div><h3>Pi</h3></div>
+        </div>
+        <ul class="roles" aria-label="The roles Pi can hold"><li>chief</li><li>worker</li><li>advisor</li><li>reviewer</li><li>tester</li></ul>
+        <p class="where">Mac and Windows</p>
+      </li>
+      <li class="harness" data-harness="devin">
+        <div class="harness-head">
+          <span class="mark"><picture><source srcset="./assets/harnesses/devin-on-dark.svg" media="(prefers-color-scheme: dark)" /><img src="./assets/harnesses/devin-on-light.svg" width="40" height="40" alt="" /></picture></span>
+          <div><h3>Devin</h3></div>
+        </div>
+        <ul class="roles" aria-label="The roles Devin can hold"><li>chief</li><li>worker</li><li>advisor</li><li>reviewer</li><li>tester</li></ul>
+        <p class="where">Mac and Windows</p>
+      </li>
+      <li class="harness" data-harness="muse-code">
+        <div class="harness-head">
+          <span class="mark badge" aria-hidden="true">Muse<br>Code</span>
+          <div><h3>Muse Code</h3></div>
+        </div>
+        <ul class="roles" aria-label="The roles Muse Code can hold"><li>worker</li><li>advisor</li><li>reviewer</li><li>tester</li></ul>
+        <p class="where">Mac <span class="new">New in 3.0.7</span></p>
+      </li>
+    </ul>
+    <ul class="harness-notes">
+      <li><strong>The chief</strong> runs on Claude Code, Codex, Pi or Devin. Muse Code takes the staff's roles.</li>
+      <li><strong>The image designer</strong> is a Codex agent: Codex's image tool draws the image.</li>
+      <li><strong>Muse Code</strong> runs the agents you define on it in Settings → Agents, with any model your Muse Code accepts.</li>
+    </ul>
+  </div>
+</section>
+
 <section class="section" id="install" aria-labelledby="install-title">
   <div class="wrap">
     <h2 id="install-title">Install</h2>
     <div class="split">
       <div class="install-text">
-        <p class="intro">Download ConsensFlow for Mac or Windows. It works with the coding agents you already have, Claude Code, Codex, Pi or Devin, each signed in once in a terminal. <strong>One is enough to start.</strong> Everything else it needs comes with it.</p>
+        <p class="intro">Download ConsensFlow for Mac or Windows. It works with the coding agents you already have, Claude Code, Codex, Pi, Devin or Muse Code, each signed in once in a terminal. <strong>One is enough to start</strong>, if it is one the chief runs on: Claude Code, Codex, Pi or Devin. Everything else it needs comes with it.</p>
         <div class="actions">
           <a class="button button-go" href="https://github.com/ngvoicu/consensflow/releases">Download for Mac or Windows</a>
         </div>

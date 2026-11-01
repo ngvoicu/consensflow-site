@@ -143,7 +143,6 @@ main h1{font-family:var(--sans);font-weight:800;margin:0;font-size:clamp(2.2rem,
 .issues{list-style:none;margin:20px 0 0;padding:0;max-width:78ch}
 .issues li{display:flex;gap:10px;align-items:baseline;margin:0 0 8px;font-size:15.5px;line-height:1.45}
 .issues .mark{flex:none;margin:0;color:var(--text)}
-.other{margin:20px 0 0;max-width:78ch;font-size:15.5px;color:var(--muted)}
 
 /* Narrow: one block for each agent, with the same colours. */
 @media (max-width:720px){
@@ -417,11 +416,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
         }
       }
     }
-  ],
-  "removed": {
-    "name": "OpenCode",
-    "text": "supported up to 3.0.6; ConsensFlow 3.0.7 removed it."
-  }
+  ]
 }
 </script>
 <!-- status-data:end -->
@@ -555,9 +550,6 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
       out.appendChild(el('ol', { 'class': 'issues' }, issues.list.map(function(issue, i){
         return el('li', {}, [el('span', { 'class': 'mark', text: String(i + 1) }), el('span', { text: issue.text + (SAID[issue.state] || '') })]);
       })));
-    }
-    if (data.removed && data.removed.text) {
-      out.appendChild(el('p', { 'class': 'other', text: str(data.removed.name) + ': ' + str(data.removed.text) }));
     }
   }
 
