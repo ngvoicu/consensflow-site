@@ -15,8 +15,8 @@
  * The home page names the five harnesses wherever it lists them (its meta and
  * share descriptions, both JSON-LD descriptions and the software it needs, the
  * lede and Install), and its harnesses section has a card for each, in order:
- * the harness's mark shown (a vendor's file that loaded, or its name in the
- * badge), every box the same size, its name, and the roles the app gives it.
+ * the harness's logo shown (the vendor's file, loaded, and no badge in its
+ * place), every box the same size, its name, and the roles the app gives it.
  * Each of those rules is then broken once on a copy of the page, and the check
  * must see it.
  *
@@ -117,8 +117,8 @@ async function harnessProblems(tab) {
         box: box ? [Math.round(box.width), Math.round(box.height)] : null,
         visible: !!mark && getComputedStyle(mark).visibility === 'visible' && getComputedStyle(mark).display !== 'none',
         img: img ? { src: img.currentSrc, loaded: img.complete && img.naturalWidth > 0, clip } : null,
-        // As drawn: a line break is a space, and the box's capitals are its own.
-        badge: mark?.classList.contains('badge') ? mark.innerText.replace(/\s+/g, ' ').trim().toLowerCase() : null,
+        // Words in the box in place of a logo: a badge, which no card has.
+        badge: mark ? mark.classList.contains('badge') || mark.innerText.trim() !== '' : false,
       }
     }),
   )
@@ -130,13 +130,11 @@ async function harnessProblems(tab) {
     if (card.roles.length === 0) problems.push(`${h.name}'s card has no roles`)
     else if (card.roles.join(', ') !== h.roles.join(', ')) problems.push(`${h.name}'s roles are "${card.roles.join(', ')}", not "${h.roles.join(', ')}"`)
     if (!card.box || !card.visible) return problems.push(`${h.name}'s card shows no mark`)
-    if (card.img) {
-      if (!card.img.loaded) problems.push(`${h.name}'s mark did not load`)
-      const { width, height } = card.img.clip ?? { width: 0, height: 0 }
-      if (Math.min(width, height) < SMALLEST) problems.push(`${h.name}'s mark shows ${Math.round(width)}x${Math.round(height)} px`)
-    } else if (card.badge !== h.name.toLowerCase()) {
-      problems.push(`${h.name}'s card has neither a mark nor its name in the badge`)
-    }
+    if (card.badge) problems.push(`${h.name}'s card has a badge in place of its logo`)
+    if (!card.img) return problems.push(`${h.name}'s card has no logo`)
+    if (!card.img.loaded) problems.push(`${h.name}'s mark did not load`)
+    const { width, height } = card.img.clip ?? { width: 0, height: 0 }
+    if (Math.min(width, height) < SMALLEST) problems.push(`${h.name}'s mark shows ${Math.round(width)}x${Math.round(height)} px`)
   })
   const sizes = new Set(cards.filter((c) => c.box).map((c) => c.box.join('x')))
   if (sizes.size > 1) problems.push(`the marks' boxes are not one size: ${[...sizes].join(', ')}`)
@@ -151,13 +149,15 @@ const BROKEN = [
   ['a mark hidden', (s) => s.replace('<span class="mark pi">', '<span class="mark pi" style="visibility:hidden">'), "Pi's card shows no mark"],
   ['a mark that does not load', (s) => s.replace('./assets/harnesses/pi.svg', './assets/harnesses/gone.svg'), "Pi's mark did not load"],
   ['a mark shown small', (s) => s.replace('</style>', '.mark.pi img{--size:12px}</style>'), "Pi's mark shows"],
-  ['a badge with no name', (s) => s.replace('<span class="mark badge" aria-hidden="true">Codex</span>', '<span class="mark badge" aria-hidden="true"></span>'), "Codex's card has neither a mark nor its name"],
+  ['a badge in place of a logo', (s) => s.replace('<span class="mark codex"><img src="./assets/harnesses/codex.png" width="49" height="49" alt="" /></span>', '<span class="mark badge" aria-hidden="true">Codex</span>'), "Codex's card has a badge in place of its logo"],
+  ['a logo with words beside it', (s) => s.replace('<span class="mark muse-code"><img', '<span class="mark muse-code">Muse Code<img'), "Muse Code's card has a badge in place of its logo"],
+  ['an empty box', (s) => s.replace('<span class="mark claude-code"><img src="./assets/harnesses/claude-code.svg" width="42" height="42" alt="" /></span>', '<span class="mark claude-code"></span>'), "Claude Code's card has no logo"],
   ['a harness with no roles', (s) => s.replace(/(data-harness="devin"[\s\S]*?<ul class="roles"[^>]*>)[\s\S]*?(<\/ul>)/, '$1$2'), "Devin's card has no roles"],
   ['a role the app does not give', (s) => s.replace(/(data-harness="muse-code"[\s\S]*?<ul class="roles"[^>]*>)/, '$1<li>chief</li>'), "Muse Code's roles are"],
   ['a harness left out', (s) => s.replace(/<li class="harness" data-harness="muse-code">[\s\S]*?<\/li>\n(?=\s*<\/ul>)/, ''), 'cards, not 5'],
   ['a list that leaves one out', (s) => s.replace('takes the tasks in Claude Code, Codex, Pi, Devin or Muse Code.', 'takes the tasks in Claude Code, Codex, Pi or Devin.'), 'the description does not name Muse Code'],
   ['the JSON-LD leaving one out', (s) => s.replace('across Claude Code, Codex, Pi, Devin and Muse Code."', 'across Claude Code, Codex, Pi and Devin."'), "the site's JSON-LD description does not name Muse Code"],
-  ['marks of two sizes', (s) => s.replace('</style>', '.mark.badge{width:80px}</style>'), "the marks' boxes are not one size"],
+  ['marks of two sizes', (s) => s.replace('</style>', '.mark.codex{width:80px}</style>'), "the marks' boxes are not one size"],
 ]
 
 /** What the page's text and markup say that no page may: none when it is right. */

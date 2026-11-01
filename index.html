@@ -325,9 +325,8 @@ main h3{font-size:1.3rem;line-height:1.25;letter-spacing:-.015em}
 
 /* ---- the harnesses: each one's mark, its name and the roles it can hold ---- */
 /* A mark is the vendor's own file, as it comes, in a box the same size for
-   every harness; a vendor whose terms ask for permission first gets its name
-   in the box instead (README, Assets). The roles are words, not colours: on
-   this page a colour is a task's state. */
+   every harness (README, Assets). The roles are words, not colours: on this
+   page a colour is a task's state. */
 .harnesses{list-style:none;margin:48px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px}
 .harness{border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:18px 18px 20px;display:flex;flex-direction:column;gap:16px}
 .harness-head{display:flex;align-items:center;gap:14px;min-height:64px}
@@ -337,9 +336,10 @@ main h3{font-size:1.3rem;line-height:1.25;letter-spacing:-.015em}
 .mark{flex:none;width:64px;height:64px;border:1px solid var(--line);border-radius:10px;background:var(--ink);
   display:grid;place-items:center;overflow:hidden}
 .mark img{width:var(--size,40px);height:var(--size,40px);max-width:none}
-/* Pi's file keeps a margin round its mark: shown larger, the mark is the others' size. */
+/* A file with a margin round its mark is shown larger, so every mark is about 40 px. */
+.mark.claude-code img{--size:42px}
+.mark.codex img{--size:49px}
 .mark.pi img{--size:68px}
-.mark.badge{font:500 11px/1.25 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--text);text-align:center;padding:4px}
 .roles{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
 .roles li{padding:3px 9px;border:1px solid var(--line);border-radius:999px;font:500 13px/1.4 var(--mono);color:var(--text)}
 .harness .where{margin:auto 0 0;font-size:14.5px;color:var(--muted)}
@@ -902,7 +902,7 @@ footer{padding:44px 0 56px}
     <ul class="harnesses">
       <li class="harness" data-harness="claude-code">
         <div class="harness-head">
-          <span class="mark badge" aria-hidden="true">Claude<br>Code</span>
+          <span class="mark claude-code"><img src="./assets/harnesses/claude-code.svg" width="42" height="42" alt="" /></span>
           <div><h3>Claude Code</h3></div>
         </div>
         <ul class="roles" aria-label="The roles Claude Code can hold"><li>chief</li><li>worker</li><li>advisor</li><li>reviewer</li><li>tester</li></ul>
@@ -910,7 +910,7 @@ footer{padding:44px 0 56px}
       </li>
       <li class="harness" data-harness="codex">
         <div class="harness-head">
-          <span class="mark badge" aria-hidden="true">Codex</span>
+          <span class="mark codex"><img src="./assets/harnesses/codex.png" width="49" height="49" alt="" /></span>
           <div><h3>Codex</h3></div>
         </div>
         <ul class="roles" aria-label="The roles Codex can hold"><li>chief</li><li>worker</li><li>advisor</li><li>reviewer</li><li>tester</li><li>image designer</li></ul>
@@ -934,7 +934,7 @@ footer{padding:44px 0 56px}
       </li>
       <li class="harness" data-harness="muse-code">
         <div class="harness-head">
-          <span class="mark badge" aria-hidden="true">Muse<br>Code</span>
+          <span class="mark muse-code"><img src="./assets/harnesses/muse-code.svg" width="40" height="40" alt="" /></span>
           <div><h3>Muse Code</h3></div>
         </div>
         <ul class="roles" aria-label="The roles Muse Code can hold"><li>worker</li><li>advisor</li><li>reviewer</li><li>tester</li></ul>

@@ -145,15 +145,17 @@ every image loaded and shown at the shape of its file (a screenshot remade at an
 `height` changed too), no page naming a harness the app has removed (in its text or its markup), and
 none naming a release by its stage. On the home page, every list of the harnesses (the description, the
 share and X descriptions, both JSON-LD descriptions and the software it needs, the lede and Install)
-names all five, and the harnesses section has a card for each, in the app's order: its mark shown
-(the vendor's file loaded and at least 32 px, or its name in the badge), every mark's box one size,
+names all five, and the harnesses section has a card for each, in the app's order: its logo shown
+(the vendor's file, loaded and at least 32 px, with no badge or words in its place), every mark's box
+one size,
 its name, and exactly the roles `HARNESSES` gives it. Each of those rules is then broken once on a copy
-of the page (a mark gone, hidden, missing, small or of another size, a badge with no name, a card with
+of the page (a mark gone, hidden, missing, small or of another size, a badge in a logo's place, words beside a
+logo, an empty box, a card with
 no roles or one role too many, a harness left out, a list or the JSON-LD leaving one out, the removed
 harness named, a stage named), and the check must see it.
 
 ```bash
-node tools/check-site.mjs ../../consensflow [folder for screenshots]   # 8 openings and 13 broken copies; a folder gets each page whole and the harnesses section
+node tools/check-site.mjs ../../consensflow [folder for screenshots]   # 8 openings and 15 broken copies; a folder gets each page whole and the harnesses section
 ```
 
 ## Copy
@@ -195,32 +197,45 @@ the one with it); the Supported versions page is at http://localhost:4500/status
   ConsensFlow mark, resized from the app's own icons (`app/src-tauri/icons/` in the app repo).
 - `assets/screenshots/*.webp`: the app, captured fresh (lossless WebP). Remake them with
   `tools/capture-screenshots.mjs` (below).
-- `assets/harnesses/`: the harnesses' marks, each the vendor's own file, byte for byte as it was
-  downloaded (2026-11-01), never redrawn or recoloured, shown whole in its box:
+- `assets/harnesses/`: the harnesses' logos, each the vendor's own file, byte for byte as it was
+  downloaded (2026-11-01), never redrawn or recoloured, shown whole in its box (a file with a margin
+  round its mark is shown larger, so every mark is about 40 px). **Gabriel chose on 2026-11-01 to show
+  the five marks as the products ConsensFlow works with.**
+  - `claude-code.svg`: the Claude mark, `https://claude.com/icon.svg`, the icon Anthropic's own page
+    for Claude Code, [claude.com/product/claude-code](https://claude.com/product/claude-code), is
+    served with. Anthropic publishes no mark of Claude Code's own; its docs site
+    ([code.claude.com](https://code.claude.com/docs/en/overview)) has the same mark on a dark tile, only
+    as raster favicons. One file for both themes. Terms: Anthropic's
+    [trademark guidelines](https://www.anthropic.com/legal/trademark-guidelines) (effective
+    2024-08-01): "You may only use our trademarks as specifically permitted by us and only in materials
+    we approve beforehand", no alterations of colour, font or proportion, no trademark symbol, a
+    reasonable space round the mark; for a website, marketing@anthropic.com.
+  - `codex.png` (250×250): the app icon at the head of Codex's own pages,
+    [chatgpt.com/codex](https://chatgpt.com/codex/) and [openai.com/codex](https://openai.com/codex/)
+    (`Blossom_4k_Icon_1.png`, the same bytes on both): OpenAI's Blossom on its tile. OpenAI publishes no
+    other Codex mark that we found. One file for both themes. Terms: OpenAI's
+    [brand guidelines](https://openai.com/brand/): a logo only where it relates directly to OpenAI's
+    services, as provided, never more prominent than your own name nor part of your branding, and not
+    without permission; requests to partnercomms@openai.com. (The page answers a browser only; its rules
+    were read from its indexed text.)
+  - `muse-code.svg`: the Muse mark (the stroke "M"), `https://muse.ai/images/favicon/app-squiggle.svg`,
+    the icon of Meta's Muse site, [muse.ai](https://muse.ai/), which Meta's
+    [ai.meta.com/muse](https://ai.meta.com/muse/) leads to (the same mark is `muse-logo.svg` there and
+    the icon of [introducing.muse.ai](https://introducing.muse.ai/)). **Meta publishes no mark of Muse
+    Code's own:** its page, [dev.meta.ai/products/muse-code](https://dev.meta.ai/products/muse-code),
+    shows none and is served with Meta's own logo as its icon. So Muse Code shows the mark of Muse, the
+    family it is Meta's coding agent of. One file for both themes. Terms: Meta's
+    [brand resources](https://www.meta.com/brand/resources/meta/company-brand/): "Meta's trademarks are
+    owned by Meta and may only be used as provided in these guidelines or with Meta's permission",
+    through its Brand Review.
   - `pi.svg`: Pi's primary logo from its press kit, [pi.dev/press-kit](https://pi.dev/press-kit)
     (`https://pi.dev/logo.svg`), "vector logo for light/dark usage and editorial placements": one file
     for both themes. The kit states no other terms; Pi is MIT-licensed, by Earendil Inc. & Contributors.
-    Its file keeps a margin round the mark, so it is shown at 68 px to make the mark the others' size.
   - `devin-on-light.svg` and `devin-on-dark.svg`: Devin's square avatar, white and black
     (`DEVIN_AVATAR_SQUARE_WHITE.svg`, `DEVIN_AVATAR_SQUARE_BLACK.svg`), from the Devin › SVG folder of
     "Brand Logos 2026", the Google Drive folder [cognition.ai/brand](https://cognition.ai/brand)
     opens. The folder states no terms. A `<picture>` shows the white one in the light theme and the
     black one in the dark.
-  - **Claude Code, Codex and Muse Code have no mark here: their vendors' terms ask for permission
-    first.** Each shows its name in a box of the same size (`.mark.badge`), set in the page's own mono:
-    - Anthropic's [trademark guidelines](https://www.anthropic.com/legal/trademark-guidelines)
-      (effective 2024-08-01): "You may only use our trademarks as specifically permitted by us and
-      only in materials we approve beforehand"; for a website, email marketing@anthropic.com.
-    - OpenAI's [brand guidelines](https://openai.com/brand/): a logo is not to be used without
-      permission; requests go to partnercomms@openai.com. (The page answers a browser only; its rules
-      were read from its indexed text.)
-    - Meta's [brand resources](https://www.meta.com/brand/resources/meta/company-brand/): "Meta's
-      trademarks are owned by Meta and may only be used as provided in these guidelines or with
-      Meta's permission", through its Brand Review. Meta publishes no Muse Code mark for others to use
-      ([dev.meta.ai/docs/muse-code](https://dev.meta.ai/docs/muse-code) has none).
-
-    A mark goes in once its vendor allows it: the file as given, in the same box, and its source and
-    terms here.
 - `assets/og-image.png`: the share card (1200×630), rendered from `tools/og-image.html` by
   `tools/og-image.mjs`.
 
