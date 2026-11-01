@@ -44,8 +44,13 @@ whom, and one goal from start to finish); **How it works** (a task across the bo
 **What it does**, a group of items beside or under the captures that show them: The staff, The
 agents, switching the chief, The board, Specs (its viewer under it), History, Wake-up calls and
 Project settings (beside the dialog), You stay in charge, and the staff's windows; then **The
-harnesses**, Install, Your data, and the source. Specs, History, Wake-up calls and Project settings are the groups added for
-3.0.4 to 3.0.6; The History viewer carries a "New in 3.0.6" mark (the chief's `cf history --find` is older, from 3.0.5 and before): the version, never its stage.
+harnesses**, **New in 3.0.7**, Install, Your data, and the source. Specs, History, Wake-up calls and Project settings are the groups added for
+3.0.4 to 3.0.6; New in 3.0.7 is a section of its own, two groups (Muse Code, and what is steadier
+everywhere), whose words come from the landings of 3.0.7's first release in the app repo: D1
+(`fb3037412`), the removal of a harness (`4d9c0fe9c`), D2a (`0db267189`), chief-meeting's paced
+delivery (`f1500dc7c`), and D2b and the Muse Code reader fix once they land; it names what a user
+notices, never a task or a branch, and never the removed harness. Muse Code's card carries a "New in
+3.0.7" mark. The History viewer carries a "New in 3.0.6" mark (the chief's `cf history --find` is older, from 3.0.5 and before): the version, never its stage.
 
 ## The harnesses (`#harnesses`)
 
