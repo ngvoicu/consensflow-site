@@ -13,15 +13,19 @@
  * removed, in its text or its markup, and none qualifies a release by its stage.
  *
  * The home page names the five harnesses wherever it lists them (its meta and
- * share descriptions, both JSON-LD descriptions and the software it needs, the
- * lede and Install), and its harnesses section has a card for each, in order:
- * the harness's logo shown (the vendor's file, loaded, and no badge in its
- * place), every box the same size, its name, and the roles the app gives it.
- * Each of those rules is then broken once on a copy of the page, and the check
- * must see it.
+ * share descriptions, both JSON-LD descriptions and the software it needs, and
+ * the first section's row of them), and that row has each, in order: its logo
+ * shown (the vendor's file, loaded, and no badge in its place), every box the
+ * same size, and its name. The first section's two download buttons lead to
+ * the installers of one release on GitHub (tools/downloads.mjs --check says
+ * whether it is the alpha feed's), its two install lines are the alpha's, each
+ * with a Copy that copies it, and no page says anything of keys or of
+ * uninstalling. Each of those rules is then broken once on a copy of the page,
+ * and the check must see it. The release's stage is named only in the download
+ * links and the install lines, which are the alpha's (Gabriel, 2026-11-02).
  *
- * With a folder, it also takes each page whole, and the harnesses section on
- * its own. It starts no harness and reads nothing from the machine. Exits 1 on
+ * With a folder, it also takes each page whole, and the first section on its
+ * own. It starts no harness and reads nothing from the machine. Exits 1 on
  * the first failure.
  */
 import assert from 'node:assert/strict'
@@ -50,26 +54,32 @@ const REMOVED = new RegExp(['open', 'code'].join(''), 'i')
 /** A release qualified by its stage, which the site never does. */
 const STAGE = /\b(alpha|beta|rc)\.\d|pre-?release/i
 
-/**
- * The harnesses the app runs, in its order (`Harness::ALL`), and the roles each
- * holds in it: README, The harnesses, says where each comes from. A harness
- * whose roles change in the app changes here first.
- */
-const STAFF = ['worker', 'advisor', 'reviewer', 'tester']
+/** The harnesses the app runs, in its order (`Harness::ALL`). */
 const HARNESSES = [
-  { id: 'claude-code', name: 'Claude Code', roles: ['chief', ...STAFF] },
-  { id: 'codex', name: 'Codex', roles: ['chief', ...STAFF, 'image designer'] },
-  { id: 'pi', name: 'Pi', roles: ['chief', ...STAFF] },
-  { id: 'devin', name: 'Devin', roles: ['chief', ...STAFF] },
-  { id: 'muse-code', name: 'Muse Code', roles: STAFF },
+  { id: 'claude-code', name: 'Claude Code' },
+  { id: 'codex', name: 'Codex' },
+  { id: 'pi', name: 'Pi' },
+  { id: 'devin', name: 'Devin' },
+  { id: 'muse-code', name: 'Muse Code' },
 ]
+/** The install lines, the alpha's, each in its own box with a Copy. */
+const COMMANDS = [
+  'curl -fsSL https://consensflow.ngvoicu.dev/install.sh | sh -s -- --alpha',
+  "$env:CONSENSFLOW_CHANNEL = 'alpha'; irm https://consensflow.ngvoicu.dev/install.ps1 | iex",
+]
+/** Each download button's installer, in a release of the app on GitHub. */
+const DOWNLOADS = {
+  mac: /^https:\/\/github\.com\/ngvoicu\/consensflow\/releases\/download\/(v[^/]+)\/ConsensFlow_[^/]+_aarch64\.dmg$/,
+  windows: /^https:\/\/github\.com\/ngvoicu\/consensflow\/releases\/download\/(v[^/]+)\/ConsensFlow_[^/]+_x64-setup\.exe$/,
+}
+/** What the page no longer says: the install scripts' key, their checks, uninstalling. */
+const UNSAID = /uninstall|signing key|SHA256SUMS|RW[A-Za-z0-9+/]{50}/i
 /** The places the home page lists the harnesses, each of which names all five. */
 const LISTS = [
   ['the description', 'meta[name="description"]', 'content'],
   ['the share description', 'meta[property="og:description"]', 'content'],
   ['the X description', 'meta[name="twitter:description"]', 'content'],
-  ['the lede', '.hero .lede + .lede'],
-  ['Install', '#install .intro'],
+  ['the first section\'s row', '.hero .harnesses'],
 ]
 /** The smallest a mark may show, in CSS px: none is a dot. */
 const SMALLEST = 32
@@ -101,7 +111,7 @@ async function harnessProblems(tab) {
   }
 
   const cards = await tab.evaluate(() =>
-    [...document.querySelectorAll('#harnesses .harness')].map((card) => {
+    [...document.querySelectorAll('.hero .harness')].map((card) => {
       const mark = card.querySelector('.mark')
       const box = mark?.getBoundingClientRect()
       const img = mark?.querySelector('img')
@@ -112,8 +122,7 @@ async function harnessProblems(tab) {
       }
       return {
         id: card.dataset.harness,
-        name: card.querySelector('h3')?.textContent.trim() ?? '',
-        roles: [...card.querySelectorAll('.roles li')].map((li) => li.textContent.trim()),
+        name: card.querySelector('.name')?.textContent.trim() ?? '',
         box: box ? [Math.round(box.width), Math.round(box.height)] : null,
         visible: !!mark && getComputedStyle(mark).visibility === 'visible' && getComputedStyle(mark).display !== 'none',
         img: img ? { src: img.currentSrc, loaded: img.complete && img.naturalWidth > 0, clip } : null,
@@ -122,13 +131,11 @@ async function harnessProblems(tab) {
       }
     }),
   )
-  if (cards.length !== HARNESSES.length) problems.push(`the harnesses section has ${cards.length} cards, not ${HARNESSES.length}`)
+  if (cards.length !== HARNESSES.length) problems.push(`the first section has ${cards.length} harnesses, not ${HARNESSES.length}`)
   HARNESSES.forEach((h, i) => {
     const card = cards[i]
     if (!card || card.id !== h.id) return problems.push(`card ${i + 1} is not ${h.name}'s`)
-    if (card.name !== h.name) problems.push(`${h.name}'s card is headed "${card.name}"`)
-    if (card.roles.length === 0) problems.push(`${h.name}'s card has no roles`)
-    else if (card.roles.join(', ') !== h.roles.join(', ')) problems.push(`${h.name}'s roles are "${card.roles.join(', ')}", not "${h.roles.join(', ')}"`)
+    if (card.name !== h.name) problems.push(`${h.name}'s card is named "${card.name}"`)
     if (!card.box || !card.visible) return problems.push(`${h.name}'s card shows no mark`)
     if (card.badge) problems.push(`${h.name}'s card has a badge in place of its logo`)
     if (!card.img) return problems.push(`${h.name}'s card has no logo`)
@@ -141,6 +148,32 @@ async function harnessProblems(tab) {
   return problems
 }
 
+/** What is wrong with the first section's downloads and install lines: none when they are right. */
+async function getProblems(tab) {
+  const problems = []
+  const got = await tab.evaluate(() => ({
+    links: Object.fromEntries([...document.querySelectorAll('.hero a[data-download]')].map((a) => [a.dataset.download, a.getAttribute('href') ?? ''])),
+    count: document.querySelectorAll('a[data-download]').length,
+    commands: [...document.querySelectorAll('.hero .command')].map((box) => ({
+      code: box.querySelector('code')?.textContent ?? '',
+      copy: !!box.querySelector('button[data-copy]'),
+    })),
+    text: document.body.innerText,
+  }))
+  const tags = new Set()
+  for (const [platform, pattern] of Object.entries(DOWNLOADS)) {
+    const found = (got.links[platform] ?? '').match(pattern)
+    if (!found) problems.push(`the ${platform} download leads to ${got.links[platform] || 'nothing'}, not its installer in a release`)
+    else tags.add(found[1])
+  }
+  if (got.count !== 2) problems.push(`the page has ${got.count} download buttons, not 2`)
+  if (tags.size > 1) problems.push(`the two downloads are of different releases: ${[...tags].join(', ')}`)
+  if (got.commands.map((c) => c.code).join('\n') !== COMMANDS.join('\n')) problems.push(`the install lines are ${JSON.stringify(got.commands.map((c) => c.code))}`)
+  got.commands.forEach((c, i) => { if (!c.copy) problems.push(`install line ${i + 1} has no Copy`) })
+  if (UNSAID.test(got.text)) problems.push(`says something of keys or uninstalling: "${got.text.match(UNSAID)[0]}"`)
+  return problems
+}
+
 /** The home page as a copy with one rule broken, and the problem the check must name. */
 const BROKEN = [
   ['a page that names the removed harness', (s) => s.replace('</main>', `<p>${['Open', 'Code'].join('')}</p></main>`), 'names the removed harness'],
@@ -148,16 +181,23 @@ const BROKEN = [
   ['a harness with no mark', (s) => s.replace('<span class="mark pi"><img src="./assets/harnesses/pi.svg" width="68" height="68" alt="" /></span>', ''), "Pi's card shows no mark"],
   ['a mark hidden', (s) => s.replace('<span class="mark pi">', '<span class="mark pi" style="visibility:hidden">'), "Pi's card shows no mark"],
   ['a mark that does not load', (s) => s.replace('./assets/harnesses/pi.svg', './assets/harnesses/gone.svg'), "Pi's mark did not load"],
-  ['a mark shown small', (s) => s.replace('</style>', '.mark.pi img{--size:12px}</style>'), "Pi's mark shows"],
+  ['a mark shown small', (s) => s.replace('</style>', '.mark.pi img{--size:12%}</style>'), "Pi's mark shows"],
   ['a badge in place of a logo', (s) => s.replace('<span class="mark codex"><img src="./assets/harnesses/codex.png" width="49" height="49" alt="" /></span>', '<span class="mark badge" aria-hidden="true">Codex</span>'), "Codex's card has a badge in place of its logo"],
   ['a logo with words beside it', (s) => s.replace('<span class="mark muse-code"><img', '<span class="mark muse-code">Muse Code<img'), "Muse Code's card has a badge in place of its logo"],
   ['an empty box', (s) => s.replace('<span class="mark claude-code"><img src="./assets/harnesses/claude-code.svg" width="42" height="42" alt="" /></span>', '<span class="mark claude-code"></span>'), "Claude Code's card has no logo"],
-  ['a harness with no roles', (s) => s.replace(/(data-harness="devin"[\s\S]*?<ul class="roles"[^>]*>)[\s\S]*?(<\/ul>)/, '$1$2'), "Devin's card has no roles"],
-  ['a role the app does not give', (s) => s.replace(/(data-harness="muse-code"[\s\S]*?<ul class="roles"[^>]*>)/, '$1<li>chief</li>'), "Muse Code's roles are"],
-  ['a harness left out', (s) => s.replace(/<li class="harness" data-harness="muse-code">[\s\S]*?<\/li>\n(?=\s*<\/ul>)/, ''), 'cards, not 5'],
+  ['a harness named wrong', (s) => s.replace('<span class="name">Devin</span>', '<span class="name">Devon</span>'), `Devin's card is named "Devon"`],
+  ['a harness left out', (s) => s.replace(/\n\s*<li class="harness" data-harness="muse-code">.*?<\/li>/, ''), 'harnesses, not 5'],
   ['a list that leaves one out', (s) => s.replace('takes the tasks in Claude Code, Codex, Pi, Devin or Muse Code.', 'takes the tasks in Claude Code, Codex, Pi or Devin.'), 'the description does not name Muse Code'],
   ['the JSON-LD leaving one out', (s) => s.replace('across Claude Code, Codex, Pi, Devin and Muse Code."', 'across Claude Code, Codex, Pi and Devin."'), "the site's JSON-LD description does not name Muse Code"],
-  ['marks of two sizes', (s) => s.replace('</style>', '.mark.codex{width:80px}</style>'), "the marks' boxes are not one size"],
+  ['marks of two sizes', (s) => s.replace('</style>', '.mark.codex{width:30px}</style>'), "the marks' boxes are not one size"],
+  ['a download to the releases page', (s) => s.replace(/(data-download="mac" href=")[^"]*/, '$1https://github.com/ngvoicu/consensflow/releases'), 'the mac download leads to'],
+  ['a download of the wrong file', (s) => s.replace(/(data-download="windows" href="[^"]*)_x64-setup\.exe/, '$1_x64-portable.exe'), 'the windows download leads to'],
+  ['downloads of two releases', (s) => s.replace(/(data-download="windows" href="[^"]*\/download\/)v[^/]+/, '$1v0.0.1'), 'the two downloads are of different releases'],
+  ['a third download button', (s) => s.replace('<a class="button button-quiet" href="https://github.com/ngvoicu/consensflow">Source on GitHub</a>', '<a class="button" data-download="linux" href="#">Linux</a><a class="button button-quiet" href="https://github.com/ngvoicu/consensflow">Source on GitHub</a>'), 'download buttons, not 2'],
+  ['an install line without the alpha', (s) => s.replace('install.sh | sh -s -- --alpha</code>', 'install.sh | sh</code>'), 'the install lines are'],
+  ['an install line without its Copy', (s) => s.replace('</pre><button class="copy" type="button" data-copy>Copy</button></div>', '</pre></div>'), 'install line 1 has no Copy'],
+  ['the signing key back', (s) => s.replace('</main>', '<p>The signing key: RWTirTrEjU6epgN2c8yV2aIfRHzcCHVBi9zddieRVM5SahwhDFJlFd7Q</p></main>'), 'says something of keys or uninstalling'],
+  ['how to uninstall back', (s) => s.replace('</main>', '<p>To uninstall, move ConsensFlow.app to the Trash.</p></main>'), 'says something of keys or uninstalling'],
 ]
 
 /** What the page's text and markup say that no page may: none when it is right. */
@@ -166,7 +206,9 @@ async function wordProblems(tab) {
   const text = await tab.locator('body').innerText()
   const source = await tab.content()
   if (REMOVED.test(text) || REMOVED.test(source)) problems.push('names the removed harness')
-  if (STAGE.test(text) || STAGE.test(source.replace(/<script[\s\S]*?<\/script>/g, ''))) problems.push('qualifies a release by its stage')
+  // The download links lead to the alpha's installers, whose names carry its stage.
+  const markup = source.replace(/<script[\s\S]*?<\/script>/g, '').replace(/(data-download="[a-z]+" href=")[^"]*"/g, '$1"')
+  if (STAGE.test(text) || STAGE.test(markup)) problems.push('qualifies a release by its stage')
   return problems
 }
 
@@ -226,17 +268,29 @@ try {
           if (dw && dh) assert.ok(Math.abs(dw * nh - dh * nw) <= Math.max(dw, dh), `${where}: ${img.src} is ${nw}x${nh}, declared ${dw}x${dh}`)
         }
         assert.deepEqual(await wordProblems(tab), [], `${where}: says what no page may`)
-        if (page.name === 'home') assert.deepEqual(await harnessProblems(tab), [], `${where}: the harnesses`)
+        if (page.name === 'home') {
+          assert.deepEqual(await harnessProblems(tab), [], `${where}: the harnesses`)
+          assert.deepEqual(await getProblems(tab), [], `${where}: the downloads and install lines`)
+        }
         if (shots) {
           await tab.screenshot({ path: join(shots, `${page.name}-${viewport.width}-${colorScheme}.png`), fullPage: true })
           if (page.name === 'home') {
             // The bar stays on top as the page scrolls: out of the way, the section is seen whole.
             await tab.addStyleTag({ content: '.bar{position:static}' })
-            await tab.locator('#harnesses').screenshot({ path: join(shots, `harnesses-${viewport.width}-${colorScheme}.png`) })
+            await tab.locator('.hero').screenshot({ path: join(shots, `hero-${viewport.width}-${colorScheme}.png`) })
+          }
+        }
+        if (page.name === 'home') {
+          // Each Copy puts its line on the clipboard, whole.
+          await context.grantPermissions(['clipboard-read', 'clipboard-write'], { origin: server.url })
+          const copies = tab.locator('.hero .command button[data-copy]')
+          for (let i = 0; i < COMMANDS.length; i += 1) {
+            await copies.nth(i).click()
+            assert.equal(await tab.evaluate(() => navigator.clipboard.readText()), COMMANDS[i], `${where}: Copy ${i + 1} copies its line`)
           }
         }
         await context.close()
-        ok(`${where}: clean, ${images.length} images in shape${page.name === 'home' ? ', five harnesses with their marks and roles' : ''}`)
+        ok(`${where}: clean, ${images.length} images in shape${page.name === 'home' ? ', five harnesses with their logos, two downloads, two install lines that copy' : ''}`)
       }
     }
   }
@@ -248,7 +302,7 @@ try {
     for (const viewport of VIEWPORTS) {
       const context = await browser.newContext({ viewport, colorScheme: 'light' })
       const { tab } = await openPage(context, `${server.url}/`, broken)
-      const found = [...(await wordProblems(tab)), ...(await harnessProblems(tab))]
+      const found = [...(await wordProblems(tab)), ...(await harnessProblems(tab)), ...(await getProblems(tab))]
       assert.ok(found.some((p) => p.includes(expected)), `${what} at ${viewport.width} px went unseen: ${JSON.stringify(found)}`)
       await context.close()
     }

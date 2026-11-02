@@ -39,40 +39,41 @@ same zero-build, single-file static stack.
 
 ## The page
 
-One page, top to bottom: the hero and its capture of the window; **A software factory** (who talks to
+One page, top to bottom: the first section (below) and its capture of the window; **A software factory** (who talks to
 whom, and one goal from start to finish); **How it works** (a task across the board's columns);
 **What it does**, a group of items beside or under the captures that show them: The staff, The
 agents, switching the chief, The board, Specs (its viewer under it), History, Wake-up calls and
-Project settings (beside the dialog), You stay in charge, and the staff's windows; then **The
-harnesses**, **New in 3.0.7**, Install, Your data, and the source. Specs, History, Wake-up calls and Project settings are the groups added for
+Project settings (beside the dialog), You stay in charge, and the staff's windows; then **New in
+3.0.7**, Your data, and the source. Specs, History, Wake-up calls and Project settings are the groups added for
 3.0.4 to 3.0.6; New in 3.0.7 is a section of its own, three groups (Muse Code, a meeting with the
 chief, and what is steadier everywhere), whose words come from the landings of 3.0.7's first release in the app repo: D1
 (`fb3037412`), the removal of a harness (`4d9c0fe9c`), D2a (`0db267189`), chief-meeting's paced
 delivery (`f1500dc7c`), and D2b and the Muse Code reader fix once they land; it names what a user
-notices, never a task or a branch, and never the removed harness. Muse Code's card carries a "New in
-3.0.7" mark. The History viewer carries a "New in 3.0.6" mark (the chief's `cf history --find` is older, from 3.0.5 and before): the version, never its stage.
+notices, never a task or a branch, and never the removed harness. The History viewer carries a "New in 3.0.6" mark (the chief's `cf history --find` is older, from 3.0.5 and before): the version, never its stage.
 
-## The harnesses (`#harnesses`)
+## The first section (`#top`, `#download`)
 
-A card for each harness the app runs, in the app's order (`Harness::ALL` in `cf-proto/src/agents.rs`):
-Claude Code, Codex, Pi, Devin, Muse Code. Each card has the harness's mark in a box the same size as
-the others' (64 px, the mark itself about 40 px), its name, the roles it can hold as words (never a
-colour: on this page a colour is a task's state), and the platforms. Under the cards, three lines say
-why the roles differ. The roles are the app's, never more:
+Gabriel, 2026-11-02: "move install section and harnesses, with logos here in the first section; also
+put install commands for alpha and not so much text; no keys no uninstall, clean and simple, download
++ install commands for mac and windows". Under the headline, in this order and nothing more:
 
-- **chief:** Claude Code, Codex, Pi and Devin. New project and Switch the chief offer a chief only on
-  the harnesses of `HARNESS_NAMES` (`app/ui/core/dialogs.js`, `fillChiefs`), which has no Muse Code; the
-  engine refuses an image agent as chief (`require_chief`, `crates/cf-engine/src/dispatcher.rs`).
-- **worker, advisor, reviewer, tester:** every harness. A member's roles are `MEMBER_ROLES`
-  (`crates/cf-ledger/src/model.rs`), which any agent that is not an image agent fits (`fits_role`),
-  on any harness with an adapter (`crates/cf-harness/src/launch.rs`: all five).
-- **image designer:** Codex alone. An image agent is a Codex agent (`crates/cf-catalog/src/roster/add.rs`
-  refuses one on another harness: "Codex's image tool draws"), and it can be nothing else (`fits_role`).
-- **Muse Code** has no ready-made agents in the catalog (`crates/cf-catalog/data/presets.json`): its
-  agents are the human's own, from Settings → Agents. Its card says Mac: its Windows work is not in a
-  release yet.
+- **One short paragraph:** what the app is, the chief and the staff's roles.
+- **The harnesses**, a row of five in the app's order (`Harness::ALL` in `cf-proto/src/agents.rs`):
+  Claude Code, Codex, Pi, Devin, Muse Code, each its logo in a box the same size as the others' (64 px
+  at most, the mark about 40 of it; Assets, below) and its name under it. Which roles each harness can
+  hold (Muse Code is not offered as the chief; only Codex's image agent draws) is in the app, not here.
+- **Download for Mac** and **Download for Windows**, straight to the installers of the release the
+  alpha update feed serves (the DMG and `x64-setup.exe`), and **Source on GitHub**. A static page cannot
+  read the feed when it opens (GitHub sends no CORS headers, and the site loads nothing from another
+  origin), so `tools/downloads.mjs` writes the two links from the feed and the release's own assets:
+  run it after each alpha is published, and `node tools/downloads.mjs --check` refuses while they are
+  not the feed's or do not answer 200. Never write them by hand.
+- **The systems** in one line, with Supported versions.
+- **The two install lines, the alpha's**, each in its own box with a Copy (which copies it; where the
+  clipboard is refused, it selects it). On a phone a line wraps inside its box.
 
-Change a card when the app changes one of these, and `tools/check-site.mjs` with it (`HARNESSES`).
+Nothing about the scripts' key, their checks or uninstalling is on the page, and nothing of this
+section is said again further down: the Install section and the harnesses section are gone.
 
 ## Supported versions (`/status/`)
 
@@ -142,12 +143,13 @@ changes on its own clock, not the story's.
 
 ## The installers (`/install.sh`, `/install.ps1`)
 
-`curl -fsSL https://consensflow.ngvoicu.dev/install.sh | sh` and
-`irm https://consensflow.ngvoicu.dev/install.ps1 | iex`, shown in the Install section ("Or from a
-terminal") with the update key they pin. Both files are copies of `install/install.sh` and
+`curl -fsSL https://consensflow.ngvoicu.dev/install.sh | sh -s -- --alpha` and
+`$env:CONSENSFLOW_CHANNEL = 'alpha'; irm https://consensflow.ngvoicu.dev/install.ps1 | iex`, the alpha's,
+shown in the first section. Both files are copies of `install/install.sh` and
 `install/install.ps1` in the app's repository, where they are written and tested: never edit them
-here. Copy them with `npm run site:installers -- <this folder>` from the app's repository, which
-refuses while this page shows another key than the scripts pin, onto the `installers` branch, then
+here. Copy them with `npm run site:installers -- <this folder>` from the app's repository onto the
+`installers` branch, whose own index.html still shows the key the scripts pin (the tool refuses a page
+that does not), then
 bring the two files onto `main` as they are; `npm run site:installers -- --check <this folder>`
 compares the `installers` branch with the app's. They install releases from 3.0.7 on, the first
 whose SHA256SUMS is signed.
@@ -158,19 +160,17 @@ The home page and Supported versions are each opened at 1280 and 390 px, light a
 dark, in Chromium: nothing logged, thrown, failed or loaded from another origin, no sideways scroll,
 every image loaded and shown at the shape of its file (a screenshot remade at another height needs its
 `height` changed too), no page naming a harness the app has removed (in its text or its markup), and
-none naming a release by its stage. On the home page, every list of the harnesses (the description, the
-share and X descriptions, both JSON-LD descriptions and the software it needs, the lede and Install)
-names all five, and the harnesses section has a card for each, in the app's order: its logo shown
-(the vendor's file, loaded and at least 32 px, with no badge or words in its place), every mark's box
-one size,
-its name, and exactly the roles `HARNESSES` gives it. Each of those rules is then broken once on a copy
-of the page (a mark gone, hidden, missing, small or of another size, a badge in a logo's place, words beside a
-logo, an empty box, a card with
-no roles or one role too many, a harness left out, a list or the JSON-LD leaving one out, the removed
-harness named, a stage named), and the check must see it.
+none naming a release by its stage but the download links. On the home page, every list of the
+harnesses (the description, the share and X descriptions, both JSON-LD descriptions and the software it
+needs, and the first section's row) names all five; the row has each in the app's order, its logo
+shown (the vendor's file, loaded and at least 32 px, with no badge or words in its place), every box
+one size, and its name; the two downloads lead to the DMG and `x64-setup.exe` of one release; the two
+install lines are the alpha's, each with a Copy that copies it whole; and nothing is said of keys or
+uninstalling. Each of those rules is then broken once on a copy of the page (22 copies), and the
+check must see it.
 
 ```bash
-node tools/check-site.mjs ../../consensflow [folder for screenshots]   # 8 openings and 15 broken copies; a folder gets each page whole and the harnesses section
+node tools/check-site.mjs ../../consensflow [folder for screenshots]   # 8 openings and 22 broken copies; a folder gets each page whole and the first section
 ```
 
 ## Copy
@@ -185,9 +185,7 @@ them, results with evidence back) and the image designer (a task naming what to 
 save it, the file's path back) are drawn like the others, and their exchanges are in each drawing's
 `<desc>`. The groups under What it does take their words from the releases' notes
 (3.0.4 and 3.0.5 for specs, wake-up calls, Project settings and the project menu; 3.0.6 for History)
-and the app's README. Install stays short:
-the download, the platforms in one line, the harnesses it works with, and one link to the app's
-README for the rest. On what the agents can do, it says:
+and the app's README. On what the agents can do, it says:
 
 - Agents work with full permissions in their windows, as they would if you ran them yourself. Your
   protection is the review, the chief's acceptance and, if you turn it on, your approval. Use
@@ -315,10 +313,12 @@ Playwright comes from the app repo's `app/node_modules`; nothing is installed he
 
 ## Deploy
 
-GitHub Pages from the repo root. `CNAME` serves `consensflow.ngvoicu.dev`. Download links point at
-[/releases](https://github.com/ngvoicu/consensflow/releases), never `/releases/latest`. The site
-never qualifies a release by its stage on GitHub, anywhere: copy, captions, alt text, structured
-data, this README.
+GitHub Pages from the repo root. `CNAME` serves `consensflow.ngvoicu.dev`. The download buttons
+lead to the alpha's installers, written by `tools/downloads.mjs` (the first section, above); the
+JSON-LD's `downloadUrl` is [/releases](https://github.com/ngvoicu/consensflow/releases), never
+`/releases/latest`. The site never qualifies a release by its stage on GitHub, in copy, captions,
+alt text or structured data, but where Gabriel asked for the alpha (2026-11-02): the download links,
+"The latest alpha", and the install lines' `--alpha` and `'alpha'`.
 
 ## Deploying (read this: Pages builds get stuck)
 

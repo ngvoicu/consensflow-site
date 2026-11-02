@@ -323,41 +323,42 @@ main h3{font-size:1.3rem;line-height:1.25;letter-spacing:-.015em}
   .across dl{display:block}
 }
 
-/* ---- the harnesses: each one's mark, its name and the roles it can hold ---- */
+/* ---- the hero's harnesses, download and install lines ---- */
 /* A mark is the vendor's own file, as it comes, in a box the same size for
-   every harness (README, Assets). The roles are words, not colours: on this
-   page a colour is a task's state. */
-.harnesses{list-style:none;margin:48px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px}
-.harness{border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:18px 18px 20px;display:flex;flex-direction:column;gap:16px}
-.harness-head{display:flex;align-items:center;gap:14px;min-height:64px}
-.harness h3{font-size:1.2rem}
-.harness .new{display:inline-block;margin-left:8px;vertical-align:1px;padding:1px 7px;border:1px solid var(--accent);border-radius:6px;
-  font:500 12px/1.3 var(--mono);letter-spacing:.04em;color:var(--accent);white-space:nowrap}
-.mark{flex:none;width:64px;height:64px;border:1px solid var(--line);border-radius:10px;background:var(--ink);
+   every harness (README, Assets), its name under it. */
+.harnesses{list-style:none;margin:30px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,88px));gap:12px}
+.harness{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+.harness .name{font:500 12.5px/1.25 var(--mono);color:var(--muted)}
+.mark{flex:none;width:min(64px,100%);aspect-ratio:1/1;border:1px solid var(--line);border-radius:12px;background:var(--panel);
   display:grid;place-items:center;overflow:hidden}
-.mark img{width:var(--size,40px);height:var(--size,40px);max-width:none}
-/* A file with a margin round its mark is shown larger, so every mark is about 40 px. */
-.mark.claude-code img{--size:42px}
-.mark.codex img{--size:49px}
-.mark.pi img{--size:68px}
-.roles{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
-.roles li{padding:3px 9px;border:1px solid var(--line);border-radius:999px;font:500 13px/1.4 var(--mono);color:var(--text)}
-.harness .where{margin:auto 0 0;font-size:14.5px;color:var(--muted)}
-.harness-notes{margin:22px 0 0;padding:0;list-style:none;display:grid;gap:8px;max-width:72ch;color:var(--muted);font-size:16.5px}
-.harness-notes strong{color:var(--text)}
-@media (max-width:600px){.harnesses{grid-template-columns:minmax(0,1fr)}}
-
-/* ---- install ---- */
-.split{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(32px,5vw,72px);margin-top:48px;align-items:start}
-@media (max-width:900px){.split{grid-template-columns:minmax(0,1fr)}}
-.install-text p{color:var(--muted);max-width:56ch}
-.install-text p strong{color:var(--text)}
-.install-text .actions{margin-top:28px}
-.lines{margin-top:32px}
-.lines h3{font-size:17px;margin:0 0 6px;color:var(--text)}
-.lines pre{margin:8px 0 18px;padding:14px 16px;background:var(--deep);border:1px solid var(--line);border-radius:10px;overflow-x:auto}
-.lines pre code{font-size:14px;color:var(--text);white-space:pre}
-.lines .key{overflow-wrap:anywhere}
+.mark img,.mark picture{display:block}
+.mark img{width:var(--size,62.5%);height:auto;max-width:none;margin:auto}
+.mark picture{width:62.5%;display:grid;place-items:center}
+.mark picture img{width:100%}
+/* A file with a margin round its mark is shown larger, so every mark is about 40 of the box's 64. */
+.mark.claude-code img{--size:66%}
+.mark.codex img{--size:77%}
+.mark.pi img{--size:106%}
+.get .actions{margin-top:30px}
+.get .fine a{white-space:nowrap}
+.get-title{margin:28px 0 10px!important;font:700 15px/1.3 var(--sans)!important;letter-spacing:0!important;color:var(--muted)!important}
+.command{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;max-width:1040px;margin:0 0 10px;
+  border:1px solid var(--line);border-radius:10px;background:var(--deep)}
+.command .where{padding:0 0 0 14px;font:500 12px/1.2 var(--mono);color:var(--muted);white-space:nowrap}
+.command pre{margin:0;padding:12px 14px;overflow-x:auto}
+.command code{font-size:14px;color:var(--text);white-space:pre}
+.copy{margin:6px;padding:7px 12px;border:1px solid var(--line);border-radius:7px;background:var(--panel);color:var(--text);
+  font:600 13px/1 var(--sans);cursor:pointer}
+.copy:hover{border-color:var(--accent);color:var(--accent)}
+@media (max-width:600px){
+  .harnesses{grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+  .harness .name{font-size:11px}
+  .command{grid-template-columns:minmax(0,1fr) auto}
+  .command .where{grid-column:1/-1;padding:10px 14px 0}
+  .command pre{padding:8px 14px 12px}
+  /* On a phone a command wraps in its box; Copy takes it whole. */
+  .command code{white-space:pre-wrap;overflow-wrap:anywhere}
+}
 
 /* ---- your data ---- */
 .data{list-style:none;margin:40px 0 0;padding:0;display:grid;gap:22px;max-width:70ch}
@@ -401,11 +402,10 @@ footer{padding:44px 0 56px}
       <a href="#factory">The factory</a>
       <a href="#how">How it works</a>
       <a href="#does">What it does</a>
-      <a href="#harnesses">Harnesses</a>
-      <a href="#install">Install</a>
+      <a href="#download">Download</a>
       <a href="#data">Your data</a>
     </nav>
-    <a class="button button-go" href="https://github.com/ngvoicu/consensflow/releases">Download</a>
+    <a class="button button-go" href="#download">Download</a>
   </div>
 </header>
 
@@ -414,13 +414,25 @@ footer{padding:44px 0 56px}
 <section class="hero" id="top">
   <div class="wrap">
     <h1>A software factory,<br> staffed by<br> AI coding agents.</h1>
-    <p class="lede">ConsensFlow is a desktop app. You give the goal to one agent, the Chief of Staff. It plans the work on a board, and a staff of workers, advisors, reviewers, testers and an image designer takes the tasks, each in a terminal of its own. Many exchanges later, what comes out is software, in your project.</p>
-    <p class="lede">It works through the coding agents you already use, Claude Code, Codex, Pi, Devin and Muse Code, with your own logins. It stores no passwords and needs no API keys.</p>
-    <div class="actions">
-      <a class="button button-go" href="https://github.com/ngvoicu/consensflow/releases">Download for Mac or Windows</a>
-      <a class="button button-quiet" href="https://github.com/ngvoicu/consensflow">Source on GitHub</a>
+    <p class="lede">A desktop app. You give the goal to a Chief of Staff, and its staff of workers, advisors, reviewers, testers and an image designer take the tasks, in the coding agents you already use.</p>
+    <ul class="harnesses" aria-label="The coding agents it runs">
+      <li class="harness" data-harness="claude-code"><span class="mark claude-code"><img src="./assets/harnesses/claude-code.svg" width="42" height="42" alt="" /></span><span class="name">Claude Code</span></li>
+      <li class="harness" data-harness="codex"><span class="mark codex"><img src="./assets/harnesses/codex.png" width="49" height="49" alt="" /></span><span class="name">Codex</span></li>
+      <li class="harness" data-harness="pi"><span class="mark pi"><img src="./assets/harnesses/pi.svg" width="68" height="68" alt="" /></span><span class="name">Pi</span></li>
+      <li class="harness" data-harness="devin"><span class="mark"><picture><source srcset="./assets/harnesses/devin-on-dark.svg" media="(prefers-color-scheme: dark)" /><img src="./assets/harnesses/devin-on-light.svg" width="40" height="40" alt="" /></picture></span><span class="name">Devin</span></li>
+      <li class="harness" data-harness="muse-code"><span class="mark muse-code"><img src="./assets/harnesses/muse-code.svg" width="40" height="40" alt="" /></span><span class="name">Muse Code</span></li>
+    </ul>
+    <div class="get" id="download">
+      <div class="actions">
+        <a class="button button-go" data-download="mac" href="https://github.com/ngvoicu/consensflow/releases/download/v3.0.7-alpha.1/ConsensFlow_3.0.7-alpha.1_aarch64.dmg">Download for Mac</a>
+        <a class="button button-go" data-download="windows" href="https://github.com/ngvoicu/consensflow/releases/download/v3.0.7-alpha.1/ConsensFlow_3.0.7-alpha.1_x64-setup.exe">Download for Windows</a>
+        <a class="button button-quiet" href="https://github.com/ngvoicu/consensflow">Source on GitHub</a>
+      </div>
+      <p class="fine">The latest alpha. Mac with Apple silicon, macOS 13.5 or later; Windows 10 or 11, 64-bit. <a href="./status/">Supported versions</a></p>
+      <h2 class="get-title">Or install from a terminal</h2>
+      <div class="command"><span class="where">Mac</span><pre><code>curl -fsSL https://consensflow.ngvoicu.dev/install.sh | sh -s -- --alpha</code></pre><button class="copy" type="button" data-copy>Copy</button></div>
+      <div class="command"><span class="where">Windows, PowerShell</span><pre><code>$env:CONSENSFLOW_CHANNEL = 'alpha'; irm https://consensflow.ngvoicu.dev/install.ps1 | iex</code></pre><button class="copy" type="button" data-copy>Copy</button></div>
     </div>
-    <p class="fine">Mac with Apple silicon, macOS 13.5 or later. Windows 10 or 11, 64-bit. Free and open source under the MIT license.</p>
 
     <figure class="shot">
       <img src="./assets/screenshots/window.webp" width="1840" height="1270" fetchpriority="high" decoding="async"
@@ -900,60 +912,6 @@ footer{padding:44px 0 56px}
   </div>
 </section>
 
-<section class="section" id="harnesses" aria-labelledby="harnesses-title">
-  <div class="wrap">
-    <h2 id="harnesses-title">The harnesses</h2>
-    <p class="intro">Every agent runs in a coding harness you already have, signed in with your own login. These are the five ConsensFlow runs, and the roles each can hold in a project.</p>
-    <ul class="harnesses">
-      <li class="harness" data-harness="claude-code">
-        <div class="harness-head">
-          <span class="mark claude-code"><img src="./assets/harnesses/claude-code.svg" width="42" height="42" alt="" /></span>
-          <div><h3>Claude Code</h3></div>
-        </div>
-        <ul class="roles" aria-label="The roles Claude Code can hold"><li>chief</li><li>worker</li><li>advisor</li><li>reviewer</li><li>tester</li></ul>
-        <p class="where">Mac and Windows</p>
-      </li>
-      <li class="harness" data-harness="codex">
-        <div class="harness-head">
-          <span class="mark codex"><img src="./assets/harnesses/codex.png" width="49" height="49" alt="" /></span>
-          <div><h3>Codex</h3></div>
-        </div>
-        <ul class="roles" aria-label="The roles Codex can hold"><li>chief</li><li>worker</li><li>advisor</li><li>reviewer</li><li>tester</li><li>image designer</li></ul>
-        <p class="where">Mac and Windows</p>
-      </li>
-      <li class="harness" data-harness="pi">
-        <div class="harness-head">
-          <span class="mark pi"><img src="./assets/harnesses/pi.svg" width="68" height="68" alt="" /></span>
-          <div><h3>Pi</h3></div>
-        </div>
-        <ul class="roles" aria-label="The roles Pi can hold"><li>chief</li><li>worker</li><li>advisor</li><li>reviewer</li><li>tester</li></ul>
-        <p class="where">Mac and Windows</p>
-      </li>
-      <li class="harness" data-harness="devin">
-        <div class="harness-head">
-          <span class="mark"><picture><source srcset="./assets/harnesses/devin-on-dark.svg" media="(prefers-color-scheme: dark)" /><img src="./assets/harnesses/devin-on-light.svg" width="40" height="40" alt="" /></picture></span>
-          <div><h3>Devin</h3></div>
-        </div>
-        <ul class="roles" aria-label="The roles Devin can hold"><li>chief</li><li>worker</li><li>advisor</li><li>reviewer</li><li>tester</li></ul>
-        <p class="where">Mac and Windows</p>
-      </li>
-      <li class="harness" data-harness="muse-code">
-        <div class="harness-head">
-          <span class="mark muse-code"><img src="./assets/harnesses/muse-code.svg" width="40" height="40" alt="" /></span>
-          <div><h3>Muse Code</h3></div>
-        </div>
-        <ul class="roles" aria-label="The roles Muse Code can hold"><li>worker</li><li>advisor</li><li>reviewer</li><li>tester</li></ul>
-        <p class="where">Mac <span class="new">New in 3.0.7</span></p>
-      </li>
-    </ul>
-    <ul class="harness-notes">
-      <li><strong>The chief</strong> runs on Claude Code, Codex, Pi or Devin. Muse Code takes the staff's roles.</li>
-      <li><strong>The image designer</strong> is a Codex agent: Codex's image tool draws the image.</li>
-      <li><strong>Muse Code</strong> runs the agents you define on it in Settings → Agents, with any model your Muse Code accepts.</li>
-    </ul>
-  </div>
-</section>
-
 <section class="section" id="new" aria-labelledby="new-title">
   <div class="wrap">
     <h2 id="new-title">New in 3.0.7</h2>
@@ -998,38 +956,6 @@ footer{padding:44px 0 56px}
           </dl>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="install" aria-labelledby="install-title">
-  <div class="wrap">
-    <h2 id="install-title">Install</h2>
-    <div class="split">
-      <div class="install-text">
-        <p class="intro">Download ConsensFlow for Mac or Windows. It works with the coding agents you already have, Claude Code, Codex, Pi, Devin or Muse Code, each signed in once in a terminal. <strong>One is enough to start</strong>, if it is one the chief runs on: Claude Code, Codex, Pi or Devin. Everything else it needs comes with it.</p>
-        <div class="actions">
-          <a class="button button-go" href="https://github.com/ngvoicu/consensflow/releases">Download for Mac or Windows</a>
-        </div>
-        <p class="fine">Mac with Apple silicon, macOS 13.5 or later. Windows 10 or 11, 64-bit.</p>
-        <p>Which version of each of those agents ConsensFlow works with, and which newer ones are still being tested, is on the <a href="./status/">Supported versions</a> page.</p>
-        <p>Your first project, updates and the rest are in <a href="https://github.com/ngvoicu/consensflow#readme">the README on GitHub</a>.</p>
-        <div class="lines">
-          <h3>Or from a terminal</h3>
-          <p>On a Mac, in Terminal:</p>
-          <pre><code>curl -fsSL https://consensflow.ngvoicu.dev/install.sh | sh</code></pre>
-          <p>On Windows, in PowerShell:</p>
-          <pre><code>irm https://consensflow.ngvoicu.dev/install.ps1 | iex</code></pre>
-          <p class="fine">They install the latest release. For the latest alpha, end the Mac line with <code>sh -s -- --alpha</code>, or set <code>$env:CONSENSFLOW_CHANNEL = 'alpha'</code> in PowerShell first. Nothing is installed until the release's <code>SHA256SUMS</code> carries ConsensFlow's signature for that release and the download matches it; on a Mac, also until the app's Developer ID signature and notarization hold. The app goes to Applications on a Mac (your own, without admin rights) and to your user's programs on Windows, and an older ConsensFlow is upgraded where it is; a newer one is kept, unless you name the release with <code>--version</code>. Releases from 3.0.7 on install this way.</p>
-          <p class="fine key">The signing key both scripts check with, to compare with the one in them: <code>RWTirTrEjU6epgN2c8yV2aIfRHzcCHVBi9zddieRVM5SahwhDFJlFd7Q</code></p>
-          <p class="fine">To uninstall, quit ConsensFlow and move ConsensFlow.app to the Trash; on Windows, use Settings &rsaquo; Apps &rsaquo; Installed apps &rsaquo; ConsensFlow &rsaquo; Uninstall. Your projects and settings stay in <code>~/.consensflow</code> until you delete it.</p>
-        </div>
-      </div>
-      <figure class="shot">
-        <img src="./assets/screenshots/new-project.webp" width="640" height="812" loading="lazy" decoding="async"
-          alt="The top of the New project dialog: the project folder, the chief running on zeus (Claude Opus 5.5 on Claude Code, max effort), and the staff of four filled in from the last project with a role each, with a form to add another. Below it, not shown, the dialog goes on with human approval, wake-up calls and specs." />
-        <figcaption>Your first project: its folder, the agent the chief runs on, and its staff. The next one starts with the staff of the last, and then has the settings Project settings has.</figcaption>
-      </figure>
     </div>
   </div>
 </section>
@@ -1197,6 +1123,30 @@ footer{padding:44px 0 56px}
       if (e.key !== 'Enter' && e.key !== ' ') return;
       e.preventDefault();
       open(img);
+    });
+  });
+})();
+
+// Each install line's Copy puts its command on the clipboard; where the
+// clipboard is refused, the command is selected for the reader to copy.
+(function(){
+  Array.prototype.forEach.call(document.querySelectorAll('[data-copy]'), function(button){
+    var code = button.parentElement.querySelector('code');
+    function said(word){
+      button.textContent = word;
+      setTimeout(function(){ button.textContent = 'Copy'; }, 1600);
+    }
+    button.addEventListener('click', function(){
+      var select = function(){
+        var range = document.createRange();
+        range.selectNodeContents(code);
+        var selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        said('Selected');
+      };
+      if (!navigator.clipboard) return select();
+      navigator.clipboard.writeText(code.textContent).then(function(){ said('Copied'); }, select);
     });
   });
 })();
