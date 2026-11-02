@@ -99,7 +99,7 @@ changes on its own clock, not the story's.
   updated
   releases[]   version, channel (Stable, Alpha, Next), harnesses[]
     harnesses[]   id, platforms { mac, windows }
-      platforms.*   from, to, status, issue? { text, state? }     status: supported, issues, newer,
+      platforms.*   from, to, status, issues? [{ text, state? }]   status: supported, issues, newer,
                                                                   unsupported, unmeasured
   harnesses[]  (the facts behind the table)   id, name, link, oldest, vendor, tested { mac, windows }
   ```
@@ -112,7 +112,7 @@ changes on its own clock, not the story's.
   version of each platform with its date and the live suites that passed. The rule, which the check
   writes out apart from the page: no `to`, not yet measured; a vendor release found broken
   (`vendor.verdict: "broken"`), not supported; the vendor's newest newer than `to`, newer than tested;
-  an `issue` listed, supported with a known issue; else supported. The page draws the status it is given
+  an `issues` list, supported with a known issue; else supported. The page draws the status it is given
   and never computes one. The app's harness-window plan has a tool write the block from the app's code and
   from a check that watches each vendor's new versions, and `--check` it against the page; until then
   the block is written by hand from the live runs.
@@ -120,7 +120,10 @@ changes on its own clock, not the story's.
   words, never suite names. They leave out the test kit's own failures (a `ps` that cannot start on
   Windows, a suite's premise about a harness's record) and a red that
   one run showed and nothing explains. An issue carries `"state": "looking"` or `"fixing"` only while a
-  task is on it.
+  task is on it. A cell may have more than one, each its own mark. A release's issues are the
+  ones its notes name (the tag message, in their words; "being fixed" there is `fixing`), and any
+  other the release's checks found and reproduced: 3.0.7's detached command on Pi and Devin is T-1068's
+  finish suite, 2 of 2 on each, which no task is on.
 - **Copy.** Releases are named by the version and the channel the app's updater names (`Stable`,
   `Alpha`), never by their stage, as everywhere on this site: the check fails on `alpha.N`, `rc.N` or
   "pre-release" in the data or on the page. "Not yet measured" is said where no figure exists, never a

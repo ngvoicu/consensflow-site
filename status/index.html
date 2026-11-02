@@ -213,7 +213,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
 <!-- status-data:begin
      The facts. Each entry of `releases` is one ConsensFlow release that is supported,
      newest last; its `harnesses` give, for each agent and each platform, the range of
-     versions that release supports (from, to), its status and its known issue. An
+     versions that release supports (from, to), its status and its known issues. An
      agent missing from a release is not in it. `harnesses` (top level) gives each
      agent's name and, behind the table, the oldest supported version, the vendor's
      newest release and what was tested: the facts that decide a status. Adding a
@@ -231,18 +231,18 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
       "harnesses": [
         { "id": "claude-code", "platforms": {
           "mac": { "from": "2.1.292", "to": "2.1.312", "status": "newer" },
-          "windows": { "from": "2.1.292", "to": "2.1.312", "status": "newer", "issue": { "text": "On Windows, a task whose agent started a background monitor may not finish on its own; finishing it by hand works." } }
+          "windows": { "from": "2.1.292", "to": "2.1.312", "status": "newer", "issues": [{ "text": "On Windows, a task whose agent started a background monitor may not finish on its own; finishing it by hand works." }] }
         } },
         { "id": "codex", "platforms": {
           "mac": { "from": "0.154.0", "to": "0.165.0", "status": "newer" },
           "windows": { "from": "0.154.0", "to": "0.164.0", "status": "newer" }
         } },
         { "id": "pi", "platforms": {
-          "mac": { "from": "1.2.0", "to": "1.4.0", "status": "issues", "issue": { "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished.", "state": "looking" } },
+          "mac": { "from": "1.2.0", "to": "1.4.0", "status": "issues", "issues": [{ "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished." }] },
           "windows": { "from": "1.2.0", "to": "1.4.0", "status": "supported" }
         } },
         { "id": "devin", "platforms": {
-          "mac": { "from": "3000.10.21", "to": "3000.11.228", "status": "newer", "issue": { "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished.", "state": "looking" } },
+          "mac": { "from": "3000.10.21", "to": "3000.11.228", "status": "newer", "issues": [{ "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished." }] },
           "windows": { "from": "3000.10.21", "to": "3000.11.205", "status": "newer" }
         } }
       ]
@@ -253,18 +253,18 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
       "harnesses": [
         { "id": "claude-code", "platforms": {
           "mac": { "from": "2.1.292", "to": "2.1.312", "status": "newer" },
-          "windows": { "from": "2.1.292", "to": "2.1.312", "status": "newer", "issue": { "text": "On Windows, a task whose agent started a background monitor may not finish on its own; finishing it by hand works." } }
+          "windows": { "from": "2.1.292", "to": "2.1.312", "status": "newer", "issues": [{ "text": "On Windows, a task whose agent started a background monitor may not finish on its own; finishing it by hand works." }] }
         } },
         { "id": "codex", "platforms": {
           "mac": { "from": "0.154.0", "to": "0.165.0", "status": "newer" },
           "windows": { "from": "0.154.0", "to": "0.164.0", "status": "newer" }
         } },
         { "id": "pi", "platforms": {
-          "mac": { "from": "1.2.0", "to": "1.4.0", "status": "issues", "issue": { "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished.", "state": "looking" } },
+          "mac": { "from": "1.2.0", "to": "1.4.0", "status": "issues", "issues": [{ "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished." }] },
           "windows": { "from": "1.2.0", "to": "1.4.0", "status": "supported" }
         } },
         { "id": "devin", "platforms": {
-          "mac": { "from": "3000.10.21", "to": "3000.11.228", "status": "newer", "issue": { "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished.", "state": "looking" } },
+          "mac": { "from": "3000.10.21", "to": "3000.11.228", "status": "newer", "issues": [{ "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished." }] },
           "windows": { "from": "3000.10.21", "to": "3000.11.205", "status": "newer" }
         } }
       ]
@@ -278,19 +278,19 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
           "windows": { "from": "2.1.292", "to": "2.1.316", "status": "supported" }
         } },
         { "id": "codex", "platforms": {
-          "mac": { "from": "0.154.0", "to": "0.166.0", "status": "issues", "issue": { "text": "With specs kept in a folder other than .specs, a chief may still write a spec into .specs.", "state": "looking" } },
-          "windows": { "from": "0.154.0", "to": "0.166.0", "status": "issues", "issue": { "text": "With specs kept in a folder other than .specs, a chief may still write a spec into .specs.", "state": "looking" } }
+          "mac": { "from": "0.154.0", "to": "0.166.0", "status": "issues", "issues": [{ "text": "A Codex chief in a project whose specs folder isn't .specs may write its spec to .specs.", "state": "fixing" }] },
+          "windows": { "from": "0.154.0", "to": "0.166.0", "status": "issues", "issues": [{ "text": "A Codex chief in a project whose specs folder isn't .specs may write its spec to .specs.", "state": "fixing" }] }
         } },
         { "id": "pi", "platforms": {
-          "mac": { "from": "1.2.0", "to": "1.4.0", "status": "issues", "issue": { "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished.", "state": "looking" } },
+          "mac": { "from": "1.2.0", "to": "1.4.0", "status": "issues", "issues": [{ "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished." }] },
           "windows": { "status": "unmeasured" }
         } },
         { "id": "devin", "platforms": {
-          "mac": { "from": "3000.10.21", "to": "3000.11.234", "status": "issues", "issue": { "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished. Closing its window while the first message is being delivered fails the task.", "state": "looking" } },
+          "mac": { "from": "3000.10.21", "to": "3000.11.234", "status": "issues", "issues": [{ "text": "A window closed in the first half-second of its brief's delivery can fail that task with no result. The chief sees it and can add the task again.", "state": "fixing" }, { "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished." }] },
           "windows": { "status": "unmeasured" }
         } },
         { "id": "muse-code", "platforms": {
-          "mac": { "from": "1.4.13", "to": "1.4.14", "status": "issues", "issue": { "text": "A question Muse Code asks with its own question tool stays in its window and does not reach the board. An advisor on Muse Code can stay starting and never take its brief.", "state": "looking" } },
+          "mac": { "from": "1.4.13", "to": "1.4.14", "status": "issues", "issues": [{ "text": "After a background command is cancelled, a Muse window can keep repainting where you can't see it, so ConsensFlow may not deliver its next message.", "state": "fixing" }, { "text": "A question Muse asks in its own window doesn't reach the board.", "state": "fixing" }] },
           "windows": { "status": "unmeasured" }
         } }
       ]
@@ -443,7 +443,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
 // Supported versions: draws the matrix of #status-data. A row for each agent; for
 // each release, in the order the data gives them, a Mac and a Windows cell holding
 // the range of versions that release supports, coloured by the cell's status. A
-// cell's known issue is a numbered mark, said once under the table. Everything the
+// cell's known issues are numbered marks, each said once under the table. Everything the
 // data says goes in with textContent, never as markup. No version is named here.
 (function(){
   var PLATFORMS = [
@@ -511,10 +511,11 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
       kids = [WORDS[status]];
     } else {
       kids = [el('span', { 'class': 'sr', text: WORDS[status] + ': ' }), el('span', { 'class': 't', text: range(data) })];
-      if (data.issue && str(data.issue.text)) {
-        var n = issues.number(data.issue);
+      (Array.isArray(data.issues) ? data.issues : []).forEach(function(issue){
+        if (!issue || !str(issue.text)) return;
+        var n = issues.number(issue);
         kids.push(el('span', { 'class': 'mark', role: 'img', 'aria-label': 'Known issue ' + n, text: String(n) }));
-      }
+      });
     }
     return el('td', {
       'class': 'st st-' + status,

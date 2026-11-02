@@ -78,7 +78,7 @@ function ruleStatus(facts, cell) {
   if (facts.vendor.verdict === 'broken') return 'unsupported'
   // A cell names versions without a build (1.4.14, not 1.4.14-R7309.1): the vendor's newest is compared the same way.
   if (compare(facts.vendor.version.replace(/-R.*/i, ''), cell.to) > 0) return 'newer'
-  return cell.issue ? 'issues' : 'supported'
+  return cell.issues?.length ? 'issues' : 'supported'
 }
 
 /** The WCAG contrast of two `rgb()` or `rgba()` colours. */
@@ -149,10 +149,16 @@ function theData() {
           assert.equal(cell.status, 'unmeasured', `${where}: no range, not yet measured`)
         }
         assert.equal(cell.status, ruleStatus(facts, cell), `${where}: the status is the rule's`)
-        if (cell.issue) {
-          assert.ok(/[.]$/.test(cell.issue.text), `${where}: an issue is a sentence`)
-          assert.ok(!cell.issue.state || ['looking', 'fixing'].includes(cell.issue.state), `${where}: an issue's state`)
-          assert.ok(!/\b(ps|test kit)\b/i.test(cell.issue.text), `${where}: an issue is not the test kit's`)
+        assert.ok(!('issue' in cell), `${where}: issues are a list`)
+        if (cell.issues) {
+          assert.ok(Array.isArray(cell.issues) && cell.issues.length > 0, `${where}: issues, a list of at least one`)
+          const texts = cell.issues.map((issue) => issue.text)
+          assert.equal(new Set(texts).size, texts.length, `${where}: an issue once`)
+          for (const issue of cell.issues) {
+            assert.ok(/[.]$/.test(issue.text), `${where}: an issue is a sentence`)
+            assert.ok(!issue.state || ['looking', 'fixing'].includes(issue.state), `${where}: an issue's state`)
+            assert.ok(!/\b(ps|test kit)\b/i.test(issue.text), `${where}: an issue is not the test kit's`)
+          }
         }
         if (r === newest && cell.to) {
           assert.equal(cell.from, facts.oldest.version, `${where}: the newest release starts at the oldest supported`)
@@ -252,10 +258,13 @@ function matrixAgrees(page, got, d) {
       } else {
         assert.equal(cell.text, WORDS[status], `${where}: its words`)
       }
-      if (want.entry?.issue && want.entry.to) {
-        let n = numbered.indexOf(want.entry.issue.text) + 1
-        if (!n) n = numbered.push(want.entry.issue.text)
-        assert.deepEqual(cell.marks, [String(n)], `${where}: its issue's mark`)
+      if (want.entry?.issues && want.entry.to) {
+        const marks = want.entry.issues.map((issue) => {
+          let n = numbered.indexOf(issue.text) + 1
+          if (!n) n = numbered.push(issue.text)
+          return String(n)
+        })
+        assert.deepEqual(cell.marks, marks, `${where}: a mark for each of its issues, in order`)
       } else {
         assert.deepEqual(cell.marks, [], `${where}: no mark without an issue`)
       }
@@ -263,7 +272,7 @@ function matrixAgrees(page, got, d) {
   }
   assert.equal(got.issues.length, numbered.length, 'one line under the table for each distinct issue')
   numbered.forEach((text, i) => {
-    const issue = d.releases.flatMap((r) => r.harnesses.flatMap((e) => Object.values(e.platforms))).find((c) => c.issue?.text === text).issue
+    const issue = d.releases.flatMap((r) => r.harnesses.flatMap((e) => Object.values(e.platforms))).flatMap((c) => c.issues ?? []).find((i) => i.text === text)
     assert.equal(got.issues[i].mark, String(i + 1))
     assert.equal(got.issues[i].text, text + (SAID[issue.state] ?? ''), `issue ${i + 1}: its line`)
   })
@@ -309,14 +318,14 @@ async function theContrast() {
 /** Data made for the check: a release added, one removed, every status, a shared issue. */
 async function theMatrixOnMadeData() {
   const made = structuredClone(data)
-  const cell = (status, from, to, issue) => ({ from, to, status, ...(issue ? { issue } : {}) })
+  const cell = (status, from, to, ...issues) => ({ from, to, status, ...(issues.length ? { issues } : {}) })
   const n = data.releases.length
   made.releases.push({
     version: '3.0.8',
     channel: 'Next',
     harnesses: [
       { id: 'claude-code', platforms: { mac: cell('unsupported', '2.1.300', '2.1.312'), windows: cell('supported', '2.1.292', '2.1.312') } },
-      { id: 'pi', platforms: { mac: cell('issues', '1.2.0', '1.4.0', { text: 'Made for the check.', state: 'fixing' }), windows: cell('issues', '1.2.0', '1.4.0', { text: 'Made for the check.' }) } },
+      { id: 'pi', platforms: { mac: cell('issues', '1.2.0', '1.4.0', { text: 'Made for the check.', state: 'fixing' }, { text: 'Made twice for the check.' }), windows: cell('issues', '1.2.0', '1.4.0', { text: 'Made for the check.' }) } },
       { id: 'muse-code', platforms: { mac: cell('newer', '1.4.13', '1.4.13'), windows: { status: 'unmeasured' } } },
     ],
   })
@@ -333,7 +342,8 @@ async function theMatrixOnMadeData() {
     assert.equal(row('muse-code')[mac].status, 'newer')
     assert.equal(row('muse-code')[mac].text, '1.4.13', 'a range of one version is that version')
     assert.equal(row('muse-code')[windows].status, 'unmeasured')
-    assert.deepEqual(row('pi')[mac].marks, row('pi')[windows].marks, 'one issue said twice is one mark')
+    assert.deepEqual(row('pi')[mac].marks.slice(0, 1), row('pi')[windows].marks, 'one issue said twice is one mark')
+    assert.equal(row('pi')[mac].marks.length, 2, 'a cell with two issues has two marks')
     assert.ok(got.issues.some((i) => i.text === 'Made for the check. Being fixed.'), 'a line under the table, with its state')
   }, { route: added })
 
@@ -354,7 +364,7 @@ async function hostileData() {
   made.updated = bad
   made.releases[1].channel = bad
   made.releases[1].harnesses[0].platforms.mac.from = bad
-  made.releases[1].harnesses[0].platforms.windows.issue = { text: bad, state: 'fixing' }
+  made.releases[1].harnesses[0].platforms.windows.issues = [{ text: bad, state: 'fixing' }]
   made.harnesses[0].name = bad
   const html = HTML.replace(BLOCK, (_, a, _b, c) => a + JSON.stringify(made).replaceAll('</', '<\\/') + c)
   await withPage(async (page) => {
