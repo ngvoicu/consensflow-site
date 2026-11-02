@@ -137,6 +137,18 @@ changes on its own clock, not the story's.
   node tools/serve-site.mjs                                                # then http://localhost:4500/status/
   ```
 
+## The installers (`/install.sh`, `/install.ps1`)
+
+`curl -fsSL https://consensflow.ngvoicu.dev/install.sh | sh` and
+`irm https://consensflow.ngvoicu.dev/install.ps1 | iex`, shown in the Install section ("Or from a
+terminal") with the update key they pin. Both files are copies of `install/install.sh` and
+`install/install.ps1` in the app's repository, where they are written and tested: never edit them
+here. Copy them with `npm run site:installers -- <this folder>` from the app's repository, which
+refuses while this page shows another key than the scripts pin, onto the `installers` branch, then
+bring the two files onto `main` as they are; `npm run site:installers -- --check <this folder>`
+compares the `installers` branch with the app's. They install releases from 3.0.7 on, the first
+whose SHA256SUMS is signed.
+
 ## Every page opens clean (`tools/check-site.mjs`)
 
 The home page and Supported versions are each opened at 1280 and 390 px, light and

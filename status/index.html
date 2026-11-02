@@ -223,18 +223,18 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
      that watches each new version). The page below draws the table from it. -->
 <script type="application/json" id="status-data">
 {
-  "updated": "2026-10-28",
+  "updated": "2026-11-02",
   "releases": [
     {
       "version": "3.0.5",
       "channel": "Stable",
       "harnesses": [
         { "id": "claude-code", "platforms": {
-          "mac": { "from": "2.1.292", "to": "2.1.312", "status": "supported" },
-          "windows": { "from": "2.1.292", "to": "2.1.312", "status": "issues", "issue": { "text": "On Windows, a task whose agent started a background monitor may not finish on its own; finishing it by hand works.", "state": "fixing" } }
+          "mac": { "from": "2.1.292", "to": "2.1.312", "status": "newer" },
+          "windows": { "from": "2.1.292", "to": "2.1.312", "status": "newer", "issue": { "text": "On Windows, a task whose agent started a background monitor may not finish on its own; finishing it by hand works." } }
         } },
         { "id": "codex", "platforms": {
-          "mac": { "from": "0.154.0", "to": "0.165.0", "status": "supported" },
+          "mac": { "from": "0.154.0", "to": "0.165.0", "status": "newer" },
           "windows": { "from": "0.154.0", "to": "0.164.0", "status": "newer" }
         } },
         { "id": "pi", "platforms": {
@@ -242,7 +242,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
           "windows": { "from": "1.2.0", "to": "1.4.0", "status": "supported" }
         } },
         { "id": "devin", "platforms": {
-          "mac": { "from": "3000.10.21", "to": "3000.11.228", "status": "issues", "issue": { "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished.", "state": "looking" } },
+          "mac": { "from": "3000.10.21", "to": "3000.11.228", "status": "newer", "issue": { "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished.", "state": "looking" } },
           "windows": { "from": "3000.10.21", "to": "3000.11.205", "status": "newer" }
         } }
       ]
@@ -252,11 +252,11 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
       "channel": "Alpha",
       "harnesses": [
         { "id": "claude-code", "platforms": {
-          "mac": { "from": "2.1.292", "to": "2.1.312", "status": "supported" },
-          "windows": { "from": "2.1.292", "to": "2.1.312", "status": "issues", "issue": { "text": "On Windows, a task whose agent started a background monitor may not finish on its own; finishing it by hand works.", "state": "fixing" } }
+          "mac": { "from": "2.1.292", "to": "2.1.312", "status": "newer" },
+          "windows": { "from": "2.1.292", "to": "2.1.312", "status": "newer", "issue": { "text": "On Windows, a task whose agent started a background monitor may not finish on its own; finishing it by hand works." } }
         } },
         { "id": "codex", "platforms": {
-          "mac": { "from": "0.154.0", "to": "0.165.0", "status": "supported" },
+          "mac": { "from": "0.154.0", "to": "0.165.0", "status": "newer" },
           "windows": { "from": "0.154.0", "to": "0.164.0", "status": "newer" }
         } },
         { "id": "pi", "platforms": {
@@ -264,8 +264,34 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
           "windows": { "from": "1.2.0", "to": "1.4.0", "status": "supported" }
         } },
         { "id": "devin", "platforms": {
-          "mac": { "from": "3000.10.21", "to": "3000.11.228", "status": "issues", "issue": { "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished.", "state": "looking" } },
+          "mac": { "from": "3000.10.21", "to": "3000.11.228", "status": "newer", "issue": { "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished.", "state": "looking" } },
           "windows": { "from": "3000.10.21", "to": "3000.11.205", "status": "newer" }
+        } }
+      ]
+    },
+    {
+      "version": "3.0.7",
+      "channel": "Alpha",
+      "harnesses": [
+        { "id": "claude-code", "platforms": {
+          "mac": { "from": "2.1.292", "to": "2.1.316", "status": "supported" },
+          "windows": { "from": "2.1.292", "to": "2.1.316", "status": "supported" }
+        } },
+        { "id": "codex", "platforms": {
+          "mac": { "from": "0.154.0", "to": "0.166.0", "status": "issues", "issue": { "text": "With specs kept in a folder other than .specs, a chief may still write a spec into .specs.", "state": "looking" } },
+          "windows": { "from": "0.154.0", "to": "0.166.0", "status": "issues", "issue": { "text": "With specs kept in a folder other than .specs, a chief may still write a spec into .specs.", "state": "looking" } }
+        } },
+        { "id": "pi", "platforms": {
+          "mac": { "from": "1.2.0", "to": "1.4.0", "status": "issues", "issue": { "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished.", "state": "looking" } },
+          "windows": { "status": "unmeasured" }
+        } },
+        { "id": "devin", "platforms": {
+          "mac": { "from": "3000.10.21", "to": "3000.11.234", "status": "issues", "issue": { "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished. Closing its window while the first message is being delivered fails the task.", "state": "looking" } },
+          "windows": { "status": "unmeasured" }
+        } },
+        { "id": "muse-code", "platforms": {
+          "mac": { "from": "1.4.13", "to": "1.4.14", "status": "issues", "issue": { "text": "A question Muse Code asks with its own question tool stays in its window and does not reach the board. An advisor on Muse Code can stay starting and never take its brief.", "state": "looking" } },
+          "windows": { "status": "unmeasured" }
         } }
       ]
     }
@@ -281,21 +307,21 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
         "text": "The oldest Claude Code a ConsensFlow live suite is recorded on. ConsensFlow does not check Claude Code's version when it opens a window, so an older one is not refused."
       },
       "vendor": {
-        "version": "2.1.312",
-        "date": "2026-10-27",
+        "version": "2.1.316",
+        "date": "2026-10-31",
         "feed": "npm @anthropic-ai/claude-code, tag latest",
-        "text": "Claude Code's own stable channel is at 2.1.308, which is inside the supported range."
+        "text": "Claude Code's own stable channel is at 2.1.309, which is inside the supported range."
       },
       "tested": {
         "mac": {
-          "version": "2.1.312",
-          "date": "2026-10-28",
-          "suites": ["compact-cancelled", "finish", "first-message", "folder-trust", "held-typed", "monitor-wait", "reopened", "restart-cut", "resume-cut", "stops", "tell"]
+          "version": "2.1.316",
+          "date": "2026-11-02",
+          "suites": ["bench", "compact-cancelled", "door", "escape-unsent", "finish", "first-message", "folder-trust", "harnesses", "held-typed", "image-paste", "input-box", "interrupt", "meeting", "monitor-wait", "notes", "pacing", "paste", "paste-screen", "reopened", "restart-cut", "resume-cut", "resume-fresh", "specs", "task-working", "tell", "unsent-box", "wake-ups"]
         },
         "windows": {
-          "version": "2.1.312",
-          "date": "2026-10-28",
-          "suites": ["asks", "close-early", "commands-at-rest", "compact-cancelled", "door", "escape-unsent", "finish", "first-message", "held-typed", "image-paste", "input-box", "interrupt", "monitor-wait", "notes", "paste", "paste-screen", "reopened", "restart-cut", "resume-cut", "stops", "task-working", "unsent-box", "wake-ups"]
+          "version": "2.1.316",
+          "date": "2026-11-02",
+          "suites": ["close-early", "compact-cancelled", "compaction-screens", "door", "escape-unsent", "finish", "first-message", "harnesses", "held-typed", "image-paste", "input-box", "interrupt", "meeting", "monitor-wait", "notes", "pacing", "paste", "paste-screen", "reopened", "restart-cut", "resume-cut", "resume-fresh", "specs", "stops", "task-working", "tell", "unsent-box", "wake-ups"]
         }
       }
     },
@@ -309,26 +335,20 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
         "text": "No version number is checked. ConsensFlow refuses a Codex that has no native queue (codex queue --help must list --thread and --message). 0.154.0 is the oldest Codex we know has it."
       },
       "vendor": {
-        "version": "0.165.0",
-        "date": "2026-10-27",
+        "version": "0.166.0",
+        "date": "2026-10-29",
         "feed": "npm @openai/codex, tag latest"
       },
       "tested": {
         "mac": {
-          "version": "0.165.0",
-          "date": "2026-10-28",
-          "suites": ["reopened", "restart-cut", "task-working"],
-          "earlier": {
-            "version": "0.164.0",
-            "date": "2026-10-28",
-            "suites": ["close-early", "escape-unsent", "finish", "first-message", "folder-trust", "resume-cut", "resume-fresh", "stops", "tell"]
-          },
-          "text": "Three suites have run on 0.165.0 so far. The rest of the set last passed on 0.164.0."
+          "version": "0.166.0",
+          "date": "2026-11-02",
+          "suites": ["bench", "codex-interrupt", "codex-resume", "codex-role", "door", "escape-unsent", "first-message", "folder-trust", "harnesses", "meeting", "pacing", "reopened", "restart-cut", "resume-cut", "resume-fresh", "task-working", "wake-ups"]
         },
         "windows": {
-          "version": "0.164.0",
-          "date": "2026-10-28",
-          "suites": ["finish", "first-message", "folder-trust", "harnesses", "restart-cut", "tell"]
+          "version": "0.166.0",
+          "date": "2026-11-02",
+          "suites": ["close-early", "codex-interrupt", "codex-resume", "door", "escape-unsent", "finish", "first-message", "folder-trust", "harnesses", "meeting", "pacing", "parity", "paste-screen", "reopened", "resume-cut", "resume-fresh", "task-working", "tell", "wake-ups"]
         }
       }
     },
@@ -349,8 +369,8 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
       "tested": {
         "mac": {
           "version": "1.4.0",
-          "date": "2026-10-28",
-          "suites": ["escape-unsent", "first-message", "folder-trust", "reopened", "restart-cut", "resume-cut", "resume-fresh", "stops", "task-working"]
+          "date": "2026-11-02",
+          "suites": ["bench", "door", "escape-unsent", "first-message", "folder-trust", "harnesses", "meeting", "pacing", "pi-parity", "reopened", "restart-cut", "resume-cut", "resume-fresh", "task-working", "tell", "wake-ups"]
         },
         "windows": {
           "version": "1.4.0",
@@ -369,15 +389,15 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
         "text": "ConsensFlow refuses an older Devin before it opens a window, and its Harnesses page says to update it."
       },
       "vendor": {
-        "version": "3000.11.228",
-        "date": "2026-10-27",
+        "version": "3000.11.234",
+        "date": "2026-10-30",
         "feed": "static.devin.ai/cli/current/manifest.json (the date is when the file last changed)"
       },
       "tested": {
         "mac": {
-          "version": "3000.11.228",
-          "date": "2026-10-28",
-          "suites": ["devin-resume", "devin-wire", "first-message", "folder-trust", "reopened", "restart-cut", "resume-cut", "stops", "task-working", "tell"]
+          "version": "3000.11.234",
+          "date": "2026-11-02",
+          "suites": ["bench", "devin-resume", "devin-wire", "door", "escape-unsent", "first-message", "folder-trust", "harnesses", "image-paste", "interrupt", "meeting", "notes", "pacing", "paste", "reopened", "restart-cut", "resume-cut", "resume-fresh", "task-working", "unsent-box", "wake-ups"]
         },
         "windows": {
           "version": "3000.11.205",
@@ -385,9 +405,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
           "suites": ["devin-resume", "devin-wire", "door", "escape-unsent", "first-message", "folder-trust", "harnesses", "interrupt", "paste", "restart-cut", "resume-cut", "resume-fresh", "stops", "terminal", "unsent-box"]
         }
       },
-      "notes": [
-        "The paste-screen suite was unreliable on 3000.11.205 on the Mac: it failed 2 of 3 runs, where 3000.11.92 passed 3 of 3. It has not been run on 3000.11.228."
-      ]
+      "notes": ["The paste-screen suite failed 2 of 2 runs on 3000.11.234 on the Mac, where a line of a sent brief was taken for the window's own output."]
     },
     {
       "id": "muse-code",
@@ -395,8 +413,8 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
       "link": { "label": "dev.meta.ai/docs/muse-code", "url": "https://dev.meta.ai/docs/muse-code" },
       "oldest": {
         "version": "1.4.13",
-        "enforced": "unreleased",
-        "text": "ConsensFlow's Muse Code support, now in development, refuses an older Muse Code before it opens a window. It is not in a release yet; it arrives with 3.0.7."
+        "enforced": true,
+        "text": "The oldest Muse Code whose record ConsensFlow reads, the one its support was built on: an older one's record is not read."
       },
       "vendor": {
         "version": "1.4.14-R7309.1",
@@ -406,13 +424,13 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
       },
       "tested": {
         "mac": {
-          "version": "1.4.13-R6996.1",
-          "date": "2026-10-27",
-          "suites": ["muse-window"]
+          "version": "1.4.14-R7309.1",
+          "date": "2026-11-02",
+          "suites": ["close-early", "escape-unsent", "finish", "first-message", "folder-trust", "harnesses", "meeting", "muse-reads", "muse-window", "pacing", "paste-screen", "reopened", "restart-cut", "resume-fresh"]
         },
         "windows": {
           "version": null,
-          "why": "Muse Code 1.4.13 is installed on a Windows machine and has run one offline turn there, but no ConsensFlow window has been opened on it."
+          "why": "ConsensFlow 3.0.7 runs Muse Code on the Mac. No ConsensFlow window has been opened on Muse Code on Windows in a release's checks."
         }
       }
     }

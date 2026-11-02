@@ -353,6 +353,11 @@ main h3{font-size:1.3rem;line-height:1.25;letter-spacing:-.015em}
 .install-text p{color:var(--muted);max-width:56ch}
 .install-text p strong{color:var(--text)}
 .install-text .actions{margin-top:28px}
+.lines{margin-top:32px}
+.lines h3{font-size:17px;margin:0 0 6px;color:var(--text)}
+.lines pre{margin:8px 0 18px;padding:14px 16px;background:var(--deep);border:1px solid var(--line);border-radius:10px;overflow-x:auto}
+.lines pre code{font-size:14px;color:var(--text);white-space:pre}
+.lines .key{overflow-wrap:anywhere}
 
 /* ---- your data ---- */
 .data{list-style:none;margin:40px 0 0;padding:0;display:grid;gap:22px;max-width:70ch}
@@ -1009,6 +1014,16 @@ footer{padding:44px 0 56px}
         <p class="fine">Mac with Apple silicon, macOS 13.5 or later. Windows 10 or 11, 64-bit.</p>
         <p>Which version of each of those agents ConsensFlow works with, and which newer ones are still being tested, is on the <a href="./status/">Supported versions</a> page.</p>
         <p>Your first project, updates and the rest are in <a href="https://github.com/ngvoicu/consensflow#readme">the README on GitHub</a>.</p>
+        <div class="lines">
+          <h3>Or from a terminal</h3>
+          <p>On a Mac, in Terminal:</p>
+          <pre><code>curl -fsSL https://consensflow.ngvoicu.dev/install.sh | sh</code></pre>
+          <p>On Windows, in PowerShell:</p>
+          <pre><code>irm https://consensflow.ngvoicu.dev/install.ps1 | iex</code></pre>
+          <p class="fine">They install the latest release. For the latest alpha, end the Mac line with <code>sh -s -- --alpha</code>, or set <code>$env:CONSENSFLOW_CHANNEL = 'alpha'</code> in PowerShell first. Nothing is installed until the release's <code>SHA256SUMS</code> carries ConsensFlow's signature for that release and the download matches it; on a Mac, also until the app's Developer ID signature and notarization hold. The app goes to Applications on a Mac (your own, without admin rights) and to your user's programs on Windows, and an older ConsensFlow is upgraded where it is; a newer one is kept, unless you name the release with <code>--version</code>. Releases from 3.0.7 on install this way.</p>
+          <p class="fine key">The signing key both scripts check with, to compare with the one in them: <code>RWTirTrEjU6epgN2c8yV2aIfRHzcCHVBi9zddieRVM5SahwhDFJlFd7Q</code></p>
+          <p class="fine">To uninstall, quit ConsensFlow and move ConsensFlow.app to the Trash; on Windows, use Settings &rsaquo; Apps &rsaquo; Installed apps &rsaquo; ConsensFlow &rsaquo; Uninstall. Your projects and settings stay in <code>~/.consensflow</code> until you delete it.</p>
+        </div>
       </div>
       <figure class="shot">
         <img src="./assets/screenshots/new-project.webp" width="640" height="812" loading="lazy" decoding="async"

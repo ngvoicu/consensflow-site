@@ -76,7 +76,8 @@ const range = (cell) => (cell.from && cell.to && cell.from !== cell.to ? `${cell
 function ruleStatus(facts, cell) {
   if (!cell.to) return 'unmeasured'
   if (facts.vendor.verdict === 'broken') return 'unsupported'
-  if (compare(facts.vendor.version, cell.to) > 0) return 'newer'
+  // A cell names versions without a build (1.4.14, not 1.4.14-R7309.1): the vendor's newest is compared the same way.
+  if (compare(facts.vendor.version.replace(/-R.*/i, ''), cell.to) > 0) return 'newer'
   return cell.issue ? 'issues' : 'supported'
 }
 
@@ -101,7 +102,7 @@ function theData() {
   const dates = []
   for (const h of data.harnesses) {
     assert.match(h.link?.url ?? '', /^https:\/\//, `${h.id}: a vendor link, https`)
-    assert.equal(typeof h.oldest.enforced === 'boolean' || h.oldest.enforced === 'unreleased', true, `${h.id}: enforced says how`)
+    assert.equal(typeof h.oldest.enforced, 'boolean', `${h.id}: enforced says whether the app checks it`)
     assert.ok(h.oldest.version && h.oldest.text, `${h.id}: the oldest supported, and what it is`)
     assert.ok(h.vendor.version && h.vendor.feed, `${h.id}: the vendor's newest, and where it was read`)
     dates.push(h.vendor.date)
@@ -309,8 +310,9 @@ async function theContrast() {
 async function theMatrixOnMadeData() {
   const made = structuredClone(data)
   const cell = (status, from, to, issue) => ({ from, to, status, ...(issue ? { issue } : {}) })
+  const n = data.releases.length
   made.releases.push({
-    version: '3.0.7',
+    version: '3.0.8',
     channel: 'Next',
     harnesses: [
       { id: 'claude-code', platforms: { mac: cell('unsupported', '2.1.300', '2.1.312'), windows: cell('supported', '2.1.292', '2.1.312') } },
@@ -322,15 +324,16 @@ async function theMatrixOnMadeData() {
   const added = HTML.replace(BLOCK, (_, a, _b, c) => a + JSON.stringify(made) + c)
   await withPage(async (page) => {
     const got = await shown(page)
-    assert.equal(got.releases.length, 4, 'a release added is a column added')
-    assert.equal(got.releases[3], 'Next 3.0.7', 'newest on the right')
+    assert.equal(got.releases.length, n + 2, 'a release added is a column added')
+    assert.equal(got.releases[n + 1], 'Next 3.0.8', 'newest on the right')
     const row = (id) => got.rows.find((r) => r.harness === id).cells
-    assert.equal(row('claude-code')[4].status, 'unsupported')
-    assert.equal(row('codex')[4].status, 'absent', 'an agent missing from a release is not in it')
-    assert.equal(row('muse-code')[4].status, 'newer')
-    assert.equal(row('muse-code')[4].text, '1.4.13', 'a range of one version is that version')
-    assert.equal(row('muse-code')[5].status, 'unmeasured')
-    assert.deepEqual(row('pi')[4].marks, row('pi')[5].marks, 'one issue said twice is one mark')
+    const [mac, windows] = [2 * n, 2 * n + 1]
+    assert.equal(row('claude-code')[mac].status, 'unsupported')
+    assert.equal(row('codex')[mac].status, 'absent', 'an agent missing from a release is not in it')
+    assert.equal(row('muse-code')[mac].status, 'newer')
+    assert.equal(row('muse-code')[mac].text, '1.4.13', 'a range of one version is that version')
+    assert.equal(row('muse-code')[windows].status, 'unmeasured')
+    assert.deepEqual(row('pi')[mac].marks, row('pi')[windows].marks, 'one issue said twice is one mark')
     assert.ok(got.issues.some((i) => i.text === 'Made for the check. Being fixed.'), 'a line under the table, with its state')
   }, { route: added })
 
@@ -339,8 +342,8 @@ async function theMatrixOnMadeData() {
   const gone = HTML.replace(BLOCK, (_, a, _b, c) => a + JSON.stringify(removed) + c)
   await withPage(async (page) => {
     const got = await shown(page)
-    assert.deepEqual(got.releases, ['Agent', 'Alpha 3.0.6'], 'a release removed is its column gone')
-    assert.ok(got.rows.every((r) => r.cells.length === 2))
+    assert.deepEqual(got.releases, ['Agent', ...data.releases.slice(1).map((r) => `${r.channel} ${r.version}`)], 'a release removed is its column gone')
+    assert.ok(got.rows.every((r) => r.cells.length === 2 * (n - 1)))
   }, { route: gone })
   ok('a release added is a column on the right, one removed is its column gone; every status, an absent agent, a shared issue and its state')
 }
