@@ -223,7 +223,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
      that watches each new version). The page below draws the table from it. -->
 <script type="application/json" id="status-data">
 {
-  "updated": "2026-11-02",
+  "updated": "2026-11-07",
   "releases": [
     {
       "version": "3.0.5",
@@ -238,8 +238,8 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
           "windows": { "from": "0.154.0", "to": "0.164.0", "status": "newer" }
         } },
         { "id": "pi", "platforms": {
-          "mac": { "from": "1.2.0", "to": "1.4.0", "status": "issues", "issues": [{ "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished." }] },
-          "windows": { "from": "1.2.0", "to": "1.4.0", "status": "supported" }
+          "mac": { "from": "1.2.0", "to": "1.4.0", "status": "newer", "issues": [{ "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished." }] },
+          "windows": { "from": "1.2.0", "to": "1.4.0", "status": "newer" }
         } },
         { "id": "devin", "platforms": {
           "mac": { "from": "3000.10.21", "to": "3000.11.228", "status": "newer", "issues": [{ "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished." }] },
@@ -260,8 +260,8 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
           "windows": { "from": "0.154.0", "to": "0.164.0", "status": "newer" }
         } },
         { "id": "pi", "platforms": {
-          "mac": { "from": "1.2.0", "to": "1.4.0", "status": "issues", "issues": [{ "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished." }] },
-          "windows": { "from": "1.2.0", "to": "1.4.0", "status": "supported" }
+          "mac": { "from": "1.2.0", "to": "1.4.0", "status": "newer", "issues": [{ "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished." }] },
+          "windows": { "from": "1.2.0", "to": "1.4.0", "status": "newer" }
         } },
         { "id": "devin", "platforms": {
           "mac": { "from": "3000.10.21", "to": "3000.11.228", "status": "newer", "issues": [{ "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished." }] },
@@ -274,24 +274,74 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
       "channel": "Alpha",
       "harnesses": [
         { "id": "claude-code", "platforms": {
-          "mac": { "from": "2.1.292", "to": "2.1.316", "status": "supported" },
-          "windows": { "from": "2.1.292", "to": "2.1.316", "status": "supported" }
+          "mac": { "from": "2.1.292", "to": "2.1.319", "status": "issues", "issues": [
+            { "text": "Claude Code: a second prompt that opens in a window while the first one's status still says it is waiting (two hooks in a row) is not told, and its 10 minutes before ConsensFlow answers \"No\" never start." },
+            { "text": "A note about a window's background work, or about a program a window could not start, can still quote that command's path and arguments." },
+            { "text": "History: a finished reply with no text still says it is writing." }
+          ] },
+          "windows": { "from": "2.1.292", "to": "2.1.319", "status": "issues", "issues": [
+            { "text": "Claude Code: a second prompt that opens in a window while the first one's status still says it is waiting (two hooks in a row) is not told, and its 10 minutes before ConsensFlow answers \"No\" never start." },
+            { "text": "A note about a window's background work, or about a program a window could not start, can still quote that command's path and arguments." },
+            { "text": "History: a finished reply with no text still says it is writing." },
+            { "text": "Claude Code's language-server offer was not run live on Windows, where the test machine has no language server to start it." }
+          ] }
         } },
         { "id": "codex", "platforms": {
-          "mac": { "from": "0.154.0", "to": "0.166.0", "status": "issues", "issues": [{ "text": "A Codex chief in a project whose specs folder isn't .specs may write its spec to .specs.", "state": "fixing" }] },
-          "windows": { "from": "0.154.0", "to": "0.166.0", "status": "issues", "issues": [{ "text": "A Codex chief in a project whose specs folder isn't .specs may write its spec to .specs.", "state": "fixing" }] }
+          "mac": { "from": "0.154.0", "to": "0.167.0", "status": "issues", "issues": [
+            { "text": "Codex: Codex's own dialogs (its nudge to switch models, its model and effort pickers, its install offers) aren't seen. When one waits in a window nobody watches, nobody is told, and the Enter of the next message pasted in may answer it." },
+            { "text": "Codex: a sub-agent of an agent type you defined yourself is told it isn't the member, but can still ask the chief on the board." },
+            { "text": "A note about a window's background work, or about a program a window could not start, can still quote that command's path and arguments." },
+            { "text": "History: a finished reply with no text still says it is writing." }
+          ] },
+          "windows": { "from": "0.154.0", "to": "0.167.0", "status": "issues", "issues": [
+            { "text": "Codex: Codex's own dialogs (its nudge to switch models, its model and effort pickers, its install offers) aren't seen. When one waits in a window nobody watches, nobody is told, and the Enter of the next message pasted in may answer it." },
+            { "text": "Codex: a sub-agent of an agent type you defined yourself is told it isn't the member, but can still ask the chief on the board." },
+            { "text": "A note about a window's background work, or about a program a window could not start, can still quote that command's path and arguments." },
+            { "text": "History: a finished reply with no text still says it is writing." }
+          ] }
         } },
         { "id": "pi", "platforms": {
-          "mac": { "from": "1.2.0", "to": "1.4.0", "status": "issues", "issues": [{ "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished." }] },
-          "windows": { "status": "unmeasured" }
+          "mac": { "from": "1.2.0", "to": "1.4.0", "status": "newer", "issues": [
+            { "text": "Pi: a Pi chief whose model is gone can be told \"Pi's folder could not be read in time\" instead of starting on Pi's default model. Looking again works." },
+            { "text": "Pi: when Pi's models cannot be listed, a path or package with \"oauth\" in its name, or any line that looks like it holds a key, makes the note leave out all of Pi's words. You see what ConsensFlow knows, the exit code and what Pi was loading; run pi yourself to see Pi's words. A provider that only one project's own .pi folder defines is not in the list." },
+            { "text": "Pi: a prompt with a timer, which only an extension of your own draws, is never told." },
+            { "text": "A note about a window's background work, or about a program a window could not start, can still quote that command's path and arguments." },
+            { "text": "History: a finished reply with no text still says it is writing." },
+            { "text": "Pi on the Mac was not run live for this release (its compaction and its questions); Pi on Windows was." },
+            { "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished." }
+          ] },
+          "windows": { "from": "1.2.0", "to": "1.5.0", "status": "issues", "issues": [
+            { "text": "Pi: a Pi chief whose model is gone can be told \"Pi's folder could not be read in time\" instead of starting on Pi's default model. Looking again works." },
+            { "text": "Pi: when Pi's models cannot be listed, a path or package with \"oauth\" in its name, or any line that looks like it holds a key, makes the note leave out all of Pi's words. You see what ConsensFlow knows, the exit code and what Pi was loading; run pi yourself to see Pi's words. A provider that only one project's own .pi folder defines is not in the list." },
+            { "text": "Pi: a prompt with a timer, which only an extension of your own draws, is never told." },
+            { "text": "A note about a window's background work, or about a program a window could not start, can still quote that command's path and arguments." },
+            { "text": "History: a finished reply with no text still says it is writing." }
+          ] }
         } },
         { "id": "devin", "platforms": {
-          "mac": { "from": "3000.10.21", "to": "3000.11.234", "status": "issues", "issues": [{ "text": "A window closed in the first half-second of its brief's delivery can fail that task with no result. The chief sees it and can add the task again.", "state": "fixing" }, { "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished." }] },
-          "windows": { "status": "unmeasured" }
+          "mac": { "from": "3000.10.21", "to": "3000.12.17", "status": "issues", "issues": [
+            { "text": "A note about a window's background work, or about a program a window could not start, can still quote that command's path and arguments." },
+            { "text": "History: a finished reply with no text still says it is writing." },
+            { "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished." }
+          ] },
+          "windows": { "from": "3000.10.21", "to": "3000.12.17", "status": "issues", "issues": [
+            { "text": "A note about a window's background work, or about a program a window could not start, can still quote that command's path and arguments." },
+            { "text": "History: a finished reply with no text still says it is writing." }
+          ] }
         } },
         { "id": "muse-code", "platforms": {
-          "mac": { "from": "1.4.13", "to": "1.4.14", "status": "issues", "issues": [{ "text": "After a background command is cancelled, a Muse window can keep repainting where you can't see it, so ConsensFlow may not deliver its next message.", "state": "fixing" }, { "text": "A question Muse asks in its own window doesn't reach the board.", "state": "fixing" }] },
-          "windows": { "status": "unmeasured" }
+          "mac": { "from": "1.4.13", "to": "1.4.14", "status": "issues", "issues": [
+            { "text": "Muse Code: a pause or a tell interrupts Muse with Escape, which also cancels a background command Muse itself is running." },
+            { "text": "Muse Code: a conversation from the first 3.0.7 build, resumed in a Muse window, where you have 8 or more hooks of your own that print, can keep its old role." },
+            { "text": "A note about a window's background work, or about a program a window could not start, can still quote that command's path and arguments." },
+            { "text": "History: a finished reply with no text still says it is writing." }
+          ] },
+          "windows": { "from": "1.4.13", "to": "1.4.14", "status": "issues", "issues": [
+            { "text": "Muse Code: a pause or a tell interrupts Muse with Escape, which also cancels a background command Muse itself is running." },
+            { "text": "Muse Code: a conversation from the first 3.0.7 build, resumed in a Muse window, where you have 8 or more hooks of your own that print, can keep its old role." },
+            { "text": "A note about a window's background work, or about a program a window could not start, can still quote that command's path and arguments." },
+            { "text": "History: a finished reply with no text still says it is writing." }
+          ] }
         } }
       ]
     }
@@ -307,21 +357,21 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
         "text": "The oldest Claude Code a ConsensFlow live suite is recorded on. ConsensFlow does not check Claude Code's version when it opens a window, so an older one is not refused."
       },
       "vendor": {
-        "version": "2.1.316",
-        "date": "2026-10-31",
+        "version": "2.1.319",
+        "date": "2026-11-06",
         "feed": "npm @anthropic-ai/claude-code, tag latest",
-        "text": "Claude Code's own stable channel is at 2.1.309, which is inside the supported range."
+        "text": "Claude Code's own stable channel is at 2.1.311, which is inside the supported range."
       },
       "tested": {
         "mac": {
-          "version": "2.1.316",
-          "date": "2026-11-02",
-          "suites": ["bench", "compact-cancelled", "door", "escape-unsent", "finish", "first-message", "folder-trust", "harnesses", "held-typed", "image-paste", "input-box", "interrupt", "meeting", "monitor-wait", "notes", "pacing", "paste", "paste-screen", "reopened", "restart-cut", "resume-cut", "resume-fresh", "specs", "task-working", "tell", "unsent-box", "wake-ups"]
+          "version": "2.1.319",
+          "date": "2026-11-07",
+          "suites": ["claude-countdown", "claude-sized-compaction", "harness-dialogs", "models"]
         },
         "windows": {
-          "version": "2.1.316",
-          "date": "2026-11-02",
-          "suites": ["close-early", "compact-cancelled", "compaction-screens", "door", "escape-unsent", "finish", "first-message", "harnesses", "held-typed", "image-paste", "input-box", "interrupt", "meeting", "monitor-wait", "notes", "pacing", "paste", "paste-screen", "reopened", "restart-cut", "resume-cut", "resume-fresh", "specs", "stops", "task-working", "tell", "unsent-box", "wake-ups"]
+          "version": "2.1.319",
+          "date": "2026-11-07",
+          "suites": ["asks", "claude-two-turn-compaction", "models"]
         }
       }
     },
@@ -335,20 +385,20 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
         "text": "No version number is checked. ConsensFlow refuses a Codex that has no native queue (codex queue --help must list --thread and --message). 0.154.0 is the oldest Codex we know has it."
       },
       "vendor": {
-        "version": "0.166.0",
-        "date": "2026-10-29",
+        "version": "0.167.0",
+        "date": "2026-11-06",
         "feed": "npm @openai/codex, tag latest"
       },
       "tested": {
         "mac": {
-          "version": "0.166.0",
-          "date": "2026-11-02",
-          "suites": ["bench", "codex-interrupt", "codex-resume", "codex-role", "door", "escape-unsent", "first-message", "folder-trust", "harnesses", "meeting", "pacing", "reopened", "restart-cut", "resume-cut", "resume-fresh", "task-working", "wake-ups"]
+          "version": "0.167.0",
+          "date": "2026-11-07",
+          "suites": ["compacting", "compaction-routes", "models"]
         },
         "windows": {
-          "version": "0.166.0",
-          "date": "2026-11-02",
-          "suites": ["close-early", "codex-interrupt", "codex-resume", "door", "escape-unsent", "finish", "first-message", "folder-trust", "harnesses", "meeting", "pacing", "parity", "paste-screen", "reopened", "resume-cut", "resume-fresh", "task-working", "tell", "wake-ups"]
+          "version": "0.167.0",
+          "date": "2026-11-07",
+          "suites": ["compaction-routes", "models", "question-ask-answer"]
         }
       }
     },
@@ -362,8 +412,8 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
         "text": "The oldest Pi a ConsensFlow live suite is recorded on. ConsensFlow does not check Pi's version when it opens a window, so an older one is not refused."
       },
       "vendor": {
-        "version": "1.4.0",
-        "date": "2026-10-21",
+        "version": "1.5.0",
+        "date": "2026-11-02",
         "feed": "npm @earendil-works/pi-coding-agent, tag latest"
       },
       "tested": {
@@ -373,11 +423,12 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
           "suites": ["bench", "door", "escape-unsent", "first-message", "folder-trust", "harnesses", "meeting", "pacing", "pi-parity", "reopened", "restart-cut", "resume-cut", "resume-fresh", "task-working", "tell", "wake-ups"]
         },
         "windows": {
-          "version": "1.4.0",
-          "date": "2026-10-26",
-          "suites": ["finish", "folder-trust", "harnesses", "restart-cut", "resume-cut", "resume-fresh", "stops", "wake-ups"]
+          "version": "1.5.0",
+          "date": "2026-11-07",
+          "suites": ["models", "pi-setups", "pi-two-turn-compaction", "question-ask-answer"]
         }
-      }
+      },
+      "notes": ["Pi 1.5.0 was run on the Mac for its model lists only (ten recorded setups and a copy of the real one), with no live turn, so the Mac's tested version stays 1.4.0."]
     },
     {
       "id": "devin",
@@ -389,20 +440,20 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
         "text": "ConsensFlow refuses an older Devin before it opens a window, and its Harnesses page says to update it."
       },
       "vendor": {
-        "version": "3000.11.234",
-        "date": "2026-10-30",
+        "version": "3000.12.17",
+        "date": "2026-11-07",
         "feed": "static.devin.ai/cli/current/manifest.json (the date is when the file last changed)"
       },
       "tested": {
         "mac": {
-          "version": "3000.11.234",
-          "date": "2026-11-02",
-          "suites": ["bench", "devin-resume", "devin-wire", "door", "escape-unsent", "first-message", "folder-trust", "harnesses", "image-paste", "interrupt", "meeting", "notes", "pacing", "paste", "reopened", "restart-cut", "resume-cut", "resume-fresh", "task-working", "unsent-box", "wake-ups"]
+          "version": "3000.12.17",
+          "date": "2026-11-07",
+          "suites": ["compaction-routes", "models"]
         },
         "windows": {
-          "version": "3000.11.205",
-          "date": "2026-10-28",
-          "suites": ["devin-resume", "devin-wire", "door", "escape-unsent", "first-message", "folder-trust", "harnesses", "interrupt", "paste", "restart-cut", "resume-cut", "resume-fresh", "stops", "terminal", "unsent-box"]
+          "version": "3000.12.17",
+          "date": "2026-11-07",
+          "suites": ["compaction-routes", "models"]
         }
       },
       "notes": ["The paste-screen suite failed 2 of 2 runs on 3000.11.234 on the Mac, where a line of a sent brief was taken for the window's own output."]
@@ -425,12 +476,13 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
       "tested": {
         "mac": {
           "version": "1.4.14-R7309.1",
-          "date": "2026-11-02",
-          "suites": ["close-early", "escape-unsent", "finish", "first-message", "folder-trust", "harnesses", "meeting", "muse-reads", "muse-window", "pacing", "paste-screen", "reopened", "restart-cut", "resume-fresh"]
+          "date": "2026-11-07",
+          "suites": ["compaction-routes", "muse-reads", "muse-window"]
         },
         "windows": {
-          "version": null,
-          "why": "ConsensFlow 3.0.7 runs Muse Code on the Mac. No ConsensFlow window has been opened on Muse Code on Windows in a release's checks."
+          "version": "1.4.14-R7309.1",
+          "date": "2026-11-07",
+          "suites": ["models", "muse-two-turn-compaction", "muse-window"]
         }
       }
     }

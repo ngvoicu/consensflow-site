@@ -124,7 +124,10 @@ changes on its own clock, not the story's.
   task is on it. A cell may have more than one, each its own mark. A release's issues are the
   ones its notes name (the tag message, in their words; "being fixed" there is `fixing`), and any
   other the release's checks found and reproduced: 3.0.7's detached command on Pi and Devin is T-1068's
-  finish suite, 2 of 2 on each, which no task is on.
+  finish suite, 2 of 2 on each, which no task is on. A line the notes put under "Not checked for this
+  release" is put on the cell it names, as the cell has no other place for it, and a line that names a
+  build by its stage ("an alpha.1 conversation") says the build instead, as the check fails on a stage in
+  the data. A line that names no harness is put on every cell of the release.
 - **Copy.** Releases are named by the version and the channel the app's updater names (`Stable`,
   `Alpha`), never by their stage, as everywhere on this site: the check fails on `alpha.N`, `rc.N` or
   "pre-release" in the data or on the page. "Not yet measured" is said where no figure exists, never a

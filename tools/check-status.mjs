@@ -300,7 +300,7 @@ async function theContrast() {
     await withPage(async (page) => {
       const seen = await page.evaluate(() => [...document.querySelectorAll('.matrix td, #key .chip')].map((e) => {
         const style = getComputedStyle(e)
-        return { what: e.dataset.status ?? e.className, text: style.color, fill: style.backgroundColor }
+        return { what: e.dataset.status ?? e.className.replace(/^chip st-/, ''), text: style.color, fill: style.backgroundColor }
       }))
       assert.ok(seen.length > STATES.length)
       const kinds = new Set()
