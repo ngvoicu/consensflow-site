@@ -223,7 +223,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
      that watches each new version). The page below draws the table from it. -->
 <script type="application/json" id="status-data">
 {
-  "updated": "2026-11-07",
+  "updated": "2026-11-10",
   "releases": [
     {
       "version": "3.0.5",
@@ -274,73 +274,131 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
       "channel": "Alpha",
       "harnesses": [
         { "id": "claude-code", "platforms": {
-          "mac": { "from": "2.1.292", "to": "2.1.319", "status": "issues", "issues": [
-            { "text": "Claude Code: a second prompt that opens in a window while the first one's status still says it is waiting (two hooks in a row) is not told, and its 10 minutes before ConsensFlow answers \"No\" never start." },
-            { "text": "A note about a window's background work, or about a program a window could not start, can still quote that command's path and arguments." },
-            { "text": "History: a finished reply with no text still says it is writing." }
+          "mac": { "from": "2.1.292", "to": "2.1.322", "status": "issues", "issues": [
+            { "text": "Claude Code: the links Claude Code prints in a pane are plain text, so they cannot be clicked for now. Claude Code prints no real hyperlinks there." },
+            { "text": "When a member's model is busy for a moment, the member's row says \"Out of quota until\" a time a few minutes away and offers Try again now. ConsensFlow tries it again at that time by itself; a press before then tries it at once, and if the model is still busy the member is held again. After the daemon is started again, the board's notes call that wait a quota too." },
+            { "text": "A daemon that hangs without stopping is not noticed: the board stops answering, with no banner and no restart, until you quit ConsensFlow and open it again." },
+            { "text": "Claude Code: a permission prompt can be told again when the lines above it in the window change, and then its 10 minutes before ConsensFlow answers \"No\" start again." },
+            { "text": "Claude Code: the model list is read in ConsensFlow's own copy of Claude Code's settings, so an availableModels setting of yours, or your organization's picker policy, does not narrow it." },
+            { "text": "A note about a window that ConsensFlow itself could not set up says only that the launch failed and that its cause is in ConsensFlow's log." },
+            { "text": "A note can still quote a short password or passphrase that stands alone on a window's screen, once the line that named it has scrolled away." },
+            { "text": "Opening a link with Cmd+click or Ctrl+click was not done by hand in the app. Tests hold the click and the address through a stand-in opener, and each system's opener was measured opening an address whole." },
+            { "text": "Updating a harness from Settings, Harnesses was not run against a real install, on either system: only against copies of each install's layout." },
+            { "text": "Claude Code's Computer Use prompt was not drawn live: the test copies of Claude Code don't offer computer use. Recordings of the prompt hold it." }
           ] },
-          "windows": { "from": "2.1.292", "to": "2.1.319", "status": "issues", "issues": [
-            { "text": "Claude Code: a second prompt that opens in a window while the first one's status still says it is waiting (two hooks in a row) is not told, and its 10 minutes before ConsensFlow answers \"No\" never start." },
-            { "text": "A note about a window's background work, or about a program a window could not start, can still quote that command's path and arguments." },
-            { "text": "History: a finished reply with no text still says it is writing." },
-            { "text": "Claude Code's language-server offer was not run live on Windows, where the test machine has no language server to start it." }
+          "windows": { "from": "2.1.292", "to": "2.1.322", "status": "issues", "issues": [
+            { "text": "Claude Code: the links Claude Code prints in a pane are plain text, so they cannot be clicked for now. Claude Code prints no real hyperlinks there." },
+            { "text": "When a member's model is busy for a moment, the member's row says \"Out of quota until\" a time a few minutes away and offers Try again now. ConsensFlow tries it again at that time by itself; a press before then tries it at once, and if the model is still busy the member is held again. After the daemon is started again, the board's notes call that wait a quota too." },
+            { "text": "A daemon that hangs without stopping is not noticed: the board stops answering, with no banner and no restart, until you quit ConsensFlow and open it again." },
+            { "text": "Claude Code: a permission prompt can be told again when the lines above it in the window change, and then its 10 minutes before ConsensFlow answers \"No\" start again." },
+            { "text": "Claude Code: the model list is read in ConsensFlow's own copy of Claude Code's settings, so an availableModels setting of yours, or your organization's picker policy, does not narrow it." },
+            { "text": "A note about a window that ConsensFlow itself could not set up says only that the launch failed and that its cause is in ConsensFlow's log." },
+            { "text": "A note can still quote a short password or passphrase that stands alone on a window's screen, once the line that named it has scrolled away." },
+            { "text": "Opening a link with Cmd+click or Ctrl+click was not done by hand in the app. Tests hold the click and the address through a stand-in opener, and each system's opener was measured opening an address whole." },
+            { "text": "Shift+Enter was run in real windows of Claude Code, Codex, Devin and Muse Code on a Mac. It was not run in Pi on a Mac, nor in any real window on Windows, where the page's tests and Codex's own key reader hold it." },
+            { "text": "Updating a harness from Settings, Harnesses was not run against a real install, on either system: only against copies of each install's layout." },
+            { "text": "Claude Code's Computer Use prompt was not drawn live: the test copies of Claude Code don't offer computer use. Recordings of the prompt hold it." },
+            { "text": "The daemon starting again was run in the app on a Mac. On Windows only its tests ran." }
           ] }
         } },
         { "id": "codex", "platforms": {
           "mac": { "from": "0.154.0", "to": "0.167.0", "status": "issues", "issues": [
+            { "text": "When a member's model is busy for a moment, the member's row says \"Out of quota until\" a time a few minutes away and offers Try again now. ConsensFlow tries it again at that time by itself; a press before then tries it at once, and if the model is still busy the member is held again. After the daemon is started again, the board's notes call that wait a quota too." },
+            { "text": "A daemon that hangs without stopping is not noticed: the board stops answering, with no banner and no restart, until you quit ConsensFlow and open it again." },
+            { "text": "A note about a window that ConsensFlow itself could not set up says only that the launch failed and that its cause is in ConsensFlow's log." },
+            { "text": "A note can still quote a short password or passphrase that stands alone on a window's screen, once the line that named it has scrolled away." },
             { "text": "Codex: Codex's own dialogs (its nudge to switch models, its model and effort pickers, its install offers) aren't seen. When one waits in a window nobody watches, nobody is told, and the Enter of the next message pasted in may answer it." },
             { "text": "Codex: a sub-agent of an agent type you defined yourself is told it isn't the member, but can still ask the chief on the board." },
-            { "text": "A note about a window's background work, or about a program a window could not start, can still quote that command's path and arguments." },
-            { "text": "History: a finished reply with no text still says it is writing." }
+            { "text": "Opening a link with Cmd+click or Ctrl+click was not done by hand in the app. Tests hold the click and the address through a stand-in opener, and each system's opener was measured opening an address whole." },
+            { "text": "Updating a harness from Settings, Harnesses was not run against a real install, on either system: only against copies of each install's layout." }
           ] },
           "windows": { "from": "0.154.0", "to": "0.167.0", "status": "issues", "issues": [
+            { "text": "Shift+Enter on Windows does nothing in Codex, Devin and Muse Code: those three read the key ConsensFlow can send safely as one they bind to nothing." },
+            { "text": "When a member's model is busy for a moment, the member's row says \"Out of quota until\" a time a few minutes away and offers Try again now. ConsensFlow tries it again at that time by itself; a press before then tries it at once, and if the model is still busy the member is held again. After the daemon is started again, the board's notes call that wait a quota too." },
+            { "text": "A daemon that hangs without stopping is not noticed: the board stops answering, with no banner and no restart, until you quit ConsensFlow and open it again." },
+            { "text": "A note about a window that ConsensFlow itself could not set up says only that the launch failed and that its cause is in ConsensFlow's log." },
+            { "text": "A note can still quote a short password or passphrase that stands alone on a window's screen, once the line that named it has scrolled away." },
             { "text": "Codex: Codex's own dialogs (its nudge to switch models, its model and effort pickers, its install offers) aren't seen. When one waits in a window nobody watches, nobody is told, and the Enter of the next message pasted in may answer it." },
             { "text": "Codex: a sub-agent of an agent type you defined yourself is told it isn't the member, but can still ask the chief on the board." },
-            { "text": "A note about a window's background work, or about a program a window could not start, can still quote that command's path and arguments." },
-            { "text": "History: a finished reply with no text still says it is writing." }
+            { "text": "Opening a link with Cmd+click or Ctrl+click was not done by hand in the app. Tests hold the click and the address through a stand-in opener, and each system's opener was measured opening an address whole." },
+            { "text": "Shift+Enter was run in real windows of Claude Code, Codex, Devin and Muse Code on a Mac. It was not run in Pi on a Mac, nor in any real window on Windows, where the page's tests and Codex's own key reader hold it." },
+            { "text": "Updating a harness from Settings, Harnesses was not run against a real install, on either system: only against copies of each install's layout." },
+            { "text": "The daemon starting again was run in the app on a Mac. On Windows only its tests ran." }
           ] }
         } },
         { "id": "pi", "platforms": {
           "mac": { "from": "1.2.0", "to": "1.4.0", "status": "newer", "issues": [
-            { "text": "Pi: a Pi chief whose model is gone can be told \"Pi's folder could not be read in time\" instead of starting on Pi's default model. Looking again works." },
-            { "text": "Pi: when Pi's models cannot be listed, a path or package with \"oauth\" in its name, or any line that looks like it holds a key, makes the note leave out all of Pi's words. You see what ConsensFlow knows, the exit code and what Pi was loading; run pi yourself to see Pi's words. A provider that only one project's own .pi folder defines is not in the list." },
+            { "text": "When a member's model is busy for a moment, the member's row says \"Out of quota until\" a time a few minutes away and offers Try again now. ConsensFlow tries it again at that time by itself; a press before then tries it at once, and if the model is still busy the member is held again. After the daemon is started again, the board's notes call that wait a quota too." },
+            { "text": "A daemon that hangs without stopping is not noticed: the board stops answering, with no banner and no restart, until you quit ConsensFlow and open it again." },
+            { "text": "A note about a window that ConsensFlow itself could not set up says only that the launch failed and that its cause is in ConsensFlow's log." },
+            { "text": "A note can still quote a short password or passphrase that stands alone on a window's screen, once the line that named it has scrolled away." },
+            { "text": "Pi: when Pi's models cannot be listed and Pi's words name a key or a login (OPENAI_API_KEY is not set, OAuth login expired), or anything that looks like one, the note leaves out all of Pi's words. You see what ConsensFlow knows, the exit code and what Pi was loading; run pi in a terminal to see Pi's words. A provider that only one project's own .pi folder defines is not in the list." },
             { "text": "Pi: a prompt with a timer, which only an extension of your own draws, is never told." },
-            { "text": "A note about a window's background work, or about a program a window could not start, can still quote that command's path and arguments." },
-            { "text": "History: a finished reply with no text still says it is writing." },
-            { "text": "Pi on the Mac was not run live for this release (its compaction and its questions); Pi on Windows was." },
+            { "text": "Opening a link with Cmd+click or Ctrl+click was not done by hand in the app. Tests hold the click and the address through a stand-in opener, and each system's opener was measured opening an address whole." },
+            { "text": "Shift+Enter was run in real windows of Claude Code, Codex, Devin and Muse Code on a Mac. It was not run in Pi on a Mac, nor in any real window on Windows, where the page's tests and Codex's own key reader hold it." },
+            { "text": "Updating a harness from Settings, Harnesses was not run against a real install, on either system: only against copies of each install's layout." },
             { "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished." }
           ] },
-          "windows": { "from": "1.2.0", "to": "1.5.0", "status": "issues", "issues": [
-            { "text": "Pi: a Pi chief whose model is gone can be told \"Pi's folder could not be read in time\" instead of starting on Pi's default model. Looking again works." },
-            { "text": "Pi: when Pi's models cannot be listed, a path or package with \"oauth\" in its name, or any line that looks like it holds a key, makes the note leave out all of Pi's words. You see what ConsensFlow knows, the exit code and what Pi was loading; run pi yourself to see Pi's words. A provider that only one project's own .pi folder defines is not in the list." },
+          "windows": { "from": "1.2.0", "to": "1.5.1", "status": "issues", "issues": [
+            { "text": "When a member's model is busy for a moment, the member's row says \"Out of quota until\" a time a few minutes away and offers Try again now. ConsensFlow tries it again at that time by itself; a press before then tries it at once, and if the model is still busy the member is held again. After the daemon is started again, the board's notes call that wait a quota too." },
+            { "text": "A daemon that hangs without stopping is not noticed: the board stops answering, with no banner and no restart, until you quit ConsensFlow and open it again." },
+            { "text": "A note about a window that ConsensFlow itself could not set up says only that the launch failed and that its cause is in ConsensFlow's log." },
+            { "text": "A note can still quote a short password or passphrase that stands alone on a window's screen, once the line that named it has scrolled away." },
+            { "text": "Pi: when Pi's models cannot be listed and Pi's words name a key or a login (OPENAI_API_KEY is not set, OAuth login expired), or anything that looks like one, the note leaves out all of Pi's words. You see what ConsensFlow knows, the exit code and what Pi was loading; run pi in a terminal to see Pi's words. A provider that only one project's own .pi folder defines is not in the list." },
             { "text": "Pi: a prompt with a timer, which only an extension of your own draws, is never told." },
-            { "text": "A note about a window's background work, or about a program a window could not start, can still quote that command's path and arguments." },
-            { "text": "History: a finished reply with no text still says it is writing." }
+            { "text": "Opening a link with Cmd+click or Ctrl+click was not done by hand in the app. Tests hold the click and the address through a stand-in opener, and each system's opener was measured opening an address whole." },
+            { "text": "Shift+Enter was run in real windows of Claude Code, Codex, Devin and Muse Code on a Mac. It was not run in Pi on a Mac, nor in any real window on Windows, where the page's tests and Codex's own key reader hold it." },
+            { "text": "Updating a harness from Settings, Harnesses was not run against a real install, on either system: only against copies of each install's layout." },
+            { "text": "The daemon starting again was run in the app on a Mac. On Windows only its tests ran." }
           ] }
         } },
         { "id": "devin", "platforms": {
-          "mac": { "from": "3000.10.21", "to": "3000.12.17", "status": "issues", "issues": [
-            { "text": "A note about a window's background work, or about a program a window could not start, can still quote that command's path and arguments." },
-            { "text": "History: a finished reply with no text still says it is writing." },
+          "mac": { "from": "3000.10.21", "to": "3000.12.43", "status": "issues", "issues": [
+            { "text": "When a member's model is busy for a moment, the member's row says \"Out of quota until\" a time a few minutes away and offers Try again now. ConsensFlow tries it again at that time by itself; a press before then tries it at once, and if the model is still busy the member is held again. After the daemon is started again, the board's notes call that wait a quota too." },
+            { "text": "A daemon that hangs without stopping is not noticed: the board stops answering, with no banner and no restart, until you quit ConsensFlow and open it again." },
+            { "text": "Devin: a Devin chief picked or switched in the 3.0.7 build before this one, or one whose model you changed in its own window, still shows its launch id on its card (such as swe-2-max)." },
+            { "text": "A note about a window that ConsensFlow itself could not set up says only that the launch failed and that its cause is in ConsensFlow's log." },
+            { "text": "A note can still quote a short password or passphrase that stands alone on a window's screen, once the line that named it has scrolled away." },
+            { "text": "Opening a link with Cmd+click or Ctrl+click was not done by hand in the app. Tests hold the click and the address through a stand-in opener, and each system's opener was measured opening an address whole." },
+            { "text": "Updating a harness from Settings, Harnesses was not run against a real install, on either system: only against copies of each install's layout." },
             { "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished." }
           ] },
-          "windows": { "from": "3000.10.21", "to": "3000.12.17", "status": "issues", "issues": [
-            { "text": "A note about a window's background work, or about a program a window could not start, can still quote that command's path and arguments." },
-            { "text": "History: a finished reply with no text still says it is writing." }
+          "windows": { "from": "3000.10.21", "to": "3000.12.43", "status": "issues", "issues": [
+            { "text": "Shift+Enter on Windows does nothing in Codex, Devin and Muse Code: those three read the key ConsensFlow can send safely as one they bind to nothing." },
+            { "text": "When a member's model is busy for a moment, the member's row says \"Out of quota until\" a time a few minutes away and offers Try again now. ConsensFlow tries it again at that time by itself; a press before then tries it at once, and if the model is still busy the member is held again. After the daemon is started again, the board's notes call that wait a quota too." },
+            { "text": "A daemon that hangs without stopping is not noticed: the board stops answering, with no banner and no restart, until you quit ConsensFlow and open it again." },
+            { "text": "Devin: a Devin chief picked or switched in the 3.0.7 build before this one, or one whose model you changed in its own window, still shows its launch id on its card (such as swe-2-max)." },
+            { "text": "A note about a window that ConsensFlow itself could not set up says only that the launch failed and that its cause is in ConsensFlow's log." },
+            { "text": "A note can still quote a short password or passphrase that stands alone on a window's screen, once the line that named it has scrolled away." },
+            { "text": "Opening a link with Cmd+click or Ctrl+click was not done by hand in the app. Tests hold the click and the address through a stand-in opener, and each system's opener was measured opening an address whole." },
+            { "text": "Shift+Enter was run in real windows of Claude Code, Codex, Devin and Muse Code on a Mac. It was not run in Pi on a Mac, nor in any real window on Windows, where the page's tests and Codex's own key reader hold it." },
+            { "text": "Updating a harness from Settings, Harnesses was not run against a real install, on either system: only against copies of each install's layout." },
+            { "text": "The daemon starting again was run in the app on a Mac. On Windows only its tests ran." }
           ] }
         } },
         { "id": "muse-code", "platforms": {
-          "mac": { "from": "1.4.13", "to": "1.4.14", "status": "issues", "issues": [
+          "mac": { "from": "1.4.13", "to": "1.4.15", "status": "issues", "issues": [
+            { "text": "When a member's model is busy for a moment, the member's row says \"Out of quota until\" a time a few minutes away and offers Try again now. ConsensFlow tries it again at that time by itself; a press before then tries it at once, and if the model is still busy the member is held again. After the daemon is started again, the board's notes call that wait a quota too." },
+            { "text": "A daemon that hangs without stopping is not noticed: the board stops answering, with no banner and no restart, until you quit ConsensFlow and open it again." },
+            { "text": "A note about a window that ConsensFlow itself could not set up says only that the launch failed and that its cause is in ConsensFlow's log." },
+            { "text": "A note can still quote a short password or passphrase that stands alone on a window's screen, once the line that named it has scrolled away." },
             { "text": "Muse Code: a pause or a tell interrupts Muse with Escape, which also cancels a background command Muse itself is running." },
-            { "text": "Muse Code: a conversation from the first 3.0.7 build, resumed in a Muse window, where you have 8 or more hooks of your own that print, can keep its old role." },
-            { "text": "A note about a window's background work, or about a program a window could not start, can still quote that command's path and arguments." },
-            { "text": "History: a finished reply with no text still says it is writing." }
+            { "text": "Muse Code: a conversation from the first 3.0.7 build resumed in a Muse window, where you have 8 or more hooks of your own that print, can keep its old role." },
+            { "text": "Opening a link with Cmd+click or Ctrl+click was not done by hand in the app. Tests hold the click and the address through a stand-in opener, and each system's opener was measured opening an address whole." },
+            { "text": "Updating a harness from Settings, Harnesses was not run against a real install, on either system: only against copies of each install's layout." }
           ] },
-          "windows": { "from": "1.4.13", "to": "1.4.14", "status": "issues", "issues": [
+          "windows": { "from": "1.4.13", "to": "1.4.15", "status": "issues", "issues": [
+            { "text": "Shift+Enter on Windows does nothing in Codex, Devin and Muse Code: those three read the key ConsensFlow can send safely as one they bind to nothing." },
+            { "text": "When a member's model is busy for a moment, the member's row says \"Out of quota until\" a time a few minutes away and offers Try again now. ConsensFlow tries it again at that time by itself; a press before then tries it at once, and if the model is still busy the member is held again. After the daemon is started again, the board's notes call that wait a quota too." },
+            { "text": "A daemon that hangs without stopping is not noticed: the board stops answering, with no banner and no restart, until you quit ConsensFlow and open it again." },
+            { "text": "A note about a window that ConsensFlow itself could not set up says only that the launch failed and that its cause is in ConsensFlow's log." },
+            { "text": "A note can still quote a short password or passphrase that stands alone on a window's screen, once the line that named it has scrolled away." },
             { "text": "Muse Code: a pause or a tell interrupts Muse with Escape, which also cancels a background command Muse itself is running." },
-            { "text": "Muse Code: a conversation from the first 3.0.7 build, resumed in a Muse window, where you have 8 or more hooks of your own that print, can keep its old role." },
-            { "text": "A note about a window's background work, or about a program a window could not start, can still quote that command's path and arguments." },
-            { "text": "History: a finished reply with no text still says it is writing." }
+            { "text": "Muse Code: a conversation from the first 3.0.7 build resumed in a Muse window, where you have 8 or more hooks of your own that print, can keep its old role." },
+            { "text": "Opening a link with Cmd+click or Ctrl+click was not done by hand in the app. Tests hold the click and the address through a stand-in opener, and each system's opener was measured opening an address whole." },
+            { "text": "Shift+Enter was run in real windows of Claude Code, Codex, Devin and Muse Code on a Mac. It was not run in Pi on a Mac, nor in any real window on Windows, where the page's tests and Codex's own key reader hold it." },
+            { "text": "Updating a harness from Settings, Harnesses was not run against a real install, on either system: only against copies of each install's layout." },
+            { "text": "The daemon starting again was run in the app on a Mac. On Windows only its tests ran." }
           ] }
         } }
       ]
@@ -357,21 +415,21 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
         "text": "The oldest Claude Code a ConsensFlow live suite is recorded on. ConsensFlow does not check Claude Code's version when it opens a window, so an older one is not refused."
       },
       "vendor": {
-        "version": "2.1.319",
-        "date": "2026-11-06",
+        "version": "2.1.322",
+        "date": "2026-11-10",
         "feed": "npm @anthropic-ai/claude-code, tag latest",
         "text": "Claude Code's own stable channel is at 2.1.311, which is inside the supported range."
       },
       "tested": {
         "mac": {
-          "version": "2.1.319",
-          "date": "2026-11-07",
-          "suites": ["claude-countdown", "claude-sized-compaction", "harness-dialogs", "models"]
+          "version": "2.1.322",
+          "date": "2026-11-10",
+          "suites": ["models", "shift-enter"]
         },
         "windows": {
-          "version": "2.1.319",
-          "date": "2026-11-07",
-          "suites": ["asks", "claude-two-turn-compaction", "models"]
+          "version": "2.1.322",
+          "date": "2026-11-10",
+          "suites": ["models"]
         }
       }
     },
@@ -392,13 +450,13 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
       "tested": {
         "mac": {
           "version": "0.167.0",
-          "date": "2026-11-07",
-          "suites": ["compacting", "compaction-routes", "models"]
+          "date": "2026-11-10",
+          "suites": ["models", "notes", "shift-enter"]
         },
         "windows": {
           "version": "0.167.0",
-          "date": "2026-11-07",
-          "suites": ["compaction-routes", "models", "question-ask-answer"]
+          "date": "2026-11-10",
+          "suites": ["finish", "models"]
         }
       }
     },
@@ -412,8 +470,8 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
         "text": "The oldest Pi a ConsensFlow live suite is recorded on. ConsensFlow does not check Pi's version when it opens a window, so an older one is not refused."
       },
       "vendor": {
-        "version": "1.5.0",
-        "date": "2026-11-02",
+        "version": "1.5.1",
+        "date": "2026-11-09",
         "feed": "npm @earendil-works/pi-coding-agent, tag latest"
       },
       "tested": {
@@ -423,12 +481,12 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
           "suites": ["bench", "door", "escape-unsent", "first-message", "folder-trust", "harnesses", "meeting", "pacing", "pi-parity", "reopened", "restart-cut", "resume-cut", "resume-fresh", "task-working", "tell", "wake-ups"]
         },
         "windows": {
-          "version": "1.5.0",
-          "date": "2026-11-07",
-          "suites": ["models", "pi-setups", "pi-two-turn-compaction", "question-ask-answer"]
+          "version": "1.5.1",
+          "date": "2026-11-10",
+          "suites": ["models", "pi-setups"]
         }
       },
-      "notes": ["Pi 1.5.0 was run on the Mac for its model lists only (ten recorded setups and a copy of the real one), with no live turn, so the Mac's tested version stays 1.4.0."]
+      "notes": ["Pi 1.5.1 was run on the Mac for its model lists only, with no live turn, so the Mac's tested version stays 1.4.0."]
     },
     {
       "id": "devin",
@@ -440,20 +498,20 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
         "text": "ConsensFlow refuses an older Devin before it opens a window, and its Harnesses page says to update it."
       },
       "vendor": {
-        "version": "3000.12.17",
-        "date": "2026-11-07",
+        "version": "3000.12.43",
+        "date": "2026-11-10",
         "feed": "static.devin.ai/cli/current/manifest.json (the date is when the file last changed)"
       },
       "tested": {
         "mac": {
-          "version": "3000.12.17",
-          "date": "2026-11-07",
-          "suites": ["compaction-routes", "models"]
+          "version": "3000.12.43",
+          "date": "2026-11-10",
+          "suites": ["models", "shift-enter"]
         },
         "windows": {
-          "version": "3000.12.17",
-          "date": "2026-11-07",
-          "suites": ["compaction-routes", "models"]
+          "version": "3000.12.43",
+          "date": "2026-11-10",
+          "suites": ["models"]
         }
       },
       "notes": ["The paste-screen suite failed 2 of 2 runs on 3000.11.234 on the Mac, where a line of a sent brief was taken for the window's own output."]
@@ -468,21 +526,21 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
         "text": "The oldest Muse Code whose record ConsensFlow reads, the one its support was built on: an older one's record is not read."
       },
       "vendor": {
-        "version": "1.4.14-R7309.1",
+        "version": "1.4.15-R8339.1",
         "date": null,
         "feed": "api.meta.ai/muse-code/channels/muse-stable",
-        "text": "The feed names no date. Its canary channel still says 1.4.13-R6996.1."
+        "text": "The feed names no date. Its canary channel says the same version."
       },
       "tested": {
         "mac": {
-          "version": "1.4.14-R7309.1",
-          "date": "2026-11-07",
-          "suites": ["compaction-routes", "muse-reads", "muse-window"]
+          "version": "1.4.15-R8339.1",
+          "date": "2026-11-10",
+          "suites": ["models", "shift-enter"]
         },
         "windows": {
-          "version": "1.4.14-R7309.1",
-          "date": "2026-11-07",
-          "suites": ["models", "muse-two-turn-compaction", "muse-window"]
+          "version": "1.4.15-R8339.1",
+          "date": "2026-11-10",
+          "suites": ["models"]
         }
       }
     }
