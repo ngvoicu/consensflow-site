@@ -223,7 +223,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
      that watches each new version). The page below draws the table from it. -->
 <script type="application/json" id="status-data">
 {
-  "updated": "2026-11-12",
+  "updated": "2026-11-15",
   "releases": [
     {
       "version": "3.0.5",
@@ -274,7 +274,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
       "channel": "Alpha",
       "harnesses": [
         { "id": "claude-code", "platforms": {
-          "mac": { "from": "2.1.292", "to": "2.1.322", "status": "issues", "issues": [
+          "mac": { "from": "2.1.292", "to": "2.1.325", "status": "issues", "issues": [
             { "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown." },
             { "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it." },
             { "text": "Claude Code: the links Claude Code prints in a pane are plain text, so they cannot be clicked for now. Claude Code prints no real hyperlinks there." },
@@ -283,9 +283,21 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
             { "text": "Claude Code: a permission prompt can be told again when the lines above it in the window change, and then its 10 minutes before ConsensFlow answers \"No\" start again." },
             { "text": "Claude Code: the model list is read in ConsensFlow's own copy of Claude Code's settings, so an availableModels setting of yours, or your organization's picker policy, does not narrow it." },
             { "text": "A note about a window that ConsensFlow itself could not set up says only that the launch failed and that its cause is in ConsensFlow's log." },
-            { "text": "A note can still quote a short password or passphrase that stands alone on a window's screen, once the line that named it has scrolled away." }
+            { "text": "A note can still quote a short password or passphrase that stands alone on a window's screen, once the line that named it has scrolled away." },
+            { "text": "An answered pause: other words of the member's same turn (a line before its tools, a different last line) are in the shown note and are not typed to the chief. cf task finish takes the window's last complete answer." },
+            { "text": "The board page does not display a note that is shown to the chief and not typed; it is in cf inbox and in the task's thread." },
+            { "text": "A member's answer to a pause that is still on its way when the task is resumed, then a second pause, then that answer lost: the typed note in its place can carry the first pause's words with guidance for the second, or be missing. The words stay in cf inbox and the task's thread." },
+            { "text": "A tell still held for your approval when its task is accepted is dropped without its number being named." },
+            { "text": "A tell's words are not yet taken inside a turn at work on any harness: they go in at the window's rest." },
+            { "text": "\"Do with your own hands\" reaches a chief at its next rest, not inside a running turn." },
+            { "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back." },
+            { "text": "A member or a backup that is removed can keep running when its window refuses to close." },
+            { "text": "A reminder that a task is still at work in the background can reach the chief late, or after the hold has ended, when it was already on its way to the chief's window." },
+            { "text": "A member's dialog that ConsensFlow tried to decline, and that the window's host refused the key for, stays shown and open; the notes can say that ConsensFlow declined it. The member waits until someone answers it in the window." },
+            { "text": "After the update, a chief or member whose window was left open from before the app moved to another path is told its role again at each Resume, and a role read early under the 3.0.7 build before this one is told once more." },
+            { "text": "The Mac app's window was not looked at on a real screen for this release: own hands, backups, Vacation and the four roles were run in the page under WebKit (the Mac's own engine) and against the new app's daemon across a restart, not through the app's own window. The task timer was checked only in the page's own browser cases (Chromium and WebKit), not in the app's own window on either system." }
           ] },
-          "windows": { "from": "2.1.292", "to": "2.1.322", "status": "issues", "issues": [
+          "windows": { "from": "2.1.292", "to": "2.1.322", "status": "newer", "issues": [
             { "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown." },
             { "text": "Windows: when a member's window ends by itself, the chief's note may say only that the window is gone and how to resume the task, without the window's exit code and its last screen." },
             { "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it." },
@@ -295,27 +307,50 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
             { "text": "Claude Code: a permission prompt can be told again when the lines above it in the window change, and then its 10 minutes before ConsensFlow answers \"No\" start again." },
             { "text": "Claude Code: the model list is read in ConsensFlow's own copy of Claude Code's settings, so an availableModels setting of yours, or your organization's picker policy, does not narrow it." },
             { "text": "A note about a window that ConsensFlow itself could not set up says only that the launch failed and that its cause is in ConsensFlow's log." },
-            { "text": "A note can still quote a short password or passphrase that stands alone on a window's screen, once the line that named it has scrolled away." }
+            { "text": "A note can still quote a short password or passphrase that stands alone on a window's screen, once the line that named it has scrolled away." },
+            { "text": "An answered pause: other words of the member's same turn (a line before its tools, a different last line) are in the shown note and are not typed to the chief. cf task finish takes the window's last complete answer." },
+            { "text": "The board page does not display a note that is shown to the chief and not typed; it is in cf inbox and in the task's thread." },
+            { "text": "A member's answer to a pause that is still on its way when the task is resumed, then a second pause, then that answer lost: the typed note in its place can carry the first pause's words with guidance for the second, or be missing. The words stay in cf inbox and the task's thread." },
+            { "text": "A tell still held for your approval when its task is accepted is dropped without its number being named." },
+            { "text": "A tell's words are not yet taken inside a turn at work on any harness: they go in at the window's rest." },
+            { "text": "\"Do with your own hands\" reaches a chief at its next rest, not inside a running turn." },
+            { "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back." },
+            { "text": "A member or a backup that is removed can keep running when its window refuses to close." },
+            { "text": "A reminder that a task is still at work in the background can reach the chief late, or after the hold has ended, when it was already on its way to the chief's window." },
+            { "text": "A member's dialog that ConsensFlow tried to decline, and that the window's host refused the key for, stays shown and open; the notes can say that ConsensFlow declined it. The member waits until someone answers it in the window." },
+            { "text": "After the update, a chief or member whose window was left open from before the app moved to another path is told its role again at each Resume, and a role read early under the 3.0.7 build before this one is told once more." },
+            { "text": "On Windows, a Codex, a Muse Code and a Devin member ran, with a tell, a pause and a resume on Codex and Muse Code; Claude Code and Pi members were not run there (their model lists were read), and the new Project settings (backups, Vacation) and the new cards were not looked at on a Windows screen. cf was run in PowerShell offline. The Windows app does not install updates itself, so no Windows update was tried." }
           ] }
         } },
         { "id": "codex", "platforms": {
-          "mac": { "from": "0.154.0", "to": "0.167.2", "status": "issues", "issues": [
+          "mac": { "from": "0.154.0", "to": "0.169.0", "status": "issues", "issues": [
             { "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown." },
             { "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it." },
-            { "text": "After the staff's roles change in a project with many members and long rules for the staff, a chief on Codex or Muse Code can be given its new role again at the next Resume, and you are told it \"did not read its new role\", although it ran cf inbox read: the text was longer than one read takes. Tasks are still given to the staff as it is." },
             { "text": "After ConsensFlow's daemon is started again, a member whose model was busy a moment before reads \"Out of quota until\" a time up to five minutes away, with Try again now. ConsensFlow tries it again at that time by itself; a press tries it at once, and if the model is still busy the member is held again." },
             { "text": "A daemon that hangs without stopping is not noticed: the board stops answering, with no banner and no restart, until you quit ConsensFlow and open it again." },
             { "text": "A note about a window that ConsensFlow itself could not set up says only that the launch failed and that its cause is in ConsensFlow's log." },
             { "text": "A note can still quote a short password or passphrase that stands alone on a window's screen, once the line that named it has scrolled away." },
             { "text": "Codex: Codex's own dialogs (its nudge to switch models, its model and effort pickers, its install offers) aren't seen. When one waits in a window nobody watches, nobody is told, and the Enter of the next message pasted in may answer it." },
             { "text": "Codex: a sub-agent of an agent type you defined yourself is told it isn't the member, but can still ask the chief on the board." },
-            { "text": "A member window compacting at the project's size was not run live on Codex, Devin or Muse Code: tests of each harness's launch hold the size it is given." }
+            { "text": "An answered pause: other words of the member's same turn (a line before its tools, a different last line) are in the shown note and are not typed to the chief. cf task finish takes the window's last complete answer." },
+            { "text": "The board page does not display a note that is shown to the chief and not typed; it is in cf inbox and in the task's thread." },
+            { "text": "A member's answer to a pause that is still on its way when the task is resumed, then a second pause, then that answer lost: the typed note in its place can carry the first pause's words with guidance for the second, or be missing. The words stay in cf inbox and the task's thread." },
+            { "text": "Codex: a tell that is a relaunched window's first message, behind a note of changed role text, can go in during the turn that note starts, not at the window's rest." },
+            { "text": "A tell still held for your approval when its task is accepted is dropped without its number being named." },
+            { "text": "A tell's words are not yet taken inside a turn at work on any harness: they go in at the window's rest." },
+            { "text": "\"Do with your own hands\" reaches a chief at its next rest, not inside a running turn." },
+            { "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back." },
+            { "text": "A member or a backup that is removed can keep running when its window refuses to close." },
+            { "text": "A reminder that a task is still at work in the background can reach the chief late, or after the hold has ended, when it was already on its way to the chief's window." },
+            { "text": "A member's dialog that ConsensFlow tried to decline, and that the window's host refused the key for, stays shown and open; the notes can say that ConsensFlow declined it. The member waits until someone answers it in the window." },
+            { "text": "After the update, a chief or member whose window was left open from before the app moved to another path is told its role again at each Resume, and a role read early under the 3.0.7 build before this one is told once more." },
+            { "text": "Compaction on a real Codex and a real Muse Code window was not run: their test setup would have read the test Mac owner's own harness settings, so they were not run. Devin's compaction was run and passed, but the case of a Devin task finishing after Devin compacted its own turn did not compact within the case, so it shows nothing either way. On Pi, the window kept open while Pi compacts was run twice and did not show whether the window was open at the moment of the compaction (the check looked only after the task had ended, and a second run did not grow large enough for Pi to compact). No compaction code changed since the 3.0.7 build before this one except how Pi's records are read, and that build's run of these routes passed." },
+            { "text": "The Mac app's window was not looked at on a real screen for this release: own hands, backups, Vacation and the four roles were run in the page under WebKit (the Mac's own engine) and against the new app's daemon across a restart, not through the app's own window. The task timer was checked only in the page's own browser cases (Chromium and WebKit), not in the app's own window on either system." }
           ] },
-          "windows": { "from": "0.154.0", "to": "0.167.2", "status": "issues", "issues": [
+          "windows": { "from": "0.154.0", "to": "0.167.2", "status": "newer", "issues": [
             { "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown." },
             { "text": "Windows: when a member's window ends by itself, the chief's note may say only that the window is gone and how to resume the task, without the window's exit code and its last screen." },
             { "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it." },
-            { "text": "After the staff's roles change in a project with many members and long rules for the staff, a chief on Codex or Muse Code can be given its new role again at the next Resume, and you are told it \"did not read its new role\", although it ran cf inbox read: the text was longer than one read takes. Tasks are still given to the staff as it is." },
             { "text": "Shift+Enter on Windows does nothing in Codex, Devin and Muse Code: those three read the key ConsensFlow can send safely as one they bind to nothing." },
             { "text": "After ConsensFlow's daemon is started again, a member whose model was busy a moment before reads \"Out of quota until\" a time up to five minutes away, with Try again now. ConsensFlow tries it again at that time by itself; a press tries it at once, and if the model is still busy the member is held again." },
             { "text": "A daemon that hangs without stopping is not noticed: the board stops answering, with no banner and no restart, until you quit ConsensFlow and open it again." },
@@ -323,11 +358,23 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
             { "text": "A note can still quote a short password or passphrase that stands alone on a window's screen, once the line that named it has scrolled away." },
             { "text": "Codex: Codex's own dialogs (its nudge to switch models, its model and effort pickers, its install offers) aren't seen. When one waits in a window nobody watches, nobody is told, and the Enter of the next message pasted in may answer it." },
             { "text": "Codex: a sub-agent of an agent type you defined yourself is told it isn't the member, but can still ask the chief on the board." },
-            { "text": "A member window compacting at the project's size was not run live on Codex, Devin or Muse Code: tests of each harness's launch hold the size it is given." }
+            { "text": "An answered pause: other words of the member's same turn (a line before its tools, a different last line) are in the shown note and are not typed to the chief. cf task finish takes the window's last complete answer." },
+            { "text": "The board page does not display a note that is shown to the chief and not typed; it is in cf inbox and in the task's thread." },
+            { "text": "A member's answer to a pause that is still on its way when the task is resumed, then a second pause, then that answer lost: the typed note in its place can carry the first pause's words with guidance for the second, or be missing. The words stay in cf inbox and the task's thread." },
+            { "text": "Codex: a tell that is a relaunched window's first message, behind a note of changed role text, can go in during the turn that note starts, not at the window's rest." },
+            { "text": "A tell still held for your approval when its task is accepted is dropped without its number being named." },
+            { "text": "A tell's words are not yet taken inside a turn at work on any harness: they go in at the window's rest." },
+            { "text": "\"Do with your own hands\" reaches a chief at its next rest, not inside a running turn." },
+            { "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back." },
+            { "text": "A member or a backup that is removed can keep running when its window refuses to close." },
+            { "text": "A reminder that a task is still at work in the background can reach the chief late, or after the hold has ended, when it was already on its way to the chief's window." },
+            { "text": "A member's dialog that ConsensFlow tried to decline, and that the window's host refused the key for, stays shown and open; the notes can say that ConsensFlow declined it. The member waits until someone answers it in the window." },
+            { "text": "After the update, a chief or member whose window was left open from before the app moved to another path is told its role again at each Resume, and a role read early under the 3.0.7 build before this one is told once more." },
+            { "text": "On Windows, a Codex, a Muse Code and a Devin member ran, with a tell, a pause and a resume on Codex and Muse Code; Claude Code and Pi members were not run there (their model lists were read), and the new Project settings (backups, Vacation) and the new cards were not looked at on a Windows screen. cf was run in PowerShell offline. The Windows app does not install updates itself, so no Windows update was tried." }
           ] }
         } },
         { "id": "pi", "platforms": {
-          "mac": { "from": "1.2.0", "to": "1.5.1", "status": "newer", "issues": [
+          "mac": { "from": "1.2.0", "to": "1.5.2", "status": "issues", "issues": [
             { "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown." },
             { "text": "Pi: if a compaction does not stop when ConsensFlow asks it to at 300 seconds, a task given back to that member meanwhile keeps the window, and its messages wait until you close the window from the board. The task is then paused and the chief is told, and resuming it goes on in a new window on the same conversation." },
             { "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it." },
@@ -337,8 +384,20 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
             { "text": "A note can still quote a short password or passphrase that stands alone on a window's screen, once the line that named it has scrolled away." },
             { "text": "Pi: when Pi's models cannot be listed and Pi's words name a key or a login (OPENAI_API_KEY is not set, OAuth login expired), or anything that looks like one, the note leaves out all of Pi's words. You see what ConsensFlow knows, the exit code and what Pi was loading; run pi in a terminal to see Pi's words. A provider that only one project's own .pi folder defines is not in the list." },
             { "text": "Pi: a prompt with a timer, which only an extension of your own draws, is never told." },
-            { "text": "Pi's compaction with its window kept open was run on a real Pi on a Mac, on a build with this release's Pi code, and it completed. The same case on the 3.0.7 build before this one did not show that build's fault, because the test's summary took 5 seconds, under the old close of about 10. Pi's 300-second limit was not run on a real Pi: tests hold it." },
-            { "text": "The texts were run live in Claude Code, Codex, Devin and Muse Code windows on a Mac, and in Codex and Muse Code windows on Windows, not in a Pi window." },
+            { "text": "An answered pause: other words of the member's same turn (a line before its tools, a different last line) are in the shown note and are not typed to the chief. cf task finish takes the window's last complete answer." },
+            { "text": "The board page does not display a note that is shown to the chief and not typed; it is in cf inbox and in the task's thread." },
+            { "text": "A member's answer to a pause that is still on its way when the task is resumed, then a second pause, then that answer lost: the typed note in its place can carry the first pause's words with guidance for the second, or be missing. The words stay in cf inbox and the task's thread." },
+            { "text": "A tell still held for your approval when its task is accepted is dropped without its number being named." },
+            { "text": "A tell's words are not yet taken inside a turn at work on any harness: they go in at the window's rest." },
+            { "text": "\"Do with your own hands\" reaches a chief at its next rest, not inside a running turn." },
+            { "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back." },
+            { "text": "A member or a backup that is removed can keep running when its window refuses to close." },
+            { "text": "A reminder that a task is still at work in the background can reach the chief late, or after the hold has ended, when it was already on its way to the chief's window." },
+            { "text": "A member's dialog that ConsensFlow tried to decline, and that the window's host refused the key for, stays shown and open; the notes can say that ConsensFlow declined it. The member waits until someone answers it in the window." },
+            { "text": "After the update, a chief or member whose window was left open from before the app moved to another path is told its role again at each Resume, and a role read early under the 3.0.7 build before this one is told once more." },
+            { "text": "Compaction on a real Codex and a real Muse Code window was not run: their test setup would have read the test Mac owner's own harness settings, so they were not run. Devin's compaction was run and passed, but the case of a Devin task finishing after Devin compacted its own turn did not compact within the case, so it shows nothing either way. On Pi, the window kept open while Pi compacts was run twice and did not show whether the window was open at the moment of the compaction (the check looked only after the task had ended, and a second run did not grow large enough for Pi to compact). No compaction code changed since the 3.0.7 build before this one except how Pi's records are read, and that build's run of these routes passed." },
+            { "text": "Pi's task finishing failed once, because the test Mac's own Pi model settings changed during the run; it passed when run again on its own. Claude Code, Codex, Devin and Muse Code finishing passed on a Mac." },
+            { "text": "The Mac app's window was not looked at on a real screen for this release: own hands, backups, Vacation and the four roles were run in the page under WebKit (the Mac's own engine) and against the new app's daemon across a restart, not through the app's own window. The task timer was checked only in the page's own browser cases (Chromium and WebKit), not in the app's own window on either system." },
             { "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished." }
           ] },
           "windows": { "from": "1.2.0", "to": "1.5.2", "status": "issues", "issues": [
@@ -352,12 +411,22 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
             { "text": "A note can still quote a short password or passphrase that stands alone on a window's screen, once the line that named it has scrolled away." },
             { "text": "Pi: when Pi's models cannot be listed and Pi's words name a key or a login (OPENAI_API_KEY is not set, OAuth login expired), or anything that looks like one, the note leaves out all of Pi's words. You see what ConsensFlow knows, the exit code and what Pi was loading; run pi in a terminal to see Pi's words. A provider that only one project's own .pi folder defines is not in the list." },
             { "text": "Pi: a prompt with a timer, which only an extension of your own draws, is never told." },
-            { "text": "Pi's compaction with its window kept open was run on a real Pi on a Mac, on a build with this release's Pi code, and it completed. The same case on the 3.0.7 build before this one did not show that build's fault, because the test's summary took 5 seconds, under the old close of about 10. Pi's 300-second limit was not run on a real Pi: tests hold it." },
-            { "text": "The texts were run live in Claude Code, Codex, Devin and Muse Code windows on a Mac, and in Codex and Muse Code windows on Windows, not in a Pi window." }
+            { "text": "An answered pause: other words of the member's same turn (a line before its tools, a different last line) are in the shown note and are not typed to the chief. cf task finish takes the window's last complete answer." },
+            { "text": "The board page does not display a note that is shown to the chief and not typed; it is in cf inbox and in the task's thread." },
+            { "text": "A member's answer to a pause that is still on its way when the task is resumed, then a second pause, then that answer lost: the typed note in its place can carry the first pause's words with guidance for the second, or be missing. The words stay in cf inbox and the task's thread." },
+            { "text": "A tell still held for your approval when its task is accepted is dropped without its number being named." },
+            { "text": "A tell's words are not yet taken inside a turn at work on any harness: they go in at the window's rest." },
+            { "text": "\"Do with your own hands\" reaches a chief at its next rest, not inside a running turn." },
+            { "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back." },
+            { "text": "A member or a backup that is removed can keep running when its window refuses to close." },
+            { "text": "A reminder that a task is still at work in the background can reach the chief late, or after the hold has ended, when it was already on its way to the chief's window." },
+            { "text": "A member's dialog that ConsensFlow tried to decline, and that the window's host refused the key for, stays shown and open; the notes can say that ConsensFlow declined it. The member waits until someone answers it in the window." },
+            { "text": "After the update, a chief or member whose window was left open from before the app moved to another path is told its role again at each Resume, and a role read early under the 3.0.7 build before this one is told once more." },
+            { "text": "On Windows, a Codex, a Muse Code and a Devin member ran, with a tell, a pause and a resume on Codex and Muse Code; Claude Code and Pi members were not run there (their model lists were read), and the new Project settings (backups, Vacation) and the new cards were not looked at on a Windows screen. cf was run in PowerShell offline. The Windows app does not install updates itself, so no Windows update was tried." }
           ] }
         } },
         { "id": "devin", "platforms": {
-          "mac": { "from": "3000.10.21", "to": "3000.12.43", "status": "issues", "issues": [
+          "mac": { "from": "3000.10.21", "to": "3000.12.57", "status": "issues", "issues": [
             { "text": "Devin: a window opened again on a conversation that was already emptied with \"Revert to step 1\" may read as working and hold its messages. After ten minutes you are told that a message waits for it, but the note does not yet say what to do: type a message into the window yourself, and once that turn ends what waited goes in, once." },
             { "text": "Devin 3000.12: when a Devin member is stopped early in a turn, while Devin is still thinking (a pause, for example), its window reads as working for up to 30 seconds after the message it was given, so what comes next for it, such as the chief's question after a pause, goes in up to 30 seconds late." },
             { "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown." },
@@ -365,14 +434,25 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
             { "text": "Devin: in a window opened again on a cut session that nobody has typed into, a switch to another conversation made at the very moment a message goes in, or made with the mouse alone, is not seen, and that message can go into the conversation switched to." },
             { "text": "After ConsensFlow's daemon is started again, a member whose model was busy a moment before reads \"Out of quota until\" a time up to five minutes away, with Try again now. ConsensFlow tries it again at that time by itself; a press tries it at once, and if the model is still busy the member is held again." },
             { "text": "A daemon that hangs without stopping is not noticed: the board stops answering, with no banner and no restart, until you quit ConsensFlow and open it again." },
-            { "text": "Devin: a Devin chief picked or switched in the third 3.0.7 build, or one whose model you changed in its own window, still shows its launch id on its card (such as swe-2-max)." },
+            { "text": "Devin: a Devin chief picked or switched in an earlier 3.0.7 build, or one whose model you changed in its own window, still shows its launch id on its card (such as swe-2-max)." },
             { "text": "A note about a window that ConsensFlow itself could not set up says only that the launch failed and that its cause is in ConsensFlow's log." },
             { "text": "A note can still quote a short password or passphrase that stands alone on a window's screen, once the line that named it has scrolled away." },
-            { "text": "A member window compacting at the project's size was not run live on Codex, Devin or Muse Code: tests of each harness's launch hold the size it is given." },
-            { "text": "Devin: a window opened again on a cut session was run live on a Mac on Devin 3000.12.43, with and without a key typed into it, and \"Revert to step 1\", \"Revert to step 2\" and a fork were run in a window at rest. Not run live: a /new, /resume or /clear typed into such a window, a window switched from a set-up conversation to a silent one, and long messages on that path; tests hold them. A Devin window resumed in the middle of a tool call, and a Stop while a message waits in a Devin turn, were not shown live either." },
+            { "text": "An answered pause: other words of the member's same turn (a line before its tools, a different last line) are in the shown note and are not typed to the chief. cf task finish takes the window's last complete answer." },
+            { "text": "The board page does not display a note that is shown to the chief and not typed; it is in cf inbox and in the task's thread." },
+            { "text": "A member's answer to a pause that is still on its way when the task is resumed, then a second pause, then that answer lost: the typed note in its place can carry the first pause's words with guidance for the second, or be missing. The words stay in cf inbox and the task's thread." },
+            { "text": "A tell still held for your approval when its task is accepted is dropped without its number being named." },
+            { "text": "A tell's words are not yet taken inside a turn at work on any harness: they go in at the window's rest." },
+            { "text": "\"Do with your own hands\" reaches a chief at its next rest, not inside a running turn." },
+            { "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back." },
+            { "text": "A member or a backup that is removed can keep running when its window refuses to close." },
+            { "text": "A reminder that a task is still at work in the background can reach the chief late, or after the hold has ended, when it was already on its way to the chief's window." },
+            { "text": "A member's dialog that ConsensFlow tried to decline, and that the window's host refused the key for, stays shown and open; the notes can say that ConsensFlow declined it. The member waits until someone answers it in the window." },
+            { "text": "After the update, a chief or member whose window was left open from before the app moved to another path is told its role again at each Resume, and a role read early under the 3.0.7 build before this one is told once more." },
+            { "text": "Compaction on a real Codex and a real Muse Code window was not run: their test setup would have read the test Mac owner's own harness settings, so they were not run. Devin's compaction was run and passed, but the case of a Devin task finishing after Devin compacted its own turn did not compact within the case, so it shows nothing either way. On Pi, the window kept open while Pi compacts was run twice and did not show whether the window was open at the moment of the compaction (the check looked only after the task had ended, and a second run did not grow large enough for Pi to compact). No compaction code changed since the 3.0.7 build before this one except how Pi's records are read, and that build's run of these routes passed." },
+            { "text": "The Mac app's window was not looked at on a real screen for this release: own hands, backups, Vacation and the four roles were run in the page under WebKit (the Mac's own engine) and against the new app's daemon across a restart, not through the app's own window. The task timer was checked only in the page's own browser cases (Chromium and WebKit), not in the app's own window on either system." },
             { "text": "A command the agent starts detached from its shell is not tracked, so it can keep running after the task is finished." }
           ] },
-          "windows": { "from": "3000.10.21", "to": "3000.12.43", "status": "issues", "issues": [
+          "windows": { "from": "3000.10.21", "to": "3000.12.43", "status": "newer", "issues": [
             { "text": "Devin: a window opened again on a conversation that was already emptied with \"Revert to step 1\" may read as working and hold its messages. After ten minutes you are told that a message waits for it, but the note does not yet say what to do: type a message into the window yourself, and once that turn ends what waited goes in, once." },
             { "text": "Devin 3000.12: when a Devin member is stopped early in a turn, while Devin is still thinking (a pause, for example), its window reads as working for up to 30 seconds after the message it was given, so what comes next for it, such as the chief's question after a pause, goes in up to 30 seconds late." },
             { "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown." },
@@ -382,39 +462,70 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
             { "text": "Shift+Enter on Windows does nothing in Codex, Devin and Muse Code: those three read the key ConsensFlow can send safely as one they bind to nothing." },
             { "text": "After ConsensFlow's daemon is started again, a member whose model was busy a moment before reads \"Out of quota until\" a time up to five minutes away, with Try again now. ConsensFlow tries it again at that time by itself; a press tries it at once, and if the model is still busy the member is held again." },
             { "text": "A daemon that hangs without stopping is not noticed: the board stops answering, with no banner and no restart, until you quit ConsensFlow and open it again." },
-            { "text": "Devin: a Devin chief picked or switched in the third 3.0.7 build, or one whose model you changed in its own window, still shows its launch id on its card (such as swe-2-max)." },
+            { "text": "Devin: a Devin chief picked or switched in an earlier 3.0.7 build, or one whose model you changed in its own window, still shows its launch id on its card (such as swe-2-max)." },
             { "text": "A note about a window that ConsensFlow itself could not set up says only that the launch failed and that its cause is in ConsensFlow's log." },
             { "text": "A note can still quote a short password or passphrase that stands alone on a window's screen, once the line that named it has scrolled away." },
-            { "text": "A member window compacting at the project's size was not run live on Codex, Devin or Muse Code: tests of each harness's launch hold the size it is given." },
-            { "text": "Devin: a window opened again on a cut session was run live on a Mac on Devin 3000.12.43, with and without a key typed into it, and \"Revert to step 1\", \"Revert to step 2\" and a fork were run in a window at rest. Not run live: a /new, /resume or /clear typed into such a window, a window switched from a set-up conversation to a silent one, and long messages on that path; tests hold them. A Devin window resumed in the middle of a tool call, and a Stop while a message waits in a Devin turn, were not shown live either." }
+            { "text": "An answered pause: other words of the member's same turn (a line before its tools, a different last line) are in the shown note and are not typed to the chief. cf task finish takes the window's last complete answer." },
+            { "text": "The board page does not display a note that is shown to the chief and not typed; it is in cf inbox and in the task's thread." },
+            { "text": "A member's answer to a pause that is still on its way when the task is resumed, then a second pause, then that answer lost: the typed note in its place can carry the first pause's words with guidance for the second, or be missing. The words stay in cf inbox and the task's thread." },
+            { "text": "A tell still held for your approval when its task is accepted is dropped without its number being named." },
+            { "text": "A tell's words are not yet taken inside a turn at work on any harness: they go in at the window's rest." },
+            { "text": "\"Do with your own hands\" reaches a chief at its next rest, not inside a running turn." },
+            { "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back." },
+            { "text": "A member or a backup that is removed can keep running when its window refuses to close." },
+            { "text": "A reminder that a task is still at work in the background can reach the chief late, or after the hold has ended, when it was already on its way to the chief's window." },
+            { "text": "A member's dialog that ConsensFlow tried to decline, and that the window's host refused the key for, stays shown and open; the notes can say that ConsensFlow declined it. The member waits until someone answers it in the window." },
+            { "text": "After the update, a chief or member whose window was left open from before the app moved to another path is told its role again at each Resume, and a role read early under the 3.0.7 build before this one is told once more." },
+            { "text": "On Windows, a Codex, a Muse Code and a Devin member ran, with a tell, a pause and a resume on Codex and Muse Code; Claude Code and Pi members were not run there (their model lists were read), and the new Project settings (backups, Vacation) and the new cards were not looked at on a Windows screen. cf was run in PowerShell offline. The Windows app does not install updates itself, so no Windows update was tried." }
           ] }
         } },
         { "id": "muse-code", "platforms": {
-          "mac": { "from": "1.4.13", "to": "1.4.15", "status": "issues", "issues": [
+          "mac": { "from": "1.4.13", "to": "1.4.20", "status": "issues", "issues": [
             { "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown." },
             { "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it." },
-            { "text": "After the staff's roles change in a project with many members and long rules for the staff, a chief on Codex or Muse Code can be given its new role again at the next Resume, and you are told it \"did not read its new role\", although it ran cf inbox read: the text was longer than one read takes. Tasks are still given to the staff as it is." },
             { "text": "After ConsensFlow's daemon is started again, a member whose model was busy a moment before reads \"Out of quota until\" a time up to five minutes away, with Try again now. ConsensFlow tries it again at that time by itself; a press tries it at once, and if the model is still busy the member is held again." },
             { "text": "A daemon that hangs without stopping is not noticed: the board stops answering, with no banner and no restart, until you quit ConsensFlow and open it again." },
             { "text": "A note about a window that ConsensFlow itself could not set up says only that the launch failed and that its cause is in ConsensFlow's log." },
             { "text": "A note can still quote a short password or passphrase that stands alone on a window's screen, once the line that named it has scrolled away." },
-            { "text": "Muse Code: a pause or a tell interrupts Muse with Escape, which also cancels a background command Muse itself is running." },
+            { "text": "Muse Code: a pause interrupts Muse with Escape, which also cancels a background command Muse itself is running." },
             { "text": "Muse Code: a conversation from the first 3.0.7 build resumed in a Muse window, where you have 8 or more hooks of your own that print, can keep its old role." },
-            { "text": "A member window compacting at the project's size was not run live on Codex, Devin or Muse Code: tests of each harness's launch hold the size it is given." }
+            { "text": "An answered pause: other words of the member's same turn (a line before its tools, a different last line) are in the shown note and are not typed to the chief. cf task finish takes the window's last complete answer." },
+            { "text": "The board page does not display a note that is shown to the chief and not typed; it is in cf inbox and in the task's thread." },
+            { "text": "A member's answer to a pause that is still on its way when the task is resumed, then a second pause, then that answer lost: the typed note in its place can carry the first pause's words with guidance for the second, or be missing. The words stay in cf inbox and the task's thread." },
+            { "text": "A tell still held for your approval when its task is accepted is dropped without its number being named." },
+            { "text": "A tell's words are not yet taken inside a turn at work on any harness: they go in at the window's rest." },
+            { "text": "\"Do with your own hands\" reaches a chief at its next rest, not inside a running turn." },
+            { "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back." },
+            { "text": "A member or a backup that is removed can keep running when its window refuses to close." },
+            { "text": "A reminder that a task is still at work in the background can reach the chief late, or after the hold has ended, when it was already on its way to the chief's window." },
+            { "text": "A member's dialog that ConsensFlow tried to decline, and that the window's host refused the key for, stays shown and open; the notes can say that ConsensFlow declined it. The member waits until someone answers it in the window." },
+            { "text": "After the update, a chief or member whose window was left open from before the app moved to another path is told its role again at each Resume, and a role read early under the 3.0.7 build before this one is told once more." },
+            { "text": "Compaction on a real Codex and a real Muse Code window was not run: their test setup would have read the test Mac owner's own harness settings, so they were not run. Devin's compaction was run and passed, but the case of a Devin task finishing after Devin compacted its own turn did not compact within the case, so it shows nothing either way. On Pi, the window kept open while Pi compacts was run twice and did not show whether the window was open at the moment of the compaction (the check looked only after the task had ended, and a second run did not grow large enough for Pi to compact). No compaction code changed since the 3.0.7 build before this one except how Pi's records are read, and that build's run of these routes passed." },
+            { "text": "The Mac app's window was not looked at on a real screen for this release: own hands, backups, Vacation and the four roles were run in the page under WebKit (the Mac's own engine) and against the new app's daemon across a restart, not through the app's own window. The task timer was checked only in the page's own browser cases (Chromium and WebKit), not in the app's own window on either system." }
           ] },
-          "windows": { "from": "1.4.13", "to": "1.4.15", "status": "issues", "issues": [
+          "windows": { "from": "1.4.13", "to": "1.4.15", "status": "newer", "issues": [
             { "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown." },
             { "text": "Windows: when a member's window ends by itself, the chief's note may say only that the window is gone and how to resume the task, without the window's exit code and its last screen." },
             { "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it." },
-            { "text": "After the staff's roles change in a project with many members and long rules for the staff, a chief on Codex or Muse Code can be given its new role again at the next Resume, and you are told it \"did not read its new role\", although it ran cf inbox read: the text was longer than one read takes. Tasks are still given to the staff as it is." },
             { "text": "Shift+Enter on Windows does nothing in Codex, Devin and Muse Code: those three read the key ConsensFlow can send safely as one they bind to nothing." },
             { "text": "After ConsensFlow's daemon is started again, a member whose model was busy a moment before reads \"Out of quota until\" a time up to five minutes away, with Try again now. ConsensFlow tries it again at that time by itself; a press tries it at once, and if the model is still busy the member is held again." },
             { "text": "A daemon that hangs without stopping is not noticed: the board stops answering, with no banner and no restart, until you quit ConsensFlow and open it again." },
             { "text": "A note about a window that ConsensFlow itself could not set up says only that the launch failed and that its cause is in ConsensFlow's log." },
             { "text": "A note can still quote a short password or passphrase that stands alone on a window's screen, once the line that named it has scrolled away." },
-            { "text": "Muse Code: a pause or a tell interrupts Muse with Escape, which also cancels a background command Muse itself is running." },
+            { "text": "Muse Code: a pause interrupts Muse with Escape, which also cancels a background command Muse itself is running." },
             { "text": "Muse Code: a conversation from the first 3.0.7 build resumed in a Muse window, where you have 8 or more hooks of your own that print, can keep its old role." },
-            { "text": "A member window compacting at the project's size was not run live on Codex, Devin or Muse Code: tests of each harness's launch hold the size it is given." }
+            { "text": "An answered pause: other words of the member's same turn (a line before its tools, a different last line) are in the shown note and are not typed to the chief. cf task finish takes the window's last complete answer." },
+            { "text": "The board page does not display a note that is shown to the chief and not typed; it is in cf inbox and in the task's thread." },
+            { "text": "A member's answer to a pause that is still on its way when the task is resumed, then a second pause, then that answer lost: the typed note in its place can carry the first pause's words with guidance for the second, or be missing. The words stay in cf inbox and the task's thread." },
+            { "text": "A tell still held for your approval when its task is accepted is dropped without its number being named." },
+            { "text": "A tell's words are not yet taken inside a turn at work on any harness: they go in at the window's rest." },
+            { "text": "\"Do with your own hands\" reaches a chief at its next rest, not inside a running turn." },
+            { "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back." },
+            { "text": "A member or a backup that is removed can keep running when its window refuses to close." },
+            { "text": "A reminder that a task is still at work in the background can reach the chief late, or after the hold has ended, when it was already on its way to the chief's window." },
+            { "text": "A member's dialog that ConsensFlow tried to decline, and that the window's host refused the key for, stays shown and open; the notes can say that ConsensFlow declined it. The member waits until someone answers it in the window." },
+            { "text": "After the update, a chief or member whose window was left open from before the app moved to another path is told its role again at each Resume, and a role read early under the 3.0.7 build before this one is told once more." },
+            { "text": "On Windows, a Codex, a Muse Code and a Devin member ran, with a tell, a pause and a resume on Codex and Muse Code; Claude Code and Pi members were not run there (their model lists were read), and the new Project settings (backups, Vacation) and the new cards were not looked at on a Windows screen. cf was run in PowerShell offline. The Windows app does not install updates itself, so no Windows update was tried." }
           ] }
         } }
       ]
@@ -431,20 +542,20 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
         "text": "The oldest Claude Code a ConsensFlow live suite is recorded on. ConsensFlow does not check Claude Code's version when it opens a window, so an older one is not refused."
       },
       "vendor": {
-        "version": "2.1.322",
-        "date": "2026-11-10",
+        "version": "2.1.325",
+        "date": "2026-11-13",
         "feed": "npm @anthropic-ai/claude-code, tag latest",
         "text": "Claude Code's own stable channel is at 2.1.311, which is inside the supported range."
       },
       "tested": {
         "mac": {
-          "version": "2.1.322",
-          "date": "2026-11-12",
-          "suites": ["launch-settings", "role-texts"]
+          "version": "2.1.325",
+          "date": "2026-11-14",
+          "suites": ["finish", "role-texts", "tell-and-pause"]
         },
         "windows": {
           "version": "2.1.322",
-          "date": "2026-11-12",
+          "date": "2026-11-14",
           "suites": ["models"]
         }
       }
@@ -459,20 +570,20 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
         "text": "No version number is checked. ConsensFlow refuses a Codex that has no native queue (codex queue --help must list --thread and --message). 0.154.0 is the oldest Codex we know has it."
       },
       "vendor": {
-        "version": "0.167.2",
-        "date": "2026-11-11",
+        "version": "0.169.0",
+        "date": "2026-11-14",
         "feed": "npm @openai/codex, tag latest"
       },
       "tested": {
         "mac": {
-          "version": "0.167.2",
-          "date": "2026-11-12",
-          "suites": ["codex-role-compaction", "compaction-routes", "role-texts"]
+          "version": "0.169.0",
+          "date": "2026-11-14",
+          "suites": ["finish", "role-texts", "tell-and-pause"]
         },
         "windows": {
           "version": "0.167.2",
-          "date": "2026-11-12",
-          "suites": ["finish", "models", "powershell-file"]
+          "date": "2026-11-14",
+          "suites": ["finish", "models", "tell-and-pause"]
         }
       }
     },
@@ -492,17 +603,16 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
       },
       "tested": {
         "mac": {
-          "version": "1.5.1",
-          "date": "2026-11-12",
-          "suites": ["compaction-routes", "pi-compaction-hold"]
+          "version": "1.5.2",
+          "date": "2026-11-14",
+          "suites": ["finish-background", "tell-and-pause"]
         },
         "windows": {
           "version": "1.5.2",
-          "date": "2026-11-12",
+          "date": "2026-11-14",
           "suites": ["models"]
         }
-      },
-      "notes": ["Pi 1.5.2 was installed on the Mac but given no live turn there, so the Mac's tested version is 1.5.1, the Pi its compaction was run on live."]
+      }
     },
     {
       "id": "devin",
@@ -514,19 +624,19 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
         "text": "ConsensFlow refuses an older Devin before it opens a window, and its Harnesses page says to update it."
       },
       "vendor": {
-        "version": "3000.12.43",
-        "date": "2026-11-10",
+        "version": "3000.12.57",
+        "date": "2026-11-12",
         "feed": "static.devin.ai/cli/current/manifest.json (the date is when the file last changed)"
       },
       "tested": {
         "mac": {
-          "version": "3000.12.43",
-          "date": "2026-11-12",
-          "suites": ["compaction-routes", "devin-compacted-follow-up", "devin-reopened", "devin-revert", "role-texts"]
+          "version": "3000.12.57",
+          "date": "2026-11-14",
+          "suites": ["compaction-routes", "role-texts", "tell-and-pause"]
         },
         "windows": {
           "version": "3000.12.43",
-          "date": "2026-11-12",
+          "date": "2026-11-14",
           "suites": ["devin-task", "models"]
         }
       },
@@ -542,21 +652,21 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
         "text": "The oldest Muse Code whose record ConsensFlow reads, the one its support was built on: an older one's record is not read."
       },
       "vendor": {
-        "version": "1.4.15-R8339.1",
+        "version": "1.4.20-R8619.1",
         "date": null,
         "feed": "api.meta.ai/muse-code/channels/muse-stable",
         "text": "The feed names no date. Its canary channel says the same version."
       },
       "tested": {
         "mac": {
-          "version": "1.4.15-R8339.1",
-          "date": "2026-11-12",
-          "suites": ["compaction-routes", "muse-workflow", "role-texts"]
+          "version": "1.4.20-R8619.1",
+          "date": "2026-11-14",
+          "suites": ["finish", "role-texts", "tell-and-pause"]
         },
         "windows": {
           "version": "1.4.15-R8339.1",
-          "date": "2026-11-12",
-          "suites": ["models", "powershell-file"]
+          "date": "2026-11-14",
+          "suites": ["models", "tell-and-pause"]
         }
       }
     }
