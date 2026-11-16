@@ -223,7 +223,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
      that watches each new version). The page below draws the table from it. -->
 <script type="application/json" id="status-data">
 {
-  "updated": "2026-11-16",
+  "updated": "2026-11-17",
   "releases": [
     {
       "version": "3.0.5",
@@ -496,13 +496,28 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Claude Code, Codex, Pi and Muse Code: if a first model call lasts over two minutes and the window's screen stays quiet, ConsensFlow can pause the task as if its turn had never begun. This is read from the code; it has not been seen on a real board."
                 },
                 {
-                  "text": "Windows was checked with Claude Code 2.1.325, Codex 0.166.0, Pi 1.5.0, Devin 3000.12.17 and Muse Code 1.4.14-R7309.1 installed. Codex, Devin and Muse Code did live work there; Claude Code and Pi did not. The Mac checks used Claude Code 2.1.325, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                  "text": "A long chief role can need several reads, especially with long staff rules or full paths. Each part except the last gives the command for the next."
                 },
                 {
-                  "text": "Long, silent first model calls were not checked on Claude Code, Codex, Pi or Muse Code. Their windows' screen changes are used to avoid treating a long call as one that never began."
+                  "text": "The Harnesses page can use the system font instead of Geist; this was seen as Segoe UI on Windows, both standalone and inside the app."
                 },
                 {
-                  "text": "The Mac app's screens were checked, but they could not be compared side by side with the previous 3.0.7 build's screenshots because those were no longer available."
+                  "text": "Some dim terminal colors can be hard to read, especially dim blue; normal and bright shades can look alike on colored backgrounds. Where History's font has no italic face, the system synthesizes one."
+                },
+                {
+                  "text": "A folded group can say a quota-held task is \"paused, to resume\" even when that task can resume by itself."
+                },
+                {
+                  "text": "Claude Code: a dialog that ConsensFlow declines can have a countdown in the quoted screen detail without a separate countdown summary in the note. This is read from the code and was not separately reproduced in a live window."
+                },
+                {
+                  "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
+                },
+                {
+                  "text": "Windows was checked with Claude Code 2.1.325, Codex 0.166.0, Pi 1.5.0, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1. The Mac checks used Claude Code 2.1.325, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Codex and Pi were older."
+                },
+                {
+                  "text": "Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
                 },
                 {
                   "text": "No long run was made for this release."
@@ -510,7 +525,9 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
               ]
             },
             "windows": {
-              "status": "unmeasured",
+              "from": "2.1.292",
+              "to": "2.1.325",
+              "status": "issues",
               "issues": [
                 {
                   "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown."
@@ -615,13 +632,34 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Claude Code, Codex, Pi and Muse Code: if a first model call lasts over two minutes and the window's screen stays quiet, ConsensFlow can pause the task as if its turn had never begun. This is read from the code; it has not been seen on a real board."
                 },
                 {
-                  "text": "On Windows, the new messages for an exit watcher that cannot wait and for cleanup after a window fails to open were not shown on a real window."
+                  "text": "A long chief role can need several reads, especially with long staff rules or full paths. Each part except the last gives the command for the next."
                 },
                 {
-                  "text": "Windows was checked with Claude Code 2.1.325, Codex 0.166.0, Pi 1.5.0, Devin 3000.12.17 and Muse Code 1.4.14-R7309.1 installed. Codex, Devin and Muse Code did live work there; Claude Code and Pi did not. The Mac checks used Claude Code 2.1.325, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                  "text": "The Harnesses page can use the system font instead of Geist; this was seen as Segoe UI on Windows, both standalone and inside the app."
                 },
                 {
-                  "text": "Long, silent first model calls were not checked on Claude Code, Codex, Pi or Muse Code. Their windows' screen changes are used to avoid treating a long call as one that never began."
+                  "text": "Some dim terminal colors can be hard to read, especially dim blue; normal and bright shades can look alike on colored backgrounds. Where History's font has no italic face, the system synthesizes one."
+                },
+                {
+                  "text": "A folded group can say a quota-held task is \"paused, to resume\" even when that task can resume by itself."
+                },
+                {
+                  "text": "Claude Code: a dialog that ConsensFlow declines can have a countdown in the quoted screen detail without a separate countdown summary in the note. This is read from the code and was not separately reproduced in a live window."
+                },
+                {
+                  "text": "On Windows, a command may be left running without a note if the app's process look misses it while a window is closing. A process was missed once under heavy load on an earlier build; later attempts did not reproduce the miss."
+                },
+                {
+                  "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
+                },
+                {
+                  "text": "Windows was checked with Claude Code 2.1.325, Codex 0.166.0, Pi 1.5.0, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1. The Mac checks used Claude Code 2.1.325, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Codex and Pi were older."
+                },
+                {
+                  "text": "Resume after a quit and task Finish were not run again on Windows. Both passed in the previous 3.0.7 Windows check, and this update does not change them."
+                },
+                {
+                  "text": "Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
                 },
                 {
                   "text": "No long run was made for this release."
@@ -741,19 +779,40 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Codex: in a window reopened without a message on a conversation whose last turn was left open, a blank or image-only message from a person can leave the window reading as idle while Codex works, if its record has no text for that message. This is read from the code and has not been checked on a real window."
                 },
                 {
-                  "text": "On the Mac, Codex's tell and pause were not checked. Both were checked on Windows. Codex's Resume after a quit passed on both systems."
+                  "text": "A long chief role can need several reads, especially with long staff rules or full paths. Each part except the last gives the command for the next."
                 },
                 {
-                  "text": "On the Mac, the Codex, Devin and Muse Code leaving-command checks did not show whether closing the window ends the command: each harness ended its own command first."
+                  "text": "The Harnesses page can use the system font instead of Geist; this was seen as Segoe UI on Windows, both standalone and inside the app."
                 },
                 {
-                  "text": "Windows was checked with Claude Code 2.1.325, Codex 0.166.0, Pi 1.5.0, Devin 3000.12.17 and Muse Code 1.4.14-R7309.1 installed. Codex, Devin and Muse Code did live work there; Claude Code and Pi did not. The Mac checks used Claude Code 2.1.325, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                  "text": "Some dim terminal colors can be hard to read, especially dim blue; normal and bright shades can look alike on colored backgrounds. Where History's font has no italic face, the system synthesizes one."
                 },
                 {
-                  "text": "Long, silent first model calls were not checked on Claude Code, Codex, Pi or Muse Code. Their windows' screen changes are used to avoid treating a long call as one that never began."
+                  "text": "A folded group can say a quota-held task is \"paused, to resume\" even when that task can resume by itself."
                 },
                 {
-                  "text": "The Mac app's screens were checked, but they could not be compared side by side with the previous 3.0.7 build's screenshots because those were no longer available."
+                  "text": "Codex: a command started by a stopped turn can keep running in the background after a pause, even though the turn has stopped."
+                },
+                {
+                  "text": "Codex: its memory-consolidation job inherits its window's board identity. A cf command run in the memory folder is refused when it tries to change the board, but a different program using that identity could still make a board change. That remaining path is read from the code and has not been reproduced."
+                },
+                {
+                  "text": "Codex: if a sub-agent ends with an activity kind ConsensFlow does not recognize, the task can remain working until its window ends. Such an ending has not been seen in a real Codex record."
+                },
+                {
+                  "text": "Codex: a chief can leave Priority out of the Specs registry even when its instructions ask for it. This was seen twice with an older Codex version."
+                },
+                {
+                  "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
+                },
+                {
+                  "text": "Windows was checked with Claude Code 2.1.325, Codex 0.166.0, Pi 1.5.0, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1. The Mac checks used Claude Code 2.1.325, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Codex and Pi were older."
+                },
+                {
+                  "text": "On the Mac, Codex's leaving-command Finish was not run again."
+                },
+                {
+                  "text": "Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
                 },
                 {
                   "text": "No long run was made for this release."
@@ -877,16 +936,46 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Codex: in a window reopened without a message on a conversation whose last turn was left open, a blank or image-only message from a person can leave the window reading as idle while Codex works, if its record has no text for that message. This is read from the code and has not been checked on a real window."
                 },
                 {
-                  "text": "On the Mac, Codex's tell and pause were not checked. Both were checked on Windows. Codex's Resume after a quit passed on both systems."
+                  "text": "A long chief role can need several reads, especially with long staff rules or full paths. Each part except the last gives the command for the next."
                 },
                 {
-                  "text": "On Windows, the new messages for an exit watcher that cannot wait and for cleanup after a window fails to open were not shown on a real window."
+                  "text": "The Harnesses page can use the system font instead of Geist; this was seen as Segoe UI on Windows, both standalone and inside the app."
                 },
                 {
-                  "text": "Windows was checked with Claude Code 2.1.325, Codex 0.166.0, Pi 1.5.0, Devin 3000.12.17 and Muse Code 1.4.14-R7309.1 installed. Codex, Devin and Muse Code did live work there; Claude Code and Pi did not. The Mac checks used Claude Code 2.1.325, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                  "text": "Some dim terminal colors can be hard to read, especially dim blue; normal and bright shades can look alike on colored backgrounds. Where History's font has no italic face, the system synthesizes one."
                 },
                 {
-                  "text": "Long, silent first model calls were not checked on Claude Code, Codex, Pi or Muse Code. Their windows' screen changes are used to avoid treating a long call as one that never began."
+                  "text": "A folded group can say a quota-held task is \"paused, to resume\" even when that task can resume by itself."
+                },
+                {
+                  "text": "Codex: a command started by a stopped turn can keep running in the background after a pause, even though the turn has stopped."
+                },
+                {
+                  "text": "Codex: its memory-consolidation job inherits its window's board identity. A cf command run in the memory folder is refused when it tries to change the board, but a different program using that identity could still make a board change. That remaining path is read from the code and has not been reproduced."
+                },
+                {
+                  "text": "Codex: if a sub-agent ends with an activity kind ConsensFlow does not recognize, the task can remain working until its window ends. Such an ending has not been seen in a real Codex record."
+                },
+                {
+                  "text": "Codex: a chief can leave Priority out of the Specs registry even when its instructions ask for it. This was seen twice with an older Codex version."
+                },
+                {
+                  "text": "On Windows, a command may be left running without a note if the app's process look misses it while a window is closing. A process was missed once under heavy load on an earlier build; later attempts did not reproduce the miss."
+                },
+                {
+                  "text": "Codex on Windows: if the window's output is read late while a person pastes, Enter may go in before the paste finishes, leaving a line break instead of sending the message. This is read from the code and has not been reproduced on a real window."
+                },
+                {
+                  "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
+                },
+                {
+                  "text": "Windows was checked with Claude Code 2.1.325, Codex 0.166.0, Pi 1.5.0, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1. The Mac checks used Claude Code 2.1.325, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Codex and Pi were older."
+                },
+                {
+                  "text": "Resume after a quit and task Finish were not run again on Windows. Both passed in the previous 3.0.7 Windows check, and this update does not change them."
+                },
+                {
+                  "text": "Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
                 },
                 {
                   "text": "No long run was made for this release."
@@ -1003,13 +1092,25 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Claude Code, Codex, Pi and Muse Code: if a first model call lasts over two minutes and the window's screen stays quiet, ConsensFlow can pause the task as if its turn had never begun. This is read from the code; it has not been seen on a real board."
                 },
                 {
-                  "text": "Windows was checked with Claude Code 2.1.325, Codex 0.166.0, Pi 1.5.0, Devin 3000.12.17 and Muse Code 1.4.14-R7309.1 installed. Codex, Devin and Muse Code did live work there; Claude Code and Pi did not. The Mac checks used Claude Code 2.1.325, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                  "text": "A long chief role can need several reads, especially with long staff rules or full paths. Each part except the last gives the command for the next."
                 },
                 {
-                  "text": "Long, silent first model calls were not checked on Claude Code, Codex, Pi or Muse Code. Their windows' screen changes are used to avoid treating a long call as one that never began."
+                  "text": "The Harnesses page can use the system font instead of Geist; this was seen as Segoe UI on Windows, both standalone and inside the app."
                 },
                 {
-                  "text": "The Mac app's screens were checked, but they could not be compared side by side with the previous 3.0.7 build's screenshots because those were no longer available."
+                  "text": "Some dim terminal colors can be hard to read, especially dim blue; normal and bright shades can look alike on colored backgrounds. Where History's font has no italic face, the system synthesizes one."
+                },
+                {
+                  "text": "A folded group can say a quota-held task is \"paused, to resume\" even when that task can resume by itself."
+                },
+                {
+                  "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
+                },
+                {
+                  "text": "Windows was checked with Claude Code 2.1.325, Codex 0.166.0, Pi 1.5.0, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1. The Mac checks used Claude Code 2.1.325, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Codex and Pi were older."
+                },
+                {
+                  "text": "Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
                 },
                 {
                   "text": "No long run was made for this release."
@@ -1017,7 +1118,9 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
               ]
             },
             "windows": {
-              "status": "unmeasured",
+              "from": "1.2.0",
+              "to": "1.5.0",
+              "status": "newer",
               "issues": [
                 {
                   "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown."
@@ -1125,13 +1228,31 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Claude Code, Codex, Pi and Muse Code: if a first model call lasts over two minutes and the window's screen stays quiet, ConsensFlow can pause the task as if its turn had never begun. This is read from the code; it has not been seen on a real board."
                 },
                 {
-                  "text": "On Windows, the new messages for an exit watcher that cannot wait and for cleanup after a window fails to open were not shown on a real window."
+                  "text": "A long chief role can need several reads, especially with long staff rules or full paths. Each part except the last gives the command for the next."
                 },
                 {
-                  "text": "Windows was checked with Claude Code 2.1.325, Codex 0.166.0, Pi 1.5.0, Devin 3000.12.17 and Muse Code 1.4.14-R7309.1 installed. Codex, Devin and Muse Code did live work there; Claude Code and Pi did not. The Mac checks used Claude Code 2.1.325, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                  "text": "The Harnesses page can use the system font instead of Geist; this was seen as Segoe UI on Windows, both standalone and inside the app."
                 },
                 {
-                  "text": "Long, silent first model calls were not checked on Claude Code, Codex, Pi or Muse Code. Their windows' screen changes are used to avoid treating a long call as one that never began."
+                  "text": "Some dim terminal colors can be hard to read, especially dim blue; normal and bright shades can look alike on colored backgrounds. Where History's font has no italic face, the system synthesizes one."
+                },
+                {
+                  "text": "A folded group can say a quota-held task is \"paused, to resume\" even when that task can resume by itself."
+                },
+                {
+                  "text": "On Windows, a command may be left running without a note if the app's process look misses it while a window is closing. A process was missed once under heavy load on an earlier build; later attempts did not reproduce the miss."
+                },
+                {
+                  "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
+                },
+                {
+                  "text": "Windows was checked with Claude Code 2.1.325, Codex 0.166.0, Pi 1.5.0, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1. The Mac checks used Claude Code 2.1.325, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Codex and Pi were older."
+                },
+                {
+                  "text": "Resume after a quit and task Finish were not run again on Windows. Both passed in the previous 3.0.7 Windows check, and this update does not change them."
+                },
+                {
+                  "text": "Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
                 },
                 {
                   "text": "No long run was made for this release."
@@ -1245,16 +1366,25 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "The trace in events.jsonl can contain a line for a ledger event that was later rolled back, so a line there alone does not prove the event committed."
                 },
                 {
-                  "text": "On the Mac, a Devin task finishing after Devin compacted its own turn was tried twice, but neither case compacted, so it does not show that finish. Devin's ordinary and leaving-command finishes passed. This finish was not checked on Windows."
+                  "text": "A long chief role can need several reads, especially with long staff rules or full paths. Each part except the last gives the command for the next."
                 },
                 {
-                  "text": "On the Mac, the Codex, Devin and Muse Code leaving-command checks did not show whether closing the window ends the command: each harness ended its own command first."
+                  "text": "The Harnesses page can use the system font instead of Geist; this was seen as Segoe UI on Windows, both standalone and inside the app."
                 },
                 {
-                  "text": "Windows was checked with Claude Code 2.1.325, Codex 0.166.0, Pi 1.5.0, Devin 3000.12.17 and Muse Code 1.4.14-R7309.1 installed. Codex, Devin and Muse Code did live work there; Claude Code and Pi did not. The Mac checks used Claude Code 2.1.325, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                  "text": "Some dim terminal colors can be hard to read, especially dim blue; normal and bright shades can look alike on colored backgrounds. Where History's font has no italic face, the system synthesizes one."
                 },
                 {
-                  "text": "The Mac app's screens were checked, but they could not be compared side by side with the previous 3.0.7 build's screenshots because those were no longer available."
+                  "text": "A folded group can say a quota-held task is \"paused, to resume\" even when that task can resume by itself."
+                },
+                {
+                  "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
+                },
+                {
+                  "text": "Windows was checked with Claude Code 2.1.325, Codex 0.166.0, Pi 1.5.0, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1. The Mac checks used Claude Code 2.1.325, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Codex and Pi were older."
+                },
+                {
+                  "text": "Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
                 },
                 {
                   "text": "No long run was made for this release."
@@ -1263,8 +1393,8 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
             },
             "windows": {
               "from": "3000.10.21",
-              "to": "3000.12.17",
-              "status": "newer",
+              "to": "3000.12.57",
+              "status": "issues",
               "issues": [
                 {
                   "text": "Devin: a window opened again on a conversation that was already emptied with \"Revert to step 1\" may read as working and hold its messages. After ten minutes you are told that a message waits for it, but the note does not yet say what to do: type a message into the window yourself, and once that turn ends what waited goes in, once."
@@ -1369,13 +1499,31 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "The trace in events.jsonl can contain a line for a ledger event that was later rolled back, so a line there alone does not prove the event committed."
                 },
                 {
-                  "text": "On the Mac, a Devin task finishing after Devin compacted its own turn was tried twice, but neither case compacted, so it does not show that finish. Devin's ordinary and leaving-command finishes passed. This finish was not checked on Windows."
+                  "text": "A long chief role can need several reads, especially with long staff rules or full paths. Each part except the last gives the command for the next."
                 },
                 {
-                  "text": "On Windows, the new messages for an exit watcher that cannot wait and for cleanup after a window fails to open were not shown on a real window."
+                  "text": "The Harnesses page can use the system font instead of Geist; this was seen as Segoe UI on Windows, both standalone and inside the app."
                 },
                 {
-                  "text": "Windows was checked with Claude Code 2.1.325, Codex 0.166.0, Pi 1.5.0, Devin 3000.12.17 and Muse Code 1.4.14-R7309.1 installed. Codex, Devin and Muse Code did live work there; Claude Code and Pi did not. The Mac checks used Claude Code 2.1.325, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                  "text": "Some dim terminal colors can be hard to read, especially dim blue; normal and bright shades can look alike on colored backgrounds. Where History's font has no italic face, the system synthesizes one."
+                },
+                {
+                  "text": "A folded group can say a quota-held task is \"paused, to resume\" even when that task can resume by itself."
+                },
+                {
+                  "text": "On Windows, a command may be left running without a note if the app's process look misses it while a window is closing. A process was missed once under heavy load on an earlier build; later attempts did not reproduce the miss."
+                },
+                {
+                  "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
+                },
+                {
+                  "text": "Windows was checked with Claude Code 2.1.325, Codex 0.166.0, Pi 1.5.0, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1. The Mac checks used Claude Code 2.1.325, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Codex and Pi were older."
+                },
+                {
+                  "text": "Resume after a quit and task Finish were not run again on Windows. Both passed in the previous 3.0.7 Windows check, and this update does not change them."
+                },
+                {
+                  "text": "Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
                 },
                 {
                   "text": "No long run was made for this release."
@@ -1414,7 +1562,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Muse Code: a pause interrupts Muse with Escape, which also cancels a background command Muse itself is running."
                 },
                 {
-                  "text": "Muse Code: a conversation from the first 3.0.7 build resumed in a Muse window, where you have 8 or more hooks of your own that print, can keep its old role."
+                  "text": "Muse Code: an earlier 3.0.7 conversation resumed in a Muse window, where you have 8 or more hooks of your own that print, can keep its old role."
                 },
                 {
                   "text": "An answered pause: other words of the member's same turn (a line before its tools, a different last line) are in the shown note and are not typed to the chief. cf task finish takes the window's last complete answer."
@@ -1486,16 +1634,28 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Claude Code, Codex, Pi and Muse Code: if a first model call lasts over two minutes and the window's screen stays quiet, ConsensFlow can pause the task as if its turn had never begun. This is read from the code; it has not been seen on a real board."
                 },
                 {
-                  "text": "On the Mac, the Codex, Devin and Muse Code leaving-command checks did not show whether closing the window ends the command: each harness ended its own command first."
+                  "text": "A long chief role can need several reads, especially with long staff rules or full paths. Each part except the last gives the command for the next."
                 },
                 {
-                  "text": "Windows was checked with Claude Code 2.1.325, Codex 0.166.0, Pi 1.5.0, Devin 3000.12.17 and Muse Code 1.4.14-R7309.1 installed. Codex, Devin and Muse Code did live work there; Claude Code and Pi did not. The Mac checks used Claude Code 2.1.325, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                  "text": "The Harnesses page can use the system font instead of Geist; this was seen as Segoe UI on Windows, both standalone and inside the app."
                 },
                 {
-                  "text": "Long, silent first model calls were not checked on Claude Code, Codex, Pi or Muse Code. Their windows' screen changes are used to avoid treating a long call as one that never began."
+                  "text": "Some dim terminal colors can be hard to read, especially dim blue; normal and bright shades can look alike on colored backgrounds. Where History's font has no italic face, the system synthesizes one."
                 },
                 {
-                  "text": "The Mac app's screens were checked, but they could not be compared side by side with the previous 3.0.7 build's screenshots because those were no longer available."
+                  "text": "A folded group can say a quota-held task is \"paused, to resume\" even when that task can resume by itself."
+                },
+                {
+                  "text": "Muse Code: a chief can wait in its shell for a board result even though its instructions say the result will be delivered. One checked chief waited 30 seconds; a retry did not."
+                },
+                {
+                  "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
+                },
+                {
+                  "text": "Windows was checked with Claude Code 2.1.325, Codex 0.166.0, Pi 1.5.0, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1. The Mac checks used Claude Code 2.1.325, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Codex and Pi were older."
+                },
+                {
+                  "text": "Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
                 },
                 {
                   "text": "No long run was made for this release."
@@ -1504,8 +1664,8 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
             },
             "windows": {
               "from": "1.4.13",
-              "to": "1.4.14",
-              "status": "newer",
+              "to": "1.4.20",
+              "status": "issues",
               "issues": [
                 {
                   "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown."
@@ -1535,7 +1695,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Muse Code: a pause interrupts Muse with Escape, which also cancels a background command Muse itself is running."
                 },
                 {
-                  "text": "Muse Code: a conversation from the first 3.0.7 build resumed in a Muse window, where you have 8 or more hooks of your own that print, can keep its old role."
+                  "text": "Muse Code: an earlier 3.0.7 conversation resumed in a Muse window, where you have 8 or more hooks of your own that print, can keep its old role."
                 },
                 {
                   "text": "An answered pause: other words of the member's same turn (a line before its tools, a different last line) are in the shown note and are not typed to the chief. cf task finish takes the window's last complete answer."
@@ -1610,13 +1770,34 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Claude Code, Codex, Pi and Muse Code: if a first model call lasts over two minutes and the window's screen stays quiet, ConsensFlow can pause the task as if its turn had never begun. This is read from the code; it has not been seen on a real board."
                 },
                 {
-                  "text": "On Windows, the new messages for an exit watcher that cannot wait and for cleanup after a window fails to open were not shown on a real window."
+                  "text": "A long chief role can need several reads, especially with long staff rules or full paths. Each part except the last gives the command for the next."
                 },
                 {
-                  "text": "Windows was checked with Claude Code 2.1.325, Codex 0.166.0, Pi 1.5.0, Devin 3000.12.17 and Muse Code 1.4.14-R7309.1 installed. Codex, Devin and Muse Code did live work there; Claude Code and Pi did not. The Mac checks used Claude Code 2.1.325, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                  "text": "The Harnesses page can use the system font instead of Geist; this was seen as Segoe UI on Windows, both standalone and inside the app."
                 },
                 {
-                  "text": "Long, silent first model calls were not checked on Claude Code, Codex, Pi or Muse Code. Their windows' screen changes are used to avoid treating a long call as one that never began."
+                  "text": "Some dim terminal colors can be hard to read, especially dim blue; normal and bright shades can look alike on colored backgrounds. Where History's font has no italic face, the system synthesizes one."
+                },
+                {
+                  "text": "A folded group can say a quota-held task is \"paused, to resume\" even when that task can resume by itself."
+                },
+                {
+                  "text": "Muse Code: a chief can wait in its shell for a board result even though its instructions say the result will be delivered. One checked chief waited 30 seconds; a retry did not."
+                },
+                {
+                  "text": "On Windows, a command may be left running without a note if the app's process look misses it while a window is closing. A process was missed once under heavy load on an earlier build; later attempts did not reproduce the miss."
+                },
+                {
+                  "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
+                },
+                {
+                  "text": "Windows was checked with Claude Code 2.1.325, Codex 0.166.0, Pi 1.5.0, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1. The Mac checks used Claude Code 2.1.325, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Codex and Pi were older."
+                },
+                {
+                  "text": "Resume after a quit and task Finish were not run again on Windows. Both passed in the previous 3.0.7 Windows check, and this update does not change them."
+                },
+                {
+                  "text": "Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
                 },
                 {
                   "text": "No long run was made for this release."
@@ -1645,36 +1826,37 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
         "version": "2.1.325",
         "date": "2026-11-13",
         "feed": "npm @anthropic-ai/claude-code, tag latest",
-        "text": "Claude Code's own stable channel is at 2.1.311, which is inside the supported range."
+        "text": "The recorded vendor version was 2.1.325; the checks used that version on both systems."
       },
       "tested": {
         "mac": {
           "version": "2.1.325",
           "date": "2026-11-16",
           "suites": [
-            "resume",
-            "finish",
+            "role-texts",
+            "own-cf",
             "tell-and-pause",
             "chief"
           ],
           "earlier": {
             "version": "2.1.325",
-            "date": "2026-11-14",
+            "date": "2026-11-16",
             "suites": [
+              "resume",
               "finish",
-              "role-texts",
-              "tell-and-pause"
+              "tell-and-pause",
+              "chief"
             ]
           }
         },
         "windows": {
-          "why": "Claude Code 2.1.325 was installed on Windows, but no live work was run on it for this release.",
+          "version": "2.1.325",
+          "date": "2026-11-16",
+          "suites": [
+            "own-cf"
+          ],
           "earlier": {
-            "version": "2.1.322",
-            "date": "2026-11-14",
-            "suites": [
-              "models"
-            ]
+            "why": "Claude Code 2.1.325 was installed on Windows, but no live work was run on it for this release."
           }
         }
       }
@@ -1701,16 +1883,17 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
           "version": "0.169.0",
           "date": "2026-11-16",
           "suites": [
-            "resume",
-            "finish"
+            "role-texts",
+            "own-cf",
+            "tell-and-pause",
+            "subagents"
           ],
           "earlier": {
             "version": "0.169.0",
-            "date": "2026-11-14",
+            "date": "2026-11-16",
             "suites": [
-              "finish",
-              "role-texts",
-              "tell-and-pause"
+              "resume",
+              "finish"
             ]
           }
         },
@@ -1718,16 +1901,17 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
           "version": "0.166.0",
           "date": "2026-11-16",
           "suites": [
-            "resume",
-            "finish",
-            "tell-and-pause"
+            "own-cf",
+            "tell-and-pause",
+            "parity",
+            "paste-enter"
           ],
           "earlier": {
-            "version": "0.167.2",
-            "date": "2026-11-14",
+            "version": "0.166.0",
+            "date": "2026-11-16",
             "suites": [
+              "resume",
               "finish",
-              "models",
               "tell-and-pause"
             ]
           }
@@ -1756,27 +1940,30 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
           "version": "1.5.2",
           "date": "2026-11-16",
           "suites": [
+            "role-texts",
+            "own-cf",
+            "tell-and-pause",
             "resume",
-            "finish",
-            "tell-and-pause"
+            "chief"
           ],
           "earlier": {
             "version": "1.5.2",
-            "date": "2026-11-14",
+            "date": "2026-11-16",
             "suites": [
-              "finish-background",
+              "resume",
+              "finish",
               "tell-and-pause"
             ]
           }
         },
         "windows": {
-          "why": "Pi 1.5.0 was installed on Windows, but no live work was run on it for this release.",
+          "version": "1.5.0",
+          "date": "2026-11-16",
+          "suites": [
+            "own-cf"
+          ],
           "earlier": {
-            "version": "1.5.2",
-            "date": "2026-11-14",
-            "suites": [
-              "models"
-            ]
+            "why": "Pi 1.5.0 was installed on Windows, but no live work was run on it for this release."
           }
         }
       }
@@ -1803,32 +1990,32 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
           "version": "3000.12.57",
           "date": "2026-11-16",
           "suites": [
-            "resume",
-            "finish",
+            "role-texts",
+            "own-cf",
             "tell-and-pause"
           ],
           "earlier": {
             "version": "3000.12.57",
-            "date": "2026-11-14",
+            "date": "2026-11-16",
             "suites": [
-              "compaction-routes",
-              "role-texts",
+              "resume",
+              "finish",
               "tell-and-pause"
             ]
           }
         },
         "windows": {
-          "version": "3000.12.17",
+          "version": "3000.12.57",
           "date": "2026-11-16",
           "suites": [
-            "devin-task"
+            "parity",
+            "tell-and-pause"
           ],
           "earlier": {
-            "version": "3000.12.43",
-            "date": "2026-11-14",
+            "version": "3000.12.17",
+            "date": "2026-11-16",
             "suites": [
-              "devin-task",
-              "models"
+              "devin-task"
             ]
           }
         }
@@ -1860,31 +2047,31 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
           "version": "1.4.20-R8619.1",
           "date": "2026-11-16",
           "suites": [
-            "resume",
-            "finish",
-            "tell-and-pause"
+            "role-texts",
+            "own-cf",
+            "tell-and-pause",
+            "chief"
           ],
           "earlier": {
             "version": "1.4.20-R8619.1",
-            "date": "2026-11-14",
+            "date": "2026-11-16",
             "suites": [
+              "resume",
               "finish",
-              "role-texts",
               "tell-and-pause"
             ]
           }
         },
         "windows": {
-          "version": "1.4.14-R7309.1",
+          "version": "1.4.20-R8619.1",
           "date": "2026-11-16",
           "suites": [
             "tell-and-pause"
           ],
           "earlier": {
-            "version": "1.4.15-R8339.1",
-            "date": "2026-11-14",
+            "version": "1.4.14-R7309.1",
+            "date": "2026-11-16",
             "suites": [
-              "models",
               "tell-and-pause"
             ]
           }
