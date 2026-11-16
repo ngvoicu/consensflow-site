@@ -258,7 +258,7 @@ function matrixAgrees(page, got, d) {
       } else {
         assert.equal(cell.text, WORDS[status], `${where}: its words`)
       }
-      if (want.entry?.issues && want.entry.to) {
+      if (want.entry?.issues) {
         const marks = want.entry.issues.map((issue) => {
           let n = numbered.indexOf(issue.text) + 1
           if (!n) n = numbered.push(issue.text)
@@ -326,7 +326,7 @@ async function theMatrixOnMadeData() {
     harnesses: [
       { id: 'claude-code', platforms: { mac: cell('unsupported', '2.1.300', '2.1.312'), windows: cell('supported', '2.1.292', '2.1.312') } },
       { id: 'pi', platforms: { mac: cell('issues', '1.2.0', '1.4.0', { text: 'Made for the check.', state: 'fixing' }, { text: 'Made twice for the check.' }), windows: cell('issues', '1.2.0', '1.4.0', { text: 'Made for the check.' }) } },
-      { id: 'muse-code', platforms: { mac: cell('newer', '1.4.13', '1.4.13'), windows: { status: 'unmeasured' } } },
+      { id: 'muse-code', platforms: { mac: cell('newer', '1.4.13', '1.4.13'), windows: { status: 'unmeasured', issues: [{ text: 'An unmeasured cell still has an issue.' }] } } },
     ],
   })
   made.harnesses[0].vendor.verdict = 'broken'
@@ -342,6 +342,8 @@ async function theMatrixOnMadeData() {
     assert.equal(row('muse-code')[mac].status, 'newer')
     assert.equal(row('muse-code')[mac].text, '1.4.13', 'a range of one version is that version')
     assert.equal(row('muse-code')[windows].status, 'unmeasured')
+    assert.equal(row('muse-code')[windows].marks.length, 1, 'an unmeasured cell shows its known issue')
+    assert.ok(got.issues.some((i) => i.text === 'An unmeasured cell still has an issue.'), 'the unmeasured cell has its line')
     assert.deepEqual(row('pi')[mac].marks.slice(0, 1), row('pi')[windows].marks, 'one issue said twice is one mark')
     assert.equal(row('pi')[mac].marks.length, 2, 'a cell with two issues has two marks')
     assert.ok(got.issues.some((i) => i.text === 'Made for the check. Being fixed.'), 'a line under the table, with its state')
