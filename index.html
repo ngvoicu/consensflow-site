@@ -1111,33 +1111,124 @@ footer{padding:44px 0 56px}
 
 </main>
 
-<!-- ===== ngvoicu consulting section — shared across all ngvoicu sites, keep in sync ===== -->
-<section class="ngv-consult" id="ngv-consulting">
+<!-- ===== ngvoicu.dev's consulting band, in ngvoicu.dev's own design (the site Gabriel redesigned on
+     2026-10-23): white paper, the green-black ink #1D2A28, the bottle-green pen #0B6B5D, the sun #F2C230
+     as decoration only (the line under "like this?"), Figtree, and his GV ink stamp, name and motto as
+     ngvoicu.dev's header sets them; its workshop painting, and the pencil shore along the bottom as its
+     footer opens. Its files are ngvoicu-site's, byte for byte, in assets/ngvoicu/ (Figtree with its OFL).
+     Light paper in both of this page's themes: ngvoicu.dev is light only, as the app's board is dark only.
+     The words follow ngvoicu.dev/consulting/ ("How I help"): change them when that page changes.
+     Self-contained: its styles are its own, under .ngv-consult, and lean on nothing of this page.
+     The Kluris and Specmint sites still carry the older band, of July 2026. ===== -->
+<aside class="ngv-consult" id="ngv-consulting" aria-labelledby="ngv-consult-title">
   <style>
-    .ngv-consult{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#0C1E23;border-top:1px solid rgba(99,199,178,.25);padding:56px 24px;text-align:center}
-    .ngv-consult .ngv-lockup{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:14px}
-    .ngv-consult .ngv-lockup svg{display:block}
-    .ngv-consult .ngv-lockup span{font:500 14px/1 ui-monospace,SFMono-Regular,Menlo,monospace;color:#E9F1EF}
-    .ngv-consult .ngv-lockup b{color:#63C7B2;font-weight:500}
-    .ngv-consult .ngv-kicker{font:600 12px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase;color:#63C7B2;margin-bottom:14px}
-    .ngv-consult h2{font-size:clamp(22px,3.2vw,30px);font-weight:800;color:#E9F1EF;margin:0 0 12px;line-height:1.2}
-    .ngv-consult p{max-width:640px;margin:0 auto 22px;color:#9EB5B1;font-size:16px;line-height:1.6}
-    .ngv-consult p a{color:#63C7B2;text-decoration:none}
-    .ngv-consult p a:hover{text-decoration:underline}
-    .ngv-consult .ngv-contact{font:500 14px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;color:#E9F1EF}
-    .ngv-consult .ngv-contact a{color:#E9F1EF;text-decoration:none;border-bottom:1px dotted #9EB5B1}
-    .ngv-consult .ngv-contact a:hover{color:#63C7B2;border-bottom-color:#63C7B2}
-    .ngv-consult .ngv-cta{display:inline-block;margin-top:22px;background:#63C7B2;color:#0C1E23;font:600 14px/1 ui-monospace,SFMono-Regular,Menlo,monospace;padding:12px 22px;border-radius:6px;text-decoration:none}
-    .ngv-consult .ngv-cta:hover{background:#E9F1EF}
+    @font-face{font-family:"Figtree";font-style:normal;font-weight:300 900;font-display:swap;src:url("./assets/ngvoicu/figtree-latin.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+    .ngv-consult{--n-page:#FFFFFF;--n-text:#1D2A28;--n-quiet:#52615D;--n-rule:#D5E0DC;--n-accent:#0B6B5D;--n-sun:#F2C230;
+      --n-font:"Figtree",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+      max-width:1180px;margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+    /* A sheet of ngvoicu.dev's paper: its header (stamp, name, motto), then its Consulting section. */
+    .ngv-consult .ngv-sheet{--px:clamp(1.25rem,4vw,3rem);container-type:inline-size;color-scheme:light;overflow:hidden;
+      background:var(--n-page);color:var(--n-text);border:1px solid var(--n-rule);border-radius:12px;
+      box-shadow:0 34px 70px -46px rgba(9,9,11,.45);padding:0 var(--px);
+      font:400 clamp(1.0625rem,1rem + .2vw,1.125rem)/1.6 var(--n-font);font-kerning:normal;text-align:left}
+    .ngv-consult *{box-sizing:border-box}
+    .ngv-consult p,.ngv-consult ul,.ngv-consult h2{margin:0}
+    .ngv-consult ::selection{background:color-mix(in srgb,var(--n-sun) 55%,transparent)}
+    .ngv-consult a{color:var(--n-accent);text-decoration-line:underline;text-decoration-thickness:1px;text-underline-offset:.2em;
+      text-decoration-color:color-mix(in srgb,currentColor 40%,transparent)}
+    .ngv-consult a:hover{text-decoration-color:currentColor;text-decoration-thickness:2px}
+    .ngv-consult :focus-visible{outline:2px solid var(--n-accent);outline-offset:3px;border-radius:2px}
+    /* The header: the stamp is a black-on-clear mask painted in the pen's green, as on ngvoicu.dev. */
+    .ngv-consult .ngv-head{--name:1.125rem;--motto:.8125rem;--gap:.75rem;--mark:calc(var(--name) * 1.3 + .125rem + var(--motto) * 1.35);
+      display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:0 2rem;
+      margin:0 calc(-1 * var(--px));padding:.75rem var(--px);border-bottom:1px solid var(--n-rule)}
+    .ngv-consult .ngv-brandbox{position:relative;padding-left:calc(var(--mark) + var(--gap))}
+    .ngv-consult .ngv-brand{display:block;width:fit-content;color:var(--n-text);text-decoration:none;font-weight:700;font-size:var(--name);line-height:1.3;letter-spacing:-.005em}
+    .ngv-consult .ngv-stamp{position:absolute;left:0;top:0;height:var(--mark);aspect-ratio:1/1;background:var(--n-accent);
+      -webkit-mask:url("./assets/ngvoicu/gv-stamp-mask.png") center/contain no-repeat;mask:url("./assets/ngvoicu/gv-stamp-mask.png") center/contain no-repeat}
+    .ngv-consult .ngv-motto{margin-top:.125rem;font-size:var(--motto);line-height:1.35;color:var(--n-quiet)}
+    .ngv-consult .ngv-motto span{display:inline-block}
+    .ngv-consult .ngv-site{display:inline-block;padding-block:.625rem;color:var(--n-quiet);text-decoration:none;font-size:1rem;font-weight:500}
+    .ngv-consult .ngv-site:hover{color:var(--n-text);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.45em}
+    /* The section: its name, then the text beside the painting; the name hangs in its own column on a wide sheet. */
+    .ngv-consult .ngv-sec{padding-top:1.5rem}
+    .ngv-consult .ngv-sec h2{margin-bottom:1rem;font:650 clamp(1.5rem,1.35rem + .5vw,1.75rem)/1.2 var(--n-font);letter-spacing:-.01em;color:var(--n-text);text-wrap:balance}
+    .ngv-consult .ngv-body{display:grid;gap:1.75rem 2.5rem}
+    .ngv-consult .ngv-text{min-width:0;line-height:1.7}
+    .ngv-consult .ngv-text > * + *{margin-top:1em}
+    .ngv-consult .ngv-lead{font-size:clamp(1.1875rem,1.05rem + .55vw,1.4375rem);font-weight:600;line-height:1.35;letter-spacing:-.005em}
+    .ngv-consult .ngv-under{position:relative;display:inline-block;white-space:nowrap}
+    .ngv-consult .ngv-scribble{position:absolute;left:0;bottom:-.16em;width:100%;height:.3em;overflow:visible;color:var(--n-sun)}
+    .ngv-consult .ngv-offer{list-style:none;padding:0;line-height:1.6}
+    .ngv-consult .ngv-offer li{position:relative;padding-left:1.25rem}
+    .ngv-consult .ngv-offer li + li{margin-top:.375rem}
+    .ngv-consult .ngv-offer li::before{content:"";position:absolute;left:0;top:.85em;width:.5rem;height:2px;background:var(--n-accent)}
+    .ngv-consult .ngv-offer strong{font-weight:650}
+    .ngv-consult .ngv-actions{display:flex;flex-wrap:wrap;align-items:center;gap:.75rem 1.75rem;margin-top:1.75rem;font-weight:600;line-height:1.6}
+    .ngv-consult .ngv-actions > a:not(.ngv-btn){padding-block:.5rem}
+    .ngv-consult .ngv-btn{display:inline-flex;align-items:center;min-height:2.75rem;padding:.5rem 1.25rem;border-radius:999px;
+      background:var(--n-accent);color:var(--n-page);font-weight:600;text-decoration:none}
+    .ngv-consult .ngv-btn:hover{background:color-mix(in srgb,var(--n-accent) 80%,var(--n-text));color:var(--n-page)}
+    .ngv-consult .ngv-contact{color:var(--n-quiet)}
+    .ngv-consult .ngv-contact a{font-weight:600;overflow-wrap:anywhere}
+    .ngv-consult .ngv-contact a[href^="tel:"]{white-space:nowrap}
+    /* The painting: no frame, its own ragged edges are the edge. Under the text on a narrow sheet. */
+    .ngv-consult .ngv-art{width:min(100%,14rem)}
+    .ngv-consult .ngv-art img{display:block;width:100%;max-width:100%;height:auto}
+    /* The shore, faded at all four edges, along the bottom of the sheet. Decorative. */
+    .ngv-consult .ngv-sea{display:block;width:calc(100% + 2 * var(--px));max-width:none;height:clamp(2.5rem,5.8cqi,4.25rem);object-fit:cover;
+      margin:clamp(.25rem,2cqi,1.5rem) calc(-1 * var(--px)) 0;opacity:.7;
+      -webkit-mask-image:linear-gradient(to right,transparent,#000 15%,#000 85%,transparent),linear-gradient(transparent,#000 30%,#000 65%,transparent);
+      -webkit-mask-composite:source-in;
+      mask-image:linear-gradient(to right,transparent,#000 15%,#000 85%,transparent),linear-gradient(transparent,#000 30%,#000 65%,transparent);
+      mask-composite:intersect}
+    /* A narrow sheet: the site's name goes under the motto, in line with the name. */
+    @container (width < 40rem){
+      .ngv-consult .ngv-site{margin-left:calc(var(--mark) + var(--gap));padding-block:.375rem .25rem}
+    }
+    @container (width >= 40rem){
+      .ngv-consult .ngv-body{grid-template-columns:repeat(3,minmax(0,1fr));align-items:start}
+      .ngv-consult .ngv-text{grid-column:1 / span 2;grid-row:1}
+      .ngv-consult .ngv-art{grid-column:3;grid-row:1;width:auto}
+    }
+    @container (width >= 58rem){
+      .ngv-consult .ngv-sec{display:grid;grid-template-columns:12rem minmax(0,1fr);column-gap:3rem;align-items:start}
+      .ngv-consult .ngv-sec h2{margin:0}
+    }
+    @media (width < 22.5em){.ngv-consult .ngv-head{--motto:.75rem;--gap:.625rem}}
+    /* Links and the button answer the pointer with colour only; with reduced motion, not even that eases. */
+    @media (prefers-reduced-motion: no-preference){
+      .ngv-consult a{transition:color .15s,background-color .15s,text-decoration-color .15s}
+    }
   </style>
-  <div class="ngv-lockup"><svg width="22" height="22" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#122A30"/><g stroke-linecap="round"><line x1="17" y1="21" x2="47" y2="21" stroke="#63C7B2" stroke-width="5.5"/><line x1="17" y1="32" x2="33" y2="32" stroke="#E9F1EF" stroke-width="5.5"/><circle cx="42.5" cy="32" r="3.6" fill="#FF6B5A"/><line x1="17" y1="43" x2="47" y2="43" stroke="#63C7B2" stroke-width="5.5"/></g></svg><span>ngvoicu<b>.dev</b></span></div>
-  <div class="ngv-kicker">AI-Native Consulting</div>
-  <h2>Want your team to work like this?</h2>
-  <p>ConsensFlow is one piece of a larger AI-native toolkit — and of a way of working your whole team can adopt: talks (&quot;<a href="https://ngvoicu.dev/becoming-an-ai-native-company/">Becoming an AI Native Company</a>&quot;), hands-on team training that teaches employees to use AI, and <a href="https://ngvoicu.dev/#consulting">AI adoption consulting for engineering teams</a>.</p>
-  <div class="ngv-contact"><a href="mailto:office@ngvoicu.dev">office@ngvoicu.dev</a> · <a href="tel:+40734704910">+40 734 704 910</a></div>
-  <br>
-  <a class="ngv-cta" href="https://ngvoicu.dev/#consulting">AI-native consulting →</a>
-</section>
+  <div class="ngv-sheet">
+    <div class="ngv-head">
+      <div class="ngv-brandbox">
+        <a class="ngv-brand" href="https://ngvoicu.dev/"><span class="ngv-stamp" aria-hidden="true"></span>Gabriel Voicu</a>
+        <p class="ngv-motto"><span>Software Engineer since before AI.</span> <span>AI-Native Now.</span></p>
+      </div>
+      <a class="ngv-site" href="https://ngvoicu.dev/">ngvoicu.dev</a>
+    </div>
+    <div class="ngv-sec">
+      <h2 id="ngv-consult-title">Consulting</h2>
+      <div class="ngv-body">
+        <div class="ngv-text">
+          <p class="ngv-lead">Want your team to work <span class="ngv-under">like this?<svg class="ngv-scribble" viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M3 14 C 52 8, 118 5, 182 7 S 270 11, 297 8 M 26 19 C 96 14, 180 13, 262 17" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span></p>
+          <p>I help engineering teams start building software with coding agents, on-site or remotely:</p>
+          <ul class="ngv-offer">
+            <li><strong>Talks and workshops</strong>, from “what is an LLM?” all the way to AI-native companies, software factories and AgentOS.</li>
+            <li><strong>Hands-on training</strong> for developers.</li>
+            <li><strong>Setting up your team</strong> in its own repositories: instruction files for the agents, a first spec, a shared knowledge base, review gates, and the security guardrails to run agents safely.</li>
+          </ul>
+          <p class="ngv-actions"><a class="ngv-btn" href="https://ngvoicu.dev/consulting/">More about consulting</a> <a href="https://ngvoicu.dev/becoming-an-ai-native-company/">Read the AI-native guide</a></p>
+          <p class="ngv-contact">Or write to <!--email_off--><a href="mailto:office@ngvoicu.dev">office@ngvoicu.dev</a><!--/email_off--> or call <a href="tel:+40734704910">+40 734 704 910</a>.</p>
+        </div>
+        <div class="ngv-art"><img src="./assets/ngvoicu/workshop-400.webp" srcset="./assets/ngvoicu/workshop-400.webp 400w, ./assets/ngvoicu/workshop-800.webp 800w" sizes="(min-width: 48em) 19rem, 16rem" width="800" height="600" alt="Gabriel at a whiteboard, running a workshop for a small team of developers" loading="lazy" decoding="async"></div>
+      </div>
+    </div>
+    <img class="ngv-sea" src="./assets/ngvoicu/pencil-shore-strip-1200.webp" srcset="./assets/ngvoicu/pencil-shore-strip-1200.webp 1200w, ./assets/ngvoicu/pencil-shore-strip-2400.webp 2400w" sizes="(min-width: 1180px) 1100px, 92vw" width="2400" height="140" alt="" loading="lazy" decoding="async">
+  </div>
+</aside>
 
 <footer>
   <div class="wrap foot">

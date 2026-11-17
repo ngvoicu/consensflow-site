@@ -61,13 +61,44 @@ link to the group under What it does that tells it in full; **What it does**, a 
 or under the captures that show them: The staff (with the board grouped by role under its items),
 Backups and Vacation, Do with your own hands, The chief (and switching it), The board, Specs (its
 viewer under it), History, Project settings (with You stay in charge under it, beside the dialog),
-and the staff's windows; then Your data, and the source.
+and the staff's windows; then Your data, and the source. After the page, before the footer, comes
+ngvoicu.dev's consulting band (below).
 
 The words come from the app's README at 3.0.7: the site says what it says, no more. New in 3.0.7
 names what a user notices since 3.0.6, never a task or a branch, never the removed harness, and
 never a release's stage. Settings → Agents and saved agents are gone from the app: New project,
 Project settings and Switch chief read each installed harness's model list as they open, and
 members are named by their model, which is what the page says.
+
+## The consulting band (`#ngv-consulting`)
+
+Gabriel, 2026-11-17: the band "should update with the new design from ngvoicu.dev". It is a sheet of
+ngvoicu.dev's paper laid on this page, for a reader who might want the same way of working for their
+team: they see it comes from ngvoicu.dev and know that site when they get there, learn in a few lines
+what the consulting offers, and can write, call or go on to ngvoicu.dev's Consulting page.
+
+- **ngvoicu.dev's design, as that site has it** (its redesign of 2026-10-23): white paper, the
+  green-black ink `#1D2A28`, quiet `#52615D`, rules `#D5E0DC`, the bottle-green pen `#0B6B5D` (links,
+  the pill button, the focus ring, the stamp) and the sun `#F2C230` as decoration only (the hand-drawn
+  line under "like this?", selection); Figtree. On top, ngvoicu.dev's header: the GV ink stamp, the
+  name and the motto "Software Engineer since before AI. AI-Native Now." (verbatim), and ngvoicu.dev
+  on the right (under the motto on a narrow sheet). Then its Consulting section: the name in its own
+  column on a wide sheet, the text, and the workshop painting beside it (under it on a phone); the
+  pencil shore runs along the sheet's bottom edge, faded at its four edges, as it opens ngvoicu.dev's
+  footer.
+- **Light in both themes.** ngvoicu.dev is light only, as the app's board is dark only, so each is
+  shown here as it is at home. On the dark page the sheet is paper on the zinc; on the light page it
+  keeps its rule and a soft shadow.
+- **The words** follow ngvoicu.dev's current offer (`/consulting/`, "How I help"), shortened: the
+  talks and workshops, hands-on training for developers, and setting up a team in its own
+  repositories, on-site or remotely. Change them when that page changes. Its links: ngvoicu.dev,
+  **More about consulting** (`https://ngvoicu.dev/consulting/`), the AI-native guide, the email
+  `office@ngvoicu.dev` and the phone `+40 734 704 910`.
+- **Self-contained:** its styles are in the band, under `.ngv-consult`, and lean on nothing of this
+  page's; the sheet lays itself out by its own width (container queries). Nothing in it moves:
+  links and the button answer the pointer with colour only, and with reduced motion not even that
+  eases. Its files are in `assets/ngvoicu/` (Assets, below).
+- The Kluris and Specmint sites still carry the older band, of July 2026.
 
 ## The first section (`#top`, `#download`)
 
@@ -266,6 +297,13 @@ node tools/serve-site.mjs      # then open http://localhost:4500 (or python3 -m 
     black one in the dark.
 - `assets/og-image.png`: the share card (1200×630), rendered from `tools/og-image.html` by
   `tools/og-image.mjs`.
+- `assets/ngvoicu/`: the consulting band's files, byte for byte from ngvoicu.dev's own repository
+  (`ngvoicu-site`, 2026-11-17): Figtree's latin file `figtree-latin.woff2` with its licence,
+  `Figtree-OFL.txt` (SIL Open Font License 1.1); the GV ink stamp's mask, `gv-stamp-mask.png`
+  (`images/brand/` there); the workshop painting, `workshop-400.webp` and `workshop-800.webp`
+  (`images/consulting/`); and the shore strip, `pencil-shore-strip-1200.webp` and `-2400.webp`
+  (`images/sea/`). The stamp and the paintings are Gabriel's own artwork. Copy them again when
+  ngvoicu.dev changes them.
 
 ## Screenshots
 
