@@ -222,7 +222,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
      that watches each new version). The page below draws the table from it. -->
 <script type="application/json" id="status-data">
 {
-  "updated": "2026-11-17",
+  "updated": "2026-11-18",
   "releases": [
     {
       "version": "3.0.5",
@@ -395,9 +395,18 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
           "platforms": {
             "mac": {
               "from": "2.1.292",
-              "to": "2.1.325",
+              "to": "2.1.326",
               "status": "issues",
               "issues": [
+                {
+                  "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
+                },
+                {
+                  "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
+                },
+                {
+                  "text": "Claude Code: ConsensFlow answers the added-folder question only for its own folders. A folder added by your own settings is yours to answer."
+                },
                 {
                   "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown."
                 },
@@ -498,9 +507,6 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A long chief role can need several reads, especially with long staff rules or full paths. Each part except the last gives the command for the next."
                 },
                 {
-                  "text": "The Harnesses page can use the system font instead of Geist; this was seen as Segoe UI on Windows, both standalone and inside the app."
-                },
-                {
                   "text": "Some dim terminal colors can be hard to read, especially dim blue; normal and bright shades can look alike on colored backgrounds. Where History's font has no italic face, the system synthesizes one."
                 },
                 {
@@ -513,21 +519,37 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "Windows was checked with Claude Code 2.1.325, Codex 0.166.0, Pi 1.5.0, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1. The Mac checks used Claude Code 2.1.325, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Codex and Pi were older."
+                  "text": "The Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Windows used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Devin and Muse Code were older."
+                },
+                {
+                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on the real harnesses. These flows are unchanged since the previous 3.0.7 update."
                 },
                 {
                   "text": "Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
                 },
                 {
-                  "text": "No long run was made for this release."
+                  "text": "No long run was made for this alpha."
                 }
               ]
             },
             "windows": {
               "from": "2.1.292",
-              "to": "2.1.325",
+              "to": "2.1.326",
               "status": "issues",
               "issues": [
+                {
+                  "text": "Windows: typing into a window can sometimes stop, with \"pane input sequence gap\", until the project is restarted. A fix for a possible cause is built and in review for the next alpha.",
+                  "state": "fixing"
+                },
+                {
+                  "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
+                },
+                {
+                  "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
+                },
+                {
+                  "text": "Claude Code: ConsensFlow answers the added-folder question only for its own folders. A folder added by your own settings is yours to answer."
+                },
                 {
                   "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown."
                 },
@@ -634,9 +656,6 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A long chief role can need several reads, especially with long staff rules or full paths. Each part except the last gives the command for the next."
                 },
                 {
-                  "text": "The Harnesses page can use the system font instead of Geist; this was seen as Segoe UI on Windows, both standalone and inside the app."
-                },
-                {
                   "text": "Some dim terminal colors can be hard to read, especially dim blue; normal and bright shades can look alike on colored backgrounds. Where History's font has no italic face, the system synthesizes one."
                 },
                 {
@@ -652,16 +671,19 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "Windows was checked with Claude Code 2.1.325, Codex 0.166.0, Pi 1.5.0, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1. The Mac checks used Claude Code 2.1.325, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Codex and Pi were older."
+                  "text": "The Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Windows used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Devin and Muse Code were older."
                 },
                 {
-                  "text": "Resume after a quit and task Finish were not run again on Windows. Both passed in the previous 3.0.7 Windows check, and this update does not change them."
+                  "text": "On Windows, Ctrl+V was checked with a test paste, not the real clipboard."
+                },
+                {
+                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on the real harnesses. These flows are unchanged since the previous 3.0.7 update."
                 },
                 {
                   "text": "Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
                 },
                 {
-                  "text": "No long run was made for this release."
+                  "text": "No long run was made for this alpha."
                 }
               ]
             }
@@ -675,6 +697,12 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
               "to": "0.169.0",
               "status": "issues",
               "issues": [
+                {
+                  "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
+                },
+                {
+                  "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
+                },
                 {
                   "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown."
                 },
@@ -781,9 +809,6 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A long chief role can need several reads, especially with long staff rules or full paths. Each part except the last gives the command for the next."
                 },
                 {
-                  "text": "The Harnesses page can use the system font instead of Geist; this was seen as Segoe UI on Windows, both standalone and inside the app."
-                },
-                {
                   "text": "Some dim terminal colors can be hard to read, especially dim blue; normal and bright shades can look alike on colored backgrounds. Where History's font has no italic face, the system synthesizes one."
                 },
                 {
@@ -805,24 +830,34 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "Windows was checked with Claude Code 2.1.325, Codex 0.166.0, Pi 1.5.0, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1. The Mac checks used Claude Code 2.1.325, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Codex and Pi were older."
+                  "text": "The Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Windows used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Devin and Muse Code were older."
                 },
                 {
-                  "text": "On the Mac, Codex's leaving-command Finish was not run again."
+                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on the real harnesses. These flows are unchanged since the previous 3.0.7 update."
                 },
                 {
                   "text": "Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
                 },
                 {
-                  "text": "No long run was made for this release."
+                  "text": "No long run was made for this alpha."
                 }
               ]
             },
             "windows": {
               "from": "0.154.0",
-              "to": "0.166.0",
-              "status": "newer",
+              "to": "0.169.0",
+              "status": "issues",
               "issues": [
+                {
+                  "text": "Windows: typing into a window can sometimes stop, with \"pane input sequence gap\", until the project is restarted. A fix for a possible cause is built and in review for the next alpha.",
+                  "state": "fixing"
+                },
+                {
+                  "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
+                },
+                {
+                  "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
+                },
                 {
                   "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown."
                 },
@@ -938,9 +973,6 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A long chief role can need several reads, especially with long staff rules or full paths. Each part except the last gives the command for the next."
                 },
                 {
-                  "text": "The Harnesses page can use the system font instead of Geist; this was seen as Segoe UI on Windows, both standalone and inside the app."
-                },
-                {
                   "text": "Some dim terminal colors can be hard to read, especially dim blue; normal and bright shades can look alike on colored backgrounds. Where History's font has no italic face, the system synthesizes one."
                 },
                 {
@@ -968,16 +1000,19 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "Windows was checked with Claude Code 2.1.325, Codex 0.166.0, Pi 1.5.0, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1. The Mac checks used Claude Code 2.1.325, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Codex and Pi were older."
+                  "text": "The Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Windows used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Devin and Muse Code were older."
                 },
                 {
-                  "text": "Resume after a quit and task Finish were not run again on Windows. Both passed in the previous 3.0.7 Windows check, and this update does not change them."
+                  "text": "On Windows, Ctrl+V was checked with a test paste, not the real clipboard."
+                },
+                {
+                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on the real harnesses. These flows are unchanged since the previous 3.0.7 update."
                 },
                 {
                   "text": "Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
                 },
                 {
-                  "text": "No long run was made for this release."
+                  "text": "No long run was made for this alpha."
                 }
               ]
             }
@@ -991,6 +1026,12 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
               "to": "1.5.2",
               "status": "issues",
               "issues": [
+                {
+                  "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
+                },
+                {
+                  "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
+                },
                 {
                   "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown."
                 },
@@ -1094,9 +1135,6 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A long chief role can need several reads, especially with long staff rules or full paths. Each part except the last gives the command for the next."
                 },
                 {
-                  "text": "The Harnesses page can use the system font instead of Geist; this was seen as Segoe UI on Windows, both standalone and inside the app."
-                },
-                {
                   "text": "Some dim terminal colors can be hard to read, especially dim blue; normal and bright shades can look alike on colored backgrounds. Where History's font has no italic face, the system synthesizes one."
                 },
                 {
@@ -1106,21 +1144,37 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "Windows was checked with Claude Code 2.1.325, Codex 0.166.0, Pi 1.5.0, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1. The Mac checks used Claude Code 2.1.325, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Codex and Pi were older."
+                  "text": "The Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Windows used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Devin and Muse Code were older."
+                },
+                {
+                  "text": "On the Mac, Pi was checked with one question case on a free proxy model, and its question flow passed. No other Mac Pi cases were run."
+                },
+                {
+                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on the real harnesses. These flows are unchanged since the previous 3.0.7 update."
                 },
                 {
                   "text": "Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
                 },
                 {
-                  "text": "No long run was made for this release."
+                  "text": "No long run was made for this alpha."
                 }
               ]
             },
             "windows": {
               "from": "1.2.0",
-              "to": "1.5.0",
-              "status": "newer",
+              "to": "1.5.2",
+              "status": "issues",
               "issues": [
+                {
+                  "text": "Windows: typing into a window can sometimes stop, with \"pane input sequence gap\", until the project is restarted. A fix for a possible cause is built and in review for the next alpha.",
+                  "state": "fixing"
+                },
+                {
+                  "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
+                },
+                {
+                  "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
+                },
                 {
                   "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown."
                 },
@@ -1230,9 +1284,6 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A long chief role can need several reads, especially with long staff rules or full paths. Each part except the last gives the command for the next."
                 },
                 {
-                  "text": "The Harnesses page can use the system font instead of Geist; this was seen as Segoe UI on Windows, both standalone and inside the app."
-                },
-                {
                   "text": "Some dim terminal colors can be hard to read, especially dim blue; normal and bright shades can look alike on colored backgrounds. Where History's font has no italic face, the system synthesizes one."
                 },
                 {
@@ -1245,16 +1296,19 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "Windows was checked with Claude Code 2.1.325, Codex 0.166.0, Pi 1.5.0, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1. The Mac checks used Claude Code 2.1.325, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Codex and Pi were older."
+                  "text": "The Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Windows used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Devin and Muse Code were older."
                 },
                 {
-                  "text": "Resume after a quit and task Finish were not run again on Windows. Both passed in the previous 3.0.7 Windows check, and this update does not change them."
+                  "text": "On Windows, Ctrl+V was checked with a test paste, not the real clipboard."
+                },
+                {
+                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on the real harnesses. These flows are unchanged since the previous 3.0.7 update."
                 },
                 {
                   "text": "Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
                 },
                 {
-                  "text": "No long run was made for this release."
+                  "text": "No long run was made for this alpha."
                 }
               ]
             }
@@ -1265,9 +1319,15 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
           "platforms": {
             "mac": {
               "from": "3000.10.21",
-              "to": "3000.12.57",
-              "status": "issues",
+              "to": "3000.13.4",
+              "status": "newer",
               "issues": [
+                {
+                  "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
+                },
+                {
+                  "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
+                },
                 {
                   "text": "Devin: a window opened again on a conversation that was already emptied with \"Revert to step 1\" may read as working and hold its messages. After ten minutes you are told that a message waits for it, but the note does not yet say what to do: type a message into the window yourself, and once that turn ends what waited goes in, once."
                 },
@@ -1368,9 +1428,6 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A long chief role can need several reads, especially with long staff rules or full paths. Each part except the last gives the command for the next."
                 },
                 {
-                  "text": "The Harnesses page can use the system font instead of Geist; this was seen as Segoe UI on Windows, both standalone and inside the app."
-                },
-                {
                   "text": "Some dim terminal colors can be hard to read, especially dim blue; normal and bright shades can look alike on colored backgrounds. Where History's font has no italic face, the system synthesizes one."
                 },
                 {
@@ -1380,21 +1437,34 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "Windows was checked with Claude Code 2.1.325, Codex 0.166.0, Pi 1.5.0, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1. The Mac checks used Claude Code 2.1.325, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Codex and Pi were older."
+                  "text": "The Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Windows used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Devin and Muse Code were older."
+                },
+                {
+                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on the real harnesses. These flows are unchanged since the previous 3.0.7 update."
                 },
                 {
                   "text": "Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
                 },
                 {
-                  "text": "No long run was made for this release."
+                  "text": "No long run was made for this alpha."
                 }
               ]
             },
             "windows": {
               "from": "3000.10.21",
               "to": "3000.12.57",
-              "status": "issues",
+              "status": "newer",
               "issues": [
+                {
+                  "text": "Windows: typing into a window can sometimes stop, with \"pane input sequence gap\", until the project is restarted. A fix for a possible cause is built and in review for the next alpha.",
+                  "state": "fixing"
+                },
+                {
+                  "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
+                },
+                {
+                  "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
+                },
                 {
                   "text": "Devin: a window opened again on a conversation that was already emptied with \"Revert to step 1\" may read as working and hold its messages. After ten minutes you are told that a message waits for it, but the note does not yet say what to do: type a message into the window yourself, and once that turn ends what waited goes in, once."
                 },
@@ -1501,9 +1571,6 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A long chief role can need several reads, especially with long staff rules or full paths. Each part except the last gives the command for the next."
                 },
                 {
-                  "text": "The Harnesses page can use the system font instead of Geist; this was seen as Segoe UI on Windows, both standalone and inside the app."
-                },
-                {
                   "text": "Some dim terminal colors can be hard to read, especially dim blue; normal and bright shades can look alike on colored backgrounds. Where History's font has no italic face, the system synthesizes one."
                 },
                 {
@@ -1516,16 +1583,19 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "Windows was checked with Claude Code 2.1.325, Codex 0.166.0, Pi 1.5.0, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1. The Mac checks used Claude Code 2.1.325, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Codex and Pi were older."
+                  "text": "The Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Windows used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Devin and Muse Code were older."
                 },
                 {
-                  "text": "Resume after a quit and task Finish were not run again on Windows. Both passed in the previous 3.0.7 Windows check, and this update does not change them."
+                  "text": "On Windows, Ctrl+V was checked with a test paste, not the real clipboard."
+                },
+                {
+                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on the real harnesses. These flows are unchanged since the previous 3.0.7 update."
                 },
                 {
                   "text": "Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
                 },
                 {
-                  "text": "No long run was made for this release."
+                  "text": "No long run was made for this alpha."
                 }
               ]
             }
@@ -1536,9 +1606,15 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
           "platforms": {
             "mac": {
               "from": "1.4.13",
-              "to": "1.4.20",
+              "to": "1.4.23",
               "status": "issues",
               "issues": [
+                {
+                  "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
+                },
+                {
+                  "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
+                },
                 {
                   "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown."
                 },
@@ -1636,9 +1712,6 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A long chief role can need several reads, especially with long staff rules or full paths. Each part except the last gives the command for the next."
                 },
                 {
-                  "text": "The Harnesses page can use the system font instead of Geist; this was seen as Segoe UI on Windows, both standalone and inside the app."
-                },
-                {
                   "text": "Some dim terminal colors can be hard to read, especially dim blue; normal and bright shades can look alike on colored backgrounds. Where History's font has no italic face, the system synthesizes one."
                 },
                 {
@@ -1651,21 +1724,34 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "Windows was checked with Claude Code 2.1.325, Codex 0.166.0, Pi 1.5.0, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1. The Mac checks used Claude Code 2.1.325, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Codex and Pi were older."
+                  "text": "The Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Windows used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Devin and Muse Code were older."
+                },
+                {
+                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on the real harnesses. These flows are unchanged since the previous 3.0.7 update."
                 },
                 {
                   "text": "Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
                 },
                 {
-                  "text": "No long run was made for this release."
+                  "text": "No long run was made for this alpha."
                 }
               ]
             },
             "windows": {
               "from": "1.4.13",
               "to": "1.4.20",
-              "status": "issues",
+              "status": "newer",
               "issues": [
+                {
+                  "text": "Windows: typing into a window can sometimes stop, with \"pane input sequence gap\", until the project is restarted. A fix for a possible cause is built and in review for the next alpha.",
+                  "state": "fixing"
+                },
+                {
+                  "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
+                },
+                {
+                  "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
+                },
                 {
                   "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown."
                 },
@@ -1772,9 +1858,6 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A long chief role can need several reads, especially with long staff rules or full paths. Each part except the last gives the command for the next."
                 },
                 {
-                  "text": "The Harnesses page can use the system font instead of Geist; this was seen as Segoe UI on Windows, both standalone and inside the app."
-                },
-                {
                   "text": "Some dim terminal colors can be hard to read, especially dim blue; normal and bright shades can look alike on colored backgrounds. Where History's font has no italic face, the system synthesizes one."
                 },
                 {
@@ -1790,16 +1873,19 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "Windows was checked with Claude Code 2.1.325, Codex 0.166.0, Pi 1.5.0, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1. The Mac checks used Claude Code 2.1.325, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Codex and Pi were older."
+                  "text": "The Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Windows used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Devin and Muse Code were older."
                 },
                 {
-                  "text": "Resume after a quit and task Finish were not run again on Windows. Both passed in the previous 3.0.7 Windows check, and this update does not change them."
+                  "text": "On Windows, Ctrl+V was checked with a test paste, not the real clipboard."
+                },
+                {
+                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on the real harnesses. These flows are unchanged since the previous 3.0.7 update."
                 },
                 {
                   "text": "Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
                 },
                 {
-                  "text": "No long run was made for this release."
+                  "text": "No long run was made for this alpha."
                 }
               ]
             }
@@ -1822,40 +1908,56 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
         "text": "The oldest Claude Code a ConsensFlow live suite is recorded on. ConsensFlow does not check Claude Code's version when it opens a window, so an older one is not refused."
       },
       "vendor": {
-        "version": "2.1.325",
-        "date": "2026-11-13",
+        "version": "2.1.326",
+        "date": null,
         "feed": "npm @anthropic-ai/claude-code, tag latest",
-        "text": "The recorded vendor version was 2.1.325; the checks used that version on both systems."
+        "text": "The registry listed 2.1.326 as its latest when checked for this release."
       },
       "tested": {
         "mac": {
-          "version": "2.1.325",
-          "date": "2026-11-16",
+          "version": "2.1.326",
+          "date": "2026-11-17",
           "suites": [
-            "role-texts",
-            "own-cf",
-            "tell-and-pause",
-            "chief"
+            "question-ask-answer-chief",
+            "question-ask-answer-worker",
+            "core-board"
           ],
           "earlier": {
             "version": "2.1.325",
             "date": "2026-11-16",
             "suites": [
-              "resume",
-              "finish",
+              "role-texts",
+              "own-cf",
               "tell-and-pause",
               "chief"
-            ]
+            ],
+            "earlier": {
+              "version": "2.1.325",
+              "date": "2026-11-16",
+              "suites": [
+                "resume",
+                "finish",
+                "tell-and-pause",
+                "chief"
+              ]
+            }
           }
         },
         "windows": {
-          "version": "2.1.325",
-          "date": "2026-11-16",
+          "version": "2.1.326",
+          "date": "2026-11-17",
           "suites": [
             "own-cf"
           ],
           "earlier": {
-            "why": "Claude Code 2.1.325 was installed on Windows, but no live work was run on it for this release."
+            "version": "2.1.325",
+            "date": "2026-11-16",
+            "suites": [
+              "own-cf"
+            ],
+            "earlier": {
+              "why": "Claude Code 2.1.325 was installed on Windows, but no live work was run on it for this release."
+            }
           }
         }
       }
@@ -1880,39 +1982,57 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
       "tested": {
         "mac": {
           "version": "0.169.0",
-          "date": "2026-11-16",
+          "date": "2026-11-17",
           "suites": [
-            "role-texts",
-            "own-cf",
-            "tell-and-pause",
-            "subagents"
+            "question-ask-answer",
+            "core-board"
           ],
           "earlier": {
             "version": "0.169.0",
             "date": "2026-11-16",
             "suites": [
-              "resume",
-              "finish"
-            ]
+              "role-texts",
+              "own-cf",
+              "tell-and-pause",
+              "subagents"
+            ],
+            "earlier": {
+              "version": "0.169.0",
+              "date": "2026-11-16",
+              "suites": [
+                "resume",
+                "finish"
+              ]
+            }
           }
         },
         "windows": {
-          "version": "0.166.0",
-          "date": "2026-11-16",
+          "version": "0.169.0",
+          "date": "2026-11-17",
           "suites": [
             "own-cf",
-            "tell-and-pause",
             "parity",
-            "paste-enter"
+            "paste-enter",
+            "question"
           ],
           "earlier": {
             "version": "0.166.0",
             "date": "2026-11-16",
             "suites": [
-              "resume",
-              "finish",
-              "tell-and-pause"
-            ]
+              "own-cf",
+              "tell-and-pause",
+              "parity",
+              "paste-enter"
+            ],
+            "earlier": {
+              "version": "0.166.0",
+              "date": "2026-11-16",
+              "suites": [
+                "resume",
+                "finish",
+                "tell-and-pause"
+              ]
+            }
           }
         }
       }
@@ -1956,13 +2076,20 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
           }
         },
         "windows": {
-          "version": "1.5.0",
-          "date": "2026-11-16",
+          "version": "1.5.2",
+          "date": "2026-11-17",
           "suites": [
             "own-cf"
           ],
           "earlier": {
-            "why": "Pi 1.5.0 was installed on Windows, but no live work was run on it for this release."
+            "version": "1.5.0",
+            "date": "2026-11-16",
+            "suites": [
+              "own-cf"
+            ],
+            "earlier": {
+              "why": "Pi 1.5.0 was installed on Windows, but no live work was run on it for this release."
+            }
           }
         }
       }
@@ -1980,42 +2107,57 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
         "text": "ConsensFlow refuses an older Devin before it opens a window, and its Harnesses page says to update it."
       },
       "vendor": {
-        "version": "3000.12.57",
-        "date": "2026-11-12",
+        "version": "3000.14.30821",
+        "date": "2026-11-17",
         "feed": "static.devin.ai/cli/current/manifest.json (the date is when the file last changed)"
       },
       "tested": {
         "mac": {
-          "version": "3000.12.57",
-          "date": "2026-11-16",
+          "version": "3000.13.4",
+          "date": "2026-11-17",
           "suites": [
-            "role-texts",
-            "own-cf",
-            "tell-and-pause"
+            "question-ask-answer",
+            "core-board"
           ],
           "earlier": {
             "version": "3000.12.57",
             "date": "2026-11-16",
             "suites": [
-              "resume",
-              "finish",
+              "role-texts",
+              "own-cf",
               "tell-and-pause"
-            ]
+            ],
+            "earlier": {
+              "version": "3000.12.57",
+              "date": "2026-11-16",
+              "suites": [
+                "resume",
+                "finish",
+                "tell-and-pause"
+              ]
+            }
           }
         },
         "windows": {
           "version": "3000.12.57",
-          "date": "2026-11-16",
+          "date": "2026-11-17",
           "suites": [
-            "parity",
-            "tell-and-pause"
+            "parity"
           ],
           "earlier": {
-            "version": "3000.12.17",
+            "version": "3000.12.57",
             "date": "2026-11-16",
             "suites": [
-              "devin-task"
-            ]
+              "parity",
+              "tell-and-pause"
+            ],
+            "earlier": {
+              "version": "3000.12.17",
+              "date": "2026-11-16",
+              "suites": [
+                "devin-task"
+              ]
+            }
           }
         }
       },
@@ -2036,29 +2178,37 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
         "text": "The oldest Muse Code whose record ConsensFlow reads, the one its support was built on: an older one's record is not read."
       },
       "vendor": {
-        "version": "1.4.20-R8619.1",
+        "version": "1.4.23-R8977.1",
         "date": null,
         "feed": "api.meta.ai/muse-code/channels/muse-stable",
         "text": "The feed names no date. Its canary channel says the same version."
       },
       "tested": {
         "mac": {
-          "version": "1.4.20-R8619.1",
-          "date": "2026-11-16",
+          "version": "1.4.23-R8977.1",
+          "date": "2026-11-17",
           "suites": [
-            "role-texts",
-            "own-cf",
-            "tell-and-pause",
-            "chief"
+            "question-ask-answer",
+            "core-board"
           ],
           "earlier": {
             "version": "1.4.20-R8619.1",
             "date": "2026-11-16",
             "suites": [
-              "resume",
-              "finish",
-              "tell-and-pause"
-            ]
+              "role-texts",
+              "own-cf",
+              "tell-and-pause",
+              "chief"
+            ],
+            "earlier": {
+              "version": "1.4.20-R8619.1",
+              "date": "2026-11-16",
+              "suites": [
+                "resume",
+                "finish",
+                "tell-and-pause"
+              ]
+            }
           }
         },
         "windows": {
