@@ -4,21 +4,21 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ConsensFlow: a software factory, staffed by AI coding agents</title>
-<meta name="description" content="A desktop app that runs a software factory on your project: a Chief of Staff plans the work on a board, and a staff of workers, advisors, reviewers, testers and an image designer takes the tasks in Claude Code, Codex, Pi, Devin or Muse Code. You set the goal. Mac and Windows, MIT." />
+<meta name="description" content="A desktop app that runs a software factory on your project: a Chief of Staff plans the work on a board, and a staff in nine roles, from workers and frontend designers to reviewers, testers and integrators, takes the tasks in Claude Code, Codex, Pi, Devin or Muse Code. You set the goal. Mac and Windows, MIT." />
 <link rel="canonical" href="https://consensflow.ngvoicu.dev/" />
-<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#08181d" />
-<meta name="theme-color" media="(prefers-color-scheme: light)" content="#eef4f2" />
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#09090b" />
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
 <meta name="color-scheme" content="dark light" />
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": "ConsensFlow",
-  "description": "A desktop app that runs a software factory on your project, staffed by AI coding agents. You give the goal to a Chief of Staff; it plans the work on a board, and its staff (workers, advisors, reviewers, testers and an image designer) take the tasks, each in its own terminal of Claude Code, Codex, Pi, Devin or Muse Code, with your own logins. No API keys.",
+  "description": "A desktop app that runs a software factory on your project, staffed by AI coding agents. You give the goal to a Chief of Staff; it plans the work on a board, and its staff in nine roles (workers, frontend designers, architects, researchers, advisors, reviewers, testers, integrators and an image designer) take the tasks, each in its own terminal of Claude Code, Codex, Pi, Devin or Muse Code, with your own logins. No API keys.",
   "url": "https://consensflow.ngvoicu.dev/",
   "applicationCategory": "DeveloperApplication",
   "operatingSystem": "macOS, Windows",
-  "softwareRequirements": "macOS 13.5 or later on Apple silicon, or Windows 10 or 11 (64-bit); at least one of Claude Code, Codex, Pi or Devin, which the chief runs on; Muse Code runs the staff too",
+  "softwareRequirements": "macOS 13.5 or later on Apple silicon, or Windows 10 or 11 (64-bit); at least one of Claude Code, Codex, Pi, Devin or Muse Code",
   "downloadUrl": "https://github.com/ngvoicu/consensflow/releases",
   "screenshot": "https://consensflow.ngvoicu.dev/assets/screenshots/window.webp",
   "license": "https://opensource.org/licenses/MIT",
@@ -50,181 +50,193 @@
 <meta property="og:site_name" content="ConsensFlow" />
 <meta property="og:locale" content="en_US" />
 <meta property="og:title" content="ConsensFlow: a software factory, staffed by AI coding agents" />
-<meta property="og:description" content="A desktop app for Mac and Windows. You give the goal; a Chief of Staff plans the work on a board, and its staff take the tasks, each in its own terminal of Claude Code, Codex, Pi, Devin or Muse Code. Your own logins, no API keys. MIT." />
+<meta property="og:description" content="A desktop app for Mac and Windows. You give the goal; a Chief of Staff plans the work on a board, and a staff in nine roles takes the tasks, each in its own terminal of Claude Code, Codex, Pi, Devin or Muse Code. Your own logins, no API keys. MIT." />
 <meta property="og:image" content="https://consensflow.ngvoicu.dev/assets/og-image.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
-<meta property="og:image:alt" content="ConsensFlow: a software factory, staffed by AI coding agents. Beside the words, the app's board: tasks from backlog to finished, one row per agent." />
+<meta property="og:image:alt" content="ConsensFlow: a software factory, staffed by AI coding agents. Beside the words, the app's board: tasks from backlog to done, and the staff grouped by role." />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="ConsensFlow: a software factory, staffed by AI coding agents" />
-<meta name="twitter:description" content="You give the goal; a Chief of Staff plans the work on a board, and its staff take the tasks in Claude Code, Codex, Pi, Devin or Muse Code. Mac and Windows. MIT." />
+<meta name="twitter:description" content="You give the goal; a Chief of Staff plans the work on a board, and a staff in nine roles takes the tasks in Claude Code, Codex, Pi, Devin or Muse Code. Mac and Windows. MIT." />
 <meta name="twitter:image" content="https://consensflow.ngvoicu.dev/assets/og-image.png" />
 <meta name="twitter:image:alt" content="ConsensFlow: a software factory, staffed by AI coding agents, beside the app's board." />
 
 <link rel="icon" href="/favicon.ico" sizes="any" />
 <link rel="icon" type="image/png" sizes="64x64" href="./assets/favicon.png" />
 <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png" />
-<link rel="preload" href="./assets/fonts/archivo-800.woff2" as="font" type="font/woff2" crossorigin />
-<link rel="preload" href="./assets/fonts/archivo-400.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="./assets/fonts/geist-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="./assets/fonts/geist-mono-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
 
 <style>
-/* Archivo and IBM Plex Mono, the brand's faces (the app's own Agents screen
-   names them), self-hosted: no CDN. */
-@font-face{font-family:'Archivo';font-style:normal;font-weight:400;font-display:swap;src:url('./assets/fonts/archivo-400.woff2') format('woff2')}
-@font-face{font-family:'Archivo';font-style:normal;font-weight:500;font-display:swap;src:url('./assets/fonts/archivo-500.woff2') format('woff2')}
-@font-face{font-family:'Archivo';font-style:normal;font-weight:700;font-display:swap;src:url('./assets/fonts/archivo-700.woff2') format('woff2')}
-@font-face{font-family:'Archivo';font-style:normal;font-weight:800;font-display:swap;src:url('./assets/fonts/archivo-800.woff2') format('woff2')}
-@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;src:url('./assets/fonts/ibm-plex-mono-400.woff2') format('woff2')}
-@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:500;font-display:swap;src:url('./assets/fonts/ibm-plex-mono-500.woff2') format('woff2')}
+/* Geist and Geist Mono, the app's own faces (its fonts.css), self-hosted with
+   their licence (assets/fonts/OFL.txt): variable, so one file a script. */
+@font-face{font-family:'Geist';font-style:normal;font-weight:100 900;font-display:swap;src:url('./assets/fonts/geist-latin-ext-wght-normal.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Geist';font-style:normal;font-weight:100 900;font-display:swap;src:url('./assets/fonts/geist-latin-wght-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Geist Mono';font-style:normal;font-weight:100 900;font-display:swap;src:url('./assets/fonts/geist-mono-latin-ext-wght-normal.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Geist Mono';font-style:normal;font-weight:100 900;font-display:swap;src:url('./assets/fonts/geist-mono-latin-wght-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 
-/* The app's palette: marine ink, foam text, and the colours its board gives
-   a task's state. On this page a state colour means what it means on the
-   board: slate waits in the backlog, seafoam is at work, amber waits for
-   someone, foam is done, deep seafoam is finished, buoy is a warning. */
+/* The app's palette (app/ui/page.css): zinc ink, white text, violet for
+   what is at work and for the one act that matters. Light is the system's
+   other appearance, in the same zinc. A state's colour means what it means
+   on the board: slate waits, violet is at work, amber waits for someone,
+   mint is done, deep green is finished. */
 :root{
   color-scheme:dark;
-  --ink:#08181d; --deep:#0c2026; --panel:#112a31;
-  --line:#28464d; --line-soft:#1c373e;
-  --text:#e9f1ef; --muted:#9db4b8;
-  --accent:#63c7b2; --accent-fill:#63c7b2; --on-accent:#08181d;
-  --amber:#e7b968; --buoy:#ff7868;
-  --grid:rgba(99,199,178,.035);
-  --shadow:0 40px 90px -50px rgba(0,0,0,.9);
-  /* The board is dark in the app, so it is dark here in either theme. */
-  --b-ink:#08181d; --b-deep:#0c2026; --b-card:#0e252b; --b-line:#1c373e; --b-text:#e9f1ef; --b-muted:#8ea8ad; --b-grid:rgba(99,199,178,.045);
-  --s-open:#3d5b62; --s-working:#63c7b2; --s-waiting:#e7b968; --s-done:#e9f1ef; --s-accepted:#2b7569;
-  --sans:'Archivo',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
-  --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-  --wrap:1180px; --gutter:clamp(20px,4vw,40px);
+  --ink:#09090b; --deep:#0e0e11; --panel:#18181b; --tile:#111114;
+  --line:#3f3f46; --line-soft:#27272a;
+  --text:#fafafa; --muted:#a1a1aa;
+  --accent:#a5b4fc; --violet:#a78bfa; --brand-glow:0 0 14px rgba(139,92,246,.7);
+  --go:#7c3aed; --go-edge:#8b5cf6; --go-hover:#6d28d9; --glow:rgba(139,92,246,.45);
+  --danger:#f87171;
+  --shadow:0 40px 90px -50px rgba(0,0,0,.95);
+  --wash:radial-gradient(760px 420px at 0 0,rgba(124,58,237,.16),transparent 70%),radial-gradient(900px 520px at 100% 100%,rgba(99,102,241,.06),transparent 70%);
+  /* The board is dark in the app, so it is dark here in either appearance. */
+  --b-ink:#09090b; --b-deep:#0e0e11; --b-card:#111114; --b-line:#27272a; --b-edge:#3f3f46; --b-text:#fafafa; --b-muted:#a1a1aa;
+  --s-open:#3f3f46; --s-working:#a78bfa; --s-waiting:#fcd34d; --s-done:#6ee7b7; --s-accepted:#065f46;
+  --sans:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',sans-serif;
+  --mono:'Geist Mono',ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+  --wrap:1180px; --gutter:clamp(16px,4vw,40px);
 }
 @media (prefers-color-scheme: light){
   :root{
     color-scheme:light;
-    --ink:#eef4f2; --deep:#e2ecea; --panel:#ffffff;
-    --line:#bfd2cf; --line-soft:#d5e2e0;
-    --text:#0b1f24; --muted:#4a646a;
-    --accent:#16766a; --accent-fill:#16766a; --on-accent:#ffffff;
-    --amber:#8a5d12; --buoy:#b93a2b;
-    --grid:rgba(22,118,106,.05);
-    --shadow:0 40px 80px -50px rgba(8,24,29,.55);
+    --ink:#ffffff; --deep:#f4f4f5; --panel:#f4f4f5; --tile:#fafafa;
+    --line:#d4d4d8; --line-soft:#e4e4e7;
+    --text:#09090b; --muted:#5f5f68;
+    --accent:#4338ca; --violet:#6d28d9; --brand-glow:none;
+    --danger:#b91c1c;
+    --shadow:0 34px 70px -46px rgba(9,9,11,.55);
+    --wash:radial-gradient(760px 420px at 0 0,rgba(124,58,237,.07),transparent 70%);
   }
 }
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:76px;-webkit-text-size-adjust:100%}
-body{
-  margin:0;color:var(--text);font:400 18px/1.6 var(--sans);
-  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
-  /* the app's own ruled background: a hair every 24px */
-  background:linear-gradient(90deg,var(--grid) 1px,transparent 1px) 0 0/24px 24px,var(--ink);
-}
+body{margin:0;color:var(--text);font:400 17px/1.6 var(--sans);background:var(--wash),var(--ink);
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 img{display:block;max-width:100%;height:auto}
 a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:3px}
 a:hover{text-decoration-thickness:2px}
-:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+:focus-visible{outline:2px solid var(--violet);outline-offset:3px;border-radius:4px}
 code,kbd{font-family:var(--mono);font-size:.86em}
 p{margin:0 0 1em}
-strong{font-weight:700}
+strong{font-weight:600}
 .wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--gutter)}
-.skip{position:absolute;left:12px;top:-60px;z-index:100;background:var(--accent-fill);color:var(--on-accent);
-  padding:10px 14px;border-radius:6px;font-weight:700;text-decoration:none}
+.skip{position:absolute;left:12px;top:-60px;z-index:100;background:var(--go);color:#fff;
+  padding:10px 14px;border-radius:6px;font-weight:600;text-decoration:none}
 .skip:focus{top:12px}
 
-/* ---- top bar ---- */
+/* ---- top bar: the app's command bar ---- */
 .bar{position:sticky;top:0;z-index:50;border-bottom:1px solid var(--line-soft);
-  background:var(--ink);background:color-mix(in srgb,var(--ink) 86%,transparent);
+  background:var(--ink);background:color-mix(in srgb,var(--ink) 80%,transparent);
   backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
 .bar .wrap{display:flex;align-items:center;gap:28px;height:60px}
-.brand{display:flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;font-weight:800;font-size:18px;letter-spacing:-.01em}
+/* The wordmark as the app sets it: spaced mono capitals in violet, glowing in the dark. */
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;
+  font:700 12px/1 var(--mono);letter-spacing:.19em;text-transform:uppercase;color:var(--violet);text-shadow:var(--brand-glow)}
 .brand img{width:26px;height:26px;border-radius:6px}
-.bar nav{display:flex;gap:24px;margin-left:auto;font-size:15px}
+.bar nav{display:flex;gap:22px;margin-left:auto;font-size:14.5px}
 .bar nav a{color:var(--muted);text-decoration:none}
 .bar nav a:hover{color:var(--text)}
-@media (max-width:900px){.bar nav{display:none}.bar .button{margin-left:auto}}
+@media (max-width:960px){.bar nav{display:none}.bar .button{margin-left:auto}}
 
+/* Buttons: one quiet, one primary that glows, as in the app. */
 .button{display:inline-flex;align-items:center;gap:8px;border-radius:8px;padding:11px 18px;
-  font:700 16px/1.2 var(--sans);text-decoration:none;border:1px solid transparent;cursor:pointer}
-.button-go{background:var(--accent-fill);color:var(--on-accent)}
-.button-go:hover{filter:brightness(1.08)}
-.button-quiet{color:var(--text);border-color:var(--line)}
-.button-quiet:hover{border-color:var(--accent);color:var(--accent)}
-.bar .button{padding:8px 14px;font-size:15px}
+  font:600 15.5px/1.2 var(--sans);text-decoration:none;border:1px solid var(--line);cursor:pointer;white-space:nowrap}
+.button-go{background:var(--go);border-color:var(--go-edge);color:#fff;
+  box-shadow:0 0 0 1px rgba(139,92,246,.2),0 4px 18px -6px var(--glow)}
+.button-go:hover{background:var(--go-hover);box-shadow:0 0 0 1px rgba(167,139,250,.45),0 0 22px -4px var(--glow)}
+.button-quiet{color:var(--text);background:transparent}
+.button-quiet:hover{background:var(--panel)}
+.bar .button{padding:8px 14px;font-size:14px}
 
 /* ---- headings and sections (the page's own: the shared band below keeps its styles) ---- */
-main :is(h1,h2,h3){font-family:var(--sans);font-weight:800;color:var(--text);margin:0;text-wrap:balance}
-main h1{font-size:clamp(2.55rem,1.25rem + 5.1vw,4.75rem);line-height:1.02;letter-spacing:-.035em}
-main h2{font-size:clamp(2rem,1.3rem + 2.5vw,3rem);line-height:1.08;letter-spacing:-.03em;max-width:24ch}
-main h3{font-size:1.3rem;line-height:1.25;letter-spacing:-.015em}
+main :is(h1,h2,h3){font-family:var(--sans);color:var(--text);margin:0;text-wrap:balance}
+main h1{font-size:clamp(2.5rem,1.2rem + 5vw,4.6rem);font-weight:650;line-height:1.02;letter-spacing:-.035em}
+main h2{font-size:clamp(1.9rem,1.25rem + 2.4vw,2.9rem);font-weight:650;line-height:1.08;letter-spacing:-.03em;max-width:24ch}
+main h3{font-size:1.25rem;font-weight:600;line-height:1.3;letter-spacing:-.012em}
 @media (max-width:720px){main h1 br{display:none}}
+/* A label as the app's group heads set it: spaced mono capitals. */
+.kicker{margin:0 0 14px;font:700 11px/1.2 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--violet);text-shadow:var(--brand-glow)}
 .section{padding:clamp(72px,10vw,128px) 0 0}
-.intro{color:var(--muted);font-size:1.15rem;max-width:60ch;margin:18px 0 0}
+.intro{color:var(--muted);font-size:1.12rem;max-width:62ch;margin:18px 0 0}
 .intro strong{color:var(--text)}
 
 /* ---- hero ---- */
-.hero{padding:clamp(48px,8vw,96px) 0 0}
-.lede{font-size:clamp(1.15rem,1rem + .5vw,1.35rem);line-height:1.55;max-width:58ch;margin:26px 0 0}
-.lede + .lede{color:var(--muted)}
+.hero{padding:clamp(40px,7vw,88px) 0 0}
+/* What is new, as a lamp at work: it breathes, and stays still where motion is reduced. */
+.news{display:inline-flex;align-items:center;gap:10px;margin:0 0 26px;padding:6px 14px 6px 10px;border:1px solid rgba(167,139,250,.38);
+  border-radius:999px;background:rgba(124,58,237,.1);color:var(--text);font:500 13px/1.35 var(--mono);text-decoration:none;max-width:100%}
+.news:hover{border-color:var(--violet);background:rgba(124,58,237,.16)}
+.news b{font-weight:700;color:var(--violet);white-space:nowrap}
+.lamp{flex:none;width:10px;height:10px;border-radius:50%;background:#a78bfa;border:1.5px solid #a78bfa;
+  box-shadow:0 0 0 3px rgba(167,139,250,.18),0 0 12px rgba(139,92,246,.8);animation:lamp-pulse 1.8s ease-in-out infinite}
+@keyframes lamp-pulse{50%{box-shadow:0 0 0 5px rgba(167,139,250,.07),0 0 20px rgba(139,92,246,.45)}}
+.lede{font-size:clamp(1.12rem,1rem + .45vw,1.3rem);line-height:1.55;max-width:58ch;margin:24px 0 0}
 .actions{display:flex;flex-wrap:wrap;gap:12px;margin:32px 0 0}
-.fine{font-size:15px;color:var(--muted);margin:16px 0 0;max-width:62ch}
+.fine{font-size:14.5px;color:var(--muted);margin:14px 0 0;max-width:62ch}
 
 /* ---- the app, as captured ---- */
 .shot{margin:0}
-.shot img{border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);background:var(--b-ink)}
-.shot figcaption{font-size:15px;line-height:1.5;color:var(--muted);margin:14px 0 0;max-width:68ch}
+.shot img{border:1px solid var(--line-soft);border-radius:10px;box-shadow:var(--shadow);background:var(--b-ink)}
+.shot figcaption{font-size:14.5px;line-height:1.55;color:var(--muted);margin:14px 0 0;max-width:68ch}
 .hero .shot{margin-top:clamp(40px,6vw,64px)}
+.hero .shot img{box-shadow:0 0 0 1px rgba(167,139,250,.12),0 40px 120px -50px rgba(124,58,237,.6),var(--shadow)}
 .shot.wide{margin-top:clamp(40px,5vw,56px)}
 /* Full size on click: the affordance comes with the script that opens it. */
 .shot img.zoomable{cursor:zoom-in}
 .lightbox{border:0;padding:0;background:transparent;width:100vw;height:100vh;max-width:100vw;max-height:100vh;overflow:auto}
 .lightbox[open]{display:grid;place-items:center}
-.lightbox::backdrop{background:rgba(4,12,15,.94)}
+.lightbox::backdrop{background:rgba(9,9,11,.94)}
 .lightbox img{width:auto;max-width:100vw;max-height:100vh;object-fit:contain;cursor:zoom-out}
-.lightbox-close{position:fixed;top:14px;right:16px;z-index:1;border:1px solid #28464d;background:rgba(8,24,29,.8);
-  color:#e9f1ef;border-radius:8px;font:700 14px/1 var(--sans);padding:10px 13px;cursor:pointer}
-.lightbox-close:hover{border-color:#63c7b2;color:#63c7b2}
+.lightbox-close{position:fixed;top:14px;right:16px;z-index:1;border:1px solid #3f3f46;background:rgba(9,9,11,.8);
+  color:#fafafa;border-radius:8px;font:600 14px/1 var(--sans);padding:10px 13px;cursor:pointer}
+.lightbox-close:hover{background:#222226}
 
 /* ---- how it works: one task across the board's columns ---- */
 .relay{margin-top:48px}
 .relay-board{background:var(--b-deep);color:var(--b-text);border:1px solid var(--b-line);border-radius:12px;padding:16px 16px 18px;
-  --gap:12px;--row:68px}
+  --gap:12px;--row:70px}
 .relay-cols,.relay-lane{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:var(--gap)}
-.relay-cols{list-style:none;margin:0;padding:0 0 12px;border-bottom:1px solid var(--b-line);font:500 13px/1.2 var(--mono);color:var(--b-muted)}
+.relay-cols{list-style:none;margin:0;padding:0 0 12px;border-bottom:1px solid var(--b-line);
+  font:700 10.5px/1.2 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--b-muted)}
 .relay-lane{position:relative;margin-top:14px}
-.relay-cell{min-height:var(--row);border-radius:6px;background:rgba(255,255,255,.015);outline:1px dashed rgba(142,168,173,.16);outline-offset:-1px}
-.relay-cell:nth-child(6){background:rgba(0,0,0,.14)}
-/* The card rides over the lane, one column wide, moved by --at columns. */
+.relay-cell{min-height:var(--row);border-radius:6px;background:rgba(255,255,255,.012);outline:1px dashed rgba(161,161,170,.16);outline-offset:-1px}
+.relay-cell:nth-child(6){background:rgba(0,0,0,.22)}
+/* The card rides over the lane, one column wide, moved by --at columns. A task at work glows. */
 .relay-card{position:absolute;top:0;left:0;width:calc((100% - 5 * var(--gap)) / 6);z-index:1;
   --state:var(--s-open);--state-ink:var(--b-text);
   display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"num title" "num state";column-gap:10px;
-  min-height:var(--row);background:var(--b-card);border:1px solid #28464d;border-radius:6px;overflow:hidden;
+  min-height:var(--row);background:var(--b-card);border:1px solid var(--b-line);border-radius:6px;overflow:hidden;
   box-shadow:0 10px 24px -14px rgba(0,0,0,.8);
   transform:translateX(calc(var(--at,0) * (100% + var(--gap))));
-  transition:transform .75s cubic-bezier(.3,.7,.2,1)}
+  transition:transform .75s cubic-bezier(.3,.7,.2,1),box-shadow .35s ease,border-color .35s ease}
 .relay-num{grid-area:num;display:flex;align-items:center;padding:0 9px;background:var(--state);color:var(--state-ink);
-  font:500 13px var(--mono);transition:background-color .35s ease,color .35s ease}
-.relay-title{grid-area:title;padding-top:9px;font-size:15px;line-height:1.25;color:var(--b-text)}
+  font:700 12px var(--mono);letter-spacing:.03em;transition:background-color .35s ease,color .35s ease}
+.relay-title{grid-area:title;padding-top:9px;font-size:14.5px;line-height:1.25;color:var(--b-text)}
 .relay-state{grid-area:state;padding:3px 0 9px;font:12px var(--mono);color:var(--b-muted)}
-.relay-card[data-state="working"]{--state:var(--s-working);--state-ink:var(--b-ink)}
+.relay-card[data-state="working"]{--state:var(--s-working);--state-ink:var(--b-ink);border-color:rgba(167,139,250,.4);box-shadow:0 0 16px -5px rgba(139,92,246,.45)}
 .relay-card[data-state="done"]{--state:var(--s-done);--state-ink:var(--b-ink)}
 .relay-card[data-state="accepted"]{--state:var(--s-accepted)}
 .relay-foot{display:flex;justify-content:flex-end;margin-top:10px;min-height:34px}
 .replay{font:500 14px var(--sans);color:var(--muted);background:none;border:1px solid var(--line);border-radius:7px;padding:6px 12px;cursor:pointer}
-.replay:hover{color:var(--text);border-color:var(--accent)}
+.replay:hover{color:var(--text);background:var(--panel)}
 .steps{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(20px,3vw,40px);counter-reset:step}
-.step{counter-increment:step;border-top:2px solid var(--line);padding-top:16px;transition:border-color .35s ease}
-.step h3{display:flex;gap:10px;align-items:baseline}
-.step h3::before{content:counter(step);font:500 15px var(--mono);color:var(--muted)}
-.step p{color:var(--muted);font-size:16.5px;line-height:1.55;margin:10px 0 0}
-.step-cols{display:flex;flex-wrap:wrap;gap:6px 14px;margin:0 0 10px;padding:0;list-style:none;font:500 13px var(--mono);color:var(--muted)}
+.step{counter-increment:step;border-top:2px solid var(--line-soft);padding-top:16px;transition:border-color .35s ease}
+.step h3{display:flex;gap:10px;align-items:baseline;font-size:1.15rem}
+.step h3::before{content:counter(step,decimal-leading-zero);font:700 12px var(--mono);letter-spacing:.08em;color:var(--muted)}
+.step p{color:var(--muted);font-size:16px;line-height:1.55;margin:10px 0 0}
+.step-cols{display:flex;flex-wrap:wrap;gap:6px 14px;margin:0 0 10px;padding:0;list-style:none;
+  font:700 10.5px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .step-cols li{display:flex;align-items:center;gap:7px}
-.step-cols li::before{content:"";width:10px;height:10px;border-radius:3px;background:var(--dot);box-shadow:inset 0 0 0 1px rgba(8,24,29,.35)}
-.step[aria-current="step"]{border-top-color:var(--accent)}
-.step[aria-current="step"] h3::before{color:var(--accent)}
+.step-cols li::before{content:"";width:10px;height:10px;border-radius:3px;background:var(--dot);box-shadow:inset 0 0 0 1px rgba(0,0,0,.3)}
+.step[aria-current="step"]{border-top-color:var(--violet)}
+.step[aria-current="step"] h3::before{color:var(--violet)}
 @media (max-width:1000px){
   .relay-card{grid-template-columns:minmax(0,1fr);grid-template-areas:"num" "title" "state"}
   .relay-num{padding:3px 8px}
   .relay-title,.relay-state{padding-left:8px;padding-right:8px}
-  .relay-title{padding-top:6px;font-size:14px}
+  .relay-title{padding-top:6px;font-size:13.5px}
   .relay-board{--row:96px}
   .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
@@ -238,55 +250,59 @@ main h3{font-size:1.3rem;line-height:1.25;letter-spacing:-.015em}
   .relay-card{width:100%;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"num title" "num state";height:var(--row);min-height:0;
     transform:translateY(calc(var(--at,0) * (var(--row) + var(--gap))))}
   .relay-num{padding:0 8px}
-  .relay-title{padding:6px 8px 0 0;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .relay-title{padding:6px 8px 0 0;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .relay-state{padding:0 8px 6px 0}
   .steps{grid-template-columns:minmax(0,1fr)}
 }
 
-/* ---- the factory: who talks to whom, and one goal start to finish ---- */
-/* The diagram sits on the board's own dark ground, as the strip above does:
-   its lamps and colours mean what they mean on the board. Two drawings of the
-   same civilization: wide for a wide page, tall for a narrow one. */
+/* ---- the factory: who talks to whom, and one goal under way ---- */
+/* The diagram sits on the board's own dark ground: its lamps and colours mean
+   what they mean on the board. Two drawings of the same civilization: wide for
+   a wide page, tall for a narrow one. Every line runs from the chief: no
+   member is joined to another. */
 .civ{margin:48px 0 0}
-.civ-board{background:linear-gradient(90deg,var(--b-grid) 1px,transparent 1px) 0 0/24px 24px,var(--b-deep);
-  color:var(--b-text);border:1px solid var(--b-line);border-radius:12px;padding:clamp(14px,2.5vw,28px)}
+.civ-board{background:radial-gradient(640px 360px at 32% 52%,rgba(124,58,237,.13),transparent 70%),var(--b-deep);
+  color:var(--b-text);border:1px solid var(--b-line);border-radius:12px;padding:clamp(12px,2.5vw,28px)}
 .civ svg{display:block;width:100%;height:auto;overflow:visible}
 .civ .civ-tall{display:none;max-width:440px;margin:0 auto}
-.civ .card{fill:var(--b-card);stroke:#28464d}
-.civ .chief .card{stroke:var(--s-working)}
-.civ .lamp{fill:var(--s-working)}
-.civ .you .lamp{fill:var(--s-done)}
-.civ .out .card{fill:none;stroke:var(--s-accepted);stroke-dasharray:4 4}
-.civ .out .lamp{fill:var(--s-accepted)}
-.civ .name{font:500 13px var(--mono);letter-spacing:.08em;fill:var(--b-text)}
-.civ .sub{font:400 13px var(--sans);fill:var(--b-muted)}
-.civ .flow{fill:none;stroke:#7a979c;stroke-width:1.5}
-.civ .flow.ask{stroke:var(--s-waiting)}
-.civ .lbl{font:500 12px var(--mono);fill:#b5c8cb;paint-order:stroke;stroke:var(--b-deep);stroke-width:5px;stroke-linejoin:round}
-.civ .lbl .ask{fill:var(--s-waiting)}
-.civ .tip{fill:#7a979c}
-.civ .tip.ask{fill:var(--s-waiting)}
-.civ figcaption{font-size:15px;line-height:1.5;color:var(--muted);margin:14px 0 0;max-width:72ch}
-/* Under 1080px the wide drawing's labels would fall under 10px: the tall one takes over. */
+.civ .card{fill:var(--b-card);stroke:var(--b-edge)}
+.civ .chief .card{stroke:var(--s-working);filter:drop-shadow(0 0 10px rgba(139,92,246,.45))}
+.civ .lamp{fill:none;stroke:rgba(165,180,252,.6);stroke-width:1.5}
+.civ .chief .lamp{fill:var(--s-working);stroke:var(--s-working)}
+.civ .you .lamp{fill:var(--b-text);stroke:var(--b-text)}
+.civ .out .card{fill:rgba(110,231,183,.04);stroke:var(--s-done);stroke-dasharray:4 4}
+.civ .out .lamp{fill:var(--s-done);stroke:var(--s-done)}
+.civ .name{font:700 12.5px var(--mono);letter-spacing:.12em;fill:var(--b-text)}
+.civ .sub{font:400 12.5px var(--sans);fill:var(--b-muted)}
+.civ-tall .sub{font-size:12px}
+.civ .flow{fill:none;stroke:#71717a;stroke-width:1.4}
+.civ .own{stroke:var(--s-working);stroke-dasharray:6 5}
+.civ .tip{fill:#71717a}
+.civ .tip.own{fill:var(--s-working)}
+.civ .lbl{font:500 12px var(--mono);fill:#d4d4d8;paint-order:stroke;stroke:var(--b-deep);stroke-width:5px;stroke-linejoin:round}
+.civ .lbl.own{fill:#c4b5fd}
+.civ figcaption{font-size:14.5px;line-height:1.55;color:var(--muted);margin:14px 0 0;max-width:74ch}
+/* Under 1080px the wide drawing's words would fall under 10px: the tall one takes over. */
 @media (max-width:1080px){.civ .civ-wide{display:none}.civ .civ-tall{display:block}}
 
-/* The example: the thread one goal left on the board, beat by beat, as the
-   task view shows a thread. The square beside a beat is the task's state
-   after it, in the board's colours. */
+/* The example: one goal as far as it has gone, beat by beat, across the
+   tasks the board carried for it. The square beside a beat is the state of
+   the task it moved, in the board's colours. */
 .story{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:clamp(32px,5vw,80px);margin-top:clamp(56px,7vw,88px);align-items:start}
 .story-lead{position:sticky;top:84px}
-.story-lead h3{font-size:1.45rem}
+.story-lead h3{font-size:1.4rem}
 .story-lead p{color:var(--muted);margin:14px 0 0;max-width:40ch}
 .story-lead p strong{color:var(--text)}
+.story-lead .id{white-space:nowrap}
 .thread{list-style:none;margin:0;padding:0;border-left:1px solid var(--line)}
 .beat{position:relative;padding:0 0 26px 26px}
 .beat:last-child{padding-bottom:0}
-.beat::before{content:"";position:absolute;left:-6px;top:6px;width:11px;height:11px;border-radius:3px;background:var(--dot,var(--line));
-  box-shadow:0 0 0 3px var(--ink),inset 0 0 0 1px rgba(8,24,29,.35)}
+.beat::before{content:"";position:absolute;left:-6px;top:6px;width:11px;height:11px;border-radius:50%;background:var(--dot,var(--line));
+  box-shadow:0 0 0 3px var(--ink),inset 0 0 0 1px rgba(0,0,0,.3)}
 .beat-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 12px;font:500 13px/1.6 var(--mono)}
-.beat-kind{color:var(--text)}
-.beat-who{color:var(--muted)}
-.beat p{margin:6px 0 0;font-size:16.5px;line-height:1.55;max-width:60ch}
+.beat-kind{color:var(--text);font-weight:700}
+.beat-who{color:var(--muted);overflow-wrap:anywhere}
+.beat p{margin:6px 0 0;font-size:16px;line-height:1.55;max-width:60ch}
 .beat .said{color:var(--text)}
 .beat .then{color:var(--muted)}
 .beat .then code{color:var(--text)}
@@ -298,29 +314,39 @@ main h3{font-size:1.3rem;line-height:1.25;letter-spacing:-.015em}
   .story-lead{position:static}
 }
 
+/* ---- new in this version: one tile for each, each a way into its group below ---- */
+.tiles{list-style:none;margin:44px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.tile{position:relative;padding:18px 18px 20px;border:1px solid var(--line-soft);border-radius:10px;background:var(--tile);
+  transition:border-color .2s ease,box-shadow .2s ease}
+.tile:hover{border-color:rgba(167,139,250,.55);box-shadow:0 0 22px -10px var(--glow)}
+.tile h3{font-size:1.06rem;line-height:1.3}
+.tile h3 a{color:var(--text);text-decoration:none}
+.tile h3 a::after{content:"";position:absolute;inset:0;border-radius:10px}
+.tile h3 a:focus-visible{outline:none}
+.tile:has(a:focus-visible){outline:2px solid var(--violet);outline-offset:3px}
+.tile p{margin:8px 0 0;color:var(--muted);font-size:15px;line-height:1.5}
+.tile code{color:var(--text)}
+
 /* ---- what it does ---- */
 /* A row per group: its items beside the captures that show them. */
-.does{display:grid;gap:clamp(48px,6vw,72px);margin-top:48px}
+.does{display:grid;gap:clamp(56px,7vw,88px);margin-top:48px}
 .does-row{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(32px,5vw,72px);align-items:start}
-.group h3{font-size:1.45rem;padding-bottom:12px;border-bottom:1px solid var(--line)}
+/* A capture wider than tall takes the larger side. */
+.does-row.landscape{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
+.group h3{font-size:1.4rem;padding-bottom:12px;border-bottom:1px solid var(--line-soft)}
 .group dl{margin:0}
-.group dt{font-weight:700;margin:20px 0 4px}
+.group dt{font-weight:600;margin:20px 0 4px}
 .group dd{margin:0;color:var(--muted);max-width:60ch}
+.group dd code{color:var(--text)}
+/* A capture or a second group under a group's items, in the same column. */
+.group > .shot,.group > .group{margin-top:clamp(36px,4vw,48px)}
 /* Switching the chief, under the item that says it: the dialog, and the new chief's window. */
 .switching .shot:first-child{max-width:600px}
-/* Two short groups one above the other, beside one capture. */
-.groups{display:grid;gap:clamp(40px,5vw,56px)}
-/* What an item has that the Download's stable build does not yet: the version says it, no stage. */
-.group .new{display:inline-block;margin-left:8px;vertical-align:middle;padding:2px 8px;border:1px solid var(--accent);border-radius:6px;
-  font:500 12px/1.3 var(--mono);letter-spacing:.04em;color:var(--accent);white-space:nowrap}
-/* A group's items go across the row: the last group has no capture, and Specs has its capture under them. */
+/* A group's items go across the row: Specs has its capture under them, the last group none. */
 .does-row.across{grid-template-columns:minmax(0,1fr)}
-.across dl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 clamp(24px,4vw,48px)}
-.across dt{grid-row:1}
-.across dd{grid-row:2}
+.across dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0 clamp(24px,4vw,48px)}
 @media (max-width:900px){
-  .does-row{grid-template-columns:minmax(0,1fr)}
-  .across dl{display:block}
+  .does-row,.does-row.landscape{grid-template-columns:minmax(0,1fr)}
 }
 
 /* ---- the hero's harnesses, download and install lines ---- */
@@ -328,8 +354,8 @@ main h3{font-size:1.3rem;line-height:1.25;letter-spacing:-.015em}
    every harness (README, Assets), its name under it. */
 .harnesses{list-style:none;margin:30px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,88px));gap:12px}
 .harness{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
-.harness .name{font:500 12.5px/1.25 var(--mono);color:var(--muted)}
-.mark{flex:none;width:min(64px,100%);aspect-ratio:1/1;border:1px solid var(--line);border-radius:12px;background:var(--panel);
+.harness .name{font:500 12px/1.25 var(--mono);color:var(--muted)}
+.mark{flex:none;width:min(64px,100%);aspect-ratio:1/1;border:1px solid var(--line-soft);border-radius:12px;background:var(--panel);
   display:grid;place-items:center;overflow:hidden}
 .mark img,.mark picture{display:block}
 .mark img{width:var(--size,62.5%);height:auto;max-width:none;margin:auto}
@@ -341,18 +367,18 @@ main h3{font-size:1.3rem;line-height:1.25;letter-spacing:-.015em}
 .mark.pi img{--size:106%}
 .get .actions{margin-top:30px}
 .get .fine a{white-space:nowrap}
-.get-title{margin:28px 0 10px!important;font:700 15px/1.3 var(--sans)!important;letter-spacing:0!important;color:var(--muted)!important}
+.get .get-title{max-width:none;margin:28px 0 10px;font:700 11px/1.2 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
 .command{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;max-width:1040px;margin:0 0 10px;
-  border:1px solid var(--line);border-radius:10px;background:var(--deep)}
-.command .where{padding:0 0 0 14px;font:500 12px/1.2 var(--mono);color:var(--muted);white-space:nowrap}
+  border:1px solid var(--line-soft);border-radius:10px;background:var(--deep)}
+.command .where{padding:0 0 0 14px;font:700 10.5px/1.2 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
 .command pre{margin:0;padding:12px 14px;overflow-x:auto}
-.command code{font-size:14px;color:var(--text);white-space:pre}
-.copy{margin:6px;padding:7px 12px;border:1px solid var(--line);border-radius:7px;background:var(--panel);color:var(--text);
-  font:600 13px/1 var(--sans);cursor:pointer}
-.copy:hover{border-color:var(--accent);color:var(--accent)}
+.command code{font-size:13.5px;color:var(--text);white-space:pre}
+.copy{margin:6px;padding:6px 12px;border:1px solid var(--line);border-radius:6px;background:transparent;color:var(--text);
+  font:500 13px/1 var(--sans);cursor:pointer}
+.copy:hover{background:var(--panel)}
 @media (max-width:600px){
   .harnesses{grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
-  .harness .name{font-size:11px}
+  .harness .name{font-size:10.5px}
   .command{grid-template-columns:minmax(0,1fr) auto}
   .command .where{grid-column:1/-1;padding:10px 14px 0}
   .command pre{padding:8px 14px 12px}
@@ -363,26 +389,25 @@ main h3{font-size:1.3rem;line-height:1.25;letter-spacing:-.015em}
 /* ---- your data ---- */
 .data{list-style:none;margin:40px 0 0;padding:0;display:grid;gap:22px;max-width:70ch}
 .data li{padding-left:18px;border-left:3px solid var(--line)}
-.data li.risk{border-left-color:var(--buoy)}
+.data li.risk{border-left-color:var(--danger)}
 .data strong{color:var(--text)}
-.data li.risk strong{color:var(--buoy)}
+.data li.risk strong{color:var(--danger)}
 
 /* ---- open source ---- */
 .source{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px 40px;
-  margin-top:clamp(72px,10vw,128px);padding:clamp(32px,5vw,48px) 0 clamp(56px,7vw,80px);border-top:1px solid var(--line)}
+  margin-top:clamp(72px,10vw,128px);padding:clamp(32px,5vw,48px) 0 clamp(56px,7vw,80px);border-top:1px solid var(--line-soft)}
 .source p{max-width:52ch;margin:14px 0 0;color:var(--muted)}
 .source .actions{margin:0}
 
 /* ---- footer ---- */
 footer{padding:44px 0 56px}
-.foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px 32px;font-size:15px}
-.foot .brand{font-size:17px}
+.foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px 32px;font-size:14.5px}
 .foot ul{display:flex;flex-wrap:wrap;gap:10px 22px;list-style:none;margin:0;padding:0}
-.foot a{color:var(--muted);text-decoration:none}
-.foot a:hover{color:var(--text);text-decoration:underline}
+.foot a:not(.brand){color:var(--muted);text-decoration:none}
+.foot a:not(.brand):hover{color:var(--text);text-decoration:underline}
 .foot .mit{width:100%;color:var(--muted);margin:0;font-size:14px}
 
-@media (max-width:600px){body{font-size:17px}}
+@media (max-width:600px){body{font-size:16.5px}}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{transition:none!important;animation:none!important}
@@ -401,8 +426,8 @@ footer{padding:44px 0 56px}
     <nav aria-label="On this page">
       <a href="#factory">The factory</a>
       <a href="#how">How it works</a>
+      <a href="#new">New in 3.0.7</a>
       <a href="#does">What it does</a>
-      <a href="#download">Download</a>
       <a href="#data">Your data</a>
     </nav>
     <a class="button button-go" href="#download">Download</a>
@@ -413,8 +438,9 @@ footer{padding:44px 0 56px}
 
 <section class="hero" id="top">
   <div class="wrap">
+    <a class="news" href="#new"><span class="lamp" aria-hidden="true"></span><span><b>New in 3.0.7</b> · nine roles, backups and Vacation, own hands</span></a>
     <h1>A software factory,<br> staffed by<br> AI coding agents.</h1>
-    <p class="lede">A desktop app. You give the goal to a Chief of Staff, and its staff of workers, advisors, reviewers, testers and an image designer take the tasks, in the coding agents you already use.</p>
+    <p class="lede">A desktop app. You give the goal to a Chief of Staff; it plans the work on a board, and a staff in nine roles takes the tasks, each in a terminal of its own, in the coding agents you already use, with your own logins.</p>
     <ul class="harnesses" aria-label="The coding agents it runs">
       <li class="harness" data-harness="claude-code"><span class="mark claude-code"><img src="./assets/harnesses/claude-code.svg" width="42" height="42" alt="" /></span><span class="name">Claude Code</span></li>
       <li class="harness" data-harness="codex"><span class="mark codex"><img src="./assets/harnesses/codex.png" width="49" height="49" alt="" /></span><span class="name">Codex</span></li>
@@ -428,7 +454,7 @@ footer{padding:44px 0 56px}
         <a class="button button-go" data-download="windows" href="https://github.com/ngvoicu/consensflow/releases/download/v3.0.7-alpha.8/ConsensFlow_3.0.7-alpha.8_x64-setup.exe">Download for Windows</a>
         <a class="button button-quiet" href="https://github.com/ngvoicu/consensflow">Source on GitHub</a>
       </div>
-      <p class="fine">The latest alpha. Mac with Apple silicon, macOS 13.5 or later; Windows 10 or 11, 64-bit. <a href="./status/">Supported versions</a></p>
+      <p class="fine">The latest alpha. Mac with Apple silicon, macOS 13.5 or later; Windows 10 or 11, 64-bit. No passwords stored, no API keys. <a href="./status/">Supported versions</a></p>
       <h2 class="get-title">Or install from a terminal</h2>
       <div class="command"><span class="where">Mac</span><pre><code>curl -fsSL https://consensflow.ngvoicu.dev/install.sh | sh -s -- --alpha</code></pre><button class="copy" type="button" data-copy>Copy</button></div>
       <div class="command"><span class="where">Windows, PowerShell</span><pre><code>$env:CONSENSFLOW_CHANNEL = 'alpha'; irm https://consensflow.ngvoicu.dev/install.ps1 | iex</code></pre><button class="copy" type="button" data-copy>Copy</button></div>
@@ -436,266 +462,309 @@ footer{padding:44px 0 56px}
 
     <figure class="shot">
       <img src="./assets/screenshots/window.webp" width="1840" height="1270" fetchpriority="high" decoding="async"
-        alt="The ConsensFlow window on a demo project, pantry, with the buttons Inbox, Specs, Project settings and New project along its top. On the left, the board: a note from the chief at the top, then columns Backlog, Queued, Working, Waiting, Done and Finished, and a row for the chief and for each member of the staff: theia on Codex, merope on Pi, huginn on Claude Code, and seshat on Devin as reviewer and as advisor. Tasks T-1 to T-10 sit in the columns of their states. On the right, the chief's terminal, with History and Switch chief on its card: Claude Code reading an advisor's result and running cf task add three times to put the next tasks on the board." />
-      <figcaption>A demo project. The board on the left: a row for each member of the staff, a column for each state of a task. The chief's terminal on the right: Claude Code reads an advisor's result and puts the next three tasks on the board.</figcaption>
+        alt="The ConsensFlow window on a demo project, pantry, with Inbox, Specs, Project settings and New project along its top. On the left, the board: a note from the chief under For you, then the columns Backlog, Queued, Working, Waiting, Done and Finished. The chief's row has T-10 and T-9 in the backlog, each blocked by the tasks it waits for. Under it the Workers group is open, five members, each named by its model: @gpt-6-1-terra-high on Codex with T-2 accepted; @gpt-6-astra-medium on Pi, out of quota, its backup taking its tasks, with T-5 waiting; @claude-sonnet-5-5-medium on Claude Code at work on T-7; and @gpt-6-luna-low, on Vacation. On the right, the chief's pane, Claude Code on claude-opus-5-5, with Do with your own hands, History, Switch chief and Start meeting on its card. In its terminal the chief accepts T-2 and T-3, leaves a note, reads an advisor's result on time zones, and puts a plan of five tasks, T-8 to T-12, on the board with cf task add --plan." />
+      <figcaption>A demo project. The board on the left: the chief's row, then the staff grouped by role, here the workers, and a column for each state of a task. The chief's terminal on the right: Claude Code reads an advisor's result and puts the next five tasks on the board with one plan.</figcaption>
     </figure>
   </div>
 </section>
 
 <section class="section" id="factory" aria-labelledby="factory-title">
   <div class="wrap">
+    <p class="kicker">Who does what</p>
     <h2 id="factory-title">A software factory</h2>
-    <p class="intro">Behind the board, ConsensFlow is a small civilization at work. The chief plans and hands out tasks. Workers build, and ask the chief when a call is not theirs. Advisors bring findings. Reviewers check finished work and testers check it by running it, and when they find something the chief sends it back, into the same window, so the follow-up continues where the task stopped. The image designer draws the images the chief asks for. <strong>You set the goal and make the calls that are yours. What comes out is software.</strong></p>
+    <p class="intro">Behind the board, ConsensFlow is a small civilization at work. The chief plans, and hands each task to a member of the role it needs: workers build, frontend designers design and build screens, architects design the software, researchers and advisors bring findings, reviewers and testers check finished work, integrators land what was accepted, and the image designer draws. When a check finds something, the chief sends it back into the same window, so the follow-up continues where the task stopped. <strong>You set the goal and make the calls that are yours. What comes out is software.</strong></p>
 
     <figure class="civ">
       <div class="civ-board">
-        <svg class="civ-wide" viewBox="0 0 1120 520" role="img" aria-labelledby="civ-wide-title civ-wide-desc">
+        <svg class="civ-wide" viewBox="0 0 1120 730" role="img" aria-labelledby="civ-wide-title civ-wide-desc">
           <title id="civ-wide-title">Who talks to whom in ConsensFlow</title>
-          <desc id="civ-wide-desc">You give the goal to the Chief of Staff and answer its questions; the chief answers you and leaves notes on the board. The chief sends tasks, answers and follow-ups to the workers; the workers send questions and results back. The chief sends questions to the advisors, who send findings back and change no file. The chief sends reviews to the reviewers, who send findings back, ready or not. The chief sends tests to the testers, who run the finished work and send back results with evidence, and change no product code. The chief sends the image designer what to draw, what to use as reference and where to save it, and the designer sends back the path of the image it saved. The workers change the files of your project. Every message goes through the chief: members of the staff never talk to each other.</desc>
+          <desc id="civ-wide-desc">You give the goal to the Chief of Staff and answer its questions; the chief answers you and leaves notes on the board. From the chief, a line of its own runs to each of the nine roles of its staff, and messages go both ways on it. A worker gets a task and sends back completed work and evidence. A frontend designer gets a screen's purpose and sends back its design and implementation. An architect gets a design problem and sends back documents, contracts and a code frame. A researcher gets a question and sends back findings and where they were found. An advisor gets a question and sends back findings and recommendations. A reviewer gets finished work to check and sends back findings and evidence. A tester gets work to run and check and sends back test results and evidence. An integrator gets accepted work and sends back the work merged, checked and landed. The image designer, on Codex, gets a drawing order and sends back the saved image. Workers, frontend designers, architects, integrators and the image designer change your project; researchers, advisors and reviewers change no project file, and testers change no product code. With own hands on, the chief does the work on your project itself. No member is joined to another: every message goes through the chief.</desc>
           <defs>
-            <marker id="tip-w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="tip"/></marker>
+            <marker id="tip-w" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="tip"/></marker>
+            <marker id="tip-wo" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="tip own"/></marker>
           </defs>
           <!-- you and the chief -->
-          <path class="flow" d="M150,253 L273,253" marker-end="url(#tip-w)"/>
-          <path class="flow" d="M275,267 L152,267" marker-end="url(#tip-w)"/>
-          <text class="lbl" x="212" y="247" text-anchor="middle">goal, answers</text>
-          <text class="lbl" x="212" y="282" text-anchor="middle">questions, notes</text>
-          <!-- everything else goes through the chief: one line from it, and each member of the staff off that line -->
-          <path class="flow" d="M475,260 L490,260"/>
-          <path class="flow" d="M490,53 L490,467"/>
-          <circle class="tip" cx="490" cy="260" r="3"/>
-          <!-- the chief and the advisors -->
-          <path class="flow" d="M490,53 L698,53" marker-end="url(#tip-w)"/>
-          <path class="flow" d="M700,67 L492,67" marker-end="url(#tip-w)"/>
-          <text class="lbl" x="595" y="48" text-anchor="middle">questions</text>
-          <text class="lbl" x="595" y="81" text-anchor="middle">findings</text>
-          <!-- the chief and the reviewers -->
-          <path class="flow" d="M490,153 L698,153" marker-end="url(#tip-w)"/>
-          <path class="flow" d="M700,167 L492,167" marker-end="url(#tip-w)"/>
-          <text class="lbl" x="595" y="148" text-anchor="middle">reviews</text>
-          <text class="lbl" x="595" y="181" text-anchor="middle">findings, ready or not</text>
-          <!-- the chief and the workers -->
-          <path class="flow" d="M490,253 L698,253" marker-end="url(#tip-w)"/>
-          <path class="flow" d="M700,267 L492,267" marker-end="url(#tip-w)"/>
-          <text class="lbl" x="595" y="248" text-anchor="middle">tasks, answers, follow-ups</text>
-          <text class="lbl" x="595" y="281" text-anchor="middle"><tspan class="ask">questions</tspan>, results</text>
-          <!-- the chief and the testers -->
-          <path class="flow" d="M490,353 L698,353" marker-end="url(#tip-w)"/>
-          <path class="flow" d="M700,367 L492,367" marker-end="url(#tip-w)"/>
-          <text class="lbl" x="595" y="348" text-anchor="middle">tests to run</text>
-          <text class="lbl" x="595" y="381" text-anchor="middle">results with evidence</text>
-          <!-- the chief and the image designer -->
-          <path class="flow" d="M490,453 L698,453" marker-end="url(#tip-w)"/>
-          <path class="flow" d="M700,467 L492,467" marker-end="url(#tip-w)"/>
-          <text class="lbl" x="595" y="448" text-anchor="middle">what to draw</text>
-          <text class="lbl" x="595" y="481" text-anchor="middle">the file's path</text>
-          <!-- the workers and your project -->
-          <path class="flow" d="M900,260 L963,260" marker-end="url(#tip-w)"/>
-          <text class="lbl" x="931" y="251" text-anchor="middle">changes</text>
+          <path class="flow" d="M170,392 L298,392" marker-end="url(#tip-w)"/>
+          <path class="flow" d="M300,408 L172,408" marker-end="url(#tip-w)"/>
+          <text class="lbl" x="235" y="383" text-anchor="middle">goal, answers</text>
+          <text class="lbl" x="235" y="426" text-anchor="middle">questions, notes</text>
+          <!-- the chief and each role of its staff: a line of its own for each, messages both ways -->
+          <path class="flow" d="M501,316 L639,107" marker-start="url(#tip-w)" marker-end="url(#tip-w)"/>
+          <path class="flow" d="M501,337 L639,179" marker-start="url(#tip-w)" marker-end="url(#tip-w)"/>
+          <path class="flow" d="M501,358 L639,251" marker-start="url(#tip-w)" marker-end="url(#tip-w)"/>
+          <path class="flow" d="M501,379 L639,323" marker-start="url(#tip-w)" marker-end="url(#tip-w)"/>
+          <path class="flow" d="M501,400 L639,395" marker-start="url(#tip-w)" marker-end="url(#tip-w)"/>
+          <path class="flow" d="M501,421 L639,467" marker-start="url(#tip-w)" marker-end="url(#tip-w)"/>
+          <path class="flow" d="M501,442 L639,539" marker-start="url(#tip-w)" marker-end="url(#tip-w)"/>
+          <path class="flow" d="M501,463 L639,611" marker-start="url(#tip-w)" marker-end="url(#tip-w)"/>
+          <path class="flow" d="M501,484 L639,683" marker-start="url(#tip-w)" marker-end="url(#tip-w)"/>
+          <!-- the roles that change your project -->
+          <path class="flow" d="M940,107 L999,107" marker-end="url(#tip-w)"/>
+          <path class="flow" d="M940,179 L999,179" marker-end="url(#tip-w)"/>
+          <path class="flow" d="M940,251 L999,251" marker-end="url(#tip-w)"/>
+          <path class="flow" d="M940,611 L999,611" marker-end="url(#tip-w)"/>
+          <path class="flow" d="M940,683 L999,683" marker-end="url(#tip-w)"/>
+          <!-- own hands: the chief and your project -->
+          <path class="flow own" d="M400,299 L400,40 L1056,40 L1056,75" marker-end="url(#tip-wo)"/>
+          <text class="lbl own" x="728" y="31" text-anchor="middle">own hands: the chief does the work itself</text>
           <!-- the people -->
           <g class="node you">
-            <rect class="card" x="10" y="229" width="140" height="62" rx="8"/>
-            <circle class="lamp" cx="28" cy="253" r="4"/>
-            <text class="name" x="40" y="257">YOU</text>
-            <text class="sub" x="40" y="277">give the goal</text>
+            <rect class="card" x="20" y="369" width="150" height="62" rx="8"/>
+            <circle class="lamp" cx="38" cy="393" r="4"/>
+            <text class="name" x="50" y="397">YOU</text>
+            <text class="sub" x="50" y="417">give the goal</text>
           </g>
           <g class="node chief">
-            <rect class="card" x="275" y="210" width="200" height="100" rx="8"/>
-            <circle class="lamp" cx="293" cy="242" r="4"/>
-            <text class="name" x="305" y="246">CHIEF OF STAFF</text>
-            <text class="sub" x="305" y="267">plans, answers, decides:</text>
-            <text class="sub" x="305" y="285">accepts, or sends back</text>
+            <rect class="card" x="300" y="300" width="200" height="200" rx="8"/>
+            <circle class="lamp" cx="318" cy="380" r="4"/>
+            <text class="name" x="330" y="384">CHIEF OF STAFF</text>
+            <text class="sub" x="330" y="406">plans, answers, decides:</text>
+            <text class="sub" x="330" y="424">accepts, or sends back</text>
           </g>
           <g class="node">
-            <rect class="card" x="700" y="29" width="200" height="62" rx="8"/>
-            <circle class="lamp" cx="718" cy="53" r="4"/>
-            <text class="name" x="730" y="57">ADVISORS</text>
-            <text class="sub" x="730" y="77">findings, no edits</text>
+            <rect class="card" x="640" y="76" width="300" height="62" rx="8"/>
+            <circle class="lamp" cx="656" cy="95" r="4"/>
+            <text class="name" x="668" y="99">WORKER</text>
+            <text class="sub" x="668" y="116">→ a task</text>
+            <text class="sub" x="668" y="131">← completed work and evidence</text>
           </g>
           <g class="node">
-            <rect class="card" x="700" y="129" width="200" height="62" rx="8"/>
-            <circle class="lamp" cx="718" cy="153" r="4"/>
-            <text class="name" x="730" y="157">REVIEWERS</text>
-            <text class="sub" x="730" y="177">check finished work</text>
+            <rect class="card" x="640" y="148" width="300" height="62" rx="8"/>
+            <circle class="lamp" cx="656" cy="167" r="4"/>
+            <text class="name" x="668" y="171">FRONTEND DESIGNER</text>
+            <text class="sub" x="668" y="188">→ a screen's purpose</text>
+            <text class="sub" x="668" y="203">← its design and implementation</text>
           </g>
           <g class="node">
-            <rect class="card" x="700" y="229" width="200" height="62" rx="8"/>
-            <circle class="lamp" cx="718" cy="253" r="4"/>
-            <text class="name" x="730" y="257">WORKERS</text>
-            <text class="sub" x="730" y="277">do the tasks</text>
+            <rect class="card" x="640" y="220" width="300" height="62" rx="8"/>
+            <circle class="lamp" cx="656" cy="239" r="4"/>
+            <text class="name" x="668" y="243">ARCHITECT</text>
+            <text class="sub" x="668" y="260">→ a design problem</text>
+            <text class="sub" x="668" y="275">← docs, contracts, a code frame</text>
           </g>
           <g class="node">
-            <rect class="card" x="700" y="329" width="200" height="62" rx="8"/>
-            <circle class="lamp" cx="718" cy="353" r="4"/>
-            <text class="name" x="730" y="357">TESTERS</text>
-            <text class="sub" x="730" y="377">run it, no product code</text>
+            <rect class="card" x="640" y="292" width="300" height="62" rx="8"/>
+            <circle class="lamp" cx="656" cy="311" r="4"/>
+            <text class="name" x="668" y="315">RESEARCHER</text>
+            <text class="sub" x="668" y="332">→ a question</text>
+            <text class="sub" x="668" y="347">← findings and their sources</text>
           </g>
           <g class="node">
-            <rect class="card" x="700" y="429" width="200" height="62" rx="8"/>
-            <circle class="lamp" cx="718" cy="453" r="4"/>
-            <text class="name" x="730" y="457">IMAGE DESIGNER</text>
-            <text class="sub" x="730" y="477">draws the images</text>
+            <rect class="card" x="640" y="364" width="300" height="62" rx="8"/>
+            <circle class="lamp" cx="656" cy="383" r="4"/>
+            <text class="name" x="668" y="387">ADVISOR</text>
+            <text class="sub" x="668" y="404">→ a question</text>
+            <text class="sub" x="668" y="419">← findings and recommendations</text>
+          </g>
+          <g class="node">
+            <rect class="card" x="640" y="436" width="300" height="62" rx="8"/>
+            <circle class="lamp" cx="656" cy="455" r="4"/>
+            <text class="name" x="668" y="459">REVIEWER</text>
+            <text class="sub" x="668" y="476">→ finished work to check</text>
+            <text class="sub" x="668" y="491">← findings and evidence</text>
+          </g>
+          <g class="node">
+            <rect class="card" x="640" y="508" width="300" height="62" rx="8"/>
+            <circle class="lamp" cx="656" cy="527" r="4"/>
+            <text class="name" x="668" y="531">TESTER</text>
+            <text class="sub" x="668" y="548">→ work to run and check</text>
+            <text class="sub" x="668" y="563">← test results and evidence</text>
+          </g>
+          <g class="node">
+            <rect class="card" x="640" y="580" width="300" height="62" rx="8"/>
+            <circle class="lamp" cx="656" cy="599" r="4"/>
+            <text class="name" x="668" y="603">INTEGRATOR</text>
+            <text class="sub" x="668" y="620">→ accepted work</text>
+            <text class="sub" x="668" y="635">← merged, checked, landed</text>
+          </g>
+          <g class="node">
+            <rect class="card" x="640" y="652" width="300" height="62" rx="8"/>
+            <circle class="lamp" cx="656" cy="671" r="4"/>
+            <text class="name" x="668" y="675">IMAGE DESIGNER</text>
+            <text class="sub" x="668" y="692">→ a drawing order (on Codex)</text>
+            <text class="sub" x="668" y="707">← the saved image</text>
           </g>
           <g class="node out">
-            <rect class="card" x="965" y="229" width="150" height="62" rx="8"/>
-            <circle class="lamp" cx="983" cy="253" r="4"/>
-            <text class="name" x="995" y="257">YOUR PROJECT</text>
-            <text class="sub" x="995" y="277">the software</text>
+            <rect class="card" x="1000" y="76" width="112" height="638" rx="8"/>
+            <circle class="lamp" cx="1056" cy="372" r="4"/>
+            <text class="name" x="1056" y="398" text-anchor="middle">YOUR</text>
+            <text class="name" x="1056" y="416" text-anchor="middle">PROJECT</text>
+            <text class="sub" x="1056" y="438" text-anchor="middle">the software</text>
           </g>
         </svg>
-        <svg class="civ-tall" viewBox="0 0 360 850" role="img" aria-labelledby="civ-tall-title civ-tall-desc">
+        <svg class="civ-tall" viewBox="0 0 400 970" role="img" aria-labelledby="civ-tall-title civ-tall-desc">
           <title id="civ-tall-title">Who talks to whom in ConsensFlow</title>
-          <desc id="civ-tall-desc">You give the goal to the Chief of Staff and answer its questions; the chief answers you and leaves notes on the board. The chief sends tasks, answers and follow-ups to the workers; the workers send questions and results back. The chief sends questions to the advisors, who send findings back and change no file. The chief sends reviews to the reviewers, who send findings back, ready or not. The chief sends tests to the testers, who run the finished work and send back results with evidence, and change no product code. The chief sends the image designer what to draw, what to use as reference and where to save it, and the designer sends back the path of the image it saved. The workers change the files of your project. Every message goes through the chief: members of the staff never talk to each other.</desc>
+          <desc id="civ-tall-desc">You give the goal to the Chief of Staff and answer its questions; the chief answers you and leaves notes on the board. From the chief, a line of its own runs to each of the nine roles of its staff, and messages go both ways on it. A worker gets a task and sends back completed work and evidence. A frontend designer gets a screen's purpose and sends back its design and implementation. An architect gets a design problem and sends back documents, contracts and a code frame. A researcher gets a question and sends back findings and where they were found. An advisor gets a question and sends back findings and recommendations. A reviewer gets finished work to check and sends back findings and evidence. A tester gets work to run and check and sends back test results and evidence. An integrator gets accepted work and sends back the work merged, checked and landed. The image designer, on Codex, gets a drawing order and sends back the saved image. Workers, frontend designers, architects, integrators and the image designer change your project; researchers, advisors and reviewers change no project file, and testers change no product code. With own hands on, the chief does the work on your project itself. No member is joined to another: every message goes through the chief.</desc>
           <defs>
-            <marker id="tip-t" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="tip"/></marker>
+            <marker id="tip-t" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="tip"/></marker>
+            <marker id="tip-to" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="tip own"/></marker>
           </defs>
           <!-- you and the chief -->
-          <path class="flow" d="M168,68 L168,130" marker-end="url(#tip-t)"/>
-          <path class="flow" d="M192,132 L192,70" marker-end="url(#tip-t)"/>
-          <text class="lbl" x="156" y="104" text-anchor="end">goal, answers</text>
-          <text class="lbl" x="204" y="104">questions, notes</text>
-          <!-- everything else goes through the chief: one line down from it -->
-          <path class="flow" d="M26,208 L26,686"/>
-          <!-- the advisors -->
-          <path class="flow" d="M26,270 L163,270" marker-end="url(#tip-t)"/>
-          <path class="flow" d="M165,286 L28,286" marker-end="url(#tip-t)"/>
-          <text class="lbl" x="95" y="263" text-anchor="middle">questions</text>
-          <text class="lbl" x="95" y="300" text-anchor="middle">findings</text>
-          <!-- the reviewers -->
-          <path class="flow" d="M26,370 L163,370" marker-end="url(#tip-t)"/>
-          <path class="flow" d="M165,386 L28,386" marker-end="url(#tip-t)"/>
-          <text class="lbl" x="95" y="363" text-anchor="middle">reviews</text>
-          <text class="lbl" x="95" y="400" text-anchor="middle">findings,</text>
-          <text class="lbl" x="95" y="412" text-anchor="middle">ready or not</text>
-          <!-- the testers -->
-          <path class="flow" d="M26,470 L163,470" marker-end="url(#tip-t)"/>
-          <path class="flow" d="M165,486 L28,486" marker-end="url(#tip-t)"/>
-          <text class="lbl" x="95" y="463" text-anchor="middle">tests to run</text>
-          <text class="lbl" x="95" y="500" text-anchor="middle">results with</text>
-          <text class="lbl" x="95" y="512" text-anchor="middle">evidence</text>
-          <!-- the image designer -->
-          <path class="flow" d="M26,570 L163,570" marker-end="url(#tip-t)"/>
-          <path class="flow" d="M165,586 L28,586" marker-end="url(#tip-t)"/>
-          <text class="lbl" x="95" y="563" text-anchor="middle">what to draw</text>
-          <text class="lbl" x="95" y="600" text-anchor="middle">the file's path</text>
-          <!-- the workers -->
-          <path class="flow" d="M26,670 L163,670" marker-end="url(#tip-t)"/>
-          <path class="flow" d="M165,686 L28,686" marker-end="url(#tip-t)"/>
-          <text class="lbl" x="95" y="651" text-anchor="middle">tasks, answers,</text>
-          <text class="lbl" x="95" y="663" text-anchor="middle">follow-ups</text>
-          <text class="lbl" x="95" y="700" text-anchor="middle"><tspan class="ask">questions</tspan>, results</text>
-          <!-- the workers and your project -->
-          <path class="flow" d="M265,706 L265,778" marker-end="url(#tip-t)"/>
-          <text class="lbl" x="255" y="746" text-anchor="end">changes</text>
+          <path class="flow" d="M180,64 L180,126" marker-end="url(#tip-t)"/>
+          <path class="flow" d="M200,128 L200,66" marker-end="url(#tip-t)"/>
+          <text class="lbl" x="170" y="100" text-anchor="end">goal, answers</text>
+          <text class="lbl" x="210" y="100">questions, notes</text>
+          <!-- the chief and each role of its staff: a line of its own for each, messages both ways -->
+          <path class="flow" d="M80,215 L80,274 L91,274" marker-start="url(#tip-t)" marker-end="url(#tip-t)"/>
+          <path class="flow" d="M73,215 L73,344 L91,344" marker-start="url(#tip-t)" marker-end="url(#tip-t)"/>
+          <path class="flow" d="M66,215 L66,414 L91,414" marker-start="url(#tip-t)" marker-end="url(#tip-t)"/>
+          <path class="flow" d="M59,215 L59,484 L91,484" marker-start="url(#tip-t)" marker-end="url(#tip-t)"/>
+          <path class="flow" d="M52,215 L52,554 L91,554" marker-start="url(#tip-t)" marker-end="url(#tip-t)"/>
+          <path class="flow" d="M45,215 L45,624 L91,624" marker-start="url(#tip-t)" marker-end="url(#tip-t)"/>
+          <path class="flow" d="M38,215 L38,694 L91,694" marker-start="url(#tip-t)" marker-end="url(#tip-t)"/>
+          <path class="flow" d="M31,215 L31,764 L91,764" marker-start="url(#tip-t)" marker-end="url(#tip-t)"/>
+          <path class="flow" d="M24,215 L24,834 L91,834" marker-start="url(#tip-t)" marker-end="url(#tip-t)"/>
+          <!-- the roles that change your project -->
+          <path class="flow" d="M342,274 L378,274 L378,893" marker-end="url(#tip-t)"/>
+          <path class="flow" d="M342,344 L371,344 L371,893" marker-end="url(#tip-t)"/>
+          <path class="flow" d="M342,414 L364,414 L364,893" marker-end="url(#tip-t)"/>
+          <path class="flow" d="M342,764 L357,764 L357,893" marker-end="url(#tip-t)"/>
+          <path class="flow" d="M342,834 L350,834 L350,893" marker-end="url(#tip-t)"/>
+          <!-- own hands: the chief and your project -->
+          <path class="flow own" d="M19,171 L10,171 L10,924 L91,924" marker-end="url(#tip-to)"/>
+          <text class="lbl own" x="17" y="914">own hands</text>
           <!-- the people -->
           <g class="node you">
-            <rect class="card" x="90" y="12" width="180" height="56" rx="8"/>
-            <circle class="lamp" cx="108" cy="34" r="4"/>
-            <text class="name" x="120" y="38">YOU</text>
-            <text class="sub" x="120" y="56">give the goal</text>
+            <rect class="card" x="100" y="12" width="180" height="52" rx="8"/>
+            <circle class="lamp" cx="116" cy="32" r="4"/>
+            <text class="name" x="128" y="36">YOU</text>
+            <text class="sub" x="128" y="54">give the goal</text>
           </g>
           <g class="node chief">
-            <rect class="card" x="20" y="132" width="320" height="76" rx="8"/>
-            <circle class="lamp" cx="38" cy="156" r="4"/>
-            <text class="name" x="50" y="160">CHIEF OF STAFF</text>
-            <text class="sub" x="50" y="179">plans, answers, decides:</text>
-            <text class="sub" x="50" y="196">accepts, or sends back</text>
+            <rect class="card" x="20" y="128" width="340" height="86" rx="8"/>
+            <circle class="lamp" cx="38" cy="152" r="4"/>
+            <text class="name" x="50" y="156">CHIEF OF STAFF</text>
+            <text class="sub" x="50" y="176">plans, answers, decides:</text>
+            <text class="sub" x="50" y="194">accepts, or sends back</text>
           </g>
           <g class="node">
-            <rect class="card" x="165" y="250" width="175" height="56" rx="8"/>
-            <circle class="lamp" cx="183" cy="272" r="4"/>
-            <text class="name" x="195" y="276">ADVISORS</text>
-            <text class="sub" x="195" y="294">findings, no edits</text>
+            <rect class="card" x="92" y="244" width="250" height="60" rx="8"/>
+            <circle class="lamp" cx="106" cy="262" r="4"/>
+            <text class="name" x="118" y="266">WORKER</text>
+            <text class="sub" x="118" y="283">→ a task</text>
+            <text class="sub" x="118" y="298">← completed work and evidence</text>
           </g>
           <g class="node">
-            <rect class="card" x="165" y="350" width="175" height="56" rx="8"/>
-            <circle class="lamp" cx="183" cy="372" r="4"/>
-            <text class="name" x="195" y="376">REVIEWERS</text>
-            <text class="sub" x="195" y="394">check finished work</text>
+            <rect class="card" x="92" y="314" width="250" height="60" rx="8"/>
+            <circle class="lamp" cx="106" cy="332" r="4"/>
+            <text class="name" x="118" y="336">FRONTEND DESIGNER</text>
+            <text class="sub" x="118" y="353">→ a screen's purpose</text>
+            <text class="sub" x="118" y="368">← its design and implementation</text>
           </g>
           <g class="node">
-            <rect class="card" x="165" y="450" width="175" height="56" rx="8"/>
-            <circle class="lamp" cx="183" cy="472" r="4"/>
-            <text class="name" x="195" y="476">TESTERS</text>
-            <text class="sub" x="195" y="494">run it, no product code</text>
+            <rect class="card" x="92" y="384" width="250" height="60" rx="8"/>
+            <circle class="lamp" cx="106" cy="402" r="4"/>
+            <text class="name" x="118" y="406">ARCHITECT</text>
+            <text class="sub" x="118" y="423">→ a design problem</text>
+            <text class="sub" x="118" y="438">← docs, contracts, a code frame</text>
           </g>
           <g class="node">
-            <rect class="card" x="165" y="550" width="175" height="56" rx="8"/>
-            <circle class="lamp" cx="183" cy="572" r="4"/>
-            <text class="name" x="195" y="576">IMAGE DESIGNER</text>
-            <text class="sub" x="195" y="594">draws the images</text>
+            <rect class="card" x="92" y="454" width="250" height="60" rx="8"/>
+            <circle class="lamp" cx="106" cy="472" r="4"/>
+            <text class="name" x="118" y="476">RESEARCHER</text>
+            <text class="sub" x="118" y="493">→ a question</text>
+            <text class="sub" x="118" y="508">← findings and their sources</text>
           </g>
           <g class="node">
-            <rect class="card" x="165" y="650" width="175" height="56" rx="8"/>
-            <circle class="lamp" cx="183" cy="672" r="4"/>
-            <text class="name" x="195" y="676">WORKERS</text>
-            <text class="sub" x="195" y="694">do the tasks</text>
+            <rect class="card" x="92" y="524" width="250" height="60" rx="8"/>
+            <circle class="lamp" cx="106" cy="542" r="4"/>
+            <text class="name" x="118" y="546">ADVISOR</text>
+            <text class="sub" x="118" y="563">→ a question</text>
+            <text class="sub" x="118" y="578">← findings and recommendations</text>
+          </g>
+          <g class="node">
+            <rect class="card" x="92" y="594" width="250" height="60" rx="8"/>
+            <circle class="lamp" cx="106" cy="612" r="4"/>
+            <text class="name" x="118" y="616">REVIEWER</text>
+            <text class="sub" x="118" y="633">→ finished work to check</text>
+            <text class="sub" x="118" y="648">← findings and evidence</text>
+          </g>
+          <g class="node">
+            <rect class="card" x="92" y="664" width="250" height="60" rx="8"/>
+            <circle class="lamp" cx="106" cy="682" r="4"/>
+            <text class="name" x="118" y="686">TESTER</text>
+            <text class="sub" x="118" y="703">→ work to run and check</text>
+            <text class="sub" x="118" y="718">← test results and evidence</text>
+          </g>
+          <g class="node">
+            <rect class="card" x="92" y="734" width="250" height="60" rx="8"/>
+            <circle class="lamp" cx="106" cy="752" r="4"/>
+            <text class="name" x="118" y="756">INTEGRATOR</text>
+            <text class="sub" x="118" y="773">→ accepted work</text>
+            <text class="sub" x="118" y="788">← merged, checked, landed</text>
+          </g>
+          <g class="node">
+            <rect class="card" x="92" y="804" width="250" height="60" rx="8"/>
+            <circle class="lamp" cx="106" cy="822" r="4"/>
+            <text class="name" x="118" y="826">IMAGE DESIGNER</text>
+            <text class="sub" x="118" y="843">→ a drawing order (on Codex)</text>
+            <text class="sub" x="118" y="858">← the saved image</text>
           </g>
           <g class="node out">
-            <rect class="card" x="165" y="780" width="175" height="56" rx="8"/>
-            <circle class="lamp" cx="183" cy="802" r="4"/>
-            <text class="name" x="195" y="806">YOUR PROJECT</text>
-            <text class="sub" x="195" y="824">the software</text>
+            <rect class="card" x="92" y="894" width="292" height="60" rx="8"/>
+            <circle class="lamp" cx="108" cy="920" r="4"/>
+            <text class="name" x="120" y="924">YOUR PROJECT</text>
+            <text class="sub" x="120" y="942">the software</text>
           </g>
         </svg>
       </div>
-      <figcaption>Who talks to whom. Between the chief and its staff, every arrow is a message on the board, numbered in the order it was sent. The staff talk only to the chief, never to each other; you talk to the chief in its terminal, and can step into any window. With human approval on, every message between them waits for you.</figcaption>
+      <figcaption>Who talks to whom. From the chief, a line of its own to each role, and on each line the board carries messages both ways: what the chief sends, and what comes back. The staff talk only to the chief, never to each other; you talk to the chief in its terminal, and can step into any window. Researchers, advisors and reviewers change no project files; testers change no product code. With human approval on, every message between them waits for you.</figcaption>
     </figure>
 
     <div class="story">
       <div class="story-lead">
-        <h3>One goal, start to finish</h3>
-        <p>The shopping list of the demo project, as its chief ran it: your words in the chief's terminal, what the board carried between the chief and its staff, and the note that told you the work was in. <strong>It is the thread T-2 keeps</strong>, shown open under What it does.</p>
+        <h3>One goal, under way</h3>
+        <p>The shopping list of the demo project, as far as it has gone: your goal in the chief's terminal, the messages the board carried for two tasks, the API (<span class="id">T-2</span>) and its review (<span class="id">T-3</span>), and the chief's note to you. <strong>The page, <span class="id">T-4</span>, is still under way.</strong> <span class="id">T-2's</span> own messages are in its task, shown open under What it does.</p>
       </div>
       <div class="story-body">
         <ol class="thread">
-          <li class="beat" style="--dot:var(--accent)">
+          <li class="beat" style="--dot:var(--violet)">
             <div class="beat-head"><span class="beat-kind">Goal</span><span class="beat-who">you → chief, in its terminal</span></div>
             <p class="said">“The pantry app needs a shopping list: add items, check them off, clear what's done. Keep the list on the server, and have the API reviewed before the page is built on it.”</p>
           </li>
           <li class="beat" style="--dot:var(--s-open)">
             <div class="beat-head"><span class="beat-kind">Request 1</span><span class="beat-who">chief → the board · T-2, for a standard worker</span></div>
-            <p class="then">The chief reads the routes the app has and writes the brief: three routes, where to keep them, tests beside theirs, <code>npm test</code> before reporting. It adds T-4, the page, to wait until T-2 is accepted. theia, a worker on Codex, is free: T-2 opens in a fresh Codex window.</p>
+            <p class="then">The chief reads the routes the app has and writes the brief: three routes, where to keep them, tests beside theirs, <code>npm test</code> before reporting. It adds T-4, the page, for the frontend designer, to wait until T-2 is accepted. @gpt-6-1-terra-high, a standard worker on Codex, is free: T-2 opens in a fresh Codex window.</p>
           </li>
           <li class="beat" style="--dot:var(--s-waiting)">
-            <div class="beat-head"><span class="beat-kind">Question</span><span class="beat-who">theia → chief · T-2 waits</span></div>
+            <div class="beat-head"><span class="beat-kind">Question</span><span class="beat-who">@gpt-6-1-terra-high → chief · T-2 waits</span></div>
             <p class="said">“Should clearing delete the checked rows, or keep them and mark them cleared? <code>items</code> keeps its history with a <code>deleted_at</code> column; the list could do the same.”</p>
           </li>
           <li class="beat" style="--dot:var(--s-working)">
-            <div class="beat-head"><span class="beat-kind">Answer</span><span class="beat-who">chief → theia · T-2 goes on</span></div>
+            <div class="beat-head"><span class="beat-kind">Answer</span><span class="beat-who">chief → @gpt-6-1-terra-high · T-2 goes on</span></div>
             <p class="said">“Delete them. The list is a scratch pad: nothing reads old entries, and <code>items</code> keeps the history that matters.”</p>
           </li>
           <li class="beat" style="--dot:var(--s-done)">
-            <div class="beat-head"><span class="beat-kind">Result 1</span><span class="beat-who">theia → chief · T-2 done, for the chief to decide</span></div>
+            <div class="beat-head"><span class="beat-kind">Result 1</span><span class="beat-who">@gpt-6-1-terra-high → chief · T-2 done, for the chief to decide</span></div>
             <p class="said">“Done. The three routes are in <code>server/routes/list.ts</code>, mounted in <code>server/app.ts</code>. […] 15 new tests in <code>server/routes/list.test.ts</code>. <code>npm test</code> passes: 61 tests.”</p>
           </li>
           <li class="beat" style="--dot:var(--s-open)">
             <div class="beat-head"><span class="beat-kind">Review</span><span class="beat-who">chief → the board · T-3, for a complex reviewer</span></div>
             <p class="said">“Read the change for T-2 and the diff. Is it right, and is it tested?”</p>
-            <p class="then">seshat, a reviewer on Devin, takes it. A review changes no file.</p>
+            <p class="then">@claude-opus-5-5-max, a reviewer on Devin, takes it. A review changes no file.</p>
           </li>
           <li class="beat" style="--dot:var(--s-done)">
-            <div class="beat-head"><span class="beat-kind">Findings</span><span class="beat-who">seshat → chief · T-3 done</span></div>
+            <div class="beat-head"><span class="beat-kind">Findings</span><span class="beat-who">@claude-opus-5-5-max → chief · T-3 done</span></div>
             <p class="said">“Not ready yet: two findings. Clearing deletes row by row, outside a transaction; a failure halfway leaves the list half cleared. <code>PATCH</code> with an unknown id throws, so the client gets a 500; it should get a 404. Otherwise the routes match the brief, and each has its tests.”</p>
           </li>
           <li class="beat" style="--dot:var(--s-open)">
-            <div class="beat-head"><span class="beat-kind">Request 2</span><span class="beat-who">chief → theia · T-2 reopened, back into the same window</span></div>
+            <div class="beat-head"><span class="beat-kind">Request 2</span><span class="beat-who">chief → @gpt-6-1-terra-high · T-2 reopened, back into the same window</span></div>
             <p class="said">“The review (T-3) found two things to fix before I accept this: clear it in one transaction, and answer 404 for an id that does not exist. Add a test for each, run <code>npm test</code>, and report.”</p>
           </li>
           <li class="beat" style="--dot:var(--s-done)">
-            <div class="beat-head"><span class="beat-kind">Result 2</span><span class="beat-who">theia → chief · T-2 done again</span></div>
+            <div class="beat-head"><span class="beat-kind">Result 2</span><span class="beat-who">@gpt-6-1-terra-high → chief · T-2 done again</span></div>
             <p class="said">“Both fixed. Clearing runs in one transaction: a failing delete rolls the whole clear back. An unknown id answers 404. 3 new tests. <code>npm test</code> passes: 64 tests.”</p>
           </li>
           <li class="beat" style="--dot:var(--s-accepted)">
             <div class="beat-head"><span class="beat-kind">Accepted</span><span class="beat-who">chief · T-2 and T-3 finished</span></div>
-            <p class="then">T-4, the page, was waiting on T-2: it starts now, in a window of its own.</p>
+            <p class="then">T-4, the page, was waiting on T-2: it starts now, in a window of its own, for the frontend designer.</p>
           </li>
-          <li class="beat" style="--dot:var(--accent)">
+          <li class="beat" style="--dot:var(--violet)">
             <div class="beat-head"><span class="beat-kind">Note</span><span class="beat-who">chief → you, on the board</span></div>
             <p class="said">“The shopping list API is in: T-2, reviewed in T-3. The page is under way in T-4.”</p>
           </li>
         </ol>
-        <p class="story-after">And it goes on. For the expiry reminders, the chief had a question of its own, how to handle time zones, and put it to the advisor as T-6. <strong>Three findings came back, and the chief turned them into the next tasks:</strong> store each household's time zone, T-8, then the reminders themselves, T-9, waiting on the page, the advice and the time zone. It is all there to read in the first capture above, in the chief's terminal.</p>
+        <p class="story-after">And it goes on. For the expiry reminders, the chief had a question of its own, how to handle time zones, and put it to an advisor as T-6. <strong>The advice came back, and one plan put the next five tasks on the board:</strong> store each household's time zone, T-8; the reminders themselves, T-9, waiting on the page, the time zone and the design; the README, T-10; the job's design, for the architect, T-11; and the mail service, for a researcher, T-12. It is all there in the first capture above, in the chief's terminal.</p>
       </div>
     </div>
   </div>
@@ -703,11 +772,12 @@ footer{padding:44px 0 56px}
 
 <section class="section" id="how" aria-labelledby="how-title">
   <div class="wrap">
+    <p class="kicker">One task's path</p>
     <h2 id="how-title">How it works</h2>
     <p class="intro">Everything happens in one window: the board on the left, the agents' terminals on the right. Here is one task's path across the board.</p>
 
     <div class="relay">
-      <div class="relay-board" role="img" aria-label="A task card, T-5, Shopping list page, moving across the board's columns: Backlog, Queued, Working, then Done and Finished.">
+      <div class="relay-board" role="img" aria-label="A task card, T-4, Shopping list page, moving across the board's columns: Backlog, Queued, Working, then Done and Finished.">
         <ol class="relay-cols">
           <li>Backlog</li><li>Queued</li><li>Working</li><li>Waiting</li><li>Done</li><li>Finished</li>
         </ol>
@@ -715,7 +785,7 @@ footer{padding:44px 0 56px}
           <span class="relay-cell"></span><span class="relay-cell"></span><span class="relay-cell"></span>
           <span class="relay-cell"></span><span class="relay-cell"></span><span class="relay-cell"></span>
           <div class="relay-card" data-state="working" style="--at:2">
-            <span class="relay-num">T-5</span>
+            <span class="relay-num">T-4</span>
             <span class="relay-title">Shopping list page</span>
             <span class="relay-state">Working</span>
           </div>
@@ -727,247 +797,299 @@ footer{padding:44px 0 56px}
         <li class="step">
           <ul class="step-cols" aria-label="Column"><li style="--dot:var(--s-open)">Backlog</li></ul>
           <h3>The chief puts a task on the board</h3>
-          <p>A brief written for someone who has never seen the project, and the tier the work needs: critical, complex, standard or light. A task can wait for others to be accepted first.</p>
+          <p>A brief written for someone who has never seen the project, for the role the work needs, and for a worker, advisor, reviewer or tester its tier: critical, complex, standard or light. A task can wait for others to be accepted first.</p>
         </li>
         <li class="step">
           <ul class="step-cols" aria-label="Column"><li style="--dot:var(--s-open)">Queued</li></ul>
-          <h3>A free member of that tier takes it</h3>
-          <p>ConsensFlow gives the task to a free member of the tier, never to a name, so the work is shared across the staff. A member runs as many tasks at once as it is given.</p>
+          <h3>An available member takes it</h3>
+          <p>ConsensFlow picks an available member of that role, and of that tier where the role has one, never a name, so the work is shared across the staff.</p>
         </li>
         <li class="step" aria-current="step">
           <ul class="step-cols" aria-label="Columns"><li style="--dot:var(--s-working)">Working</li><li style="--dot:var(--s-waiting)">Waiting</li></ul>
           <h3>It works in a terminal of its own</h3>
-          <p>A fresh terminal of the member's harness, with your login. Open it from the member's row to watch, or send it an urgent word. A question to the chief puts the task in Waiting until the answer comes.</p>
+          <p>A fresh terminal of the member's harness, with your login. Open it from the member's row to watch, or tell it something: a tell reaches the window at its next rest. A question to the chief puts the task in Waiting until the answer comes.</p>
         </li>
         <li class="step">
           <ul class="step-cols" aria-label="Columns"><li style="--dot:var(--s-done)">Done</li><li style="--dot:var(--s-accepted)">Finished</li></ul>
           <h3>The result comes back to the board</h3>
-          <p>The chief decides: accept it, or send it back to the same window with what must change. The window closes, and the task keeps everything its agent wrote.</p>
+          <p>The chief decides: accept it, or send it back to the same window with what must change. The window closes, and its conversation is kept, so a follow-up continues where it stopped.</p>
         </li>
       </ol>
     </div>
 
     <figure class="shot wide">
       <img src="./assets/screenshots/chief-and-staff.webp" width="1600" height="1000" loading="lazy" decoding="async"
-        alt="The ConsensFlow window with the board folded and the terminals side by side. On the left, the chief's Claude Code: results arriving from ConsensFlow, cf task accept, a note to the human, and cf task add for the next tasks. On the right, a worker's Codex session on T-4, the shopping list page: its brief from the chief, the files it read and edited, its tests passing, and Working." />
-      <figcaption>The board folded, the terminals have the window: the chief's Claude Code beside a worker's Codex session at work on the list page. The dock scrolls sideways to the other windows.</figcaption>
-    </figure>
-  </div>
-</section>
-
-<section class="section" id="does" aria-labelledby="does-title">
-  <div class="wrap">
-    <h2 id="does-title">What it does</h2>
-    <div class="does">
-      <div class="does-row">
-        <div class="group">
-          <h3>The staff</h3>
-          <dl>
-            <dt>One chief, a whole staff</dt>
-            <dd>Give the chief your goal in its terminal. It reads the project, plans and decides, and every change goes to the staff you picked as a task, however small.</dd>
-            <dt>Workers, advisors, reviewers, testers and an image designer</dt>
-            <dd>Workers do the tasks. Advisors answer the chief's questions with findings. Reviewers check finished work, and testers check it by running it. The image designer draws an image with its harness's image tool and saves it where the task says. Advisors and reviewers never change a file, and testers change no product code.</dd>
-          </dl>
-        </div>
-        <figure class="shot">
-          <img src="./assets/screenshots/staff.webp" width="640" height="908" loading="lazy" decoding="async"
-            alt="The top of the Project settings dialog, its Staff section: merope, theia and huginn as workers, seshat as advisor and as reviewer, diana as tester and pygmalion as image designer, each with its model, harness, effort and tier; and a form to add a member by role and agent." />
-          <figcaption>Project settings, the staff: each member's agent, harness, model and tier, and the role it holds, here with a tester and the image designer added. One member may hold more than one role.</figcaption>
-        </figure>
-      </div>
-
-      <div class="does-row">
-        <div class="group">
-          <h3>The agents</h3>
-          <dl>
-            <dt>Ready-made, or your own</dt>
-            <dd>An agent is a harness, a model and an effort. Settings → Agents lists ready-made ones, grouped by the tier of work they are for, and lets you define your own with any model your harness accepts. The versions of each harness that work are on the <a href="./status/">Supported versions</a> page.</dd>
-            <dt>Switch the chief anytime</dt>
-            <dd>Move the chief to another agent or harness. The new chief starts with a handoff: what is on the board, your last words, and the history of the chiefs before it.</dd>
-          </dl>
-        </div>
-        <figure class="shot">
-          <img src="./assets/screenshots/agents.webp" width="640" height="1000" loading="lazy" decoding="async"
-            alt="The Agents screen under Settings, grouped by work tier: search, filters for agents and tiers, and the first critical-work agents, calliope on Claude Code and thoth on Devin, both Claude Fable 5.1 at max effort, each with the account it uses." />
-          <figcaption>Settings → Agents, grouped by work tier: the tier is what a task finds an agent by.</figcaption>
-        </figure>
-      </div>
-
-      <div class="does-row switching">
-        <figure class="shot">
-          <img src="./assets/screenshots/switch-chief.webp" width="640" height="436" loading="lazy" decoding="async"
-            alt="The Switch the chief dialog: the chief runs on hyperion, GPT-6.1 Sol on Codex at max effort, picked from the saved agents; Let it finish its turn, then switch, chosen; First ask the chief to write down where things stand, checked; Cancel and Switch." />
-          <figcaption>Switching the chief, from its card: the agent it goes on, and whether it finishes its turn first.</figcaption>
-        </figure>
-        <figure class="shot">
-          <img src="./assets/screenshots/new-chief.webp" width="628" height="952" loading="lazy" decoding="async"
-            alt="The chief's terminal after the switch, now Codex on gpt-6.1-sol. Its first message is ConsensFlow's handoff: you are the chief now, switched from Claude Code (zeus) to Codex (hyperion); read cf history before you act; the human's last message; and what waits, a question from merope on T-5. Then the new chief runs cf history, cf task list and cf answer, and tells the human it has taken over and what comes next." />
-          <figcaption>The new chief, here on Codex, opens on its handoff: what you said last, what waits on the board, and where to read the chiefs before it.</figcaption>
-        </figure>
-      </div>
-
-      <div class="does-row">
-        <div class="group">
-          <h3>The board</h3>
-          <dl>
-            <dt>A board you can read</dt>
-            <dd>Each task shows who has it and where it stands, from backlog to done. Open a task to read its brief, its result, and everything its agent wrote.</dd>
-            <dt>Each task in its own window</dt>
-            <dd>A task opens a fresh terminal of its agent's harness, and the window closes when the work is done. Its conversation is kept, so a follow-up continues where it stopped.</dd>
-            <dt>Plans with an order</dt>
-            <dd>A task can wait for others to be accepted first, so a plan of many tasks runs in its own order, in parallel where it can.</dd>
-          </dl>
-        </div>
-        <figure class="shot">
-          <img src="./assets/screenshots/task.webp" width="540" height="645" loading="lazy" decoding="async"
-            alt="Task T-2, Shopping list API, open and accepted. Its story: Request 1 from the chief; a question from the worker, whether clearing should delete the checked rows, and the chief's answer, delete them; Result 1; Request 2, the chief's follow-up after a review found two things to fix; and Result 2, both fixed, 64 tests passing. Under it, folded, what the agent did, 58 items, and the buttons Show terminal and Delete task." />
-          <figcaption>A task after some back and forth: the brief, the worker's question and the chief's answer, a result, the chief's follow-up after a review, and the second result.</figcaption>
-        </figure>
-      </div>
-
-      <div class="does-row across">
-        <div class="group">
-          <h3>Specs</h3>
-          <dl>
-            <dt>Big work becomes a spec</dt>
-            <dd>With specs on, the chief plans big work as a spec, with <a href="https://specmint.ngvoicu.dev">Specmint</a>, and puts each phase on the board as tasks, in order. A small ask still goes straight to the board. It uses the Specmint its harness has, or a copy ConsensFlow brings.</dd>
-            <dt>On for every project, or for one</dt>
-            <dd>Specs are off until you turn them on. Settings → Specs turns them on for every project, with the folder and the Specmint variant they use unless a project names its own. A project's own settings win.</dd>
-            <dt>Read them in the app</dt>
-            <dd>The Specs button on the board opens the project's specs folder: its tree, the registry as rows, and each spec as Markdown, Mermaid diagrams included. HTML specs open in your browser, from a copy.</dd>
-          </dl>
-        </div>
-        <figure class="shot wide">
-          <img src="./assets/screenshots/specs.webp" width="1232" height="1132" loading="lazy" decoding="async"
-            alt="The specs viewer on the demo project, Specs of pantry. On the left, the specs folder as a tree: registry.md, then a folder for each spec, Shopping list, Expiry reminders, Expiry dates on items and Add items by barcode, with Shopping list's SPEC.md chosen. On the right, that spec: its frontmatter as chips (id, title, status active, created, updated, priority high, tags), an Overview, the Acceptance Criteria as checkboxes, an Architecture diagram drawn from Mermaid, and three phases with their tasks checked off or not: The API completed, The page in progress, The README pending." />
-          <figcaption>The specs viewer: the project's specs folder as a tree, and the chief's spec for the shopping list, with its criteria, a diagram, and its three phases, whose tasks the chief put on the board.</figcaption>
-        </figure>
-      </div>
-
-      <div class="does-row">
-        <div class="group">
-          <h3>History</h3>
-          <dl>
-            <dt>Everything a participant said <span class="new">New in 3.0.6</span></dt>
-            <dd>The History button on a window's head, and beside Switch chief, opens everything ConsensFlow keeps of that participant: its whole stored transcript, across chief switches, <code>/clear</code>, <code>/resume</code> and compactions. Search it. Tool output shows on request, and what ConsensFlow delivered folds to one line.</dd>
-            <dt>The chief reads it too</dt>
-            <dd>After you switch the chief, the new one reads what you and the chiefs before it said with <code>cf history</code>, and searches it with <code>--find</code>.</dd>
-          </dl>
-        </div>
-        <figure class="shot">
-          <img src="./assets/screenshots/history.webp" width="640" height="750" loading="lazy" decoding="async"
-            alt="The History of Chief of Staff dialog, on Claude Code, zeus, searched for time zone. Under the search box, the conversation going on now and four matching items: your words about households in different time zones; the chief's reply, that it will ask an advisor; the advisor's result on T-6, delivered as one line and opened to show the advice on sending at 08:00 in each household's own time zone; and the chief's next step." />
-          <figcaption>The chief's History, searched for “time zone”: your words, the chief's, and the advisor's answer, opened from its one line.</figcaption>
-        </figure>
-      </div>
-
-      <div class="does-row">
-        <div class="groups">
-          <div class="group">
-            <h3>Wake-up calls</h3>
-            <dl>
-              <dt>A nudge on a schedule you set</dt>
-              <dd>A chief that stopped while work is left carries on. In Project settings you set how often it is asked, and what it says: “Do you still have work to do?” by default.</dd>
-              <dt>Only when it helps</dt>
-              <dd>A wake-up goes in only while the chief is at rest and you have nothing typed in its window, never while the project is paused, and never two at once. If one changed nothing on the board, the next waits until something moves.</dd>
-            </dl>
-          </div>
-          <div class="group">
-            <h3>Project settings</h3>
-            <dl>
-              <dt>One dialog for each project</dt>
-              <dd>Project settings holds the project's staff, human approval, wake-up calls and specs. The board's button opens it, and so does the project's menu in the sidebar. New project offers the same, so a project can start with them set.</dd>
-              <dt>The project menu</dt>
-              <dd>Right-click a project in the sidebar to rename it, or to give it a one-line description, shown under its name. The description is yours alone: no agent is told it.</dd>
-            </dl>
-          </div>
-        </div>
-        <figure class="shot">
-          <img src="./assets/screenshots/project-settings.webp" width="640" height="859" loading="lazy" decoding="async"
-            alt="The rest of the Project settings dialog, below the staff: Human approval, unchecked; Wake-up calls, on, every 2 hours, saying Do you still have work to do? If tasks are left on the board or in your plan, carry on., with Save wake-up calls; and Specs, on, in the folder .specs, Specmint variant core, with Save specs." />
-          <figcaption>Project settings, below the staff: human approval, wake-up calls, here every two hours, and specs.</figcaption>
-        </figure>
-      </div>
-
-      <div class="does-row across">
-        <div class="group">
-          <h3>You stay in charge</h3>
-          <dl>
-            <dt>Pause, resume and tell</dt>
-            <dd>Stop any task and keep its window and work, or send an urgent word into a window mid-task.</dd>
-            <dt>Quota-aware</dt>
-            <dd>When an agent runs out of quota, its task waits for the reset or goes to another member of the same tier.</dd>
-            <dt>Your approval, if you want it</dt>
-            <dd>Turn on human approval for a project, and every message between agents waits for you to pass it on.</dd>
-          </dl>
-        </div>
-      </div>
-    </div>
-
-    <figure class="shot wide">
-      <img src="./assets/screenshots/staff-windows.webp" width="1600" height="1000" loading="lazy" decoding="async"
-        alt="Three terminals of the staff side by side, each on its task. A Codex session building the shopping list page: the files it edited, its tests, and Working. A Pi session on the decimal bug: the grep and the file that round quantities, then cf ask putting a question to the chief, and the agent waiting for the answer. A Claude Code session seeding a demo household: the files it read and wrote, npm run seed twice, and its progress." />
-      <figcaption>Each task in its own window: a worker's Codex session on the list page, a Pi session that asked the chief a question and waits for the answer, and a Claude Code session seeding test data.</figcaption>
+        alt="The ConsensFlow window with the board folded and the terminals side by side. On the left, the chief's Claude Code: a worker's result arriving, cf task accept, a note to the human, an advisor's result on time zones, and cf task add --plan putting five tasks on the board. On the right, the frontend designer's Codex session, @gpt-6-1-sol-high, on T-4, the shopping list page: its brief from the chief, the files it read and edited, its tests passing, and Working." />
+      <figcaption>The board folded, the terminals have the window: the chief's Claude Code beside the frontend designer's Codex session at work on the list page. The dock scrolls sideways to the other windows.</figcaption>
     </figure>
   </div>
 </section>
 
 <section class="section" id="new" aria-labelledby="new-title">
   <div class="wrap">
+    <p class="kicker">Since 3.0.6</p>
     <h2 id="new-title">New in 3.0.7</h2>
-    <p class="intro">What you will notice since 3.0.6.</p>
+    <p class="intro">What you will notice. Each one is told in full under What it does.</p>
+    <ul class="tiles">
+      <li class="tile">
+        <h3><a href="#staff">Nine roles</a></h3>
+        <p>Frontend designers, architects, researchers and integrators join workers, advisors, reviewers, testers and the image designer.</p>
+      </li>
+      <li class="tile">
+        <h3><a href="#staff-groups">A board grouped by role</a></h3>
+        <p>The new dark board groups the staff by role, and each task says how long it has been in its state.</p>
+      </li>
+      <li class="tile">
+        <h3><a href="#backups">Backups and Vacation</a></h3>
+        <p>A backup on any harness or model takes new work when its member is out of quota or its login is refused. Vacation stops a member's new tasks.</p>
+      </li>
+      <li class="tile">
+        <h3><a href="#own-hands">Do with your own hands</a></h3>
+        <p>The chief does your work itself, and uses the board only when you ask.</p>
+      </li>
+      <li class="tile">
+        <h3><a href="#chief">Models from your harnesses</a></h3>
+        <p>Settings → Agents is gone: New project, Project settings and Switch chief read each installed harness's models as they open, and members are named by their model.</p>
+      </li>
+      <li class="tile">
+        <h3><a href="#board">A plan in one command</a></h3>
+        <p><code>cf task add --plan plan.md</code> puts a plan and its order on the board at once.</p>
+      </li>
+      <li class="tile">
+        <h3><a href="#top">Muse Code, the fifth harness</a></h3>
+        <p>Meta's Muse Code joins Claude Code, Codex, Pi and Devin, for the chief or its staff.</p>
+      </li>
+      <li class="tile">
+        <h3><a href="#chief">A meeting with the chief</a></h3>
+        <p>Start meeting holds the staff's messages while you talk with the chief; they come in one at a time after.</p>
+      </li>
+      <li class="tile">
+        <h3><a href="#settings">Compaction, and Claude Code's extras</a></h3>
+        <p>Project settings sets when members compact their conversations, and whether Claude Code guesses your next prompt or uses its advisor tool.</p>
+      </li>
+      <li class="tile">
+        <h3><a href="#in-charge">Messages at the right moment</a></h3>
+        <p>A tell reaches a window at its next rest. Notes that need the chief are typed into its window; the rest wait in <code>cf inbox</code>.</p>
+      </li>
+      <li class="tile">
+        <h3><a href="#in-charge">Resume after a quit or update</a></h3>
+        <p>Resume a project and its windows come back on their conversations; a member cut mid-turn is told to go on.</p>
+      </li>
+      <li class="tile">
+        <h3><a href="#download">Install from a terminal</a></h3>
+        <p>One line installs the latest release on a Mac or on Windows, and upgrades the one you have, once it has quit.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="section" id="does" aria-labelledby="does-title">
+  <div class="wrap">
+    <p class="kicker">In the app</p>
+    <h2 id="does-title">What it does</h2>
     <div class="does">
-      <div class="does-row across">
+      <div class="does-row" id="staff">
         <div class="group">
-          <h3>Muse Code, the fifth harness</h3>
+          <h3>The staff</h3>
           <dl>
-            <dt>Your agents on Meta's Muse Code</dt>
-            <dd>Define an agent on Muse Code in Settings → Agents, with any model your Muse Code accepts, and put it on a project's staff as a worker, an advisor, a reviewer or a tester. On the Mac.</dd>
-            <dt>The Muse Code it found, for the whole task</dt>
-            <dd>Each window runs the Muse Code ConsensFlow found, kept from updating itself while it works, and a task waits for the work Muse Code still runs in the background: a command, a monitor or a sub-agent.</dd>
-            <dt>Never a model you did not pick</dt>
-            <dd>If Muse Code moves to another model on its own, ConsensFlow types nothing more into that window, holds the task, and tells you which model it moved to and why. Running out of quota, or an account with no allowance, is said in plain words.</dd>
+            <dt>One chief, a whole staff</dt>
+            <dd>Give the chief your goal in its terminal. It breaks the work into tasks, does what is its own, and hands the rest to the staff you picked for the project.</dd>
+            <dt>Nine roles</dt>
+            <dd>Workers, frontend designers, architects, researchers, advisors, reviewers, testers, integrators and an image designer, on Codex. The chief gives each member work for its role, and what the role makes comes back, as the factory above draws it. Researchers, advisors and reviewers change no project files; testers change no product code.</dd>
+            <dt>Work by tier</dt>
+            <dd>For worker, advisor, reviewer and tester tasks, the chief asks for a tier (critical, complex, standard or light), and each such task gets a new window of a member of that role and tier. The other roles need no tier.</dd>
+            <dt>Named by their model</dt>
+            <dd>Pick a member's harness, one of its models and, where offered, an effort: the lists are read from the installed harnesses when the dialog opens. A member is named by its model, as @gpt-6-1-terra-high is.</dd>
           </dl>
+          <figure class="shot" id="staff-groups">
+            <img src="./assets/screenshots/staff-groups.webp" width="1072" height="727" loading="lazy" decoding="async"
+              alt="The board with every role's group folded under the chief's row, where T-10 and T-9 wait in the backlog. Workers, 5 members, with chips for 2 working, 1 question waiting and 1 out of quota; Frontend designers, 1 member, 1 working; Architects, 1 done, to decide; Researchers; Advisors, 1 done, to decide; then Reviewers, Testers, Integrators and Image designers, one member each." />
+            <figcaption>The board grouped by role, every group folded: what a group's members are doing shows on its head. Open a group for its members' rows.</figcaption>
+          </figure>
         </div>
+        <figure class="shot">
+          <img src="./assets/screenshots/staff.webp" width="640" height="1853" loading="lazy" decoding="async"
+            alt="The top of the Project settings dialog, its Staff section: what each role does, then a row for each member in each of its roles, the member named by its model, and its effort where offered, with its harness, and a tier for a worker, advisor, reviewer or tester. Most rows have Edit, Remove, Send on Vacation and Add a backup. Standard workers: @gpt-6-1-terra-high on Codex; @gpt-6-astra-medium on Pi, out of quota until 22:42 with Try again now, and no Add a backup: under it is its backup, @claude-sonnet-5-5-high on Claude Code, with Send on Vacation, Change and Remove. Light workers: @claude-sonnet-5-5-medium on Claude Code, and @gpt-6-luna-low on Codex, on Vacation, with Bring back in place of Send on Vacation. Then a frontend designer, an architect and a researcher on Devin, with no tier; @claude-opus-5-5-max on Devin as a complex advisor, and again as a complex reviewer, a row with no Add a backup; a standard tester on Muse Code; an integrator, with no tier; and last @codex-default, the image designer, with no tier and only Remove and Send on Vacation. Under them, Add a member: Worker, Codex, gpt-6.1-sol, high effort, complex work, with Refresh models and Add to staff." />
+          <figcaption>Project settings, the staff: a member in each of the nine roles, named by its model. A backup sits under the member it covers, and one worker is on Vacation. Add a member offers the models of the harness picked.</figcaption>
+        </figure>
       </div>
-      <div class="does-row across">
+
+      <div class="does-row landscape" id="backups">
         <div class="group">
-          <h3>A meeting with the chief</h3>
+          <h3>Backups and Vacation</h3>
           <dl>
-            <dt>Talk without interruptions</dt>
-            <dd>Start meeting, beside History and Switch chief, holds everything the board has for the chief while you talk with it: the staff's results and questions wait, shown on the board as held, and no wake-up call comes.</dd>
-            <dt>Then one at a time</dt>
-            <dd>The button counts what waits, Stop meeting (3). Stop it and the messages go in one at a time, as the chief comes to rest, questions first. Closing the project or the app ends a meeting too; switching the chief does not.</dd>
-            <dt>Told when a message waits</dt>
-            <dd>When a message for the chief has waited ten minutes for it to come to rest, you are told, once.</dd>
+            <dt>A backup for a member</dt>
+            <dd>Give a member an optional backup on any harness or model. When no eligible member is free, the backup can take new work if its member is out of quota or its login is refused. The chief and the image designer have no backup.</dd>
+            <dt>Vacation</dt>
+            <dd>Send a member or a backup on Vacation from the board or Project settings to stop its new tasks; work already in a window finishes there. A member on Vacation is not covered by its backup.</dd>
+            <dt>Quota-aware</dt>
+            <dd>A member works up to 100% of its quota and waits when its harness says it is out, keeping its work in its window until the reset. If the account's quota is renewed early, Try again now brings it back; for harnesses with a shared login, it also brings back chiefs and members across projects.</dd>
           </dl>
         </div>
+        <figure class="shot">
+          <img src="./assets/screenshots/vacation-backup.webp" width="1072" height="812" loading="lazy" decoding="async"
+            alt="The Workers group open on the board. @gpt-6-1-terra-high on Codex, its T-2 accepted. @gpt-6-astra-medium on Pi, out of quota until 22:37, with Try again now and the words that its backup, @claude-sonnet-5-5-high, takes its tasks; its T-5 waits for an answer. @claude-sonnet-5-5-medium on Claude Code, at work on T-7. @gpt-6-luna-low on Codex, on Vacation, with Bring back. And @claude-sonnet-5-5-high, backup of @gpt-6-astra-medium, at work on T-8. Each card says how long it has been in its state." />
+          <figcaption>A worker out of quota, its backup at work on a new task, and a worker on Vacation, with Bring back. Every card says how long it has been in its state.</figcaption>
+        </figure>
       </div>
-      <div class="does-row across">
+
+      <div class="does-row landscape" id="own-hands">
         <div class="group">
-          <h3>Steadier, everywhere</h3>
+          <h3>Do with your own hands</h3>
           <dl>
-            <dt>A message waits for its turn</dt>
-            <dd>The board types a message into a window only once its agent has finished its turn, has stayed at rest for a few seconds, and nobody has typed in it meanwhile. Nothing lands mid-sentence, the agent's or yours.</dd>
-            <dt>Nothing said is lost</dt>
-            <dd>A window busy compacting its conversation keeps the first message it was given, and words that never reached a window go back to whoever sent them. A task on a harness ConsensFlow no longer runs is paused, and says how to go on: cancel it and add it again, or finish it.</dd>
-            <dt>The app itself</dt>
-            <dd>On macOS 27, clicks on the app's menu items work again, Check for Updates… among them. On Windows the app no longer needs the Visual C++ redistributable. Settings → Agents, opened while the app starts, waits for it instead of failing.</dd>
+            <dt>The chief does the work itself</dt>
+            <dd>Turn it on in New project, Project settings or the chief's pane, and the chief does your work itself, using the board only when you ask. Work already on the board continues.</dd>
+            <dt>The board when you want it</dt>
+            <dd>Ask for a task and the chief puts it on the board as before. It can read the board's guide in parts with <code>cf guide</code>.</dd>
           </dl>
         </div>
+        <figure class="shot">
+          <img src="./assets/screenshots/own-hands.webp" width="756" height="560" loading="lazy" decoding="async"
+            alt="The chief's pane with Do with your own hands switched on, beside History, Switch chief and Start meeting. In its Claude Code terminal the chief says it now does the work itself, using the board only when asked, and that the tasks already on it go on. Asked to keep people signed in for 30 days instead of 7, it searches for maxAge, reads and updates server/auth.ts, runs the auth tests, 9 passed, and reports that nothing went on the board." />
+          <figcaption>Own hands, switched on in the chief's pane: the chief changes the code and runs the tests itself, and nothing goes on the board.</figcaption>
+        </figure>
+      </div>
+
+      <div class="does-row" id="chief">
+        <div class="group">
+          <h3>The chief</h3>
+          <dl>
+            <dt>Any harness, any of its models</dt>
+            <dd>In New project, pick the chief's harness, its model and, where offered, an effort. The lists are read from the installed harnesses when the dialog opens. Settings → Harnesses shows which are installed, their versions, and whether ConsensFlow is set up for each; the versions that work are on the <a href="./status/">Supported versions</a> page.</dd>
+            <dt>Switch the chief anytime</dt>
+            <dd>Move the chief to another model or harness. The new chief starts with a handoff: what is on the board, your last words, and the history of the chiefs before it.</dd>
+            <dt>A meeting with the chief</dt>
+            <dd>Start meeting, on the chief's card, holds the staff's results and questions while you talk with it, shown on the board as held. Stop meeting and they go in one at a time, as the chief comes to rest, questions first.</dd>
+          </dl>
+        </div>
+        <figure class="shot">
+          <img src="./assets/screenshots/new-project.webp" width="640" height="1203" loading="lazy" decoding="async"
+            alt="The New project dialog: the project folder, /Users/demo/projects/recipe-cards; the chief on Claude Code, claude-opus-5-5, at xhigh effort, with Refresh models; then the staff, the last project's: gpt-6.1-terra and claude-sonnet-5-5 as workers, gpt-6.1-sol as frontend designer, claude-opus-5-5 on Devin as advisor and as reviewer, and muse-spark-1.3 on Muse Code as tester, each with Remove and Add a backup; and Add a member, by role, harness, model, effort and tier." />
+          <figcaption>New project: the chief's harness, model and effort, read from the harness as the dialog opens, and the staff the last project had.</figcaption>
+        </figure>
+      </div>
+
+      <div class="does-row switching">
+        <figure class="shot">
+          <img src="./assets/screenshots/switch-chief.webp" width="640" height="624" loading="lazy" decoding="async"
+            alt="The Switch the chief dialog: the chief goes on in a new window on the harness and model picked, Codex, gpt-6.1-sol, at max effort, with Refresh models; Let it finish its turn, then switch, chosen; First ask the chief to write down where things stand, checked; Cancel and Switch." />
+          <figcaption>Switching the chief, from its card: the harness, model and effort it goes on, and whether it finishes its turn first.</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="./assets/screenshots/new-chief.webp" width="628" height="952" loading="lazy" decoding="async"
+            alt="The chief's pane after the switch, now Codex on gpt-6.1-sol. Its first message is ConsensFlow's handoff: you are the chief now, switched from Claude Code (claude-opus-5-5) to Codex (gpt-6.1-sol); read cf history before you act; the human's last message; and what waits, a question from a worker on T-5. Then the new chief runs cf history, cf task list and cf answer, and says it has taken over and what comes next." />
+          <figcaption>The new chief, here on Codex, opens on its handoff: what you said last, what waits on the board, and where to read the chiefs before it.</figcaption>
+        </figure>
+      </div>
+
+      <div class="does-row" id="board">
+        <div class="group">
+          <h3>The board</h3>
+          <dl>
+            <dt>A board you can read</dt>
+            <dd>The dark board groups the staff by role. Each task shows who has it, where it stands, and how long it has been in that state. Open a task to read its brief, result and messages, and see what the agent did.</dd>
+            <dt>Each task in its own window</dt>
+            <dd>A task opens a fresh terminal of its agent's harness, and the window closes when the work is done. Its conversation is kept, so a follow-up continues where it stopped.</dd>
+            <dt>Plans with an order</dt>
+            <dd>A task can wait for others to be accepted first, so a plan runs in its own order, in parallel where it can. The chief can add a plan and its dependencies in one command with <code>cf task add --plan plan.md</code>.</dd>
+          </dl>
+        </div>
+        <figure class="shot">
+          <img src="./assets/screenshots/task.webp" width="540" height="637" loading="lazy" decoding="async"
+            alt="Task T-2, Shopping list API: add, check off, clear, accepted, asked of @gpt-6-1-terra-high-quiet-harbor. Its story: Request 1 from the chief; a question from the worker, whether clearing should delete the checked rows, and the chief's answer, delete them; Result 1; Request 2, the chief's follow-up after a review found two things to fix; and Result 2, both fixed, 64 tests passing. Under it, folded, what the agent did, 58 items, and the buttons Show terminal and Delete task." />
+          <figcaption>A task after some back and forth: the brief, the worker's question and the chief's answer, a result, the chief's follow-up after a review, and the second result.</figcaption>
+        </figure>
+      </div>
+
+      <div class="does-row across" id="specs">
+        <div class="group">
+          <h3>Specs</h3>
+          <dl>
+            <div><dt>Big work becomes a spec</dt>
+            <dd>With specs on, the chief plans big work as a spec, with <a href="https://specmint.ngvoicu.dev">Specmint</a>, and puts each phase on the board as tasks, in order. A small ask still goes straight to the board.</dd></div>
+            <div><dt>On for every project, or for one</dt>
+            <dd>Settings → Specs sets whether a chief plans big work as specs in every project that doesn't say otherwise, in which folder and with which variant of Specmint. A project's own Specs settings win.</dd></div>
+            <div><dt>Read them in the app</dt>
+            <dd>The Specs button on the board opens the project's specs folder: its tree, and each spec as Markdown, Mermaid diagrams included.</dd></div>
+          </dl>
+        </div>
+        <figure class="shot">
+          <img src="./assets/screenshots/specs.webp" width="1232" height="1132" loading="lazy" decoding="async"
+            alt="The specs viewer on the demo project, Specs of pantry. On the left, the specs folder as a tree: registry.md, then a folder for each spec, Shopping list, Expiry reminders, Expiry dates on items and Add items by barcode, with Shopping list's SPEC.md chosen. On the right, that spec: its frontmatter as chips, an Overview, the Acceptance Criteria as checkboxes, an Architecture diagram drawn from Mermaid, and three phases with their tasks checked off or not: The API completed, The page in progress, The README pending." />
+          <figcaption>The specs viewer: the project's specs folder as a tree, and the chief's spec for the shopping list, with its criteria, a diagram, and its three phases, whose tasks the chief put on the board.</figcaption>
+        </figure>
+      </div>
+
+      <div class="does-row" id="history">
+        <div class="group">
+          <h3>History</h3>
+          <dl>
+            <dt>Everything a participant said</dt>
+            <dd>History, on a window's head and on the chief's card, opens everything ConsensFlow keeps of that participant's conversations. Search it. It follows your system's light or dark appearance.</dd>
+            <dt>The chief reads it too</dt>
+            <dd>After you switch the chief, the new one reads what you and the chiefs before it said with <code>cf history</code>, and searches it with <code>--find</code>.</dd>
+          </dl>
+        </div>
+        <figure class="shot">
+          <img src="./assets/screenshots/history.webp" width="640" height="750" loading="lazy" decoding="async"
+            alt="The History dialog, searched for time zone: the human's words about households in different time zones; the chief's reply, that time zones are the open question and it will ask an advisor; its cf task add for the advice, T-6, with what the command printed; the advisor's result on T-6, to send at 08:00 in each household's own time zone; and the chief's next step." />
+          <figcaption>The chief's History, searched for “time zone”: your words, the chief's, a command it ran, and the advisor's answer.</figcaption>
+        </figure>
+      </div>
+
+      <div class="does-row" id="settings">
+        <div class="group">
+          <h3>Project settings</h3>
+          <dl>
+            <dt>One dialog for each project</dt>
+            <dd>Project settings holds the project's staff and backups, own hands, human approval, wake-up calls and specs. New project offers the same, so a project can start with them set. Right-click a project in the sidebar to rename it, or to give it a one-line description that no agent is told.</dd>
+            <dt>Compaction</dt>
+            <dd>A size from 250,000 to 1,000,000 tokens at which each member's harness compacts its conversation, or the harness's own point. A new project starts at 300,000.</dd>
+            <dt>Prompt suggestion and the advisor tool</dt>
+            <dd>Prompt suggestion controls Claude Code's next-prompt guess for the chief and members; Advisor tool controls Claude Code's own advisor tool for members. Both are off by default; when on, Claude Code follows its own settings.</dd>
+            <dt>Wake-up calls</dt>
+            <dd>A chief that stopped while work is left carries on: you set how often it is asked, and what it says.</dd>
+          </dl>
+          <!-- You stay in charge sits under Project settings, beside its tall capture. -->
+          <div class="group" id="in-charge">
+            <h3>You stay in charge</h3>
+            <dl>
+              <dt>Tell, pause and resume</dt>
+              <dd>A tell lets a member keep working and reaches its window at the next rest. A pause stops the task and can ask a question; resume sends it on in the same window.</dd>
+              <dt>Notes without interruption</dt>
+              <dd>ConsensFlow types notes that need the chief's attention into its window. Other status notes are there for the chief in <code>cf inbox</code>.</dd>
+              <dt>Resume after a quit or update</dt>
+              <dd>Resume a project to bring its windows back on their conversations. A member cut mid-turn is told to go on; a window that cannot come back has its task paused, with the reason.</dd>
+              <dt>Your approval, if you want it</dt>
+              <dd>Turn on human approval for a project, and every message between agents waits for you to pass it on.</dd>
+            </dl>
+          </div>
+        </div>
+        <figure class="shot">
+          <img src="./assets/screenshots/project-settings.webp" width="640" height="1639" loading="lazy" decoding="async"
+            alt="Project settings, below the staff: Compaction, at a size of 300000 tokens, with Save compaction; Advisor tool, off, with Save advisor tool; Prompt suggestion, off, with Save prompt suggestion; Do with your own hands, off, with Save own hands; Human approval, a checkbox alone, off, with no Save; Wake-up calls, on, every 2 hours, saying Do you still have work to do? If tasks are left on the board or in your plan, carry on., with Save wake-up calls; and Specs, on, in the folder .specs, with the Specmint variant core and Save specs." />
+          <figcaption>Project settings, below the staff: compaction, Claude Code's advisor tool and prompt suggestion, own hands, human approval, wake-up calls, here every two hours, and specs.</figcaption>
+        </figure>
       </div>
     </div>
+
+    <figure class="shot wide">
+      <img src="./assets/screenshots/staff-windows.webp" width="1600" height="1000" loading="lazy" decoding="async"
+        alt="Three terminals of the staff side by side, each on its task. The frontend designer's Codex session building the shopping list page: the files it edited, its tests, and Working. A worker's Pi session on the decimal bug: the grep and the file that rounds quantities, then cf ask putting a question to the chief, and the agent waiting for the answer. A worker's Claude Code session seeding a demo household: the files it read and wrote, npm run seed twice, and its progress." />
+      <figcaption>Each task in its own window: the frontend designer's Codex session on the list page, a worker's Pi session that asked the chief a question and waits for the answer, and a worker's Claude Code session seeding test data.</figcaption>
+    </figure>
   </div>
 </section>
 
 <section class="section" id="data" aria-labelledby="data-title">
   <div class="wrap">
+    <p class="kicker">Before you start</p>
     <h2 id="data-title">Your data, and what the agents can do</h2>
     <ul class="data">
       <li>ConsensFlow keeps its data in <code>~/.consensflow</code> (on Windows, <code>%USERPROFILE%\.consensflow</code>).</li>
       <li>It never sees your passwords: each agent uses its own harness's login.</li>
       <li class="risk"><strong>Agents work with full permissions</strong> in their windows, as they would if you ran them yourself. Your protection is the review, the chief's acceptance and, if you turn it on, your approval. Use ConsensFlow on projects kept in version control.</li>
-      <li class="risk"><strong>Every agent, the chief and its staff alike, starts with its harness's MCP servers and connectors, skills, settings and customizations</strong>, as it would if you ran it yourself. The staff use them with full permissions while you aren't watching, so keep in a harness only what you would let any agent use.</li>
+      <li class="risk"><strong>Every agent, the chief and its staff alike, starts with its harness's MCP servers and connectors (your browser, your accounts, your IDE), skills, settings and customizations</strong>, as it would if you ran it yourself. The staff use them with full permissions while you aren't watching, so keep in a harness only what you would let any agent use.</li>
     </ul>
   </div>
 </section>
@@ -1026,6 +1148,7 @@ footer{padding:44px 0 56px}
     <ul>
       <li><a href="https://github.com/ngvoicu/consensflow">Source on GitHub</a></li>
       <li><a href="https://github.com/ngvoicu/consensflow/releases">Releases</a></li>
+      <li><a href="./status/">Supported versions</a></li>
       <li><a href="https://ngvoicu.dev/">ngvoicu.dev</a></li>
       <li><a href="https://kluris.ngvoicu.dev">Kluris</a></li>
       <li><a href="https://specmint.ngvoicu.dev">Specmint</a></li>

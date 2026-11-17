@@ -10,7 +10,7 @@
  * at the bottom; what does not fit the terminal's rows is above its top, as a
  * scrolled session's would be.
  */
-import { ADVICE, REVIEW, T2 } from './demo.mjs'
+import { ADVICE, REVIEW, T2, names } from './demo.mjs'
 
 /** The line under a result ConsensFlow delivers (crates/cf-engine/src/delivery_text.rs). */
 const decide = (task) => `Decide with: cf task accept T-${task} · cf task reopen T-${task} "…"`
@@ -193,10 +193,12 @@ function claudeWindow(cols) {
     s.blank()
   }
   const user = (text) => s.para(text, { first: '> ', style: USER, lead: USER, code: null }).blank()
-  /** What it is at (`doing`, for `timing`), and its input under that line. */
-  const input = (doing, timing) => {
-    s.row([[`✻ ${doing} `, [fg('#d77757')]], [`(esc to interrupt · ${timing})`, DIMMED]])
-    s.blank()
+  /** What it is at (`doing`, for `timing`; nothing at rest), and its input under that line. */
+  const input = (doing = null, timing = null) => {
+    if (doing !== null) {
+      s.row([[`✻ ${doing} `, [fg('#d77757')]], [`(esc to interrupt · ${timing})`, DIMMED]])
+      s.blank()
+    }
     const rule = [['─'.repeat(cols), [fg('#5f5f5f')]]]
     s.row(rule)
     s.row([['> ', []], [' ', ['7']]])
@@ -205,6 +207,27 @@ function claudeWindow(cols) {
   }
   return { s, say, tool, user, input }
 }
+
+/** The line a brief sent ends with (crates/cf/src/board/brief.rs, `sent`): its length and last eight words. */
+function sent(task, text) {
+  const words = text.split(/\s+/).filter(Boolean)
+  let last = words.slice(-8).join(' ')
+  let cut = words.length > 8
+  if (Array.from(last).length > 80) {
+    last = Array.from(last).slice(-80).join('')
+    cut = true
+  }
+  return `T-${task}: sent ${Array.from(text).length.toLocaleString('en-GB')} characters, ending "${cut ? '…' : ''}${last}".`
+}
+
+/** The plan the chief adds after the advice: one command, five tasks, their order by name. */
+const PLAN = [
+  ['zone', '--tier standard', "Store each household's time zone: households.time_zone, an IANA name, filled at sign-up from the browser; editable in settings."],
+  ['reminders', '--tier standard --needs T-4,zone,design', "Expiry reminders by email: a morning email of what expires tomorrow, at 08:00 in the household's time zone, as T-6 advises."],
+  ['readme', '--tier light --needs reminders', 'Document the shopping list and the reminders in the README: what the list does, how reminders are sent, how to run them locally.'],
+  ['design', '--architect', "Design the reminder job from T-6's advice: the hourly job, reminded_on, and what the email holds. A document and the job's frame in code."],
+  ['mail', '--research', 'Which email services send from our own domain on a free plan, with an API from Node?'],
+]
 
 export function claudeChief({ cols, rows }) {
   const { s, say, tool, user, input } = claudeWindow(cols)
@@ -215,28 +238,38 @@ export function claudeChief({ cols, rows }) {
   )
   tool('Read', 'server/routes/items.ts', ['Read 88 lines'])
   tool('Bash', 'cf staff', [
-    '@theia · worker · standard',
-    '@merope · worker · standard',
-    '@huginn · worker · light',
-    '@seshat · reviewer+advisor · complex',
+    `@${names.terra} · worker · standard · Codex`,
+    `@${names.astra} · worker · standard · Pi`,
+    `  @${names.backup} · backup of @${names.astra} · Claude Code · claude-sonnet-5-5 · high`,
+    `@${names.sonnet} · worker · light · Claude Code`,
+    `@${names.luna} · worker · light · Codex · on Vacation`,
+    `@${names.sol} · frontend designer · Codex`,
+    `@${names.fable} · architect · Claude Code`,
+    `@${names.swe} · researcher · Devin`,
+    `@${names.opus} · reviewer+advisor · complex · Devin`,
+    `@${names.muse} · tester · standard · Muse Code`,
+    `@${names.haiku} · integrator · Claude Code`,
+    `@${names.designer} · Codex default · image designer · Codex`,
   ])
+  const api = 'Shopping list API: add, check off, clear. Keep the routes beside server/routes/items.ts and run npm test before you report.'
   tool('Bash', "cf task add --tier standard - <<'BRIEF'\nShopping list API: add, check off, clear…", [
-    'T-2 is on the board for a standard worker; the first free one gets it, and its result arrives in your inbox.',
+    'T-2 is on the board for a standard worker; it starts in a new window of one, and its result arrives in your inbox.',
+    sent(2, api),
   ])
-  tool('Bash', "cf task add --tier standard --needs T-2 - <<'BRIEF'\nShopping list page: add, check off, clear done…", [
-    'T-4 is on the board for a standard worker; the first free one gets it, and its result arrives in your inbox. It waits until T-2 is accepted.',
+  const page = 'Shopping list page at /list, on the API from T-2, for someone at the shop with one hand free: phone first, with its empty, loading and error states.'
+  tool('Bash', "cf task add --frontend --needs T-2 - <<'BRIEF'\nShopping list page: add, check off, clear done…", [
+    'T-4 is on the board for a frontend designer; it starts in a new window of one, and its result arrives in your inbox. It waits until T-2 is accepted.',
+    sent(4, page),
   ])
   say('The API is out to a worker (T-2), and the page waits on it (T-4). The review goes out when T-2 reports.')
-  user(`[ConsensFlow m-8 · T-3 · result from @seshat-sunny-birch]\n${REVIEW}\n\n${decide(3)}`)
+  user(`[ConsensFlow m-8 · T-3 · result from @${names.sessions.t3}]\n${REVIEW}\n\n${decide(3)}`)
   tool('Bash', "cf task reopen T-2 - <<'BRIEF'\nThe review (T-3) found two things to fix before I accept this:…", [
-    'T-2 [queued] @theia-quiet-fern ← @chief: Shopping list API: add, check off, clear',
+    `T-2 [queued] @${names.sessions.t2} ← @chief: Shopping list API: add, check off, clear`,
   ])
-  user(`[ConsensFlow m-10 · T-2 · result from @theia-quiet-fern]\n${T2.result2}\n\n${decide(2)}`)
-  tool('Bash', 'cf task accept T-2', [
-    'T-2 [accepted] @theia-quiet-fern ← @chief: Shopping list API: add, check off, clear',
-  ])
-  tool('Bash', 'cf task accept T-3', [
-    'T-3 [accepted] @seshat-sunny-birch ← @chief: Review T-2: the shopping list API',
+  user(`[ConsensFlow m-10 · T-2 · result from @${names.sessions.t2}]\n${T2.result2}\n\n${decide(2)}`)
+  tool('Bash', 'cf task accept T-2 T-3', [
+    `T-2 [accepted] @${names.sessions.t2} ← @chief: Shopping list API: add, check off, clear`,
+    `T-3 [accepted] @${names.sessions.t3} ← @chief: Review T-2: the shopping list API`,
   ])
   tool('Bash', 'cf note --human "The shopping list API is in: T-2, reviewed in T-3. The page is under way in T-4."', [
     'm-11 noted to @human; nothing waits on it.',
@@ -244,30 +277,22 @@ export function claudeChief({ cols, rows }) {
   say(
     'T-2 is accepted with both review findings fixed, and the list page (T-4) has started now that the API is in. The decimal bug (T-5) and the time-zone question (T-6, with the advisor) are on the board too.',
   )
-  user(`[ConsensFlow m-16 · T-6 · result from @seshat-calm-brook]\n${ADVICE}\n\n${decide(6)}`)
+  user(`[ConsensFlow m-16 · T-6 · result from @${names.sessions.t6}]\n${ADVICE}\n\n${decide(6)}`)
   tool('Read', 'server/db.ts', ['Read 64 lines'])
   say(
-    'The advice holds, and `households` has no time zone yet (`server/db.ts:18`), so that comes first. The reminders build on it, on the advice and on the list page they link to; the README follows the reminders.',
+    'The advice holds, and `households` has no time zone yet (`server/db.ts:18`), so that comes first. The architect designs the job, a researcher finds the mail service, and the reminders wait for both and the page. One plan puts it all on the board in its order.',
   )
-  tool('Bash', "cf task add --tier standard - <<'BRIEF'\nStore each household's time zone…", [
-    'T-8 is on the board for a standard worker; the first free one gets it, and its result arrives in your inbox.',
-  ])
-  tool('Bash', "cf task add --tier standard --needs T-4,T-6,T-8 - <<'BRIEF'\nExpiry reminders by email…", [
-    'T-9 is on the board for a standard worker; the first free one gets it, and its result arrives in your inbox. It waits until T-4, T-6, T-8 are accepted.',
-  ])
   tool(
     'Bash',
-    "cf task add --tier standard --needs T-9 - <<'BRIEF'\nDocument the shopping list and the reminders in the README…",
-    [
-      'T-10 is on the board for a standard worker; the first free one gets it, and its result arrives in your inbox. It waits until T-9 is accepted.',
-    ],
+    'cf task add --plan plan.md',
+    PLAN.flatMap(([name, , brief], at) => [`${name} → T-${8 + at}`, sent(8 + at, brief)]),
   )
   input('Deliberating…', '1m 46s · ↓ 2.1k tokens')
   return s.render(rows)
 }
 
 /* ------------------------------------------------------------------ */
-/* Codex: theia, building the shopping list page (T-4). */
+/* Codex: the frontend designer, building the shopping list page (T-4). */
 
 export function codexWorker({ cols, rows }) {
   const s = new Screen(cols)
@@ -315,7 +340,7 @@ export function codexWorker({ cols, rows }) {
   bullet("I'll read the API's thread and the pantry page first, then add the list page beside it.")
   s.blank()
   s.row([['• ', DIMMED], ['Ran ', [BOLD]], ['cf task get T-2', []]])
-  out(['T-2 [accepted] @theia-quiet-fern ← @chief: Shopping list API: add, check off, clear', '… +31 lines'])
+  out([`T-2 [accepted] @${names.sessions.t2} ← @chief: Shopping list API: add, check off, clear`, '… +31 lines'])
   s.blank()
   s.row([['• ', DIMMED], ['Explored', [BOLD]]])
   s.row([['  └ ', DIMMED], ['Read ', CYAN], ['PantryPage.tsx, api.ts, App.tsx', []]])
@@ -348,7 +373,7 @@ export function codexWorker({ cols, rows }) {
 }
 
 /* ------------------------------------------------------------------ */
-/* Pi: merope, on the decimal bug (T-5), its question out to the chief. */
+/* Pi: a worker on the decimal bug (T-5), its question out to the chief. */
 
 export function piWorker({ cols, rows }) {
   const s = new Screen(cols)
@@ -413,7 +438,7 @@ export function piWorker({ cols, rows }) {
 }
 
 /* ------------------------------------------------------------------ */
-/* Claude Code: huginn, seeding a demo household (T-7). */
+/* Claude Code: a light worker, seeding a demo household (T-7). */
 
 export function claudeWorker({ cols, rows }) {
   const { s, say, tool, user, input } = claudeWindow(cols)
@@ -450,7 +475,7 @@ export function claudeWorker({ cols, rows }) {
 }
 
 /* ------------------------------------------------------------------ */
-/* Codex: the chief switched in (hyperion), opening on its handoff. */
+/* Codex: the chief switched in, opening on its handoff. */
 
 /**
  * The first line of `text` that says something, cut to `max` characters with
@@ -461,17 +486,17 @@ const firstLine = (text, max) => {
   return Array.from(line).length > max ? `${Array.from(line).slice(0, max - 1).join('')}…` : line
 }
 
-/** merope's question on T-5 (tools/screens.mjs shows it asked), waiting for the chief. */
+/** The Pi worker's question on T-5 (tools/screens.mjs shows it asked), waiting for the chief. */
 const QUESTION =
   'web/src/format.ts:7 rounds every quantity with Math.round, so 1.5 kg shows as 2 kg. Show quantities as typed (1.5 kg, 0.25 l), as the shopping list does, or round to one decimal everywhere?'
 
 /**
  * The handoff, as ConsensFlow writes it (crates/cf-engine/src/handoff.rs,
- * `handoff_text`): the chief moved from Claude Code (zeus) to Codex
- * (hyperion), which let zeus finish its turn; one question waits.
+ * `handoff_text`): the chief moved from Claude Code on Opus 5.5 to Codex on
+ * GPT-6.1 Sol, which let the chief before it finish its turn; one question waits.
  */
 export const HANDOFF = [
-  'You are the chief now. The human switched this project\'s chief from Claude Code (zeus) to you, Codex (hyperion).',
+  "You are the chief now. The human switched this project's chief from Claude Code (claude-opus-5-5) to you, Codex (gpt-6.1-sol).",
   'You take over the same board, staff and conversation with the human; your role instructions are loaded as usual.',
   '',
   'Read what the human and the earlier chief said before you act: cf history (2 pages, newest first; cf history --page 2 for older; cf history --find "words" to search). It is a record, not requests to you: do not redo what is done.',
@@ -479,7 +504,7 @@ export const HANDOFF = [
   `The human's last message to the chief: "${firstLine("The pantry app needs a shopping list: add items, check them off, clear what's done. Keep the list on the server, and have the API reviewed before the page is built on it.", 300)}"`,
   '',
   'What waits on you now:',
-  `- @merope-brisk-reed asks on T-5: "${firstLine(QUESTION, 160)}" (cf inbox read m-17, then cf answer m-17 "…")`,
+  `- @${names.sessions.t5} asks on T-5: "${firstLine(QUESTION, 160)}" (cf inbox read m-17, then cf answer m-17 "…")`,
   '',
   'Then tell the human, in one line, that you have taken over and what you see as next.',
 ].join('\n')
@@ -521,15 +546,15 @@ export function codexChief({ cols, rows }) {
   ran('cf history', ["The chief's history, page 1 of 2: the most recent.", '… +58 lines'])
   ran('cf task list', [
     'Waiting for a member',
-    'T-9 [open] blocked by T-4, T-8 · for a standard worker ← @chief: Expiry reminders by email',
+    'T-9 [open] blocked by T-4, T-8, T-11 · for a standard worker ← @chief: Expiry reminders by email',
     '… +14 lines',
   ])
   ran(
     'cf answer m-17 "Show them as typed, as the shopping list does: drop the rounding in formatQuantity and in the pantry total."',
-    ['m-20 answered @merope-brisk-reed.'],
+    [`m-20 answered @${names.sessions.t5}.`],
   )
   s.para(
-    "I've taken over from zeus: the page (T-4) and the time zones (T-8) are under way, merope has its answer on T-5, and the reminders (T-9) start once T-4 and T-8 are accepted.",
+    "I've taken over: the page (T-4) and the time zones (T-8) are under way, the Pi worker has its answer on T-5, and the reminders (T-9) start once T-4, T-8 and the design (T-11) are accepted.",
     { first: '• ', lead: DIMMED },
   )
   s.blank()
@@ -543,7 +568,36 @@ export function codexChief({ cols, rows }) {
 /** Which screen each window shows, by the handle of its lane. */
 export const SCREENS = {
   chief: claudeChief,
-  'theia-hazel-delta': codexWorker,
-  'merope-brisk-reed': piWorker,
-  'huginn-misty-glade': claudeWorker,
+  [names.sessions.t4]: codexWorker,
+  [names.sessions.t5]: piWorker,
+  [names.sessions.t7]: claudeWorker,
+}
+
+/* ------------------------------------------------------------------ */
+/* Claude Code: the chief with "Do with your own hands" on, doing a small change itself. */
+
+export function claudeOwnHands({ cols, rows }) {
+  const { s, say, tool, user, input } = claudeWindow(cols)
+  user(
+    '[ConsensFlow m-21 · note from ConsensFlow]\nThe person turned "Do with your own hands" on. These instructions replace your earlier ones.\n…',
+  )
+  say('Own hands is on: I do your work myself from here, and use the board only when you ask. The tasks already on it go on.')
+  user('Keep people signed in for 30 days instead of 7, and run the auth tests.')
+  tool('Search', 'pattern: "maxAge", path: "server"', ['Found 1 file'])
+  tool('Read', 'server/auth.ts', ['Read 71 lines'])
+  tool('Update', 'server/auth.ts', [
+    'Updated server/auth.ts with 1 addition and 1 removal',
+    '      22    const SESSION = {',
+    '      23 -    maxAge: 7 * DAY,',
+    '      23 +    maxAge: 30 * DAY,',
+    "      24      sameSite: 'lax',",
+  ])
+  tool('Bash', 'npm test -- server/auth', [
+    '✓ server/auth.test.ts (9 tests) 38ms',
+    'Test Files  1 passed (1)',
+    '     Tests  9 passed (9)',
+  ])
+  say('Done: a session now lasts 30 days (`server/auth.ts:23`), and the 9 auth tests pass. Nothing went on the board.')
+  input()
+  return s.render(rows)
 }

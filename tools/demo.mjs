@@ -1,13 +1,18 @@
 /**
  * The demo the screenshots show: one small web app, "pantry", run by a chief
- * on Claude Code and a staff of four on Codex, Pi, Claude Code and Devin, with a
- * task in every column of the board. It is written in the shapes the daemon
- * answers the page with (`board.get`, `task.get`, `inbox.get`...), as the
- * app's own page tests write theirs (consensflow/app/tests/core-page.spec.mjs),
- * and its ids follow one another as the ledger would number them.
- * Times are minutes before the capture, so the page reads them as it would.
- * What the open windows show is in tools/screens.mjs; the specs folder its
- * chief wrote is in tools/specs.mjs.
+ * on Claude Code and a staff in all nine roles, on Codex, Pi, Claude Code,
+ * Devin and Muse Code, with a task in every column of the board. A member is
+ * named by the model and effort it runs on, as the daemon names one
+ * (crates/cf-ledger/src/handles.rs), and a session by its member's name and
+ * two words. One worker is out of quota and its backup takes its tasks;
+ * another is on Vacation.
+ *
+ * It is written in the shapes the daemon answers the page with (`board.get`,
+ * `task.get`, `inbox.get`, `models.get`...), as the app's own page tests write
+ * theirs (consensflow/app/tests/core-page.spec.mjs), and its ids follow one
+ * another as the ledger would number them. Times are minutes before the
+ * capture, so the page reads them as it would. What the open windows show is
+ * in tools/screens.mjs; the specs folder its chief wrote is in tools/specs.mjs.
  */
 
 import { specs } from './specs.mjs'
@@ -17,18 +22,21 @@ const PROJECT = 1
 
 const at = (minutesAgo) => new Date(Date.now() - minutesAgo * 60_000).toISOString()
 
-const STAFF_ROLES = ['worker', 'advisor', 'reviewer']
+/** The roles that take no tier (`cf_ledger::roles`): a frontend designer, an architect, a researcher, an integrator, an image designer. */
+const UNTIERED = ['frontend', 'architect', 'researcher', 'integrator', 'designer']
 
 function participant(id, handle, role, extra = {}) {
-  const member = STAFF_ROLES.includes(role)
   return {
     id,
     projectId: PROJECT,
     handle,
     role,
-    roles: member ? [role] : [],
-    agent: member ? handle : null,
+    roles: ['human', 'chief'].includes(role) ? [] : [role],
+    agent: null,
     harness: null,
+    model: null,
+    effort: null,
+    modelName: null,
     designer: false,
     tier: null,
     outUntil: null,
@@ -39,16 +47,40 @@ function participant(id, handle, role, extra = {}) {
   }
 }
 
-/** A member of the staff: an agent of the catalog, in its roles, at the tier the catalog gives it. */
-const member = (id, handle, roles, harness, tier) =>
-  participant(id, handle, roles[0], { roles, harness, tier })
+/**
+ * A member of the staff, named as the daemon names it: the model's id as its harness lists it
+ * (Pi's without its provider), then the effort, in lowercase words joined by "-".
+ */
+function member(id, roles, harness, model, effort, tier, extra = {}) {
+  const shown = model.includes('/') ? model.slice(model.indexOf('/') + 1) : model
+  const handle = [shown, effort]
+    .filter(Boolean)
+    .join('-')
+    .toLowerCase()
+    .split(/[^a-z0-9]+/)
+    .filter(Boolean)
+    .join('-')
+  return participant(id, handle, roles[0], {
+    roles,
+    harness,
+    model,
+    effort,
+    modelName: model,
+    tier: roles.every((role) => UNTIERED.includes(role)) ? null : tier,
+    ...extra,
+  })
+}
 
 /** A session of a member, in one of its roles: the window one task runs in, named after the member. */
 const session = (id, of, name, role = of.role) =>
   participant(id, `${of.handle}-${name}`, role, {
     roles: [role],
-    agent: of.agent,
     harness: of.harness,
+    model: of.model,
+    effort: of.effort,
+    modelName: of.modelName,
+    designer: of.designer,
+    nameApart: of.nameApart,
     tier: of.tier,
     memberId: of.id,
     member: of.handle,
@@ -56,21 +88,60 @@ const session = (id, of, name, role = of.role) =>
   })
 
 const human = participant(1, 'human', 'human')
-const chief = participant(2, 'chief', 'chief', { agent: 'zeus', harness: 'claude-code' })
-const theia = member(3, 'theia', ['worker'], 'codex', 'standard')
-const merope = member(4, 'merope', ['worker'], 'pi', 'standard')
-const huginn = member(5, 'huginn', ['worker'], 'claude-code', 'light')
-const seshat = member(6, 'seshat', ['reviewer', 'advisor'], 'devin', 'complex')
+export const chief = participant(2, 'chief', 'chief', {
+  harness: 'claude-code',
+  model: 'claude-opus-5-5',
+  effort: 'xhigh',
+  modelName: 'claude-opus-5-5',
+})
+
+/** The out-of-quota worker's reset: two hours and a quarter after the capture. */
+const OUT_UNTIL = new Date(Date.now() + 135 * 60_000).toISOString()
+
+const staff = {
+  // Workers, in two tiers; one out of quota, one on Vacation.
+  terra: member(3, ['worker'], 'codex', 'gpt-6.1-terra', 'high', 'standard'),
+  astra: member(4, ['worker'], 'pi', 'openai-codex/gpt-6-astra', 'medium', 'standard', {
+    modelName: 'openai-codex/gpt-6-astra',
+    outUntil: OUT_UNTIL,
+  }),
+  sonnet: member(5, ['worker'], 'claude-code', 'claude-sonnet-5-5', 'medium', 'light'),
+  luna: member(6, ['worker'], 'codex', 'gpt-6-luna', 'low', 'light', { vacationSince: at(1440) }),
+  // The roles with no tier.
+  sol: member(7, ['frontend'], 'codex', 'gpt-6.1-sol', 'high', null),
+  fable: member(8, ['architect'], 'claude-code', 'claude-fable-5-1', 'max', null),
+  swe: member(9, ['researcher'], 'devin', 'swe-3', null, null),
+  // An advisor and a reviewer in one member.
+  opus: member(10, ['reviewer', 'advisor'], 'devin', 'claude-opus-5-5', 'max', 'complex'),
+  muse: member(11, ['tester'], 'muse', 'muse-spark-1.3', null, 'standard'),
+  haiku: member(12, ['integrator'], 'claude-code', 'claude-haiku-5-5', 'high', null),
+  // The image designer draws on Codex's own model: its name says nothing of one.
+  designer: participant(13, 'codex-default', 'designer', {
+    roles: ['designer'],
+    harness: 'codex',
+    designer: true,
+    nameApart: true,
+  }),
+}
+/** The out-of-quota worker's backup, on another harness and model: it takes that worker's tasks. */
+staff.backup = member(14, ['worker'], 'claude-code', 'claude-sonnet-5-5', 'high', 'standard', {
+  backupOf: staff.astra.id,
+})
 
 const sessions = {
-  t1: session(7, merope, 'amber-pine'),
-  t2: session(8, theia, 'quiet-fern'),
-  t3: session(9, seshat, 'sunny-birch', 'reviewer'),
-  t4: session(10, theia, 'hazel-delta'),
-  t5: session(11, merope, 'brisk-reed'),
-  t6: session(12, seshat, 'calm-brook', 'advisor'),
-  t7: session(13, huginn, 'misty-glade'),
-  t8: session(14, merope, 'gentle-cove'),
+  t1: session(20, staff.astra, 'amber-pine'),
+  t2: session(21, staff.terra, 'quiet-harbor'),
+  t3: session(22, staff.opus, 'sunny-birch', 'reviewer'),
+  t4: session(23, staff.sol, 'hazel-delta'),
+  t5: session(24, staff.astra, 'brisk-ridge'),
+  t6: session(25, staff.opus, 'calm-brook', 'advisor'),
+  t7: session(26, staff.sonnet, 'misty-glade'),
+  t8: session(27, staff.backup, 'gentle-cedar'),
+  t11: session(28, staff.fable, 'golden-summit'),
+  t12: session(29, staff.swe, 'olive-island'),
+  t13: session(30, staff.muse, 'keen-meadow'),
+  t14: session(31, staff.haiku, 'tidy-harbor'),
+  t15: session(32, staff.designer, 'vivid-comet'),
 }
 
 function task(number, title, body, state, assignee, minutesAgo, extra = {}) {
@@ -91,6 +162,7 @@ function task(number, title, body, state, assignee, minutesAgo, extra = {}) {
     deletedAt: null,
     createdAt: at(minutesAgo + 6),
     updatedAt: at(minutesAgo),
+    stateSince: at(minutesAgo),
     ...extra,
   }
 }
@@ -168,11 +240,11 @@ const tasks = {
   t4: task(
     4,
     'Shopping list page: add, check off, clear done',
-    'A page at /list on the API from T-2: an input to add, a checkbox per item, a button to clear what is checked.',
+    'A page at /list on the API from T-2, for someone at the shop with one hand free: an input to add, a checkbox per item, a button to clear what is checked. Its empty, loading and error states, on a phone first.',
     'working',
     sessions.t4.handle,
     3,
-    { needs: [{ number: 2, state: 'accepted' }] },
+    { pool: 'frontend', tier: null, needs: [{ number: 2, state: 'accepted' }] },
   ),
   t5: task(
     5,
@@ -204,7 +276,7 @@ const tasks = {
     8,
     "Store each household's time zone",
     'households.time_zone, an IANA name, filled at sign-up from the browser; editable in settings.',
-    'queued',
+    'working',
     sessions.t8.handle,
     1,
   ),
@@ -218,10 +290,10 @@ const tasks = {
     {
       needs: [
         { number: 4, state: 'working' },
-        { number: 6, state: 'done' },
-        { number: 8, state: 'queued' },
+        { number: 11, state: 'done' },
+        { number: 8, state: 'working' },
       ],
-      blockedBy: [4, 6, 8],
+      blockedBy: [4, 8, 11],
     },
   ),
   t10: task(
@@ -231,11 +303,56 @@ const tasks = {
     'open',
     null,
     0,
-    { needs: [{ number: 9, state: 'open' }], blockedBy: [9] },
+    { tier: 'light', needs: [{ number: 9, state: 'open' }], blockedBy: [9] },
+  ),
+  t11: task(
+    11,
+    'Design the reminder job: its schedule, its table and the email',
+    "From T-6's advice: the hourly job, `reminded_on`, and what the email holds. A document and the job's frame in code, no sending yet.",
+    'done',
+    sessions.t11.handle,
+    8,
+    { pool: 'architect', tier: null, result: 'The design is in `docs/reminders.md`, the frame in `server/jobs/reminders.ts`.' },
+  ),
+  t12: task(
+    12,
+    'Which email services send from our own domain on a free plan?',
+    'For the reminders: a free plan, sending from pantry.example, and an API from Node.',
+    'accepted',
+    sessions.t12.handle,
+    5,
+    { pool: 'researcher', tier: null, result: 'Three do, each with its limits and where it says so.' },
+  ),
+  t13: task(
+    13,
+    'Test the shopping list API against its brief, on a fresh database',
+    'Run each route by hand and with the tests; say what passes and what does not, with evidence.',
+    'accepted',
+    sessions.t13.handle,
+    4,
+    { pool: 'tester', result: 'Every route behaves as the brief says. 64 tests pass on a fresh database.' },
+  ),
+  t14: task(
+    14,
+    'Merge the shopping list API into main, checked',
+    'T-2, accepted, and its review T-3: merge, run the checks, land it.',
+    'accepted',
+    sessions.t14.handle,
+    2,
+    { pool: 'integrator', tier: null, result: 'Merged and landed: 64 tests pass on main.' },
+  ),
+  t15: task(
+    15,
+    'An empty-list drawing for the shopping list page',
+    'A paper bag, empty, flat colours; 480 by 360, transparent; saved to client/public/empty-list.png.',
+    'queued',
+    sessions.t15.handle,
+    1,
+    { pool: 'designer', tier: null },
   ),
 }
 
-const lane = (who, held, activity = 'closed', pane = null) => ({
+const lane = (who, held, activity = 'closed', pane = null, extra = {}) => ({
   participant: who,
   tasks: held,
   activity: { state: activity },
@@ -244,6 +361,7 @@ const lane = (who, held, activity = 'closed', pane = null) => ({
   hidden: false,
   switching: null,
   holding: false,
+  ...extra,
 })
 
 /** A window, as the board names it: `{id, generation}`. */
@@ -255,6 +373,12 @@ export const panes = {
   [sessions.t8.handle]: { id: `p${PROJECT}-${sessions.t8.handle}`, generation: 1 },
 }
 
+/** The handles the board and the screens name, by what each is. */
+export const names = {
+  ...Object.fromEntries(Object.entries(staff).map(([key, who]) => [key, who.handle])),
+  sessions: Object.fromEntries(Object.entries(sessions).map(([key, who]) => [key, who.handle])),
+}
+
 const board = {
   project: {
     id: PROJECT,
@@ -262,6 +386,8 @@ const board = {
     directory: DIRECTORY,
     state: 'open',
     gate: false,
+    ownHands: false,
+    compaction: 300_000,
     specs: { on: true, folder: '.specs', variant: 'core' },
   },
   open: [tasks.t9, tasks.t10],
@@ -269,10 +395,18 @@ const board = {
   lanes: [
     lane(human, []),
     lane(chief, [], 'working', panes.chief),
-    lane(theia, []),
-    lane(merope, []),
-    lane(huginn, []),
-    lane(seshat, []),
+    lane(staff.terra, []),
+    lane(staff.astra, [], 'closed', null, { backupReady: { worker: staff.backup.handle } }),
+    lane(staff.backup, []),
+    lane(staff.sonnet, []),
+    lane(staff.luna, []),
+    lane(staff.sol, []),
+    lane(staff.fable, []),
+    lane(staff.swe, []),
+    lane(staff.opus, []),
+    lane(staff.muse, []),
+    lane(staff.haiku, []),
+    lane(staff.designer, []),
     lane(sessions.t1, [tasks.t1]),
     lane(sessions.t2, [tasks.t2]),
     lane(sessions.t3, [tasks.t3]),
@@ -280,7 +414,12 @@ const board = {
     lane(sessions.t5, [tasks.t5], 'idle', panes[sessions.t5.handle]),
     lane(sessions.t6, [tasks.t6]),
     lane(sessions.t7, [tasks.t7], 'working', panes[sessions.t7.handle]),
-    lane(sessions.t8, [tasks.t8], 'starting', panes[sessions.t8.handle]),
+    lane(sessions.t8, [tasks.t8], 'working', panes[sessions.t8.handle]),
+    lane(sessions.t11, [tasks.t11]),
+    lane(sessions.t12, [tasks.t12]),
+    lane(sessions.t13, [tasks.t13]),
+    lane(sessions.t14, [tasks.t14]),
+    lane(sessions.t15, [tasks.t15], 'starting'),
   ],
 }
 
@@ -313,7 +452,7 @@ function message(id, kind, sender, recipient, body, minutesAgo, extra = {}) {
  * The ledger's messages, numbered in the order they were sent: m-1 and m-2
  * were T-1's; m-3 to m-6 and m-9, m-10 T-2's; m-7, m-8 the review's; m-11 the
  * note below; m-12 to m-15 the briefs of T-4 to T-7; m-16 the advice on its
- * way to the chief, m-17 merope's question waiting behind it, m-18 T-8's brief.
+ * way to the chief, m-17 the Pi worker's question waiting behind it, m-18 T-8's brief.
  */
 const worker = sessions.t2.handle
 const theT2 = {
@@ -336,7 +475,7 @@ const note = {
   recipient: 'human',
   taskNumber: 2,
   body: 'The shopping list API is in: T-2, reviewed in T-3. The page is under way in T-4.',
-  createdAt: at(39),
+  createdAt: at(32),
 }
 
 /**
@@ -363,12 +502,12 @@ const chiefHistory = {
     {
       id: 1,
       harness: 'claude-code',
-      agent: 'zeus',
+      model: chief.model,
       startedAt: at(1620),
       endedAt: at(1590),
       endedBy: { by: 'window', resumed: false },
     },
-    { id: 2, harness: 'claude-code', agent: 'zeus', startedAt: at(185), endedAt: null, endedBy: null },
+    { id: 2, harness: 'claude-code', model: chief.model, startedAt: at(185), endedAt: null, endedBy: null },
   ],
   items: [
     entry(1, 0, 'user', 1620, 'Read the pantry app and tell me what it does and how it is tested.'),
@@ -393,18 +532,25 @@ const chiefHistory = {
       179,
       'I will read the routes the app has, then put the list on the board: the API first, a review of it, and the page waiting for both.',
     ),
-    entry(2, 2, 'tool', 179, 'server/routes/items.ts  server/routes/households.ts  server/app.ts'),
+    entry(2, 2, 'tool', 179, {
+      kind: 'tool',
+      name: 'Bash',
+      header: 'ls server/routes',
+      text: 'households.ts\nitems.ts',
+      status: 'ok',
+      tookMs: 40,
+    }),
     entry(
       2,
       3,
       'assistant',
       176,
-      'T-2 is the API for a standard worker, T-3 its review, and T-4 the page, waiting until T-2 is accepted.',
+      'T-2 is the API for a standard worker, T-3 its review, and T-4 the page, for the frontend designer once T-2 is accepted.',
     ),
-    entry(2, 4, 'user', 114, delivered(4, 2, 'question', 'theia', T2.question)),
+    entry(2, 4, 'user', 114, delivered(4, 2, 'question', worker, T2.question)),
     entry(2, 5, 'assistant', 113, 'Delete them: the list is a scratch pad, and `items` keeps the history that matters.'),
-    entry(2, 6, 'user', 62, delivered(6, 2, 'result', 'theia', T2.result1)),
-    entry(2, 7, 'user', 48, delivered(8, 3, 'result', 'seshat', REVIEW)),
+    entry(2, 6, 'user', 62, delivered(6, 2, 'result', worker, T2.result1)),
+    entry(2, 7, 'user', 48, delivered(8, 3, 'result', sessions.t3.handle, REVIEW)),
     entry(2, 8, 'assistant', 47, 'The review found two things to fix, so T-2 goes back to the same window.'),
     entry(
       2,
@@ -420,14 +566,21 @@ const chiefHistory = {
       29,
       'Time zones are the open question. I will ask an advisor before I write the tasks: which zone is "the morning", and what has to be stored.',
     ),
-    entry(2, 11, 'tool', 29, 'cf task add --advice --tier complex "How should expiry reminders handle time zones?"'),
-    entry(2, 12, 'user', 14, delivered(16, 6, 'result', 'seshat', ADVICE)),
+    entry(2, 11, 'tool', 29, {
+      kind: 'tool',
+      name: 'Bash',
+      header: 'cf task add --advice --tier complex "How should expiry reminders handle time zones?…"',
+      text: 'T-6 is on the board for a complex advisor; it starts in a new window of one, and its result arrives in your inbox.',
+      status: 'ok',
+      tookMs: 310,
+    }),
+    entry(2, 12, 'user', 14, delivered(16, 6, 'result', sessions.t6.handle, ADVICE)),
     entry(
       2,
       13,
       'assistant',
       12,
-      "The advice is clear: store each household's time zone (T-8), then send the reminders (T-9) once the page, the advice and the time zone are in.",
+      "The advice is clear: store each household's time zone (T-8), have the architect design the job (T-11), then send the reminders (T-9) once the page, the design and the time zone are in.",
     ),
   ],
 }
@@ -451,21 +604,71 @@ const projects = [
 ]
 
 /** The staff the New project dialog starts with: the last project's, as `staff.last` gives it. */
-const lastStaff = [theia, merope, huginn, seshat].map((who) => ({
-  agent: who.agent,
-  harness: who.harness === 'claude-code' ? 'claude' : who.harness,
-  designer: false,
-  tier: who.tier,
-  roles: who.roles,
-}))
+const lastStaff = [staff.terra, staff.sonnet, staff.sol, staff.opus, staff.muse].flatMap((who) =>
+  who.roles.map((role) => ({
+    harness: who.harness,
+    model: who.model,
+    effort: who.effort,
+    modelName: who.modelName,
+    designer: false,
+    tier: who.tier,
+    role,
+    roles: [role],
+  })),
+)
+
+/** A fresh listing of `models`, as a harness gives one. */
+const listed = (models) => ({
+  models,
+  readAt: Date.now() - 60_000,
+  freshness: { state: 'fresh' },
+  how: 'the harness itself',
+})
+const efforts = (...names) => names
+/**
+ * What each installed harness lists of its models, by its program's name, as `models.get`
+ * answers: the stand-in harnesses list none, so the demo's are written here, with the ids
+ * the app's own tests use.
+ */
+const models = {
+  claude: listed([
+    { id: 'claude-opus-5-5', label: 'Opus 5.5', efforts: efforts('low', 'medium', 'high', 'xhigh', 'max') },
+    { id: 'claude-sonnet-5-5', label: 'Sonnet 5.5', efforts: efforts('low', 'medium', 'high', 'xhigh', 'max') },
+    { id: 'claude-haiku-5-5', label: 'Haiku 5.5', efforts: efforts('low', 'medium', 'high') },
+    { id: 'claude-fable-5-1', label: 'Fable 5.1', efforts: efforts('low', 'medium', 'high', 'xhigh', 'max') },
+  ]),
+  codex: listed([
+    { id: 'gpt-6.1-sol', label: 'GPT-6.1 Sol', efforts: efforts('low', 'medium', 'high', 'xhigh', 'max') },
+    { id: 'gpt-6.1-terra', label: 'GPT-6.1 Terra', efforts: efforts('low', 'medium', 'high', 'xhigh') },
+    { id: 'gpt-6-astra', label: 'GPT-6 Astra', efforts: efforts('low', 'medium', 'high') },
+    { id: 'gpt-6-luna', label: 'GPT-6 Luna', efforts: efforts('low', 'medium', 'high') },
+  ]),
+  pi: listed([
+    { id: 'gpt-6-astra', provider: 'openai-codex', label: 'GPT-6 Astra', efforts: efforts('low', 'medium', 'high') },
+    { id: 'kimi-k3', provider: 'moonshot', label: 'Kimi K3', efforts: [] },
+  ]),
+  devin: listed([
+    { id: 'swe-3', label: 'SWE-3', efforts: [] },
+    { id: 'swe-2', label: 'SWE-2', efforts: [] },
+    { id: 'claude-opus-5-5', label: 'Claude Opus 5.5', efforts: efforts('high', 'max') },
+  ]),
+  muse: listed([{ id: 'muse-spark-1.3', label: 'Muse Spark 1.3', efforts: [] }]),
+}
 
 /**
  * The switch the human makes last (Switch chief, on the chief's card): the
- * chief goes on Codex, on hyperion, in a window of its own, the next
- * generation of the chief's pane; its first message is the handoff
- * (tools/screens.mjs). zeus finished its turn first, and is gone.
+ * chief goes on Codex, on GPT-6.1 Sol at max effort, in a window of its own,
+ * the next generation of the chief's pane; its first message is the handoff
+ * (tools/screens.mjs). The chief on Claude Code finished its turn first.
  */
-export const SWITCH = { agent: 'hyperion', harness: 'codex', pane: { ...panes.chief, generation: 4 } }
+export const SWITCH = {
+  harness: 'codex',
+  harnessLabel: 'Codex',
+  model: 'gpt-6.1-sol',
+  modelLabel: 'GPT-6.1 Sol',
+  effort: 'max',
+  pane: { ...panes.chief, generation: 4 },
+}
 
 export const demo = {
   directory: DIRECTORY,
@@ -478,13 +681,9 @@ export const demo = {
   // What its window wrote is not shown: the fold stays shut, with its count.
   transcripts: { [`${PROJECT}:2`]: { items: [], total: 58 } },
   lastStaff,
+  models,
   // The project's specs folder, its chief's history, and its wake-up calls (every two hours, the default words).
   specs,
   histories: { chief: chiefHistory },
   wakeUps: { [PROJECT]: { on: true, everyMs: 2 * 3_600_000, text: null } },
-  // Agents the human adds to the staff in Project settings: a tester and the image designer.
-  joining: {
-    diana: { harness: 'codex', tier: 'light', designer: false },
-    pygmalion: { harness: 'codex', tier: null, designer: true },
-  },
 }

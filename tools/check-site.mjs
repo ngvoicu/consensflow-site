@@ -201,14 +201,14 @@ const BROKEN = [
 ]
 
 /** What the page's text and markup say that no page may: none when it is right. */
-async function wordProblems(tab) {
+async function wordProblems(tab, stage = true) {
   const problems = []
   const text = await tab.locator('body').innerText()
   const source = await tab.content()
   if (REMOVED.test(text) || REMOVED.test(source)) problems.push('names the removed harness')
   // The download links lead to the alpha's installers, whose names carry its stage.
   const markup = source.replace(/<script[\s\S]*?<\/script>/g, '').replace(/(data-download="[a-z]+" href=")[^"]*"/g, '$1"')
-  if (STAGE.test(text) || STAGE.test(markup)) problems.push('qualifies a release by its stage')
+  if (stage && (STAGE.test(text) || STAGE.test(markup))) problems.push('qualifies a release by its stage')
   return problems
 }
 
@@ -267,7 +267,7 @@ try {
           const [nw, nh] = img.natural
           if (dw && dh) assert.ok(Math.abs(dw * nh - dh * nw) <= Math.max(dw, dh), `${where}: ${img.src} is ${nw}x${nh}, declared ${dw}x${dh}`)
         }
-        assert.deepEqual(await wordProblems(tab), [], `${where}: says what no page may`)
+        assert.deepEqual(await wordProblems(tab, page.stage !== false), [], `${where}: says what no page may`)
         if (page.name === 'home') {
           assert.deepEqual(await harnessProblems(tab), [], `${where}: the harnesses`)
           assert.deepEqual(await getProblems(tab), [], `${where}: the downloads and install lines`)

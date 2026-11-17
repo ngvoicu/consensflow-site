@@ -5,24 +5,26 @@
 <meta name="robots" content="noindex" />
 <title>ConsensFlow share card</title>
 <style>
-@font-face{font-family:'Archivo';font-weight:400;src:url('../assets/fonts/archivo-400.woff2') format('woff2')}
-@font-face{font-family:'Archivo';font-weight:800;src:url('../assets/fonts/archivo-800.woff2') format('woff2')}
-@font-face{font-family:'IBM Plex Mono';font-weight:500;src:url('../assets/fonts/ibm-plex-mono-500.woff2') format('woff2')}
+@font-face{font-family:'Geist';font-weight:100 900;src:url('../assets/fonts/geist-latin-wght-normal.woff2') format('woff2')}
+@font-face{font-family:'Geist Mono';font-weight:100 900;src:url('../assets/fonts/geist-mono-latin-wght-normal.woff2') format('woff2')}
 *{box-sizing:border-box}
 html,body{margin:0}
-/* The share card, 1200 by 630: what ConsensFlow is, beside the app's own board. */
-.card{position:relative;width:1200px;height:630px;overflow:hidden;color:#e9f1ef;font-family:'Archivo',sans-serif;
-  background:linear-gradient(90deg,rgba(99,199,178,.045) 1px,transparent 1px) 0 0/24px 24px,#08181d}
+/* The share card, 1200 by 630: what ConsensFlow is, beside the app's own board,
+   in the app's look: zinc ink, white words, violet for what is at work. */
+.card{position:relative;width:1200px;height:630px;overflow:hidden;color:#fafafa;font-family:'Geist',sans-serif;
+  background:radial-gradient(760px 520px at 0 0,rgba(124,58,237,.24),transparent 70%),radial-gradient(700px 500px at 100% 100%,rgba(99,102,241,.1),transparent 70%),#09090b}
 .words{position:absolute;left:72px;top:64px;width:560px}
-.brand{display:flex;align-items:center;gap:14px;font-weight:800;font-size:30px;letter-spacing:-.01em}
+.brand{display:flex;align-items:center;gap:16px;font:700 20px/1 'Geist Mono',monospace;letter-spacing:.19em;text-transform:uppercase;
+  color:#a78bfa;text-shadow:0 0 18px rgba(139,92,246,.75)}
 .brand img{width:52px;height:52px;border-radius:12px}
-h1{margin:44px 0 0;font-weight:800;font-size:60px;line-height:1.02;letter-spacing:-.035em}
-p{margin:26px 0 0;font-size:24px;line-height:1.45;color:#9db4b8;max-width:30ch}
-.url{position:absolute;left:72px;bottom:56px;font:500 21px 'IBM Plex Mono',monospace;color:#63c7b2}
-.board{position:absolute;left:668px;top:72px;width:760px;height:620px;border:1px solid #28464d;border-radius:12px;overflow:hidden;
-  box-shadow:0 40px 90px -40px rgba(0,0,0,.9)}
-/* The board from its column heads and its staff column on, at 0.7 of the capture. */
-.board img{display:block;width:1288px;margin:-166px 0 0 -29px}
+h1{margin:44px 0 0;font-weight:650;font-size:60px;line-height:1.02;letter-spacing:-.035em}
+p{margin:26px 0 0;font-size:24px;line-height:1.45;color:#a1a1aa;max-width:30ch}
+.url{position:absolute;left:72px;bottom:56px;font:500 21px 'Geist Mono',monospace;color:#a5b4fc}
+.board{position:absolute;left:668px;top:72px;width:760px;height:620px;border:1px solid #3f3f46;border-radius:12px;overflow:hidden;
+  box-shadow:0 0 0 1px rgba(167,139,250,.12),0 30px 110px -30px rgba(124,58,237,.65)}
+/* The board from its column heads and its staff column on, at 0.6 of the capture:
+   the chief's row, then the workers' group down to the task at work. */
+.board img{display:block;width:1104px;margin:-151px 0 0 -34px}
 </style>
 </head>
 <body>
