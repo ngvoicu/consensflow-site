@@ -519,16 +519,49 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "The Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Windows used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Devin and Muse Code were older."
+                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since the previous 3.0.7 update. The previous update's Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
                 },
                 {
-                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on the real harnesses. These flows are unchanged since the previous 3.0.7 update."
+                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on real harnesses."
                 },
                 {
-                  "text": "Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
+                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels. Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
                 },
                 {
                   "text": "No long run was made for this alpha."
+                },
+                {
+                  "text": "The Mac typing check used simulated key events, not a physical keyboard."
+                },
+                {
+                  "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
+                },
+                {
+                  "text": "An uncertain terminal write holds the window until the project restarts. A bracketed paste is admitted in one piece, but a write failure can still leave part of it in the window; check what appeared before sending it again."
+                },
+                {
+                  "text": "Bracketed pastes are limited to 4 MiB including their markers. In tests, a Windows terminal read a large paste at about 53 KB/s. A page reloaded while an admitted large paste is still going in waits for it to finish."
+                },
+                {
+                  "text": "A paste into a terminal without bracketed-paste mode is treated as typed keys and can arrive in parts; the 4 MiB bracketed-paste cap does not apply. Line breaks in such a paste are read as Enter."
+                },
+                {
+                  "text": "A program that stops reading a large paste until it gets a terminal reply can stall that window. A full paste can also leave no room for a reply, and a reply and a key can change order. The stall has been traced in the code, but not reproduced."
+                },
+                {
+                  "text": "A terminal control sequence over 64 KiB outside a bracketed paste is refused with a notice."
+                },
+                {
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
+                },
+                {
+                  "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
+                },
+                {
+                  "text": "Backups: if the app crashes between releasing and assigning a task, the open task may next go to a free member. If a backup also exhausts its busy-model tries, its task can return to the board. A member that needs an edit can release its tiered work to the board before the backup takes it; a queued task whose window never opened can still carry a warning to check for partial changes."
+                },
+                {
+                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
                 }
               ]
             },
@@ -538,7 +571,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
               "status": "issues",
               "issues": [
                 {
-                  "text": "Windows: typing into a window can sometimes stop, with \"pane input sequence gap\", until the project is restarted. A fix for a possible cause is built and in review for the next alpha.",
+                  "text": "Windows: typing into a window, or the whole app, can still stop in a way not yet explained; restarting the project brings it back. A lost or late call no longer causes it.",
                   "state": "fixing"
                 },
                 {
@@ -671,19 +704,49 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "The Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Windows used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Devin and Muse Code were older."
+                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since the previous 3.0.7 update. The previous update's Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
                 },
                 {
-                  "text": "On Windows, Ctrl+V was checked with a test paste, not the real clipboard."
+                  "text": "The Windows Ctrl+V check used a test paste event, not the real clipboard. Its lost and delayed calls were simulated; the cause of the Windows stops seen before this release is not established."
                 },
                 {
-                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on the real harnesses. These flows are unchanged since the previous 3.0.7 update."
+                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on real harnesses."
                 },
                 {
-                  "text": "Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
+                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels. Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
                 },
                 {
                   "text": "No long run was made for this alpha."
+                },
+                {
+                  "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
+                },
+                {
+                  "text": "An uncertain terminal write holds the window until the project restarts. A bracketed paste is admitted in one piece, but a write failure can still leave part of it in the window; check what appeared before sending it again."
+                },
+                {
+                  "text": "Bracketed pastes are limited to 4 MiB including their markers. In tests, a Windows terminal read a large paste at about 53 KB/s. A page reloaded while an admitted large paste is still going in waits for it to finish."
+                },
+                {
+                  "text": "A paste into a terminal without bracketed-paste mode is treated as typed keys and can arrive in parts; the 4 MiB bracketed-paste cap does not apply. Line breaks in such a paste are read as Enter."
+                },
+                {
+                  "text": "A program that stops reading a large paste until it gets a terminal reply can stall that window. A full paste can also leave no room for a reply, and a reply and a key can change order. The stall has been traced in the code, but not reproduced."
+                },
+                {
+                  "text": "A terminal control sequence over 64 KiB outside a bracketed paste is refused with a notice."
+                },
+                {
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
+                },
+                {
+                  "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
+                },
+                {
+                  "text": "Backups: if the app crashes between releasing and assigning a task, the open task may next go to a free member. If a backup also exhausts its busy-model tries, its task can return to the board. A member that needs an edit can release its tiered work to the board before the backup takes it; a queued task whose window never opened can still carry a warning to check for partial changes."
+                },
+                {
+                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
                 }
               ]
             }
@@ -830,16 +893,49 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "The Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Windows used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Devin and Muse Code were older."
+                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since the previous 3.0.7 update. The previous update's Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
                 },
                 {
-                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on the real harnesses. These flows are unchanged since the previous 3.0.7 update."
+                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on real harnesses."
                 },
                 {
-                  "text": "Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
+                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels. Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
                 },
                 {
                   "text": "No long run was made for this alpha."
+                },
+                {
+                  "text": "The Mac typing check used simulated key events, not a physical keyboard."
+                },
+                {
+                  "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
+                },
+                {
+                  "text": "An uncertain terminal write holds the window until the project restarts. A bracketed paste is admitted in one piece, but a write failure can still leave part of it in the window; check what appeared before sending it again."
+                },
+                {
+                  "text": "Bracketed pastes are limited to 4 MiB including their markers. In tests, a Windows terminal read a large paste at about 53 KB/s. A page reloaded while an admitted large paste is still going in waits for it to finish."
+                },
+                {
+                  "text": "A paste into a terminal without bracketed-paste mode is treated as typed keys and can arrive in parts; the 4 MiB bracketed-paste cap does not apply. Line breaks in such a paste are read as Enter."
+                },
+                {
+                  "text": "A program that stops reading a large paste until it gets a terminal reply can stall that window. A full paste can also leave no room for a reply, and a reply and a key can change order. The stall has been traced in the code, but not reproduced."
+                },
+                {
+                  "text": "A terminal control sequence over 64 KiB outside a bracketed paste is refused with a notice."
+                },
+                {
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
+                },
+                {
+                  "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
+                },
+                {
+                  "text": "Backups: if the app crashes between releasing and assigning a task, the open task may next go to a free member. If a backup also exhausts its busy-model tries, its task can return to the board. A member that needs an edit can release its tiered work to the board before the backup takes it; a queued task whose window never opened can still carry a warning to check for partial changes."
+                },
+                {
+                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
                 }
               ]
             },
@@ -849,7 +945,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
               "status": "issues",
               "issues": [
                 {
-                  "text": "Windows: typing into a window can sometimes stop, with \"pane input sequence gap\", until the project is restarted. A fix for a possible cause is built and in review for the next alpha.",
+                  "text": "Windows: typing into a window, or the whole app, can still stop in a way not yet explained; restarting the project brings it back. A lost or late call no longer causes it.",
                   "state": "fixing"
                 },
                 {
@@ -1000,19 +1096,49 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "The Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Windows used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Devin and Muse Code were older."
+                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since the previous 3.0.7 update. The previous update's Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
                 },
                 {
-                  "text": "On Windows, Ctrl+V was checked with a test paste, not the real clipboard."
+                  "text": "The Windows Ctrl+V check used a test paste event, not the real clipboard. Its lost and delayed calls were simulated; the cause of the Windows stops seen before this release is not established."
                 },
                 {
-                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on the real harnesses. These flows are unchanged since the previous 3.0.7 update."
+                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on real harnesses."
                 },
                 {
-                  "text": "Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
+                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels. Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
                 },
                 {
                   "text": "No long run was made for this alpha."
+                },
+                {
+                  "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
+                },
+                {
+                  "text": "An uncertain terminal write holds the window until the project restarts. A bracketed paste is admitted in one piece, but a write failure can still leave part of it in the window; check what appeared before sending it again."
+                },
+                {
+                  "text": "Bracketed pastes are limited to 4 MiB including their markers. In tests, a Windows terminal read a large paste at about 53 KB/s. A page reloaded while an admitted large paste is still going in waits for it to finish."
+                },
+                {
+                  "text": "A paste into a terminal without bracketed-paste mode is treated as typed keys and can arrive in parts; the 4 MiB bracketed-paste cap does not apply. Line breaks in such a paste are read as Enter."
+                },
+                {
+                  "text": "A program that stops reading a large paste until it gets a terminal reply can stall that window. A full paste can also leave no room for a reply, and a reply and a key can change order. The stall has been traced in the code, but not reproduced."
+                },
+                {
+                  "text": "A terminal control sequence over 64 KiB outside a bracketed paste is refused with a notice."
+                },
+                {
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
+                },
+                {
+                  "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
+                },
+                {
+                  "text": "Backups: if the app crashes between releasing and assigning a task, the open task may next go to a free member. If a backup also exhausts its busy-model tries, its task can return to the board. A member that needs an edit can release its tiered work to the board before the backup takes it; a queued task whose window never opened can still carry a warning to check for partial changes."
+                },
+                {
+                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
                 }
               ]
             }
@@ -1144,19 +1270,52 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "The Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Windows used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Devin and Muse Code were older."
+                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since the previous 3.0.7 update. The previous update's Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
                 },
                 {
-                  "text": "On the Mac, Pi was checked with one question case on a free proxy model, and its question flow passed. No other Mac Pi cases were run."
+                  "text": "On the Mac, Pi was checked in the previous 3.0.7 update with one question case on a free proxy model, and its question flow passed. No other Mac Pi cases were run."
                 },
                 {
-                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on the real harnesses. These flows are unchanged since the previous 3.0.7 update."
+                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on real harnesses."
                 },
                 {
-                  "text": "Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
+                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels. Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
                 },
                 {
                   "text": "No long run was made for this alpha."
+                },
+                {
+                  "text": "The Mac typing check used simulated key events, not a physical keyboard."
+                },
+                {
+                  "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
+                },
+                {
+                  "text": "An uncertain terminal write holds the window until the project restarts. A bracketed paste is admitted in one piece, but a write failure can still leave part of it in the window; check what appeared before sending it again."
+                },
+                {
+                  "text": "Bracketed pastes are limited to 4 MiB including their markers. In tests, a Windows terminal read a large paste at about 53 KB/s. A page reloaded while an admitted large paste is still going in waits for it to finish."
+                },
+                {
+                  "text": "A paste into a terminal without bracketed-paste mode is treated as typed keys and can arrive in parts; the 4 MiB bracketed-paste cap does not apply. Line breaks in such a paste are read as Enter."
+                },
+                {
+                  "text": "A program that stops reading a large paste until it gets a terminal reply can stall that window. A full paste can also leave no room for a reply, and a reply and a key can change order. The stall has been traced in the code, but not reproduced."
+                },
+                {
+                  "text": "A terminal control sequence over 64 KiB outside a bracketed paste is refused with a notice."
+                },
+                {
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
+                },
+                {
+                  "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
+                },
+                {
+                  "text": "Backups: if the app crashes between releasing and assigning a task, the open task may next go to a free member. If a backup also exhausts its busy-model tries, its task can return to the board. A member that needs an edit can release its tiered work to the board before the backup takes it; a queued task whose window never opened can still carry a warning to check for partial changes."
+                },
+                {
+                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
                 }
               ]
             },
@@ -1166,7 +1325,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
               "status": "issues",
               "issues": [
                 {
-                  "text": "Windows: typing into a window can sometimes stop, with \"pane input sequence gap\", until the project is restarted. A fix for a possible cause is built and in review for the next alpha.",
+                  "text": "Windows: typing into a window, or the whole app, can still stop in a way not yet explained; restarting the project brings it back. A lost or late call no longer causes it.",
                   "state": "fixing"
                 },
                 {
@@ -1296,19 +1455,49 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "The Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Windows used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Devin and Muse Code were older."
+                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since the previous 3.0.7 update. The previous update's Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
                 },
                 {
-                  "text": "On Windows, Ctrl+V was checked with a test paste, not the real clipboard."
+                  "text": "The Windows Ctrl+V check used a test paste event, not the real clipboard. Its lost and delayed calls were simulated; the cause of the Windows stops seen before this release is not established."
                 },
                 {
-                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on the real harnesses. These flows are unchanged since the previous 3.0.7 update."
+                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on real harnesses."
                 },
                 {
-                  "text": "Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
+                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels. Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
                 },
                 {
                   "text": "No long run was made for this alpha."
+                },
+                {
+                  "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
+                },
+                {
+                  "text": "An uncertain terminal write holds the window until the project restarts. A bracketed paste is admitted in one piece, but a write failure can still leave part of it in the window; check what appeared before sending it again."
+                },
+                {
+                  "text": "Bracketed pastes are limited to 4 MiB including their markers. In tests, a Windows terminal read a large paste at about 53 KB/s. A page reloaded while an admitted large paste is still going in waits for it to finish."
+                },
+                {
+                  "text": "A paste into a terminal without bracketed-paste mode is treated as typed keys and can arrive in parts; the 4 MiB bracketed-paste cap does not apply. Line breaks in such a paste are read as Enter."
+                },
+                {
+                  "text": "A program that stops reading a large paste until it gets a terminal reply can stall that window. A full paste can also leave no room for a reply, and a reply and a key can change order. The stall has been traced in the code, but not reproduced."
+                },
+                {
+                  "text": "A terminal control sequence over 64 KiB outside a bracketed paste is refused with a notice."
+                },
+                {
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
+                },
+                {
+                  "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
+                },
+                {
+                  "text": "Backups: if the app crashes between releasing and assigning a task, the open task may next go to a free member. If a backup also exhausts its busy-model tries, its task can return to the board. A member that needs an edit can release its tiered work to the board before the backup takes it; a queued task whose window never opened can still carry a warning to check for partial changes."
+                },
+                {
+                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
                 }
               ]
             }
@@ -1437,16 +1626,49 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "The Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Windows used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Devin and Muse Code were older."
+                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since the previous 3.0.7 update. The previous update's Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
                 },
                 {
-                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on the real harnesses. These flows are unchanged since the previous 3.0.7 update."
+                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on real harnesses."
                 },
                 {
-                  "text": "Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
+                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels. Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
                 },
                 {
                   "text": "No long run was made for this alpha."
+                },
+                {
+                  "text": "The Mac typing check used simulated key events, not a physical keyboard."
+                },
+                {
+                  "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
+                },
+                {
+                  "text": "An uncertain terminal write holds the window until the project restarts. A bracketed paste is admitted in one piece, but a write failure can still leave part of it in the window; check what appeared before sending it again."
+                },
+                {
+                  "text": "Bracketed pastes are limited to 4 MiB including their markers. In tests, a Windows terminal read a large paste at about 53 KB/s. A page reloaded while an admitted large paste is still going in waits for it to finish."
+                },
+                {
+                  "text": "A paste into a terminal without bracketed-paste mode is treated as typed keys and can arrive in parts; the 4 MiB bracketed-paste cap does not apply. Line breaks in such a paste are read as Enter."
+                },
+                {
+                  "text": "A program that stops reading a large paste until it gets a terminal reply can stall that window. A full paste can also leave no room for a reply, and a reply and a key can change order. The stall has been traced in the code, but not reproduced."
+                },
+                {
+                  "text": "A terminal control sequence over 64 KiB outside a bracketed paste is refused with a notice."
+                },
+                {
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
+                },
+                {
+                  "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
+                },
+                {
+                  "text": "Backups: if the app crashes between releasing and assigning a task, the open task may next go to a free member. If a backup also exhausts its busy-model tries, its task can return to the board. A member that needs an edit can release its tiered work to the board before the backup takes it; a queued task whose window never opened can still carry a warning to check for partial changes."
+                },
+                {
+                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
                 }
               ]
             },
@@ -1456,7 +1678,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
               "status": "newer",
               "issues": [
                 {
-                  "text": "Windows: typing into a window can sometimes stop, with \"pane input sequence gap\", until the project is restarted. A fix for a possible cause is built and in review for the next alpha.",
+                  "text": "Windows: typing into a window, or the whole app, can still stop in a way not yet explained; restarting the project brings it back. A lost or late call no longer causes it.",
                   "state": "fixing"
                 },
                 {
@@ -1583,19 +1805,49 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "The Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Windows used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Devin and Muse Code were older."
+                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since the previous 3.0.7 update. The previous update's Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
                 },
                 {
-                  "text": "On Windows, Ctrl+V was checked with a test paste, not the real clipboard."
+                  "text": "The Windows Ctrl+V check used a test paste event, not the real clipboard. Its lost and delayed calls were simulated; the cause of the Windows stops seen before this release is not established."
                 },
                 {
-                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on the real harnesses. These flows are unchanged since the previous 3.0.7 update."
+                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on real harnesses."
                 },
                 {
-                  "text": "Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
+                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels. Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
                 },
                 {
                   "text": "No long run was made for this alpha."
+                },
+                {
+                  "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
+                },
+                {
+                  "text": "An uncertain terminal write holds the window until the project restarts. A bracketed paste is admitted in one piece, but a write failure can still leave part of it in the window; check what appeared before sending it again."
+                },
+                {
+                  "text": "Bracketed pastes are limited to 4 MiB including their markers. In tests, a Windows terminal read a large paste at about 53 KB/s. A page reloaded while an admitted large paste is still going in waits for it to finish."
+                },
+                {
+                  "text": "A paste into a terminal without bracketed-paste mode is treated as typed keys and can arrive in parts; the 4 MiB bracketed-paste cap does not apply. Line breaks in such a paste are read as Enter."
+                },
+                {
+                  "text": "A program that stops reading a large paste until it gets a terminal reply can stall that window. A full paste can also leave no room for a reply, and a reply and a key can change order. The stall has been traced in the code, but not reproduced."
+                },
+                {
+                  "text": "A terminal control sequence over 64 KiB outside a bracketed paste is refused with a notice."
+                },
+                {
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
+                },
+                {
+                  "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
+                },
+                {
+                  "text": "Backups: if the app crashes between releasing and assigning a task, the open task may next go to a free member. If a backup also exhausts its busy-model tries, its task can return to the board. A member that needs an edit can release its tiered work to the board before the backup takes it; a queued task whose window never opened can still carry a warning to check for partial changes."
+                },
+                {
+                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
                 }
               ]
             }
@@ -1724,16 +1976,49 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "The Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Windows used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Devin and Muse Code were older."
+                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since the previous 3.0.7 update. The previous update's Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
                 },
                 {
-                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on the real harnesses. These flows are unchanged since the previous 3.0.7 update."
+                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on real harnesses."
                 },
                 {
-                  "text": "Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
+                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels. Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
                 },
                 {
                   "text": "No long run was made for this alpha."
+                },
+                {
+                  "text": "The Mac typing check used simulated key events, not a physical keyboard."
+                },
+                {
+                  "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
+                },
+                {
+                  "text": "An uncertain terminal write holds the window until the project restarts. A bracketed paste is admitted in one piece, but a write failure can still leave part of it in the window; check what appeared before sending it again."
+                },
+                {
+                  "text": "Bracketed pastes are limited to 4 MiB including their markers. In tests, a Windows terminal read a large paste at about 53 KB/s. A page reloaded while an admitted large paste is still going in waits for it to finish."
+                },
+                {
+                  "text": "A paste into a terminal without bracketed-paste mode is treated as typed keys and can arrive in parts; the 4 MiB bracketed-paste cap does not apply. Line breaks in such a paste are read as Enter."
+                },
+                {
+                  "text": "A program that stops reading a large paste until it gets a terminal reply can stall that window. A full paste can also leave no room for a reply, and a reply and a key can change order. The stall has been traced in the code, but not reproduced."
+                },
+                {
+                  "text": "A terminal control sequence over 64 KiB outside a bracketed paste is refused with a notice."
+                },
+                {
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
+                },
+                {
+                  "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
+                },
+                {
+                  "text": "Backups: if the app crashes between releasing and assigning a task, the open task may next go to a free member. If a backup also exhausts its busy-model tries, its task can return to the board. A member that needs an edit can release its tiered work to the board before the backup takes it; a queued task whose window never opened can still carry a warning to check for partial changes."
+                },
+                {
+                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
                 }
               ]
             },
@@ -1743,7 +2028,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
               "status": "newer",
               "issues": [
                 {
-                  "text": "Windows: typing into a window can sometimes stop, with \"pane input sequence gap\", until the project is restarted. A fix for a possible cause is built and in review for the next alpha.",
+                  "text": "Windows: typing into a window, or the whole app, can still stop in a way not yet explained; restarting the project brings it back. A lost or late call no longer causes it.",
                   "state": "fixing"
                 },
                 {
@@ -1873,19 +2158,49 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "The Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Windows used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1; Windows Devin and Muse Code were older."
+                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since the previous 3.0.7 update. The previous update's Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
                 },
                 {
-                  "text": "On Windows, Ctrl+V was checked with a test paste, not the real clipboard."
+                  "text": "The Windows Ctrl+V check used a test paste event, not the real clipboard. Its lost and delayed calls were simulated; the cause of the Windows stops seen before this release is not established."
                 },
                 {
-                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on the real harnesses. These flows are unchanged since the previous 3.0.7 update."
+                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on real harnesses."
                 },
                 {
-                  "text": "Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
+                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels. Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
                 },
                 {
                   "text": "No long run was made for this alpha."
+                },
+                {
+                  "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
+                },
+                {
+                  "text": "An uncertain terminal write holds the window until the project restarts. A bracketed paste is admitted in one piece, but a write failure can still leave part of it in the window; check what appeared before sending it again."
+                },
+                {
+                  "text": "Bracketed pastes are limited to 4 MiB including their markers. In tests, a Windows terminal read a large paste at about 53 KB/s. A page reloaded while an admitted large paste is still going in waits for it to finish."
+                },
+                {
+                  "text": "A paste into a terminal without bracketed-paste mode is treated as typed keys and can arrive in parts; the 4 MiB bracketed-paste cap does not apply. Line breaks in such a paste are read as Enter."
+                },
+                {
+                  "text": "A program that stops reading a large paste until it gets a terminal reply can stall that window. A full paste can also leave no room for a reply, and a reply and a key can change order. The stall has been traced in the code, but not reproduced."
+                },
+                {
+                  "text": "A terminal control sequence over 64 KiB outside a bracketed paste is refused with a notice."
+                },
+                {
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
+                },
+                {
+                  "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
+                },
+                {
+                  "text": "Backups: if the app crashes between releasing and assigning a task, the open task may next go to a free member. If a backup also exhausts its busy-model tries, its task can return to the board. A member that needs an edit can release its tiered work to the board before the backup takes it; a queued task whose window never opened can still carry a warning to check for partial changes."
+                },
+                {
+                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
                 }
               ]
             }
