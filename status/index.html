@@ -402,19 +402,34 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
                 },
                 {
+                  "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
+                },
+                {
+                  "text": "An uncertain terminal write holds the window until the project restarts. A bracketed paste is admitted in one piece, but a write failure can still leave part of it in the window; check what appeared before sending it again."
+                },
+                {
+                  "text": "Bracketed pastes are limited to 4 MiB including their markers. In tests, a Windows terminal read a large paste at about 53 KB/s. A page reloaded while an admitted large paste is still going in waits for it to finish."
+                },
+                {
+                  "text": "A paste into a terminal without bracketed-paste mode is treated as typed keys and can arrive in parts; the 4 MiB bracketed-paste cap does not apply. Line breaks in such a paste are read as Enter."
+                },
+                {
+                  "text": "A program that stops reading a large paste until it gets a terminal reply can stall that window. A full paste can also leave no room for a reply, and a reply and a key can change order. The stall has been traced in the code, but not reproduced."
+                },
+                {
+                  "text": "A terminal control sequence over 64 KiB outside a bracketed paste is refused with a notice."
+                },
+                {
                   "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
                 },
                 {
                   "text": "Claude Code: ConsensFlow answers the added-folder question only for its own folders. A folder added by your own settings is yours to answer."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown. In two Mac checks for this release, the program in a hidden window could not finish sending 64,000 lines within the ten-second limit. The previous 3.0.7 update does the same; this release didn't cause it."
                 },
                 {
                   "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it."
-                },
-                {
-                  "text": "Claude Code: the links Claude Code prints in a pane are plain text, so they cannot be clicked for now. Claude Code prints no real hyperlinks there."
                 },
                 {
                   "text": "After ConsensFlow's daemon is started again, a member whose model was busy a moment before reads \"Out of quota until\" a time up to five minutes away, with Try again now. ConsensFlow tries it again at that time by itself; a press tries it at once, and if the model is still busy the member is held again."
@@ -454,6 +469,18 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                 },
                 {
                   "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back."
+                },
+                {
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
+                },
+                {
+                  "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
+                },
+                {
+                  "text": "Backups: if the app crashes between releasing and assigning a task, the open task may next go to a free member. If a backup also exhausts its busy-model tries, its task can return to the board. A member that needs an edit can release its tiered work to the board before the backup takes it; a queued task whose window never opened can still carry a warning to check for partial changes."
+                },
+                {
+                  "text": "Backups: if a member finishes its task at the moment the task moves to its backup, the member's result can be lost, and the backup starts the task over."
                 },
                 {
                   "text": "A member or a backup that is removed can keep running when its window refuses to close."
@@ -507,7 +534,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A long chief role can need several reads, especially with long staff rules or full paths. Each part except the last gives the command for the next."
                 },
                 {
-                  "text": "Some dim terminal colors can be hard to read, especially dim blue; normal and bright shades can look alike on colored backgrounds. Where History's font has no italic face, the system synthesizes one."
+                  "text": "Some very dark or black dim terminal colors can still be hard to read. Normal and bright shades can look alike on colored backgrounds; a program’s own truecolor and inverted dim text do not follow the new dimming rule."
                 },
                 {
                   "text": "A folded group can say a quota-held task is \"paused, to resume\" even when that task can resume by itself."
@@ -519,16 +546,65 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since an earlier 3.0.7 update. The Mac checks for that update used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
                 },
                 {
-                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on real harnesses."
+                  "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
                 },
                 {
-                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels. Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
+                  "text": "A plain web address ending at the window’s right edge is not clickable; one ending near the edge or on a row with table borders can also be left unclickable. If a program wraps an address more than four columns from the edge, the shortened address can open a different site; check it before opening."
+                },
+                {
+                  "text": "After a five-hour limit and then a weekly one, if the later report reaches ConsensFlow late, a member can be tried again at the five-hour mark. If it is refused again, you can get a note for each task."
+                },
+                {
+                  "text": "A held task and a queued hold note can show an older time after the member’s hold has been extended."
+                },
+                {
+                  "text": "No real-model harness checks were run for this alpha. An earlier 3.0.7 update’s Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1; its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                },
+                {
+                  "text": "Backup handoffs were checked two updates ago but were not run again for this alpha."
+                },
+                {
+                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and “Do with your own hands” were not run again on real harnesses."
+                },
+                {
+                  "text": "A physical keyboard was not used for this alpha’s checks."
+                },
+                {
+                  "text": "The native Mac and Windows windows were checked for link hover, but links were not clicked in them; opening and the modifier keys were checked in page tests with a simulated app connection."
+                },
+                {
+                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels."
+                },
+                {
+                  "text": "Terminal selection over colored text, the full 256-color and truecolor ranges, and inverted dim text were not audited for this alpha."
+                },
+                {
+                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
                 },
                 {
                   "text": "No long run was made for this alpha."
+                },
+                {
+                  "text": "The Mac update tests did not check the Node fallback because the starting app had none."
+                },
+                {
+                  "text": "Two updates ago, the Mac typing check used simulated keys."
+                }
+              ]
+            },
+            "windows": {
+              "from": "2.1.292",
+              "to": "2.1.326",
+              "status": "issues",
+              "issues": [
+                {
+                  "text": "Windows: no typing or whole-app stop has been seen since two updates ago. If it happens, restarting the project brings it back."
+                },
+                {
+                  "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
                 },
                 {
                   "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
@@ -549,66 +625,19 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A terminal control sequence over 64 KiB outside a bracketed paste is refused with a notice."
                 },
                 {
-                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
-                },
-                {
-                  "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
-                },
-                {
-                  "text": "Backups: if the app crashes between releasing and assigning a task, the open task may next go to a free member. If a backup also exhausts its busy-model tries, its task can return to the board. A member that needs an edit can release its tiered work to the board before the backup takes it; a queued task whose window never opened can still carry a warning to check for partial changes."
-                },
-                {
-                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
-                },
-                {
-                  "text": "Backups: if a member finishes its task at the moment the task moves to its backup, the member's result can be lost, and the backup starts the task over."
-                },
-                {
-                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
-                },
-                {
-                  "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
-                },
-                {
-                  "text": "Backup handoffs were checked in the previous 3.0.7 update but were not run again for this alpha."
-                },
-                {
-                  "text": "The Mac update tests did not check the Node fallback because the starting app had no Node fallback."
-                },
-                {
-                  "text": "The Mac typing check in the previous 3.0.7 update used simulated key events, not a physical keyboard. The typing check was not run again for this alpha."
-                }
-              ]
-            },
-            "windows": {
-              "from": "2.1.292",
-              "to": "2.1.326",
-              "status": "issues",
-              "issues": [
-                {
-                  "text": "Windows: typing into a window, or the whole app, can still stop in a way not yet explained; restarting the project brings it back. A lost or late call no longer causes it.",
-                  "state": "fixing"
-                },
-                {
-                  "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
-                },
-                {
                   "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
                 },
                 {
                   "text": "Claude Code: ConsensFlow answers the added-folder question only for its own folders. A folder added by your own settings is yours to answer."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown. In two Mac checks for this release, the program in a hidden window could not finish sending 64,000 lines within the ten-second limit. The previous 3.0.7 update does the same; this release didn't cause it."
                 },
                 {
                   "text": "Windows: when a member's window ends by itself, the chief's note may say only that the window is gone and how to resume the task, without the window's exit code and its last screen."
                 },
                 {
                   "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it."
-                },
-                {
-                  "text": "Claude Code: the links Claude Code prints in a pane are plain text, so they cannot be clicked for now. Claude Code prints no real hyperlinks there."
                 },
                 {
                   "text": "After ConsensFlow's daemon is started again, a member whose model was busy a moment before reads \"Out of quota until\" a time up to five minutes away, with Try again now. ConsensFlow tries it again at that time by itself; a press tries it at once, and if the model is still busy the member is held again."
@@ -648,6 +677,18 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                 },
                 {
                   "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back."
+                },
+                {
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
+                },
+                {
+                  "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
+                },
+                {
+                  "text": "Backups: if the app crashes between releasing and assigning a task, the open task may next go to a free member. If a backup also exhausts its busy-model tries, its task can return to the board. A member that needs an edit can release its tiered work to the board before the backup takes it; a queued task whose window never opened can still carry a warning to check for partial changes."
+                },
+                {
+                  "text": "Backups: if a member finishes its task at the moment the task moves to its backup, the member's result can be lost, and the backup starts the task over."
                 },
                 {
                   "text": "A member or a backup that is removed can keep running when its window refuses to close."
@@ -704,7 +745,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A long chief role can need several reads, especially with long staff rules or full paths. Each part except the last gives the command for the next."
                 },
                 {
-                  "text": "Some dim terminal colors can be hard to read, especially dim blue; normal and bright shades can look alike on colored backgrounds. Where History's font has no italic face, the system synthesizes one."
+                  "text": "Some very dark or black dim terminal colors can still be hard to read. Normal and bright shades can look alike on colored backgrounds; a program’s own truecolor and inverted dim text do not follow the new dimming rule."
                 },
                 {
                   "text": "A folded group can say a quota-held task is \"paused, to resume\" even when that task can resume by itself."
@@ -719,16 +760,70 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since an earlier 3.0.7 update. The Mac checks for that update used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
                 },
                 {
-                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on real harnesses."
+                  "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
                 },
                 {
-                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels. Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
+                  "text": "A plain web address ending at the window’s right edge is not clickable; one ending near the edge or on a row with table borders can also be left unclickable. If a program wraps an address more than four columns from the edge, the shortened address can open a different site; check it before opening."
+                },
+                {
+                  "text": "After a five-hour limit and then a weekly one, if the later report reaches ConsensFlow late, a member can be tried again at the five-hour mark. If it is refused again, you can get a note for each task."
+                },
+                {
+                  "text": "A held task and a queued hold note can show an older time after the member’s hold has been extended."
+                },
+                {
+                  "text": "On Windows, History can still show a synthesized italic if the chosen font has no italic face."
+                },
+                {
+                  "text": "No real-model harness checks were run for this alpha. An earlier 3.0.7 update’s Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1; its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                },
+                {
+                  "text": "Backup handoffs were checked two updates ago but were not run again for this alpha."
+                },
+                {
+                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and “Do with your own hands” were not run again on real harnesses."
+                },
+                {
+                  "text": "A physical keyboard was not used for this alpha’s checks."
+                },
+                {
+                  "text": "The native Mac and Windows windows were checked for link hover, but links were not clicked in them; opening and the modifier keys were checked in page tests with a simulated app connection."
+                },
+                {
+                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels."
+                },
+                {
+                  "text": "Terminal selection over colored text, the full 256-color and truecolor ranges, and inverted dim text were not audited for this alpha."
+                },
+                {
+                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
                 },
                 {
                   "text": "No long run was made for this alpha."
+                },
+                {
+                  "text": "The real Windows clipboard was not used for this alpha’s checks. Two updates ago, the Windows Ctrl+V check used a test paste event."
+                },
+                {
+                  "text": "Windows font synthesis was not audited for this alpha."
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "codex",
+          "platforms": {
+            "mac": {
+              "from": "0.154.0",
+              "to": "0.169.0",
+              "status": "issues",
+              "issues": [
+                {
+                  "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
                 },
                 {
                   "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
@@ -749,55 +844,10 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A terminal control sequence over 64 KiB outside a bracketed paste is refused with a notice."
                 },
                 {
-                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
-                },
-                {
-                  "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
-                },
-                {
-                  "text": "Backups: if the app crashes between releasing and assigning a task, the open task may next go to a free member. If a backup also exhausts its busy-model tries, its task can return to the board. A member that needs an edit can release its tiered work to the board before the backup takes it; a queued task whose window never opened can still carry a warning to check for partial changes."
-                },
-                {
-                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
-                },
-                {
-                  "text": "Backups: if a member finishes its task at the moment the task moves to its backup, the member's result can be lost, and the backup starts the task over."
-                },
-                {
-                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
-                },
-                {
-                  "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
-                },
-                {
-                  "text": "Backup handoffs were checked in the previous 3.0.7 update but were not run again for this alpha."
-                },
-                {
-                  "text": "Windows member editing and backup controls were not checked in the native app for this alpha; the Windows team-lane check did not use the clipboard."
-                },
-                {
-                  "text": "The Windows Ctrl+V check in the previous 3.0.7 update used a test paste event, not the real clipboard. Its lost and delayed calls were simulated; the cause of the Windows stops seen before that release is not established. The typing check was not run again for this alpha."
-                }
-              ]
-            }
-          }
-        },
-        {
-          "id": "codex",
-          "platforms": {
-            "mac": {
-              "from": "0.154.0",
-              "to": "0.169.0",
-              "status": "issues",
-              "issues": [
-                {
-                  "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
-                },
-                {
                   "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown. In two Mac checks for this release, the program in a hidden window could not finish sending 64,000 lines within the ten-second limit. The previous 3.0.7 update does the same; this release didn't cause it."
                 },
                 {
                   "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it."
@@ -843,6 +893,18 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                 },
                 {
                   "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back."
+                },
+                {
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
+                },
+                {
+                  "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
+                },
+                {
+                  "text": "Backups: if the app crashes between releasing and assigning a task, the open task may next go to a free member. If a backup also exhausts its busy-model tries, its task can return to the board. A member that needs an edit can release its tiered work to the board before the backup takes it; a queued task whose window never opened can still carry a warning to check for partial changes."
+                },
+                {
+                  "text": "Backups: if a member finishes its task at the moment the task moves to its backup, the member's result can be lost, and the backup starts the task over."
                 },
                 {
                   "text": "A member or a backup that is removed can keep running when its window refuses to close."
@@ -902,7 +964,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A long chief role can need several reads, especially with long staff rules or full paths. Each part except the last gives the command for the next."
                 },
                 {
-                  "text": "Some dim terminal colors can be hard to read, especially dim blue; normal and bright shades can look alike on colored backgrounds. Where History's font has no italic face, the system synthesizes one."
+                  "text": "Some very dark or black dim terminal colors can still be hard to read. Normal and bright shades can look alike on colored backgrounds; a program’s own truecolor and inverted dim text do not follow the new dimming rule."
                 },
                 {
                   "text": "A folded group can say a quota-held task is \"paused, to resume\" even when that task can resume by itself."
@@ -923,16 +985,65 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since an earlier 3.0.7 update. The Mac checks for that update used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
                 },
                 {
-                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on real harnesses."
+                  "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
                 },
                 {
-                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels. Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
+                  "text": "A plain web address ending at the window’s right edge is not clickable; one ending near the edge or on a row with table borders can also be left unclickable. If a program wraps an address more than four columns from the edge, the shortened address can open a different site; check it before opening."
+                },
+                {
+                  "text": "After a five-hour limit and then a weekly one, if the later report reaches ConsensFlow late, a member can be tried again at the five-hour mark. If it is refused again, you can get a note for each task."
+                },
+                {
+                  "text": "A held task and a queued hold note can show an older time after the member’s hold has been extended."
+                },
+                {
+                  "text": "No real-model harness checks were run for this alpha. An earlier 3.0.7 update’s Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1; its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                },
+                {
+                  "text": "Backup handoffs were checked two updates ago but were not run again for this alpha."
+                },
+                {
+                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and “Do with your own hands” were not run again on real harnesses."
+                },
+                {
+                  "text": "A physical keyboard was not used for this alpha’s checks."
+                },
+                {
+                  "text": "The native Mac and Windows windows were checked for link hover, but links were not clicked in them; opening and the modifier keys were checked in page tests with a simulated app connection."
+                },
+                {
+                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels."
+                },
+                {
+                  "text": "Terminal selection over colored text, the full 256-color and truecolor ranges, and inverted dim text were not audited for this alpha."
+                },
+                {
+                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
                 },
                 {
                   "text": "No long run was made for this alpha."
+                },
+                {
+                  "text": "The Mac update tests did not check the Node fallback because the starting app had none."
+                },
+                {
+                  "text": "Two updates ago, the Mac typing check used simulated keys."
+                }
+              ]
+            },
+            "windows": {
+              "from": "0.154.0",
+              "to": "0.169.0",
+              "status": "issues",
+              "issues": [
+                {
+                  "text": "Windows: no typing or whole-app stop has been seen since two updates ago. If it happens, restarting the project brings it back."
+                },
+                {
+                  "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
                 },
                 {
                   "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
@@ -953,54 +1064,10 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A terminal control sequence over 64 KiB outside a bracketed paste is refused with a notice."
                 },
                 {
-                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
-                },
-                {
-                  "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
-                },
-                {
-                  "text": "Backups: if the app crashes between releasing and assigning a task, the open task may next go to a free member. If a backup also exhausts its busy-model tries, its task can return to the board. A member that needs an edit can release its tiered work to the board before the backup takes it; a queued task whose window never opened can still carry a warning to check for partial changes."
-                },
-                {
-                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
-                },
-                {
-                  "text": "Backups: if a member finishes its task at the moment the task moves to its backup, the member's result can be lost, and the backup starts the task over."
-                },
-                {
-                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
-                },
-                {
-                  "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
-                },
-                {
-                  "text": "Backup handoffs were checked in the previous 3.0.7 update but were not run again for this alpha."
-                },
-                {
-                  "text": "The Mac update tests did not check the Node fallback because the starting app had no Node fallback."
-                },
-                {
-                  "text": "The Mac typing check in the previous 3.0.7 update used simulated key events, not a physical keyboard. The typing check was not run again for this alpha."
-                }
-              ]
-            },
-            "windows": {
-              "from": "0.154.0",
-              "to": "0.169.0",
-              "status": "issues",
-              "issues": [
-                {
-                  "text": "Windows: typing into a window, or the whole app, can still stop in a way not yet explained; restarting the project brings it back. A lost or late call no longer causes it.",
-                  "state": "fixing"
-                },
-                {
-                  "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
-                },
-                {
                   "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown. In two Mac checks for this release, the program in a hidden window could not finish sending 64,000 lines within the ten-second limit. The previous 3.0.7 update does the same; this release didn't cause it."
                 },
                 {
                   "text": "Windows: when a member's window ends by itself, the chief's note may say only that the window is gone and how to resume the task, without the window's exit code and its last screen."
@@ -1054,6 +1121,18 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back."
                 },
                 {
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
+                },
+                {
+                  "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
+                },
+                {
+                  "text": "Backups: if the app crashes between releasing and assigning a task, the open task may next go to a free member. If a backup also exhausts its busy-model tries, its task can return to the board. A member that needs an edit can release its tiered work to the board before the backup takes it; a queued task whose window never opened can still carry a warning to check for partial changes."
+                },
+                {
+                  "text": "Backups: if a member finishes its task at the moment the task moves to its backup, the member's result can be lost, and the backup starts the task over."
+                },
+                {
                   "text": "A member or a backup that is removed can keep running when its window refuses to close."
                 },
                 {
@@ -1114,7 +1193,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A long chief role can need several reads, especially with long staff rules or full paths. Each part except the last gives the command for the next."
                 },
                 {
-                  "text": "Some dim terminal colors can be hard to read, especially dim blue; normal and bright shades can look alike on colored backgrounds. Where History's font has no italic face, the system synthesizes one."
+                  "text": "Some very dark or black dim terminal colors can still be hard to read. Normal and bright shades can look alike on colored backgrounds; a program’s own truecolor and inverted dim text do not follow the new dimming rule."
                 },
                 {
                   "text": "A folded group can say a quota-held task is \"paused, to resume\" even when that task can resume by itself."
@@ -1141,16 +1220,70 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since an earlier 3.0.7 update. The Mac checks for that update used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
                 },
                 {
-                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on real harnesses."
+                  "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
                 },
                 {
-                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels. Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
+                  "text": "A plain web address ending at the window’s right edge is not clickable; one ending near the edge or on a row with table borders can also be left unclickable. If a program wraps an address more than four columns from the edge, the shortened address can open a different site; check it before opening."
+                },
+                {
+                  "text": "After a five-hour limit and then a weekly one, if the later report reaches ConsensFlow late, a member can be tried again at the five-hour mark. If it is refused again, you can get a note for each task."
+                },
+                {
+                  "text": "A held task and a queued hold note can show an older time after the member’s hold has been extended."
+                },
+                {
+                  "text": "On Windows, History can still show a synthesized italic if the chosen font has no italic face."
+                },
+                {
+                  "text": "No real-model harness checks were run for this alpha. An earlier 3.0.7 update’s Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1; its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                },
+                {
+                  "text": "Backup handoffs were checked two updates ago but were not run again for this alpha."
+                },
+                {
+                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and “Do with your own hands” were not run again on real harnesses."
+                },
+                {
+                  "text": "A physical keyboard was not used for this alpha’s checks."
+                },
+                {
+                  "text": "The native Mac and Windows windows were checked for link hover, but links were not clicked in them; opening and the modifier keys were checked in page tests with a simulated app connection."
+                },
+                {
+                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels."
+                },
+                {
+                  "text": "Terminal selection over colored text, the full 256-color and truecolor ranges, and inverted dim text were not audited for this alpha."
+                },
+                {
+                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
                 },
                 {
                   "text": "No long run was made for this alpha."
+                },
+                {
+                  "text": "The real Windows clipboard was not used for this alpha’s checks. Two updates ago, the Windows Ctrl+V check used a test paste event."
+                },
+                {
+                  "text": "Windows font synthesis was not audited for this alpha."
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "pi",
+          "platforms": {
+            "mac": {
+              "from": "1.2.0",
+              "to": "1.5.2",
+              "status": "issues",
+              "issues": [
+                {
+                  "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
                 },
                 {
                   "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
@@ -1171,55 +1304,10 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A terminal control sequence over 64 KiB outside a bracketed paste is refused with a notice."
                 },
                 {
-                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
-                },
-                {
-                  "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
-                },
-                {
-                  "text": "Backups: if the app crashes between releasing and assigning a task, the open task may next go to a free member. If a backup also exhausts its busy-model tries, its task can return to the board. A member that needs an edit can release its tiered work to the board before the backup takes it; a queued task whose window never opened can still carry a warning to check for partial changes."
-                },
-                {
-                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
-                },
-                {
-                  "text": "Backups: if a member finishes its task at the moment the task moves to its backup, the member's result can be lost, and the backup starts the task over."
-                },
-                {
-                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
-                },
-                {
-                  "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
-                },
-                {
-                  "text": "Backup handoffs were checked in the previous 3.0.7 update but were not run again for this alpha."
-                },
-                {
-                  "text": "Windows member editing and backup controls were not checked in the native app for this alpha; the Windows team-lane check did not use the clipboard."
-                },
-                {
-                  "text": "The Windows Ctrl+V check in the previous 3.0.7 update used a test paste event, not the real clipboard. Its lost and delayed calls were simulated; the cause of the Windows stops seen before that release is not established. The typing check was not run again for this alpha."
-                }
-              ]
-            }
-          }
-        },
-        {
-          "id": "pi",
-          "platforms": {
-            "mac": {
-              "from": "1.2.0",
-              "to": "1.5.2",
-              "status": "issues",
-              "issues": [
-                {
-                  "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
-                },
-                {
                   "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown. In two Mac checks for this release, the program in a hidden window could not finish sending 64,000 lines within the ten-second limit. The previous 3.0.7 update does the same; this release didn't cause it."
                 },
                 {
                   "text": "Pi: if a compaction does not stop when ConsensFlow asks it to at 300 seconds, a task given back to that member meanwhile keeps the window, and its messages wait until you close the window from the board. The task is then paused and the chief is told, and resuming it goes on in a new window on the same conversation."
@@ -1265,6 +1353,18 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                 },
                 {
                   "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back."
+                },
+                {
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
+                },
+                {
+                  "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
+                },
+                {
+                  "text": "Backups: if the app crashes between releasing and assigning a task, the open task may next go to a free member. If a backup also exhausts its busy-model tries, its task can return to the board. A member that needs an edit can release its tiered work to the board before the backup takes it; a queued task whose window never opened can still carry a warning to check for partial changes."
+                },
+                {
+                  "text": "Backups: if a member finishes its task at the moment the task moves to its backup, the member's result can be lost, and the backup starts the task over."
                 },
                 {
                   "text": "A member or a backup that is removed can keep running when its window refuses to close."
@@ -1321,7 +1421,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A long chief role can need several reads, especially with long staff rules or full paths. Each part except the last gives the command for the next."
                 },
                 {
-                  "text": "Some dim terminal colors can be hard to read, especially dim blue; normal and bright shades can look alike on colored backgrounds. Where History's font has no italic face, the system synthesizes one."
+                  "text": "Some very dark or black dim terminal colors can still be hard to read. Normal and bright shades can look alike on colored backgrounds; a program’s own truecolor and inverted dim text do not follow the new dimming rule."
                 },
                 {
                   "text": "A folded group can say a quota-held task is \"paused, to resume\" even when that task can resume by itself."
@@ -1330,16 +1430,74 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since an earlier 3.0.7 update. The Mac checks for that update used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
                 },
                 {
-                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on real harnesses."
+                  "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
                 },
                 {
-                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels. Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
+                  "text": "A plain web address ending at the window’s right edge is not clickable; one ending near the edge or on a row with table borders can also be left unclickable. If a program wraps an address more than four columns from the edge, the shortened address can open a different site; check it before opening."
+                },
+                {
+                  "text": "After a five-hour limit and then a weekly one, if the later report reaches ConsensFlow late, a member can be tried again at the five-hour mark. If it is refused again, you can get a note for each task."
+                },
+                {
+                  "text": "A held task and a queued hold note can show an older time after the member’s hold has been extended."
+                },
+                {
+                  "text": "Pi: if its model listing hangs, the app can show a deadline error without the more specific advice that a package or extension may be stuck."
+                },
+                {
+                  "text": "Pi: if its models.json is a link to another file, ConsensFlow’s diagnostic can read that file, including Pi’s login file if the link points there."
+                },
+                {
+                  "text": "No real-model harness checks were run for this alpha. An earlier 3.0.7 update’s Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1; its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                },
+                {
+                  "text": "Backup handoffs were checked two updates ago but were not run again for this alpha."
+                },
+                {
+                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and “Do with your own hands” were not run again on real harnesses."
+                },
+                {
+                  "text": "A physical keyboard was not used for this alpha’s checks."
+                },
+                {
+                  "text": "The native Mac and Windows windows were checked for link hover, but links were not clicked in them; opening and the modifier keys were checked in page tests with a simulated app connection."
+                },
+                {
+                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels."
+                },
+                {
+                  "text": "Terminal selection over colored text, the full 256-color and truecolor ranges, and inverted dim text were not audited for this alpha."
+                },
+                {
+                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
                 },
                 {
                   "text": "No long run was made for this alpha."
+                },
+                {
+                  "text": "The Mac update tests did not check the Node fallback because the starting app had none."
+                },
+                {
+                  "text": "Two updates ago, the Mac typing check used simulated keys."
+                },
+                {
+                  "text": "On the Mac, Pi was checked in an earlier 3.0.7 update with one question case on a free proxy model; no other Mac Pi cases were run then."
+                }
+              ]
+            },
+            "windows": {
+              "from": "1.2.0",
+              "to": "1.5.2",
+              "status": "issues",
+              "issues": [
+                {
+                  "text": "Windows: no typing or whole-app stop has been seen since two updates ago. If it happens, restarting the project brings it back."
+                },
+                {
+                  "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
                 },
                 {
                   "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
@@ -1360,60 +1518,10 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A terminal control sequence over 64 KiB outside a bracketed paste is refused with a notice."
                 },
                 {
-                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
-                },
-                {
-                  "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
-                },
-                {
-                  "text": "Backups: if the app crashes between releasing and assigning a task, the open task may next go to a free member. If a backup also exhausts its busy-model tries, its task can return to the board. A member that needs an edit can release its tiered work to the board before the backup takes it; a queued task whose window never opened can still carry a warning to check for partial changes."
-                },
-                {
-                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
-                },
-                {
-                  "text": "Backups: if a member finishes its task at the moment the task moves to its backup, the member's result can be lost, and the backup starts the task over."
-                },
-                {
-                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
-                },
-                {
-                  "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
-                },
-                {
-                  "text": "Backup handoffs were checked in the previous 3.0.7 update but were not run again for this alpha."
-                },
-                {
-                  "text": "The Mac update tests did not check the Node fallback because the starting app had no Node fallback."
-                },
-                {
-                  "text": "The Mac typing check in the previous 3.0.7 update used simulated key events, not a physical keyboard. The typing check was not run again for this alpha."
-                },
-                {
-                  "text": "Pi: when Pi lists no models, or its listing times out, ConsensFlow opens Pi's login file to name the providers you are logged in to. It keeps only their names."
-                },
-                {
-                  "text": "On the Mac, Pi was checked in an earlier 3.0.7 update with one question case on a free proxy model, and its question flow passed. No other Mac Pi cases were run then."
-                }
-              ]
-            },
-            "windows": {
-              "from": "1.2.0",
-              "to": "1.5.2",
-              "status": "issues",
-              "issues": [
-                {
-                  "text": "Windows: typing into a window, or the whole app, can still stop in a way not yet explained; restarting the project brings it back. A lost or late call no longer causes it.",
-                  "state": "fixing"
-                },
-                {
-                  "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
-                },
-                {
                   "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown. In two Mac checks for this release, the program in a hidden window could not finish sending 64,000 lines within the ten-second limit. The previous 3.0.7 update does the same; this release didn't cause it."
                 },
                 {
                   "text": "Pi: if a compaction does not stop when ConsensFlow asks it to at 300 seconds, a task given back to that member meanwhile keeps the window, and its messages wait until you close the window from the board. The task is then paused and the chief is told, and resuming it goes on in a new window on the same conversation."
@@ -1462,6 +1570,18 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                 },
                 {
                   "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back."
+                },
+                {
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
+                },
+                {
+                  "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
+                },
+                {
+                  "text": "Backups: if the app crashes between releasing and assigning a task, the open task may next go to a free member. If a backup also exhausts its busy-model tries, its task can return to the board. A member that needs an edit can release its tiered work to the board before the backup takes it; a queued task whose window never opened can still carry a warning to check for partial changes."
+                },
+                {
+                  "text": "Backups: if a member finishes its task at the moment the task moves to its backup, the member's result can be lost, and the backup starts the task over."
                 },
                 {
                   "text": "A member or a backup that is removed can keep running when its window refuses to close."
@@ -1521,7 +1641,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A long chief role can need several reads, especially with long staff rules or full paths. Each part except the last gives the command for the next."
                 },
                 {
-                  "text": "Some dim terminal colors can be hard to read, especially dim blue; normal and bright shades can look alike on colored backgrounds. Where History's font has no italic face, the system synthesizes one."
+                  "text": "Some very dark or black dim terminal colors can still be hard to read. Normal and bright shades can look alike on colored backgrounds; a program’s own truecolor and inverted dim text do not follow the new dimming rule."
                 },
                 {
                   "text": "A folded group can say a quota-held task is \"paused, to resume\" even when that task can resume by itself."
@@ -1533,16 +1653,79 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since an earlier 3.0.7 update. The Mac checks for that update used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
                 },
                 {
-                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on real harnesses."
+                  "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
                 },
                 {
-                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels. Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
+                  "text": "A plain web address ending at the window’s right edge is not clickable; one ending near the edge or on a row with table borders can also be left unclickable. If a program wraps an address more than four columns from the edge, the shortened address can open a different site; check it before opening."
+                },
+                {
+                  "text": "After a five-hour limit and then a weekly one, if the later report reaches ConsensFlow late, a member can be tried again at the five-hour mark. If it is refused again, you can get a note for each task."
+                },
+                {
+                  "text": "A held task and a queued hold note can show an older time after the member’s hold has been extended."
+                },
+                {
+                  "text": "Pi: if its model listing hangs, the app can show a deadline error without the more specific advice that a package or extension may be stuck."
+                },
+                {
+                  "text": "Pi: if its models.json is a link to another file, ConsensFlow’s diagnostic can read that file, including Pi’s login file if the link points there."
+                },
+                {
+                  "text": "On Windows, History can still show a synthesized italic if the chosen font has no italic face."
+                },
+                {
+                  "text": "No real-model harness checks were run for this alpha. An earlier 3.0.7 update’s Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1; its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                },
+                {
+                  "text": "Backup handoffs were checked two updates ago but were not run again for this alpha."
+                },
+                {
+                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and “Do with your own hands” were not run again on real harnesses."
+                },
+                {
+                  "text": "A physical keyboard was not used for this alpha’s checks."
+                },
+                {
+                  "text": "The native Mac and Windows windows were checked for link hover, but links were not clicked in them; opening and the modifier keys were checked in page tests with a simulated app connection."
+                },
+                {
+                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels."
+                },
+                {
+                  "text": "Terminal selection over colored text, the full 256-color and truecolor ranges, and inverted dim text were not audited for this alpha."
+                },
+                {
+                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
                 },
                 {
                   "text": "No long run was made for this alpha."
+                },
+                {
+                  "text": "The real Windows clipboard was not used for this alpha’s checks. Two updates ago, the Windows Ctrl+V check used a test paste event."
+                },
+                {
+                  "text": "Windows font synthesis was not audited for this alpha."
+                },
+                {
+                  "text": "Pi’s linked model-file behavior was not checked on Windows."
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "devin",
+          "platforms": {
+            "mac": {
+              "from": "3000.10.21",
+              "to": "3000.13.4",
+              "status": "newer",
+              "issues": [
+                {
+                  "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
                 },
                 {
                   "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
@@ -1563,54 +1746,6 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A terminal control sequence over 64 KiB outside a bracketed paste is refused with a notice."
                 },
                 {
-                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
-                },
-                {
-                  "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
-                },
-                {
-                  "text": "Backups: if the app crashes between releasing and assigning a task, the open task may next go to a free member. If a backup also exhausts its busy-model tries, its task can return to the board. A member that needs an edit can release its tiered work to the board before the backup takes it; a queued task whose window never opened can still carry a warning to check for partial changes."
-                },
-                {
-                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
-                },
-                {
-                  "text": "Backups: if a member finishes its task at the moment the task moves to its backup, the member's result can be lost, and the backup starts the task over."
-                },
-                {
-                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
-                },
-                {
-                  "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
-                },
-                {
-                  "text": "Backup handoffs were checked in the previous 3.0.7 update but were not run again for this alpha."
-                },
-                {
-                  "text": "Windows member editing and backup controls were not checked in the native app for this alpha; the Windows team-lane check did not use the clipboard."
-                },
-                {
-                  "text": "The Windows Ctrl+V check in the previous 3.0.7 update used a test paste event, not the real clipboard. Its lost and delayed calls were simulated; the cause of the Windows stops seen before that release is not established. The typing check was not run again for this alpha."
-                },
-                {
-                  "text": "Pi: when Pi lists no models, or its listing times out, ConsensFlow opens Pi's login file to name the providers you are logged in to. It keeps only their names."
-                }
-              ]
-            }
-          }
-        },
-        {
-          "id": "devin",
-          "platforms": {
-            "mac": {
-              "from": "3000.10.21",
-              "to": "3000.13.4",
-              "status": "newer",
-              "issues": [
-                {
-                  "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
-                },
-                {
                   "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
                 },
                 {
@@ -1620,7 +1755,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Devin 3000.12: when a Devin member is stopped early in a turn, while Devin is still thinking (a pause, for example), its window reads as working for up to 30 seconds after the message it was given, so what comes next for it, such as the chief's question after a pause, goes in up to 30 seconds late."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown. In two Mac checks for this release, the program in a hidden window could not finish sending 64,000 lines within the ten-second limit. The previous 3.0.7 update does the same; this release didn't cause it."
                 },
                 {
                   "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it."
@@ -1663,6 +1798,18 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                 },
                 {
                   "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back."
+                },
+                {
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
+                },
+                {
+                  "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
+                },
+                {
+                  "text": "Backups: if the app crashes between releasing and assigning a task, the open task may next go to a free member. If a backup also exhausts its busy-model tries, its task can return to the board. A member that needs an edit can release its tiered work to the board before the backup takes it; a queued task whose window never opened can still carry a warning to check for partial changes."
+                },
+                {
+                  "text": "Backups: if a member finishes its task at the moment the task moves to its backup, the member's result can be lost, and the backup starts the task over."
                 },
                 {
                   "text": "A member or a backup that is removed can keep running when its window refuses to close."
@@ -1713,7 +1860,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A long chief role can need several reads, especially with long staff rules or full paths. Each part except the last gives the command for the next."
                 },
                 {
-                  "text": "Some dim terminal colors can be hard to read, especially dim blue; normal and bright shades can look alike on colored backgrounds. Where History's font has no italic face, the system synthesizes one."
+                  "text": "Some very dark or black dim terminal colors can still be hard to read. Normal and bright shades can look alike on colored backgrounds; a program’s own truecolor and inverted dim text do not follow the new dimming rule."
                 },
                 {
                   "text": "A folded group can say a quota-held task is \"paused, to resume\" even when that task can resume by itself."
@@ -1722,16 +1869,65 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since an earlier 3.0.7 update. The Mac checks for that update used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
                 },
                 {
-                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on real harnesses."
+                  "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
                 },
                 {
-                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels. Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
+                  "text": "A plain web address ending at the window’s right edge is not clickable; one ending near the edge or on a row with table borders can also be left unclickable. If a program wraps an address more than four columns from the edge, the shortened address can open a different site; check it before opening."
+                },
+                {
+                  "text": "After a five-hour limit and then a weekly one, if the later report reaches ConsensFlow late, a member can be tried again at the five-hour mark. If it is refused again, you can get a note for each task."
+                },
+                {
+                  "text": "A held task and a queued hold note can show an older time after the member’s hold has been extended."
+                },
+                {
+                  "text": "No real-model harness checks were run for this alpha. An earlier 3.0.7 update’s Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1; its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                },
+                {
+                  "text": "Backup handoffs were checked two updates ago but were not run again for this alpha."
+                },
+                {
+                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and “Do with your own hands” were not run again on real harnesses."
+                },
+                {
+                  "text": "A physical keyboard was not used for this alpha’s checks."
+                },
+                {
+                  "text": "The native Mac and Windows windows were checked for link hover, but links were not clicked in them; opening and the modifier keys were checked in page tests with a simulated app connection."
+                },
+                {
+                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels."
+                },
+                {
+                  "text": "Terminal selection over colored text, the full 256-color and truecolor ranges, and inverted dim text were not audited for this alpha."
+                },
+                {
+                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
                 },
                 {
                   "text": "No long run was made for this alpha."
+                },
+                {
+                  "text": "The Mac update tests did not check the Node fallback because the starting app had none."
+                },
+                {
+                  "text": "Two updates ago, the Mac typing check used simulated keys."
+                }
+              ]
+            },
+            "windows": {
+              "from": "3000.10.21",
+              "to": "3000.12.57",
+              "status": "newer",
+              "issues": [
+                {
+                  "text": "Windows: no typing or whole-app stop has been seen since two updates ago. If it happens, restarting the project brings it back."
+                },
+                {
+                  "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
                 },
                 {
                   "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
@@ -1752,50 +1948,6 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A terminal control sequence over 64 KiB outside a bracketed paste is refused with a notice."
                 },
                 {
-                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
-                },
-                {
-                  "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
-                },
-                {
-                  "text": "Backups: if the app crashes between releasing and assigning a task, the open task may next go to a free member. If a backup also exhausts its busy-model tries, its task can return to the board. A member that needs an edit can release its tiered work to the board before the backup takes it; a queued task whose window never opened can still carry a warning to check for partial changes."
-                },
-                {
-                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
-                },
-                {
-                  "text": "Backups: if a member finishes its task at the moment the task moves to its backup, the member's result can be lost, and the backup starts the task over."
-                },
-                {
-                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
-                },
-                {
-                  "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
-                },
-                {
-                  "text": "Backup handoffs were checked in the previous 3.0.7 update but were not run again for this alpha."
-                },
-                {
-                  "text": "The Mac update tests did not check the Node fallback because the starting app had no Node fallback."
-                },
-                {
-                  "text": "The Mac typing check in the previous 3.0.7 update used simulated key events, not a physical keyboard. The typing check was not run again for this alpha."
-                }
-              ]
-            },
-            "windows": {
-              "from": "3000.10.21",
-              "to": "3000.12.57",
-              "status": "newer",
-              "issues": [
-                {
-                  "text": "Windows: typing into a window, or the whole app, can still stop in a way not yet explained; restarting the project brings it back. A lost or late call no longer causes it.",
-                  "state": "fixing"
-                },
-                {
-                  "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
-                },
-                {
                   "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
                 },
                 {
@@ -1805,7 +1957,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Devin 3000.12: when a Devin member is stopped early in a turn, while Devin is still thinking (a pause, for example), its window reads as working for up to 30 seconds after the message it was given, so what comes next for it, such as the chief's question after a pause, goes in up to 30 seconds late."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown. In two Mac checks for this release, the program in a hidden window could not finish sending 64,000 lines within the ten-second limit. The previous 3.0.7 update does the same; this release didn't cause it."
                 },
                 {
                   "text": "Windows: when a member's window ends by itself, the chief's note may say only that the window is gone and how to resume the task, without the window's exit code and its last screen."
@@ -1856,6 +2008,18 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back."
                 },
                 {
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
+                },
+                {
+                  "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
+                },
+                {
+                  "text": "Backups: if the app crashes between releasing and assigning a task, the open task may next go to a free member. If a backup also exhausts its busy-model tries, its task can return to the board. A member that needs an edit can release its tiered work to the board before the backup takes it; a queued task whose window never opened can still carry a warning to check for partial changes."
+                },
+                {
+                  "text": "Backups: if a member finishes its task at the moment the task moves to its backup, the member's result can be lost, and the backup starts the task over."
+                },
+                {
                   "text": "A member or a backup that is removed can keep running when its window refuses to close."
                 },
                 {
@@ -1904,7 +2068,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A long chief role can need several reads, especially with long staff rules or full paths. Each part except the last gives the command for the next."
                 },
                 {
-                  "text": "Some dim terminal colors can be hard to read, especially dim blue; normal and bright shades can look alike on colored backgrounds. Where History's font has no italic face, the system synthesizes one."
+                  "text": "Some very dark or black dim terminal colors can still be hard to read. Normal and bright shades can look alike on colored backgrounds; a program’s own truecolor and inverted dim text do not follow the new dimming rule."
                 },
                 {
                   "text": "A folded group can say a quota-held task is \"paused, to resume\" even when that task can resume by itself."
@@ -1916,16 +2080,70 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since an earlier 3.0.7 update. The Mac checks for that update used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
                 },
                 {
-                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on real harnesses."
+                  "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
                 },
                 {
-                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels. Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
+                  "text": "A plain web address ending at the window’s right edge is not clickable; one ending near the edge or on a row with table borders can also be left unclickable. If a program wraps an address more than four columns from the edge, the shortened address can open a different site; check it before opening."
+                },
+                {
+                  "text": "After a five-hour limit and then a weekly one, if the later report reaches ConsensFlow late, a member can be tried again at the five-hour mark. If it is refused again, you can get a note for each task."
+                },
+                {
+                  "text": "A held task and a queued hold note can show an older time after the member’s hold has been extended."
+                },
+                {
+                  "text": "On Windows, History can still show a synthesized italic if the chosen font has no italic face."
+                },
+                {
+                  "text": "No real-model harness checks were run for this alpha. An earlier 3.0.7 update’s Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1; its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                },
+                {
+                  "text": "Backup handoffs were checked two updates ago but were not run again for this alpha."
+                },
+                {
+                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and “Do with your own hands” were not run again on real harnesses."
+                },
+                {
+                  "text": "A physical keyboard was not used for this alpha’s checks."
+                },
+                {
+                  "text": "The native Mac and Windows windows were checked for link hover, but links were not clicked in them; opening and the modifier keys were checked in page tests with a simulated app connection."
+                },
+                {
+                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels."
+                },
+                {
+                  "text": "Terminal selection over colored text, the full 256-color and truecolor ranges, and inverted dim text were not audited for this alpha."
+                },
+                {
+                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
                 },
                 {
                   "text": "No long run was made for this alpha."
+                },
+                {
+                  "text": "The real Windows clipboard was not used for this alpha’s checks. Two updates ago, the Windows Ctrl+V check used a test paste event."
+                },
+                {
+                  "text": "Windows font synthesis was not audited for this alpha."
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "muse-code",
+          "platforms": {
+            "mac": {
+              "from": "1.4.13",
+              "to": "1.4.23",
+              "status": "issues",
+              "issues": [
+                {
+                  "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
                 },
                 {
                   "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
@@ -1946,55 +2164,10 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A terminal control sequence over 64 KiB outside a bracketed paste is refused with a notice."
                 },
                 {
-                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
-                },
-                {
-                  "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
-                },
-                {
-                  "text": "Backups: if the app crashes between releasing and assigning a task, the open task may next go to a free member. If a backup also exhausts its busy-model tries, its task can return to the board. A member that needs an edit can release its tiered work to the board before the backup takes it; a queued task whose window never opened can still carry a warning to check for partial changes."
-                },
-                {
-                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
-                },
-                {
-                  "text": "Backups: if a member finishes its task at the moment the task moves to its backup, the member's result can be lost, and the backup starts the task over."
-                },
-                {
-                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
-                },
-                {
-                  "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
-                },
-                {
-                  "text": "Backup handoffs were checked in the previous 3.0.7 update but were not run again for this alpha."
-                },
-                {
-                  "text": "Windows member editing and backup controls were not checked in the native app for this alpha; the Windows team-lane check did not use the clipboard."
-                },
-                {
-                  "text": "The Windows Ctrl+V check in the previous 3.0.7 update used a test paste event, not the real clipboard. Its lost and delayed calls were simulated; the cause of the Windows stops seen before that release is not established. The typing check was not run again for this alpha."
-                }
-              ]
-            }
-          }
-        },
-        {
-          "id": "muse-code",
-          "platforms": {
-            "mac": {
-              "from": "1.4.13",
-              "to": "1.4.23",
-              "status": "issues",
-              "issues": [
-                {
-                  "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
-                },
-                {
                   "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown. In two Mac checks for this release, the program in a hidden window could not finish sending 64,000 lines within the ten-second limit. The previous 3.0.7 update does the same; this release didn't cause it."
                 },
                 {
                   "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it."
@@ -2037,6 +2210,18 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                 },
                 {
                   "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back."
+                },
+                {
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
+                },
+                {
+                  "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
+                },
+                {
+                  "text": "Backups: if the app crashes between releasing and assigning a task, the open task may next go to a free member. If a backup also exhausts its busy-model tries, its task can return to the board. A member that needs an edit can release its tiered work to the board before the backup takes it; a queued task whose window never opened can still carry a warning to check for partial changes."
+                },
+                {
+                  "text": "Backups: if a member finishes its task at the moment the task moves to its backup, the member's result can be lost, and the backup starts the task over."
                 },
                 {
                   "text": "A member or a backup that is removed can keep running when its window refuses to close."
@@ -2090,7 +2275,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A long chief role can need several reads, especially with long staff rules or full paths. Each part except the last gives the command for the next."
                 },
                 {
-                  "text": "Some dim terminal colors can be hard to read, especially dim blue; normal and bright shades can look alike on colored backgrounds. Where History's font has no italic face, the system synthesizes one."
+                  "text": "Some very dark or black dim terminal colors can still be hard to read. Normal and bright shades can look alike on colored backgrounds; a program’s own truecolor and inverted dim text do not follow the new dimming rule."
                 },
                 {
                   "text": "A folded group can say a quota-held task is \"paused, to resume\" even when that task can resume by itself."
@@ -2102,16 +2287,65 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since an earlier 3.0.7 update. The Mac checks for that update used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
                 },
                 {
-                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on real harnesses."
+                  "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
                 },
                 {
-                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels. Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
+                  "text": "A plain web address ending at the window’s right edge is not clickable; one ending near the edge or on a row with table borders can also be left unclickable. If a program wraps an address more than four columns from the edge, the shortened address can open a different site; check it before opening."
+                },
+                {
+                  "text": "After a five-hour limit and then a weekly one, if the later report reaches ConsensFlow late, a member can be tried again at the five-hour mark. If it is refused again, you can get a note for each task."
+                },
+                {
+                  "text": "A held task and a queued hold note can show an older time after the member’s hold has been extended."
+                },
+                {
+                  "text": "No real-model harness checks were run for this alpha. An earlier 3.0.7 update’s Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1; its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                },
+                {
+                  "text": "Backup handoffs were checked two updates ago but were not run again for this alpha."
+                },
+                {
+                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and “Do with your own hands” were not run again on real harnesses."
+                },
+                {
+                  "text": "A physical keyboard was not used for this alpha’s checks."
+                },
+                {
+                  "text": "The native Mac and Windows windows were checked for link hover, but links were not clicked in them; opening and the modifier keys were checked in page tests with a simulated app connection."
+                },
+                {
+                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels."
+                },
+                {
+                  "text": "Terminal selection over colored text, the full 256-color and truecolor ranges, and inverted dim text were not audited for this alpha."
+                },
+                {
+                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
                 },
                 {
                   "text": "No long run was made for this alpha."
+                },
+                {
+                  "text": "The Mac update tests did not check the Node fallback because the starting app had none."
+                },
+                {
+                  "text": "Two updates ago, the Mac typing check used simulated keys."
+                }
+              ]
+            },
+            "windows": {
+              "from": "1.4.13",
+              "to": "1.4.20",
+              "status": "newer",
+              "issues": [
+                {
+                  "text": "Windows: no typing or whole-app stop has been seen since two updates ago. If it happens, restarting the project brings it back."
+                },
+                {
+                  "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
                 },
                 {
                   "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
@@ -2132,54 +2366,10 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A terminal control sequence over 64 KiB outside a bracketed paste is refused with a notice."
                 },
                 {
-                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
-                },
-                {
-                  "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
-                },
-                {
-                  "text": "Backups: if the app crashes between releasing and assigning a task, the open task may next go to a free member. If a backup also exhausts its busy-model tries, its task can return to the board. A member that needs an edit can release its tiered work to the board before the backup takes it; a queued task whose window never opened can still carry a warning to check for partial changes."
-                },
-                {
-                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
-                },
-                {
-                  "text": "Backups: if a member finishes its task at the moment the task moves to its backup, the member's result can be lost, and the backup starts the task over."
-                },
-                {
-                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
-                },
-                {
-                  "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
-                },
-                {
-                  "text": "Backup handoffs were checked in the previous 3.0.7 update but were not run again for this alpha."
-                },
-                {
-                  "text": "The Mac update tests did not check the Node fallback because the starting app had no Node fallback."
-                },
-                {
-                  "text": "The Mac typing check in the previous 3.0.7 update used simulated key events, not a physical keyboard. The typing check was not run again for this alpha."
-                }
-              ]
-            },
-            "windows": {
-              "from": "1.4.13",
-              "to": "1.4.20",
-              "status": "newer",
-              "issues": [
-                {
-                  "text": "Windows: typing into a window, or the whole app, can still stop in a way not yet explained; restarting the project brings it back. A lost or late call no longer causes it.",
-                  "state": "fixing"
-                },
-                {
-                  "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
-                },
-                {
                   "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown. In two Mac checks for this release, the program in a hidden window could not finish sending 64,000 lines within the ten-second limit. The previous 3.0.7 update does the same; this release didn't cause it."
                 },
                 {
                   "text": "Windows: when a member's window ends by itself, the chief's note may say only that the window is gone and how to resume the task, without the window's exit code and its last screen."
@@ -2230,6 +2420,18 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back."
                 },
                 {
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
+                },
+                {
+                  "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
+                },
+                {
+                  "text": "Backups: if the app crashes between releasing and assigning a task, the open task may next go to a free member. If a backup also exhausts its busy-model tries, its task can return to the board. A member that needs an edit can release its tiered work to the board before the backup takes it; a queued task whose window never opened can still carry a warning to check for partial changes."
+                },
+                {
+                  "text": "Backups: if a member finishes its task at the moment the task moves to its backup, the member's result can be lost, and the backup starts the task over."
+                },
+                {
                   "text": "A member or a backup that is removed can keep running when its window refuses to close."
                 },
                 {
@@ -2284,7 +2486,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A long chief role can need several reads, especially with long staff rules or full paths. Each part except the last gives the command for the next."
                 },
                 {
-                  "text": "Some dim terminal colors can be hard to read, especially dim blue; normal and bright shades can look alike on colored backgrounds. Where History's font has no italic face, the system synthesizes one."
+                  "text": "Some very dark or black dim terminal colors can still be hard to read. Normal and bright shades can look alike on colored backgrounds; a program’s own truecolor and inverted dim text do not follow the new dimming rule."
                 },
                 {
                   "text": "A folded group can say a quota-held task is \"paused, to resume\" even when that task can resume by itself."
@@ -2299,64 +2501,55 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since an earlier 3.0.7 update. The Mac checks for that update used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
-                },
-                {
-                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on real harnesses."
-                },
-                {
-                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels. Terminal selection over colored text and the full 256-color and truecolor ranges were not audited."
-                },
-                {
-                  "text": "No long run was made for this alpha."
-                },
-                {
-                  "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
-                },
-                {
-                  "text": "An uncertain terminal write holds the window until the project restarts. A bracketed paste is admitted in one piece, but a write failure can still leave part of it in the window; check what appeared before sending it again."
-                },
-                {
-                  "text": "Bracketed pastes are limited to 4 MiB including their markers. In tests, a Windows terminal read a large paste at about 53 KB/s. A page reloaded while an admitted large paste is still going in waits for it to finish."
-                },
-                {
-                  "text": "A paste into a terminal without bracketed-paste mode is treated as typed keys and can arrive in parts; the 4 MiB bracketed-paste cap does not apply. Line breaks in such a paste are read as Enter."
-                },
-                {
-                  "text": "A program that stops reading a large paste until it gets a terminal reply can stall that window. A full paste can also leave no room for a reply, and a reply and a key can change order. The stall has been traced in the code, but not reproduced."
-                },
-                {
-                  "text": "A terminal control sequence over 64 KiB outside a bracketed paste is refused with a notice."
-                },
-                {
-                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
-                },
-                {
-                  "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
-                },
-                {
-                  "text": "Backups: if the app crashes between releasing and assigning a task, the open task may next go to a free member. If a backup also exhausts its busy-model tries, its task can return to the board. A member that needs an edit can release its tiered work to the board before the backup takes it; a queued task whose window never opened can still carry a warning to check for partial changes."
-                },
-                {
-                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
-                },
-                {
-                  "text": "Backups: if a member finishes its task at the moment the task moves to its backup, the member's result can be lost, and the backup starts the task over."
-                },
-                {
                   "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
                 },
                 {
                   "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
                 },
                 {
-                  "text": "Backup handoffs were checked in the previous 3.0.7 update but were not run again for this alpha."
+                  "text": "A plain web address ending at the window’s right edge is not clickable; one ending near the edge or on a row with table borders can also be left unclickable. If a program wraps an address more than four columns from the edge, the shortened address can open a different site; check it before opening."
                 },
                 {
-                  "text": "Windows member editing and backup controls were not checked in the native app for this alpha; the Windows team-lane check did not use the clipboard."
+                  "text": "After a five-hour limit and then a weekly one, if the later report reaches ConsensFlow late, a member can be tried again at the five-hour mark. If it is refused again, you can get a note for each task."
                 },
                 {
-                  "text": "The Windows Ctrl+V check in the previous 3.0.7 update used a test paste event, not the real clipboard. Its lost and delayed calls were simulated; the cause of the Windows stops seen before that release is not established. The typing check was not run again for this alpha."
+                  "text": "A held task and a queued hold note can show an older time after the member’s hold has been extended."
+                },
+                {
+                  "text": "On Windows, History can still show a synthesized italic if the chosen font has no italic face."
+                },
+                {
+                  "text": "No real-model harness checks were run for this alpha. An earlier 3.0.7 update’s Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1; its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                },
+                {
+                  "text": "Backup handoffs were checked two updates ago but were not run again for this alpha."
+                },
+                {
+                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and “Do with your own hands” were not run again on real harnesses."
+                },
+                {
+                  "text": "A physical keyboard was not used for this alpha’s checks."
+                },
+                {
+                  "text": "The native Mac and Windows windows were checked for link hover, but links were not clicked in them; opening and the modifier keys were checked in page tests with a simulated app connection."
+                },
+                {
+                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels."
+                },
+                {
+                  "text": "Terminal selection over colored text, the full 256-color and truecolor ranges, and inverted dim text were not audited for this alpha."
+                },
+                {
+                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
+                },
+                {
+                  "text": "No long run was made for this alpha."
+                },
+                {
+                  "text": "The real Windows clipboard was not used for this alpha’s checks. Two updates ago, the Windows Ctrl+V check used a test paste event."
+                },
+                {
+                  "text": "Windows font synthesis was not audited for this alpha."
                 }
               ]
             }
