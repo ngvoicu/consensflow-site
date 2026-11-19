@@ -312,7 +312,13 @@ try {
   // The workers' group: one out of quota with its backup taking its tasks, one on Vacation.
   await fitBoard()
   const workers = board.locator('tbody', { has: page.locator('.fold-group', { hasText: 'Workers' }) })
+  // Show the member and backup together in the team, with both of their statuses.
+  const team = workers.locator(`tr[data-handle="${names.astra}"] .fold-sessions`)
+  await team.click()
+  await page.mouse.move(0, 0)
+  await fitBoard()
   await shot('vacation-backup', await around(workers))
+  await team.click()
   // The staff grouped by role: every group folded to its head, its count and what waits in it.
   const open = page.locator('.fold-group[aria-expanded="true"]')
   while ((await open.count()) > 0) await open.first().click()
@@ -378,10 +384,8 @@ try {
   // The staff's windows: shown from their rows, then the board folded for them.
   for (const key of ['t4', 't5', 't7']) {
     const session = demo.boards[1].lanes.find((lane) => lane.participant.handle === names.sessions[key]).participant
-    const count = demo.boards[1].lanes.filter((lane) => lane.participant.memberId === session.memberId).length
-    await page
-      .getByRole('button', { name: `Show @${session.member}'s ${count} session${count === 1 ? '' : 's'}` })
-      .click()
+    // A member with a backup folds the team and all its sessions together.
+    await board.locator(`tr[data-handle="${session.member}"] .fold-sessions`).click()
     await page.getByRole('button', { name: `Show @${session.member} · ${session.session}'s terminal` }).click()
   }
   await page.locator('#toggle-board').click()

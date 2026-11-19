@@ -222,7 +222,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
      that watches each new version). The page below draws the table from it. -->
 <script type="application/json" id="status-data">
 {
-  "updated": "2026-11-18",
+  "updated": "2026-11-19",
   "releases": [
     {
       "version": "3.0.5",
@@ -432,7 +432,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A note about a window that ConsensFlow itself could not set up says only that the launch failed and that its cause is in ConsensFlow's log."
                 },
                 {
-                  "text": "A note can still quote a short password or passphrase that stands alone on a window's screen, once the line that named it has scrolled away."
+                  "text": "A note can still quote a short password or passphrase that stands alone on a window's screen once the line that named it has scrolled away, or a short value after a plain label such as key: abc. Avoid printing secrets in a member's window."
                 },
                 {
                   "text": "An answered pause: other words of the member's same turn (a line before its tools, a different last line) are in the shown note and are not typed to the chief. cf task finish takes the window's last complete answer."
@@ -519,7 +519,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since the previous 3.0.7 update. The previous update's Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since an earlier 3.0.7 update. The Mac checks for that update used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
                 },
                 {
                   "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on real harnesses."
@@ -529,9 +529,6 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                 },
                 {
                   "text": "No long run was made for this alpha."
-                },
-                {
-                  "text": "The Mac typing check used simulated key events, not a physical keyboard."
                 },
                 {
                   "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
@@ -562,6 +559,24 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                 },
                 {
                   "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
+                },
+                {
+                  "text": "Backups: if a member finishes its task at the moment the task moves to its backup, the member's result can be lost, and the backup starts the task over."
+                },
+                {
+                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
+                },
+                {
+                  "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
+                },
+                {
+                  "text": "Backup handoffs were checked in the previous 3.0.7 update but were not run again for this alpha."
+                },
+                {
+                  "text": "The Mac update tests did not check the Node fallback because the starting app had no Node fallback."
+                },
+                {
+                  "text": "The Mac typing check in the previous 3.0.7 update used simulated key events, not a physical keyboard. The typing check was not run again for this alpha."
                 }
               ]
             },
@@ -611,7 +626,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A note about a window that ConsensFlow itself could not set up says only that the launch failed and that its cause is in ConsensFlow's log."
                 },
                 {
-                  "text": "A note can still quote a short password or passphrase that stands alone on a window's screen, once the line that named it has scrolled away."
+                  "text": "A note can still quote a short password or passphrase that stands alone on a window's screen once the line that named it has scrolled away, or a short value after a plain label such as key: abc. Avoid printing secrets in a member's window."
                 },
                 {
                   "text": "An answered pause: other words of the member's same turn (a line before its tools, a different last line) are in the shown note and are not typed to the chief. cf task finish takes the window's last complete answer."
@@ -704,10 +719,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since the previous 3.0.7 update. The previous update's Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
-                },
-                {
-                  "text": "The Windows Ctrl+V check used a test paste event, not the real clipboard. Its lost and delayed calls were simulated; the cause of the Windows stops seen before this release is not established."
+                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since an earlier 3.0.7 update. The Mac checks for that update used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
                 },
                 {
                   "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on real harnesses."
@@ -747,6 +759,24 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                 },
                 {
                   "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
+                },
+                {
+                  "text": "Backups: if a member finishes its task at the moment the task moves to its backup, the member's result can be lost, and the backup starts the task over."
+                },
+                {
+                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
+                },
+                {
+                  "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
+                },
+                {
+                  "text": "Backup handoffs were checked in the previous 3.0.7 update but were not run again for this alpha."
+                },
+                {
+                  "text": "Windows member editing and backup controls were not checked in the native app for this alpha; the Windows team-lane check did not use the clipboard."
+                },
+                {
+                  "text": "The Windows Ctrl+V check in the previous 3.0.7 update used a test paste event, not the real clipboard. Its lost and delayed calls were simulated; the cause of the Windows stops seen before that release is not established. The typing check was not run again for this alpha."
                 }
               ]
             }
@@ -782,7 +812,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A note about a window that ConsensFlow itself could not set up says only that the launch failed and that its cause is in ConsensFlow's log."
                 },
                 {
-                  "text": "A note can still quote a short password or passphrase that stands alone on a window's screen, once the line that named it has scrolled away."
+                  "text": "A note can still quote a short password or passphrase that stands alone on a window's screen once the line that named it has scrolled away, or a short value after a plain label such as key: abc. Avoid printing secrets in a member's window."
                 },
                 {
                   "text": "Codex: Codex's own dialogs (its nudge to switch models, its model and effort pickers, its install offers) aren't seen. When one waits in a window nobody watches, nobody is told, and the Enter of the next message pasted in may answer it."
@@ -893,7 +923,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since the previous 3.0.7 update. The previous update's Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since an earlier 3.0.7 update. The Mac checks for that update used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
                 },
                 {
                   "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on real harnesses."
@@ -903,9 +933,6 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                 },
                 {
                   "text": "No long run was made for this alpha."
-                },
-                {
-                  "text": "The Mac typing check used simulated key events, not a physical keyboard."
                 },
                 {
                   "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
@@ -936,6 +963,24 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                 },
                 {
                   "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
+                },
+                {
+                  "text": "Backups: if a member finishes its task at the moment the task moves to its backup, the member's result can be lost, and the backup starts the task over."
+                },
+                {
+                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
+                },
+                {
+                  "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
+                },
+                {
+                  "text": "Backup handoffs were checked in the previous 3.0.7 update but were not run again for this alpha."
+                },
+                {
+                  "text": "The Mac update tests did not check the Node fallback because the starting app had no Node fallback."
+                },
+                {
+                  "text": "The Mac typing check in the previous 3.0.7 update used simulated key events, not a physical keyboard. The typing check was not run again for this alpha."
                 }
               ]
             },
@@ -976,7 +1021,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A note about a window that ConsensFlow itself could not set up says only that the launch failed and that its cause is in ConsensFlow's log."
                 },
                 {
-                  "text": "A note can still quote a short password or passphrase that stands alone on a window's screen, once the line that named it has scrolled away."
+                  "text": "A note can still quote a short password or passphrase that stands alone on a window's screen once the line that named it has scrolled away, or a short value after a plain label such as key: abc. Avoid printing secrets in a member's window."
                 },
                 {
                   "text": "Codex: Codex's own dialogs (its nudge to switch models, its model and effort pickers, its install offers) aren't seen. When one waits in a window nobody watches, nobody is told, and the Enter of the next message pasted in may answer it."
@@ -1096,10 +1141,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since the previous 3.0.7 update. The previous update's Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
-                },
-                {
-                  "text": "The Windows Ctrl+V check used a test paste event, not the real clipboard. Its lost and delayed calls were simulated; the cause of the Windows stops seen before this release is not established."
+                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since an earlier 3.0.7 update. The Mac checks for that update used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
                 },
                 {
                   "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on real harnesses."
@@ -1139,6 +1181,24 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                 },
                 {
                   "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
+                },
+                {
+                  "text": "Backups: if a member finishes its task at the moment the task moves to its backup, the member's result can be lost, and the backup starts the task over."
+                },
+                {
+                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
+                },
+                {
+                  "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
+                },
+                {
+                  "text": "Backup handoffs were checked in the previous 3.0.7 update but were not run again for this alpha."
+                },
+                {
+                  "text": "Windows member editing and backup controls were not checked in the native app for this alpha; the Windows team-lane check did not use the clipboard."
+                },
+                {
+                  "text": "The Windows Ctrl+V check in the previous 3.0.7 update used a test paste event, not the real clipboard. Its lost and delayed calls were simulated; the cause of the Windows stops seen before that release is not established. The typing check was not run again for this alpha."
                 }
               ]
             }
@@ -1177,7 +1237,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A note about a window that ConsensFlow itself could not set up says only that the launch failed and that its cause is in ConsensFlow's log."
                 },
                 {
-                  "text": "A note can still quote a short password or passphrase that stands alone on a window's screen, once the line that named it has scrolled away."
+                  "text": "A note can still quote a short password or passphrase that stands alone on a window's screen once the line that named it has scrolled away, or a short value after a plain label such as key: abc. Avoid printing secrets in a member's window."
                 },
                 {
                   "text": "Pi: when Pi's models cannot be listed and Pi's words name a key or a login (OPENAI_API_KEY is not set, OAuth login expired), or anything that looks like one, the note leaves out all of Pi's words. You see what ConsensFlow knows, the exit code and what Pi was loading; run pi in a terminal to see Pi's words. A provider that only one project's own .pi folder defines is not in the list."
@@ -1270,10 +1330,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since the previous 3.0.7 update. The previous update's Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
-                },
-                {
-                  "text": "On the Mac, Pi was checked in the previous 3.0.7 update with one question case on a free proxy model, and its question flow passed. No other Mac Pi cases were run."
+                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since an earlier 3.0.7 update. The Mac checks for that update used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
                 },
                 {
                   "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on real harnesses."
@@ -1283,9 +1340,6 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                 },
                 {
                   "text": "No long run was made for this alpha."
-                },
-                {
-                  "text": "The Mac typing check used simulated key events, not a physical keyboard."
                 },
                 {
                   "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
@@ -1316,6 +1370,30 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                 },
                 {
                   "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
+                },
+                {
+                  "text": "Backups: if a member finishes its task at the moment the task moves to its backup, the member's result can be lost, and the backup starts the task over."
+                },
+                {
+                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
+                },
+                {
+                  "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
+                },
+                {
+                  "text": "Backup handoffs were checked in the previous 3.0.7 update but were not run again for this alpha."
+                },
+                {
+                  "text": "The Mac update tests did not check the Node fallback because the starting app had no Node fallback."
+                },
+                {
+                  "text": "The Mac typing check in the previous 3.0.7 update used simulated key events, not a physical keyboard. The typing check was not run again for this alpha."
+                },
+                {
+                  "text": "Pi: when Pi lists no models, or its listing times out, ConsensFlow opens Pi's login file to name the providers you are logged in to. It keeps only their names."
+                },
+                {
+                  "text": "On the Mac, Pi was checked in an earlier 3.0.7 update with one question case on a free proxy model, and its question flow passed. No other Mac Pi cases were run then."
                 }
               ]
             },
@@ -1356,7 +1434,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A note about a window that ConsensFlow itself could not set up says only that the launch failed and that its cause is in ConsensFlow's log."
                 },
                 {
-                  "text": "A note can still quote a short password or passphrase that stands alone on a window's screen, once the line that named it has scrolled away."
+                  "text": "A note can still quote a short password or passphrase that stands alone on a window's screen once the line that named it has scrolled away, or a short value after a plain label such as key: abc. Avoid printing secrets in a member's window."
                 },
                 {
                   "text": "Pi: when Pi's models cannot be listed and Pi's words name a key or a login (OPENAI_API_KEY is not set, OAuth login expired), or anything that looks like one, the note leaves out all of Pi's words. You see what ConsensFlow knows, the exit code and what Pi was loading; run pi in a terminal to see Pi's words. A provider that only one project's own .pi folder defines is not in the list."
@@ -1455,10 +1533,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since the previous 3.0.7 update. The previous update's Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
-                },
-                {
-                  "text": "The Windows Ctrl+V check used a test paste event, not the real clipboard. Its lost and delayed calls were simulated; the cause of the Windows stops seen before this release is not established."
+                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since an earlier 3.0.7 update. The Mac checks for that update used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
                 },
                 {
                   "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on real harnesses."
@@ -1498,6 +1573,27 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                 },
                 {
                   "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
+                },
+                {
+                  "text": "Backups: if a member finishes its task at the moment the task moves to its backup, the member's result can be lost, and the backup starts the task over."
+                },
+                {
+                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
+                },
+                {
+                  "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
+                },
+                {
+                  "text": "Backup handoffs were checked in the previous 3.0.7 update but were not run again for this alpha."
+                },
+                {
+                  "text": "Windows member editing and backup controls were not checked in the native app for this alpha; the Windows team-lane check did not use the clipboard."
+                },
+                {
+                  "text": "The Windows Ctrl+V check in the previous 3.0.7 update used a test paste event, not the real clipboard. Its lost and delayed calls were simulated; the cause of the Windows stops seen before that release is not established. The typing check was not run again for this alpha."
+                },
+                {
+                  "text": "Pi: when Pi lists no models, or its listing times out, ConsensFlow opens Pi's login file to name the providers you are logged in to. It keeps only their names."
                 }
               ]
             }
@@ -1545,7 +1641,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A note about a window that ConsensFlow itself could not set up says only that the launch failed and that its cause is in ConsensFlow's log."
                 },
                 {
-                  "text": "A note can still quote a short password or passphrase that stands alone on a window's screen, once the line that named it has scrolled away."
+                  "text": "A note can still quote a short password or passphrase that stands alone on a window's screen once the line that named it has scrolled away, or a short value after a plain label such as key: abc. Avoid printing secrets in a member's window."
                 },
                 {
                   "text": "An answered pause: other words of the member's same turn (a line before its tools, a different last line) are in the shown note and are not typed to the chief. cf task finish takes the window's last complete answer."
@@ -1626,7 +1722,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since the previous 3.0.7 update. The previous update's Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since an earlier 3.0.7 update. The Mac checks for that update used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
                 },
                 {
                   "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on real harnesses."
@@ -1636,9 +1732,6 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                 },
                 {
                   "text": "No long run was made for this alpha."
-                },
-                {
-                  "text": "The Mac typing check used simulated key events, not a physical keyboard."
                 },
                 {
                   "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
@@ -1669,6 +1762,24 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                 },
                 {
                   "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
+                },
+                {
+                  "text": "Backups: if a member finishes its task at the moment the task moves to its backup, the member's result can be lost, and the backup starts the task over."
+                },
+                {
+                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
+                },
+                {
+                  "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
+                },
+                {
+                  "text": "Backup handoffs were checked in the previous 3.0.7 update but were not run again for this alpha."
+                },
+                {
+                  "text": "The Mac update tests did not check the Node fallback because the starting app had no Node fallback."
+                },
+                {
+                  "text": "The Mac typing check in the previous 3.0.7 update used simulated key events, not a physical keyboard. The typing check was not run again for this alpha."
                 }
               ]
             },
@@ -1721,7 +1832,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A note about a window that ConsensFlow itself could not set up says only that the launch failed and that its cause is in ConsensFlow's log."
                 },
                 {
-                  "text": "A note can still quote a short password or passphrase that stands alone on a window's screen, once the line that named it has scrolled away."
+                  "text": "A note can still quote a short password or passphrase that stands alone on a window's screen once the line that named it has scrolled away, or a short value after a plain label such as key: abc. Avoid printing secrets in a member's window."
                 },
                 {
                   "text": "An answered pause: other words of the member's same turn (a line before its tools, a different last line) are in the shown note and are not typed to the chief. cf task finish takes the window's last complete answer."
@@ -1805,10 +1916,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since the previous 3.0.7 update. The previous update's Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
-                },
-                {
-                  "text": "The Windows Ctrl+V check used a test paste event, not the real clipboard. Its lost and delayed calls were simulated; the cause of the Windows stops seen before this release is not established."
+                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since an earlier 3.0.7 update. The Mac checks for that update used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
                 },
                 {
                   "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on real harnesses."
@@ -1848,6 +1956,24 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                 },
                 {
                   "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
+                },
+                {
+                  "text": "Backups: if a member finishes its task at the moment the task moves to its backup, the member's result can be lost, and the backup starts the task over."
+                },
+                {
+                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
+                },
+                {
+                  "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
+                },
+                {
+                  "text": "Backup handoffs were checked in the previous 3.0.7 update but were not run again for this alpha."
+                },
+                {
+                  "text": "Windows member editing and backup controls were not checked in the native app for this alpha; the Windows team-lane check did not use the clipboard."
+                },
+                {
+                  "text": "The Windows Ctrl+V check in the previous 3.0.7 update used a test paste event, not the real clipboard. Its lost and delayed calls were simulated; the cause of the Windows stops seen before that release is not established. The typing check was not run again for this alpha."
                 }
               ]
             }
@@ -1883,7 +2009,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A note about a window that ConsensFlow itself could not set up says only that the launch failed and that its cause is in ConsensFlow's log."
                 },
                 {
-                  "text": "A note can still quote a short password or passphrase that stands alone on a window's screen, once the line that named it has scrolled away."
+                  "text": "A note can still quote a short password or passphrase that stands alone on a window's screen once the line that named it has scrolled away, or a short value after a plain label such as key: abc. Avoid printing secrets in a member's window."
                 },
                 {
                   "text": "Muse Code: a pause interrupts Muse with Escape, which also cancels a background command Muse itself is running."
@@ -1976,7 +2102,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since the previous 3.0.7 update. The previous update's Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since an earlier 3.0.7 update. The Mac checks for that update used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
                 },
                 {
                   "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on real harnesses."
@@ -1986,9 +2112,6 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                 },
                 {
                   "text": "No long run was made for this alpha."
-                },
-                {
-                  "text": "The Mac typing check used simulated key events, not a physical keyboard."
                 },
                 {
                   "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
@@ -2019,6 +2142,24 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                 },
                 {
                   "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
+                },
+                {
+                  "text": "Backups: if a member finishes its task at the moment the task moves to its backup, the member's result can be lost, and the backup starts the task over."
+                },
+                {
+                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
+                },
+                {
+                  "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
+                },
+                {
+                  "text": "Backup handoffs were checked in the previous 3.0.7 update but were not run again for this alpha."
+                },
+                {
+                  "text": "The Mac update tests did not check the Node fallback because the starting app had no Node fallback."
+                },
+                {
+                  "text": "The Mac typing check in the previous 3.0.7 update used simulated key events, not a physical keyboard. The typing check was not run again for this alpha."
                 }
               ]
             },
@@ -2059,7 +2200,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A note about a window that ConsensFlow itself could not set up says only that the launch failed and that its cause is in ConsensFlow's log."
                 },
                 {
-                  "text": "A note can still quote a short password or passphrase that stands alone on a window's screen, once the line that named it has scrolled away."
+                  "text": "A note can still quote a short password or passphrase that stands alone on a window's screen once the line that named it has scrolled away, or a short value after a plain label such as key: abc. Avoid printing secrets in a member's window."
                 },
                 {
                   "text": "Muse Code: a pause interrupts Muse with Escape, which also cancels a background command Muse itself is running."
@@ -2158,10 +2299,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since the previous 3.0.7 update. The previous update's Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
-                },
-                {
-                  "text": "The Windows Ctrl+V check used a test paste event, not the real clipboard. Its lost and delayed calls were simulated; the cause of the Windows stops seen before this release is not established."
+                  "text": "The real-model harness checks were not run again for this alpha; the harness adapters are unchanged since an earlier 3.0.7 update. The Mac checks for that update used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1. Its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
                 },
                 {
                   "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run again on real harnesses."
@@ -2201,6 +2339,24 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                 },
                 {
                   "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
+                },
+                {
+                  "text": "Backups: if a member finishes its task at the moment the task moves to its backup, the member's result can be lost, and the backup starts the task over."
+                },
+                {
+                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
+                },
+                {
+                  "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
+                },
+                {
+                  "text": "Backup handoffs were checked in the previous 3.0.7 update but were not run again for this alpha."
+                },
+                {
+                  "text": "Windows member editing and backup controls were not checked in the native app for this alpha; the Windows team-lane check did not use the clipboard."
+                },
+                {
+                  "text": "The Windows Ctrl+V check in the previous 3.0.7 update used a test paste event, not the real clipboard. Its lost and delayed calls were simulated; the cause of the Windows stops seen before that release is not established. The typing check was not run again for this alpha."
                 }
               ]
             }
