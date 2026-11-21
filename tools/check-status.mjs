@@ -217,6 +217,7 @@ const shown = (page) => page.evaluate(() => ({
       label: td.dataset.label,
       sr: td.querySelector('.sr')?.textContent ?? '',
       text: td.querySelector('.t')?.textContent ?? td.textContent,
+      coverage: td.querySelector('.coverage')?.textContent ?? '',
       marks: [...td.querySelectorAll('.mark')].map((m) => m.textContent),
     })),
   })),
@@ -251,6 +252,7 @@ function matrixAgrees(page, got, d) {
       assert.equal(cell.platform, want.platform)
       assert.equal(cell.label, `${want.release.channel} ${want.release.version} · ${LABELS[want.platform]}`, `${where}: its card label`)
       assert.equal(cell.status, status, `${where}: its status`)
+      assert.equal(cell.coverage, want.entry ? (want.release.coverage ?? '') : '', `${where}: its live-check coverage`)
       assert.deepEqual(cell.classes, [`st-${status}`], `${where}: its colour class is ${status}`)
       if (want.entry?.to) {
         assert.equal(cell.text, range(want.entry), `${where}: its range`)
@@ -365,6 +367,7 @@ async function hostileData() {
   const made = structuredClone(data)
   made.updated = bad
   made.releases[1].channel = bad
+  made.releases[1].coverage = bad
   made.releases[1].harnesses[0].platforms.mac.from = bad
   made.releases[1].harnesses[0].platforms.windows.issues = [{ text: bad, state: 'fixing' }]
   made.harnesses[0].name = bad
@@ -372,6 +375,7 @@ async function hostileData() {
   await withPage(async (page) => {
     assert.equal(await page.evaluate(() => window.__pwned), undefined, 'no script ran')
     assert.equal(await page.locator('main img').count(), 0, 'no element was made from the data')
+    assert.equal(await page.locator('.coverage').first().textContent(), bad, 'coverage is shown as text')
     assert.ok((await page.locator('body').innerText()).includes(bad), 'the data is on the page as text')
   }, { route: html })
   ok('hostile data is put on the page as text, and nothing else')

@@ -136,6 +136,7 @@ main h1{font-family:var(--sans);font-weight:650;margin:0;font-size:clamp(2.2rem,
 .matrix tbody th{font-size:1.05rem;font-weight:600;letter-spacing:-.01em;padding:8px 8px 8px 2px}
 .matrix td{padding:12px 14px;border-radius:6px;font:500 14px/1.4 var(--mono);overflow-wrap:break-word}
 .matrix td .t{display:inline}
+.matrix td .coverage{display:block;margin-top:4px;font:600 11px/1.35 var(--sans)}
 .matrix td.st-unmeasured,.matrix td.st-absent{font:400 13.5px/1.4 var(--sans)}
 .mark{display:inline-flex;align-items:center;justify-content:center;min-width:1.4em;height:1.4em;margin-left:.5em;border:1.5px solid currentColor;border-radius:50%;font:700 11px/1 var(--mono);vertical-align:.12em}
 
@@ -222,7 +223,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
      that watches each new version). The page below draws the table from it. -->
 <script type="application/json" id="status-data">
 {
-  "updated": "2026-11-19",
+  "updated": "2026-11-21",
   "releases": [
     {
       "version": "3.0.5",
@@ -426,7 +427,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Claude Code: ConsensFlow answers the added-folder question only for its own folders. A folder added by your own settings is yours to answer."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown. In two Mac checks for this release, the program in a hidden window could not finish sending 64,000 lines within the ten-second limit. The previous 3.0.7 update does the same; this release didn't cause it."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. In one of five Mac checks for this release, the program in a hidden window could not finish sending 64,000 lines within ten seconds; a further diagnostic retry also failed. The previous 3.0.7 update had the same problem."
                 },
                 {
                   "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it."
@@ -471,7 +472,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back."
                 },
                 {
-                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. For questions recorded before this release, an answer to a moved task's question can still go to its old window and remain undelivered."
                 },
                 {
                   "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
@@ -546,7 +547,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
+                  "text": "A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
                 },
                 {
                   "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
@@ -561,37 +562,58 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A held task and a queued hold note can show an older time after the member’s hold has been extended."
                 },
                 {
-                  "text": "No real-model harness checks were run for this alpha. An earlier 3.0.7 update’s Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1; its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                  "text": "After a restart, or a project Close and Resume, a task question asked in this version that nobody answered gives the chief one note and no later reminder. The task waits until the chief acts. A note returning an answer can say the task is working while it waits; the suggested commands work. If the question was waiting for a person's approval, its replacement note waits for approval too."
                 },
                 {
-                  "text": "Backup handoffs were checked two updates ago but were not run again for this alpha."
+                  "text": "A backup can say \"Takes its member's tasks\" while its member's model is only busy, or while another free member of the same tier would be chosen first."
                 },
                 {
-                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and “Do with your own hands” were not run again on real harnesses."
+                  "text": "A member with no backup that is both on Vacation and out shows only \"On Vacation\"."
                 },
                 {
-                  "text": "A physical keyboard was not used for this alpha’s checks."
+                  "text": "An old turn's question that arrives after a new task is handed to the window can be mistaken for the new task's question. For Codex and Pi, that handover can be recorded before the new task's turn actually starts."
                 },
                 {
-                  "text": "The native Mac and Windows windows were checked for link hover, but links were not clicked in them; opening and the modifier keys were checked in page tests with a simulated app connection."
+                  "text": "A window left open after its task is accepted cannot ask another question until it is given another brief."
                 },
                 {
-                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels."
+                  "text": "Questions recorded before this release keep their older delivery path. After a task has moved, restarting with an older answer in flight can put the answer back at the former window. An older question in flight during a restart or reopen can remain admitted. Removing a paused member can cancel an older answer instead of carrying it to the next window."
                 },
                 {
-                  "text": "Terminal selection over colored text, the full 256-color and truecolor ranges, and inverted dim text were not audited for this alpha."
+                  "text": "Opening a project can time out if many slow model checks run one after another."
                 },
                 {
-                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
+                  "text": "A task drawer can say \"its member\" when it is describing a backup. The backup help text does not describe every exception for named, follow-up, paused or Vacation tasks."
                 },
                 {
-                  "text": "No long run was made for this alpha."
+                  "text": "A task once stayed queued after a backup was added; this could not be reproduced on either of two previous 3.0.7 updates, and its cause is unknown."
                 },
                 {
-                  "text": "The Mac update tests did not check the Node fallback because the starting app had none."
+                  "text": "No real-model harness runs were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harnesses installed on the test Mac were not live-tested for this update."
                 },
                 {
-                  "text": "Two updates ago, the Mac typing check used simulated keys."
+                  "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update."
+                },
+                {
+                  "text": "The 30-minute and two-hour question reminders were checked with a simulated clock, not by waiting those intervals in real time."
+                },
+                {
+                  "text": "The check does not report using a physical keyboard, a screen reader or narrow task-drawer widths."
+                },
+                {
+                  "text": "Link clicking, terminal color and font edge cases were not checked for this release."
+                },
+                {
+                  "text": "No long run was made for this update."
+                },
+                {
+                  "text": "The Mac question checks used a stand-in."
+                },
+                {
+                  "text": "The check did not exercise the actual macOS Local Network permission prompt or whether permission is retained across an update."
+                },
+                {
+                  "text": "The Mac update tests skipped the Node fallback because the starting apps did not ship Node. Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
                 }
               ]
             },
@@ -601,7 +623,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
               "status": "issues",
               "issues": [
                 {
-                  "text": "Windows: no typing or whole-app stop has been seen since two updates ago. If it happens, restarting the project brings it back."
+                  "text": "Windows: no typing or whole-app stop has been seen since an earlier 3.0.7 update. If it happens, restarting the project brings it back."
                 },
                 {
                   "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
@@ -631,7 +653,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Claude Code: ConsensFlow answers the added-folder question only for its own folders. A folder added by your own settings is yours to answer."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown. In two Mac checks for this release, the program in a hidden window could not finish sending 64,000 lines within the ten-second limit. The previous 3.0.7 update does the same; this release didn't cause it."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. In one of five Mac checks for this release, the program in a hidden window could not finish sending 64,000 lines within ten seconds; a further diagnostic retry also failed. The previous 3.0.7 update had the same problem."
                 },
                 {
                   "text": "Windows: when a member's window ends by itself, the chief's note may say only that the window is gone and how to resume the task, without the window's exit code and its last screen."
@@ -679,7 +701,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back."
                 },
                 {
-                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. For questions recorded before this release, an answer to a moved task's question can still go to its old window and remain undelivered."
                 },
                 {
                   "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
@@ -760,7 +782,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
+                  "text": "A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
                 },
                 {
                   "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
@@ -778,37 +800,55 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "On Windows, History can still show a synthesized italic if the chosen font has no italic face."
                 },
                 {
-                  "text": "No real-model harness checks were run for this alpha. An earlier 3.0.7 update’s Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1; its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                  "text": "After a restart, or a project Close and Resume, a task question asked in this version that nobody answered gives the chief one note and no later reminder. The task waits until the chief acts. A note returning an answer can say the task is working while it waits; the suggested commands work. If the question was waiting for a person's approval, its replacement note waits for approval too."
                 },
                 {
-                  "text": "Backup handoffs were checked two updates ago but were not run again for this alpha."
+                  "text": "A backup can say \"Takes its member's tasks\" while its member's model is only busy, or while another free member of the same tier would be chosen first."
                 },
                 {
-                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and “Do with your own hands” were not run again on real harnesses."
+                  "text": "A member with no backup that is both on Vacation and out shows only \"On Vacation\"."
                 },
                 {
-                  "text": "A physical keyboard was not used for this alpha’s checks."
+                  "text": "An old turn's question that arrives after a new task is handed to the window can be mistaken for the new task's question. For Codex and Pi, that handover can be recorded before the new task's turn actually starts."
                 },
                 {
-                  "text": "The native Mac and Windows windows were checked for link hover, but links were not clicked in them; opening and the modifier keys were checked in page tests with a simulated app connection."
+                  "text": "A window left open after its task is accepted cannot ask another question until it is given another brief."
                 },
                 {
-                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels."
+                  "text": "Questions recorded before this release keep their older delivery path. After a task has moved, restarting with an older answer in flight can put the answer back at the former window. An older question in flight during a restart or reopen can remain admitted. Removing a paused member can cancel an older answer instead of carrying it to the next window."
                 },
                 {
-                  "text": "Terminal selection over colored text, the full 256-color and truecolor ranges, and inverted dim text were not audited for this alpha."
+                  "text": "Opening a project can time out if many slow model checks run one after another."
                 },
                 {
-                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
+                  "text": "A task drawer can say \"its member\" when it is describing a backup. The backup help text does not describe every exception for named, follow-up, paused or Vacation tasks."
                 },
                 {
-                  "text": "No long run was made for this alpha."
+                  "text": "A task once stayed queued after a backup was added; this could not be reproduced on either of two previous 3.0.7 updates, and its cause is unknown."
                 },
                 {
-                  "text": "The real Windows clipboard was not used for this alpha’s checks. Two updates ago, the Windows Ctrl+V check used a test paste event."
+                  "text": "No real-model harness runs were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harnesses installed on the test Mac were not live-tested for this update."
                 },
                 {
-                  "text": "Windows font synthesis was not audited for this alpha."
+                  "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update."
+                },
+                {
+                  "text": "The 30-minute and two-hour question reminders were checked with a simulated clock, not by waiting those intervals in real time."
+                },
+                {
+                  "text": "The check does not report using a physical keyboard, a screen reader or narrow task-drawer widths."
+                },
+                {
+                  "text": "Link clicking, terminal color and font edge cases were not checked for this release."
+                },
+                {
+                  "text": "No long run was made for this update."
+                },
+                {
+                  "text": "The Windows staff pictures used simulated board data."
+                },
+                {
+                  "text": "The check does not report using the real Windows clipboard."
                 }
               ]
             }
@@ -847,7 +887,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown. In two Mac checks for this release, the program in a hidden window could not finish sending 64,000 lines within the ten-second limit. The previous 3.0.7 update does the same; this release didn't cause it."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. In one of five Mac checks for this release, the program in a hidden window could not finish sending 64,000 lines within ten seconds; a further diagnostic retry also failed. The previous 3.0.7 update had the same problem."
                 },
                 {
                   "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it."
@@ -895,7 +935,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back."
                 },
                 {
-                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. For questions recorded before this release, an answer to a moved task's question can still go to its old window and remain undelivered."
                 },
                 {
                   "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
@@ -985,7 +1025,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
+                  "text": "A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
                 },
                 {
                   "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
@@ -1000,37 +1040,58 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A held task and a queued hold note can show an older time after the member’s hold has been extended."
                 },
                 {
-                  "text": "No real-model harness checks were run for this alpha. An earlier 3.0.7 update’s Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1; its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                  "text": "After a restart, or a project Close and Resume, a task question asked in this version that nobody answered gives the chief one note and no later reminder. The task waits until the chief acts. A note returning an answer can say the task is working while it waits; the suggested commands work. If the question was waiting for a person's approval, its replacement note waits for approval too."
                 },
                 {
-                  "text": "Backup handoffs were checked two updates ago but were not run again for this alpha."
+                  "text": "A backup can say \"Takes its member's tasks\" while its member's model is only busy, or while another free member of the same tier would be chosen first."
                 },
                 {
-                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and “Do with your own hands” were not run again on real harnesses."
+                  "text": "A member with no backup that is both on Vacation and out shows only \"On Vacation\"."
                 },
                 {
-                  "text": "A physical keyboard was not used for this alpha’s checks."
+                  "text": "An old turn's question that arrives after a new task is handed to the window can be mistaken for the new task's question. For Codex and Pi, that handover can be recorded before the new task's turn actually starts."
                 },
                 {
-                  "text": "The native Mac and Windows windows were checked for link hover, but links were not clicked in them; opening and the modifier keys were checked in page tests with a simulated app connection."
+                  "text": "A window left open after its task is accepted cannot ask another question until it is given another brief."
                 },
                 {
-                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels."
+                  "text": "Questions recorded before this release keep their older delivery path. After a task has moved, restarting with an older answer in flight can put the answer back at the former window. An older question in flight during a restart or reopen can remain admitted. Removing a paused member can cancel an older answer instead of carrying it to the next window."
                 },
                 {
-                  "text": "Terminal selection over colored text, the full 256-color and truecolor ranges, and inverted dim text were not audited for this alpha."
+                  "text": "Opening a project can time out if many slow model checks run one after another."
                 },
                 {
-                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
+                  "text": "A task drawer can say \"its member\" when it is describing a backup. The backup help text does not describe every exception for named, follow-up, paused or Vacation tasks."
                 },
                 {
-                  "text": "No long run was made for this alpha."
+                  "text": "A task once stayed queued after a backup was added; this could not be reproduced on either of two previous 3.0.7 updates, and its cause is unknown."
                 },
                 {
-                  "text": "The Mac update tests did not check the Node fallback because the starting app had none."
+                  "text": "No real-model harness runs were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harnesses installed on the test Mac were not live-tested for this update."
                 },
                 {
-                  "text": "Two updates ago, the Mac typing check used simulated keys."
+                  "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update."
+                },
+                {
+                  "text": "The 30-minute and two-hour question reminders were checked with a simulated clock, not by waiting those intervals in real time."
+                },
+                {
+                  "text": "The check does not report using a physical keyboard, a screen reader or narrow task-drawer widths."
+                },
+                {
+                  "text": "Link clicking, terminal color and font edge cases were not checked for this release."
+                },
+                {
+                  "text": "No long run was made for this update."
+                },
+                {
+                  "text": "The Mac question checks used a stand-in."
+                },
+                {
+                  "text": "The check did not exercise the actual macOS Local Network permission prompt or whether permission is retained across an update."
+                },
+                {
+                  "text": "The Mac update tests skipped the Node fallback because the starting apps did not ship Node. Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
                 }
               ]
             },
@@ -1040,7 +1101,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
               "status": "issues",
               "issues": [
                 {
-                  "text": "Windows: no typing or whole-app stop has been seen since two updates ago. If it happens, restarting the project brings it back."
+                  "text": "Windows: no typing or whole-app stop has been seen since an earlier 3.0.7 update. If it happens, restarting the project brings it back."
                 },
                 {
                   "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
@@ -1067,7 +1128,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown. In two Mac checks for this release, the program in a hidden window could not finish sending 64,000 lines within the ten-second limit. The previous 3.0.7 update does the same; this release didn't cause it."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. In one of five Mac checks for this release, the program in a hidden window could not finish sending 64,000 lines within ten seconds; a further diagnostic retry also failed. The previous 3.0.7 update had the same problem."
                 },
                 {
                   "text": "Windows: when a member's window ends by itself, the chief's note may say only that the window is gone and how to resume the task, without the window's exit code and its last screen."
@@ -1121,7 +1182,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back."
                 },
                 {
-                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. For questions recorded before this release, an answer to a moved task's question can still go to its old window and remain undelivered."
                 },
                 {
                   "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
@@ -1220,7 +1281,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
+                  "text": "A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
                 },
                 {
                   "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
@@ -1238,37 +1299,55 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "On Windows, History can still show a synthesized italic if the chosen font has no italic face."
                 },
                 {
-                  "text": "No real-model harness checks were run for this alpha. An earlier 3.0.7 update’s Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1; its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                  "text": "After a restart, or a project Close and Resume, a task question asked in this version that nobody answered gives the chief one note and no later reminder. The task waits until the chief acts. A note returning an answer can say the task is working while it waits; the suggested commands work. If the question was waiting for a person's approval, its replacement note waits for approval too."
                 },
                 {
-                  "text": "Backup handoffs were checked two updates ago but were not run again for this alpha."
+                  "text": "A backup can say \"Takes its member's tasks\" while its member's model is only busy, or while another free member of the same tier would be chosen first."
                 },
                 {
-                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and “Do with your own hands” were not run again on real harnesses."
+                  "text": "A member with no backup that is both on Vacation and out shows only \"On Vacation\"."
                 },
                 {
-                  "text": "A physical keyboard was not used for this alpha’s checks."
+                  "text": "An old turn's question that arrives after a new task is handed to the window can be mistaken for the new task's question. For Codex and Pi, that handover can be recorded before the new task's turn actually starts."
                 },
                 {
-                  "text": "The native Mac and Windows windows were checked for link hover, but links were not clicked in them; opening and the modifier keys were checked in page tests with a simulated app connection."
+                  "text": "A window left open after its task is accepted cannot ask another question until it is given another brief."
                 },
                 {
-                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels."
+                  "text": "Questions recorded before this release keep their older delivery path. After a task has moved, restarting with an older answer in flight can put the answer back at the former window. An older question in flight during a restart or reopen can remain admitted. Removing a paused member can cancel an older answer instead of carrying it to the next window."
                 },
                 {
-                  "text": "Terminal selection over colored text, the full 256-color and truecolor ranges, and inverted dim text were not audited for this alpha."
+                  "text": "Opening a project can time out if many slow model checks run one after another."
                 },
                 {
-                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
+                  "text": "A task drawer can say \"its member\" when it is describing a backup. The backup help text does not describe every exception for named, follow-up, paused or Vacation tasks."
                 },
                 {
-                  "text": "No long run was made for this alpha."
+                  "text": "A task once stayed queued after a backup was added; this could not be reproduced on either of two previous 3.0.7 updates, and its cause is unknown."
                 },
                 {
-                  "text": "The real Windows clipboard was not used for this alpha’s checks. Two updates ago, the Windows Ctrl+V check used a test paste event."
+                  "text": "No real-model harness runs were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harnesses installed on the test Mac were not live-tested for this update."
                 },
                 {
-                  "text": "Windows font synthesis was not audited for this alpha."
+                  "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update."
+                },
+                {
+                  "text": "The 30-minute and two-hour question reminders were checked with a simulated clock, not by waiting those intervals in real time."
+                },
+                {
+                  "text": "The check does not report using a physical keyboard, a screen reader or narrow task-drawer widths."
+                },
+                {
+                  "text": "Link clicking, terminal color and font edge cases were not checked for this release."
+                },
+                {
+                  "text": "No long run was made for this update."
+                },
+                {
+                  "text": "The Windows staff pictures used simulated board data."
+                },
+                {
+                  "text": "The check does not report using the real Windows clipboard."
                 }
               ]
             }
@@ -1307,7 +1386,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown. In two Mac checks for this release, the program in a hidden window could not finish sending 64,000 lines within the ten-second limit. The previous 3.0.7 update does the same; this release didn't cause it."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. In one of five Mac checks for this release, the program in a hidden window could not finish sending 64,000 lines within ten seconds; a further diagnostic retry also failed. The previous 3.0.7 update had the same problem."
                 },
                 {
                   "text": "Pi: if a compaction does not stop when ConsensFlow asks it to at 300 seconds, a task given back to that member meanwhile keeps the window, and its messages wait until you close the window from the board. The task is then paused and the chief is told, and resuming it goes on in a new window on the same conversation."
@@ -1355,7 +1434,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back."
                 },
                 {
-                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. For questions recorded before this release, an answer to a moved task's question can still go to its old window and remain undelivered."
                 },
                 {
                   "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
@@ -1430,7 +1509,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
+                  "text": "A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
                 },
                 {
                   "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
@@ -1445,43 +1524,64 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A held task and a queued hold note can show an older time after the member’s hold has been extended."
                 },
                 {
-                  "text": "Pi: if its model listing hangs, the app can show a deadline error without the more specific advice that a package or extension may be stuck."
-                },
-                {
                   "text": "Pi: if its models.json is a link to another file, ConsensFlow’s diagnostic can read that file, including Pi’s login file if the link points there."
                 },
                 {
-                  "text": "No real-model harness checks were run for this alpha. An earlier 3.0.7 update’s Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1; its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                  "text": "After a restart, or a project Close and Resume, a task question asked in this version that nobody answered gives the chief one note and no later reminder. The task waits until the chief acts. A note returning an answer can say the task is working while it waits; the suggested commands work. If the question was waiting for a person's approval, its replacement note waits for approval too."
                 },
                 {
-                  "text": "Backup handoffs were checked two updates ago but were not run again for this alpha."
+                  "text": "A backup can say \"Takes its member's tasks\" while its member's model is only busy, or while another free member of the same tier would be chosen first."
                 },
                 {
-                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and “Do with your own hands” were not run again on real harnesses."
+                  "text": "A member with no backup that is both on Vacation and out shows only \"On Vacation\"."
                 },
                 {
-                  "text": "A physical keyboard was not used for this alpha’s checks."
+                  "text": "An old turn's question that arrives after a new task is handed to the window can be mistaken for the new task's question. For Codex and Pi, that handover can be recorded before the new task's turn actually starts."
                 },
                 {
-                  "text": "The native Mac and Windows windows were checked for link hover, but links were not clicked in them; opening and the modifier keys were checked in page tests with a simulated app connection."
+                  "text": "A window left open after its task is accepted cannot ask another question until it is given another brief."
                 },
                 {
-                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels."
+                  "text": "Questions recorded before this release keep their older delivery path. After a task has moved, restarting with an older answer in flight can put the answer back at the former window. An older question in flight during a restart or reopen can remain admitted. Removing a paused member can cancel an older answer instead of carrying it to the next window."
                 },
                 {
-                  "text": "Terminal selection over colored text, the full 256-color and truecolor ranges, and inverted dim text were not audited for this alpha."
+                  "text": "Pi's Mac Local Network hint is conditional for some errors; the error may have another cause. A previous loss of Local Network access after an update has not been reproduced or explained."
                 },
                 {
-                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
+                  "text": "Opening a project can time out if many slow model checks run one after another."
                 },
                 {
-                  "text": "No long run was made for this alpha."
+                  "text": "A task drawer can say \"its member\" when it is describing a backup. The backup help text does not describe every exception for named, follow-up, paused or Vacation tasks."
                 },
                 {
-                  "text": "The Mac update tests did not check the Node fallback because the starting app had none."
+                  "text": "A task once stayed queued after a backup was added; this could not be reproduced on either of two previous 3.0.7 updates, and its cause is unknown."
                 },
                 {
-                  "text": "Two updates ago, the Mac typing check used simulated keys."
+                  "text": "No real-model harness runs were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harnesses installed on the test Mac were not live-tested for this update."
+                },
+                {
+                  "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update."
+                },
+                {
+                  "text": "The 30-minute and two-hour question reminders were checked with a simulated clock, not by waiting those intervals in real time."
+                },
+                {
+                  "text": "The check does not report using a physical keyboard, a screen reader or narrow task-drawer widths."
+                },
+                {
+                  "text": "Link clicking, terminal color and font edge cases were not checked for this release."
+                },
+                {
+                  "text": "No long run was made for this update."
+                },
+                {
+                  "text": "The Mac question checks used a stand-in."
+                },
+                {
+                  "text": "The check did not exercise the actual macOS Local Network permission prompt or whether permission is retained across an update."
+                },
+                {
+                  "text": "The Mac update tests skipped the Node fallback because the starting apps did not ship Node. Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
                 },
                 {
                   "text": "On the Mac, Pi was checked in an earlier 3.0.7 update with one question case on a free proxy model; no other Mac Pi cases were run then."
@@ -1494,7 +1594,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
               "status": "issues",
               "issues": [
                 {
-                  "text": "Windows: no typing or whole-app stop has been seen since two updates ago. If it happens, restarting the project brings it back."
+                  "text": "Windows: no typing or whole-app stop has been seen since an earlier 3.0.7 update. If it happens, restarting the project brings it back."
                 },
                 {
                   "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
@@ -1521,7 +1621,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown. In two Mac checks for this release, the program in a hidden window could not finish sending 64,000 lines within the ten-second limit. The previous 3.0.7 update does the same; this release didn't cause it."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. In one of five Mac checks for this release, the program in a hidden window could not finish sending 64,000 lines within ten seconds; a further diagnostic retry also failed. The previous 3.0.7 update had the same problem."
                 },
                 {
                   "text": "Pi: if a compaction does not stop when ConsensFlow asks it to at 300 seconds, a task given back to that member meanwhile keeps the window, and its messages wait until you close the window from the board. The task is then paused and the chief is told, and resuming it goes on in a new window on the same conversation."
@@ -1572,7 +1672,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back."
                 },
                 {
-                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. For questions recorded before this release, an answer to a moved task's question can still go to its old window and remain undelivered."
                 },
                 {
                   "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
@@ -1653,7 +1753,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
+                  "text": "A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
                 },
                 {
                   "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
@@ -1668,49 +1768,64 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A held task and a queued hold note can show an older time after the member’s hold has been extended."
                 },
                 {
-                  "text": "Pi: if its model listing hangs, the app can show a deadline error without the more specific advice that a package or extension may be stuck."
-                },
-                {
                   "text": "Pi: if its models.json is a link to another file, ConsensFlow’s diagnostic can read that file, including Pi’s login file if the link points there."
                 },
                 {
                   "text": "On Windows, History can still show a synthesized italic if the chosen font has no italic face."
                 },
                 {
-                  "text": "No real-model harness checks were run for this alpha. An earlier 3.0.7 update’s Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1; its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                  "text": "After a restart, or a project Close and Resume, a task question asked in this version that nobody answered gives the chief one note and no later reminder. The task waits until the chief acts. A note returning an answer can say the task is working while it waits; the suggested commands work. If the question was waiting for a person's approval, its replacement note waits for approval too."
                 },
                 {
-                  "text": "Backup handoffs were checked two updates ago but were not run again for this alpha."
+                  "text": "A backup can say \"Takes its member's tasks\" while its member's model is only busy, or while another free member of the same tier would be chosen first."
                 },
                 {
-                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and “Do with your own hands” were not run again on real harnesses."
+                  "text": "A member with no backup that is both on Vacation and out shows only \"On Vacation\"."
                 },
                 {
-                  "text": "A physical keyboard was not used for this alpha’s checks."
+                  "text": "An old turn's question that arrives after a new task is handed to the window can be mistaken for the new task's question. For Codex and Pi, that handover can be recorded before the new task's turn actually starts."
                 },
                 {
-                  "text": "The native Mac and Windows windows were checked for link hover, but links were not clicked in them; opening and the modifier keys were checked in page tests with a simulated app connection."
+                  "text": "A window left open after its task is accepted cannot ask another question until it is given another brief."
                 },
                 {
-                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels."
+                  "text": "Questions recorded before this release keep their older delivery path. After a task has moved, restarting with an older answer in flight can put the answer back at the former window. An older question in flight during a restart or reopen can remain admitted. Removing a paused member can cancel an older answer instead of carrying it to the next window."
                 },
                 {
-                  "text": "Terminal selection over colored text, the full 256-color and truecolor ranges, and inverted dim text were not audited for this alpha."
+                  "text": "Opening a project can time out if many slow model checks run one after another."
                 },
                 {
-                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
+                  "text": "A task drawer can say \"its member\" when it is describing a backup. The backup help text does not describe every exception for named, follow-up, paused or Vacation tasks."
                 },
                 {
-                  "text": "No long run was made for this alpha."
+                  "text": "A task once stayed queued after a backup was added; this could not be reproduced on either of two previous 3.0.7 updates, and its cause is unknown."
                 },
                 {
-                  "text": "The real Windows clipboard was not used for this alpha’s checks. Two updates ago, the Windows Ctrl+V check used a test paste event."
+                  "text": "No real-model harness runs were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harnesses installed on the test Mac were not live-tested for this update."
                 },
                 {
-                  "text": "Windows font synthesis was not audited for this alpha."
+                  "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update."
                 },
                 {
-                  "text": "Pi’s linked model-file behavior was not checked on Windows."
+                  "text": "The 30-minute and two-hour question reminders were checked with a simulated clock, not by waiting those intervals in real time."
+                },
+                {
+                  "text": "The check does not report using a physical keyboard, a screen reader or narrow task-drawer widths."
+                },
+                {
+                  "text": "Link clicking, terminal color and font edge cases were not checked for this release."
+                },
+                {
+                  "text": "No long run was made for this update."
+                },
+                {
+                  "text": "The Windows staff pictures used simulated board data."
+                },
+                {
+                  "text": "The check does not report using the real Windows clipboard."
+                },
+                {
+                  "text": "Pi's linked model-file behavior was not checked on Windows."
                 }
               ]
             }
@@ -1755,7 +1870,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Devin 3000.12: when a Devin member is stopped early in a turn, while Devin is still thinking (a pause, for example), its window reads as working for up to 30 seconds after the message it was given, so what comes next for it, such as the chief's question after a pause, goes in up to 30 seconds late."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown. In two Mac checks for this release, the program in a hidden window could not finish sending 64,000 lines within the ten-second limit. The previous 3.0.7 update does the same; this release didn't cause it."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. In one of five Mac checks for this release, the program in a hidden window could not finish sending 64,000 lines within ten seconds; a further diagnostic retry also failed. The previous 3.0.7 update had the same problem."
                 },
                 {
                   "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it."
@@ -1800,7 +1915,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back."
                 },
                 {
-                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. For questions recorded before this release, an answer to a moved task's question can still go to its old window and remain undelivered."
                 },
                 {
                   "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
@@ -1869,7 +1984,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
+                  "text": "A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
                 },
                 {
                   "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
@@ -1884,37 +1999,58 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A held task and a queued hold note can show an older time after the member’s hold has been extended."
                 },
                 {
-                  "text": "No real-model harness checks were run for this alpha. An earlier 3.0.7 update’s Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1; its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                  "text": "After a restart, or a project Close and Resume, a task question asked in this version that nobody answered gives the chief one note and no later reminder. The task waits until the chief acts. A note returning an answer can say the task is working while it waits; the suggested commands work. If the question was waiting for a person's approval, its replacement note waits for approval too."
                 },
                 {
-                  "text": "Backup handoffs were checked two updates ago but were not run again for this alpha."
+                  "text": "A backup can say \"Takes its member's tasks\" while its member's model is only busy, or while another free member of the same tier would be chosen first."
                 },
                 {
-                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and “Do with your own hands” were not run again on real harnesses."
+                  "text": "A member with no backup that is both on Vacation and out shows only \"On Vacation\"."
                 },
                 {
-                  "text": "A physical keyboard was not used for this alpha’s checks."
+                  "text": "An old turn's question that arrives after a new task is handed to the window can be mistaken for the new task's question. For Codex and Pi, that handover can be recorded before the new task's turn actually starts."
                 },
                 {
-                  "text": "The native Mac and Windows windows were checked for link hover, but links were not clicked in them; opening and the modifier keys were checked in page tests with a simulated app connection."
+                  "text": "A window left open after its task is accepted cannot ask another question until it is given another brief."
                 },
                 {
-                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels."
+                  "text": "Questions recorded before this release keep their older delivery path. After a task has moved, restarting with an older answer in flight can put the answer back at the former window. An older question in flight during a restart or reopen can remain admitted. Removing a paused member can cancel an older answer instead of carrying it to the next window."
                 },
                 {
-                  "text": "Terminal selection over colored text, the full 256-color and truecolor ranges, and inverted dim text were not audited for this alpha."
+                  "text": "Opening a project can time out if many slow model checks run one after another."
                 },
                 {
-                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
+                  "text": "A task drawer can say \"its member\" when it is describing a backup. The backup help text does not describe every exception for named, follow-up, paused or Vacation tasks."
                 },
                 {
-                  "text": "No long run was made for this alpha."
+                  "text": "A task once stayed queued after a backup was added; this could not be reproduced on either of two previous 3.0.7 updates, and its cause is unknown."
                 },
                 {
-                  "text": "The Mac update tests did not check the Node fallback because the starting app had none."
+                  "text": "No real-model harness runs were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harnesses installed on the test Mac were not live-tested for this update."
                 },
                 {
-                  "text": "Two updates ago, the Mac typing check used simulated keys."
+                  "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update."
+                },
+                {
+                  "text": "The 30-minute and two-hour question reminders were checked with a simulated clock, not by waiting those intervals in real time."
+                },
+                {
+                  "text": "The check does not report using a physical keyboard, a screen reader or narrow task-drawer widths."
+                },
+                {
+                  "text": "Link clicking, terminal color and font edge cases were not checked for this release."
+                },
+                {
+                  "text": "No long run was made for this update."
+                },
+                {
+                  "text": "The Mac question checks used a stand-in."
+                },
+                {
+                  "text": "The check did not exercise the actual macOS Local Network permission prompt or whether permission is retained across an update."
+                },
+                {
+                  "text": "The Mac update tests skipped the Node fallback because the starting apps did not ship Node. Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
                 }
               ]
             },
@@ -1924,7 +2060,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
               "status": "newer",
               "issues": [
                 {
-                  "text": "Windows: no typing or whole-app stop has been seen since two updates ago. If it happens, restarting the project brings it back."
+                  "text": "Windows: no typing or whole-app stop has been seen since an earlier 3.0.7 update. If it happens, restarting the project brings it back."
                 },
                 {
                   "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
@@ -1957,7 +2093,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Devin 3000.12: when a Devin member is stopped early in a turn, while Devin is still thinking (a pause, for example), its window reads as working for up to 30 seconds after the message it was given, so what comes next for it, such as the chief's question after a pause, goes in up to 30 seconds late."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown. In two Mac checks for this release, the program in a hidden window could not finish sending 64,000 lines within the ten-second limit. The previous 3.0.7 update does the same; this release didn't cause it."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. In one of five Mac checks for this release, the program in a hidden window could not finish sending 64,000 lines within ten seconds; a further diagnostic retry also failed. The previous 3.0.7 update had the same problem."
                 },
                 {
                   "text": "Windows: when a member's window ends by itself, the chief's note may say only that the window is gone and how to resume the task, without the window's exit code and its last screen."
@@ -2008,7 +2144,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back."
                 },
                 {
-                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. For questions recorded before this release, an answer to a moved task's question can still go to its old window and remain undelivered."
                 },
                 {
                   "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
@@ -2080,7 +2216,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
+                  "text": "A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
                 },
                 {
                   "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
@@ -2098,37 +2234,55 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "On Windows, History can still show a synthesized italic if the chosen font has no italic face."
                 },
                 {
-                  "text": "No real-model harness checks were run for this alpha. An earlier 3.0.7 update’s Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1; its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                  "text": "After a restart, or a project Close and Resume, a task question asked in this version that nobody answered gives the chief one note and no later reminder. The task waits until the chief acts. A note returning an answer can say the task is working while it waits; the suggested commands work. If the question was waiting for a person's approval, its replacement note waits for approval too."
                 },
                 {
-                  "text": "Backup handoffs were checked two updates ago but were not run again for this alpha."
+                  "text": "A backup can say \"Takes its member's tasks\" while its member's model is only busy, or while another free member of the same tier would be chosen first."
                 },
                 {
-                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and “Do with your own hands” were not run again on real harnesses."
+                  "text": "A member with no backup that is both on Vacation and out shows only \"On Vacation\"."
                 },
                 {
-                  "text": "A physical keyboard was not used for this alpha’s checks."
+                  "text": "An old turn's question that arrives after a new task is handed to the window can be mistaken for the new task's question. For Codex and Pi, that handover can be recorded before the new task's turn actually starts."
                 },
                 {
-                  "text": "The native Mac and Windows windows were checked for link hover, but links were not clicked in them; opening and the modifier keys were checked in page tests with a simulated app connection."
+                  "text": "A window left open after its task is accepted cannot ask another question until it is given another brief."
                 },
                 {
-                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels."
+                  "text": "Questions recorded before this release keep their older delivery path. After a task has moved, restarting with an older answer in flight can put the answer back at the former window. An older question in flight during a restart or reopen can remain admitted. Removing a paused member can cancel an older answer instead of carrying it to the next window."
                 },
                 {
-                  "text": "Terminal selection over colored text, the full 256-color and truecolor ranges, and inverted dim text were not audited for this alpha."
+                  "text": "Opening a project can time out if many slow model checks run one after another."
                 },
                 {
-                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
+                  "text": "A task drawer can say \"its member\" when it is describing a backup. The backup help text does not describe every exception for named, follow-up, paused or Vacation tasks."
                 },
                 {
-                  "text": "No long run was made for this alpha."
+                  "text": "A task once stayed queued after a backup was added; this could not be reproduced on either of two previous 3.0.7 updates, and its cause is unknown."
                 },
                 {
-                  "text": "The real Windows clipboard was not used for this alpha’s checks. Two updates ago, the Windows Ctrl+V check used a test paste event."
+                  "text": "No real-model harness runs were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harnesses installed on the test Mac were not live-tested for this update."
                 },
                 {
-                  "text": "Windows font synthesis was not audited for this alpha."
+                  "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update."
+                },
+                {
+                  "text": "The 30-minute and two-hour question reminders were checked with a simulated clock, not by waiting those intervals in real time."
+                },
+                {
+                  "text": "The check does not report using a physical keyboard, a screen reader or narrow task-drawer widths."
+                },
+                {
+                  "text": "Link clicking, terminal color and font edge cases were not checked for this release."
+                },
+                {
+                  "text": "No long run was made for this update."
+                },
+                {
+                  "text": "The Windows staff pictures used simulated board data."
+                },
+                {
+                  "text": "The check does not report using the real Windows clipboard."
                 }
               ]
             }
@@ -2167,7 +2321,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown. In two Mac checks for this release, the program in a hidden window could not finish sending 64,000 lines within the ten-second limit. The previous 3.0.7 update does the same; this release didn't cause it."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. In one of five Mac checks for this release, the program in a hidden window could not finish sending 64,000 lines within ten seconds; a further diagnostic retry also failed. The previous 3.0.7 update had the same problem."
                 },
                 {
                   "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it."
@@ -2212,7 +2366,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back."
                 },
                 {
-                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. For questions recorded before this release, an answer to a moved task's question can still go to its old window and remain undelivered."
                 },
                 {
                   "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
@@ -2287,7 +2441,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
+                  "text": "A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
                 },
                 {
                   "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
@@ -2302,37 +2456,58 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A held task and a queued hold note can show an older time after the member’s hold has been extended."
                 },
                 {
-                  "text": "No real-model harness checks were run for this alpha. An earlier 3.0.7 update’s Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1; its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                  "text": "After a restart, or a project Close and Resume, a task question asked in this version that nobody answered gives the chief one note and no later reminder. The task waits until the chief acts. A note returning an answer can say the task is working while it waits; the suggested commands work. If the question was waiting for a person's approval, its replacement note waits for approval too."
                 },
                 {
-                  "text": "Backup handoffs were checked two updates ago but were not run again for this alpha."
+                  "text": "A backup can say \"Takes its member's tasks\" while its member's model is only busy, or while another free member of the same tier would be chosen first."
                 },
                 {
-                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and “Do with your own hands” were not run again on real harnesses."
+                  "text": "A member with no backup that is both on Vacation and out shows only \"On Vacation\"."
                 },
                 {
-                  "text": "A physical keyboard was not used for this alpha’s checks."
+                  "text": "An old turn's question that arrives after a new task is handed to the window can be mistaken for the new task's question. For Codex and Pi, that handover can be recorded before the new task's turn actually starts."
                 },
                 {
-                  "text": "The native Mac and Windows windows were checked for link hover, but links were not clicked in them; opening and the modifier keys were checked in page tests with a simulated app connection."
+                  "text": "A window left open after its task is accepted cannot ask another question until it is given another brief."
                 },
                 {
-                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels."
+                  "text": "Questions recorded before this release keep their older delivery path. After a task has moved, restarting with an older answer in flight can put the answer back at the former window. An older question in flight during a restart or reopen can remain admitted. Removing a paused member can cancel an older answer instead of carrying it to the next window."
                 },
                 {
-                  "text": "Terminal selection over colored text, the full 256-color and truecolor ranges, and inverted dim text were not audited for this alpha."
+                  "text": "Opening a project can time out if many slow model checks run one after another."
                 },
                 {
-                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
+                  "text": "A task drawer can say \"its member\" when it is describing a backup. The backup help text does not describe every exception for named, follow-up, paused or Vacation tasks."
                 },
                 {
-                  "text": "No long run was made for this alpha."
+                  "text": "A task once stayed queued after a backup was added; this could not be reproduced on either of two previous 3.0.7 updates, and its cause is unknown."
                 },
                 {
-                  "text": "The Mac update tests did not check the Node fallback because the starting app had none."
+                  "text": "No real-model harness runs were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harnesses installed on the test Mac were not live-tested for this update."
                 },
                 {
-                  "text": "Two updates ago, the Mac typing check used simulated keys."
+                  "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update."
+                },
+                {
+                  "text": "The 30-minute and two-hour question reminders were checked with a simulated clock, not by waiting those intervals in real time."
+                },
+                {
+                  "text": "The check does not report using a physical keyboard, a screen reader or narrow task-drawer widths."
+                },
+                {
+                  "text": "Link clicking, terminal color and font edge cases were not checked for this release."
+                },
+                {
+                  "text": "No long run was made for this update."
+                },
+                {
+                  "text": "The Mac question checks used a stand-in."
+                },
+                {
+                  "text": "The check did not exercise the actual macOS Local Network permission prompt or whether permission is retained across an update."
+                },
+                {
+                  "text": "The Mac update tests skipped the Node fallback because the starting apps did not ship Node. Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
                 }
               ]
             },
@@ -2342,7 +2517,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
               "status": "newer",
               "issues": [
                 {
-                  "text": "Windows: no typing or whole-app stop has been seen since two updates ago. If it happens, restarting the project brings it back."
+                  "text": "Windows: no typing or whole-app stop has been seen since an earlier 3.0.7 update. If it happens, restarting the project brings it back."
                 },
                 {
                   "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
@@ -2369,7 +2544,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal is read slowly: the app takes in its output about once a second, so the board learns of that window's work late. It catches up when the app is shown. In two Mac checks for this release, the program in a hidden window could not finish sending 64,000 lines within the ten-second limit. The previous 3.0.7 update does the same; this release didn't cause it."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. In one of five Mac checks for this release, the program in a hidden window could not finish sending 64,000 lines within ten seconds; a further diagnostic retry also failed. The previous 3.0.7 update had the same problem."
                 },
                 {
                   "text": "Windows: when a member's window ends by itself, the chief's note may say only that the window is gone and how to resume the task, without the window's exit code and its last screen."
@@ -2420,7 +2595,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back."
                 },
                 {
-                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. An answer to a moved task's question can go to its old window and remain undelivered."
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. For questions recorded before this release, an answer to a moved task's question can still go to its old window and remain undelivered."
                 },
                 {
                   "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
@@ -2501,7 +2676,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A slow disk write can delay board updates, message deliveries and timers while the daemon waits for the write to finish."
                 },
                 {
-                  "text": "A team's lamp follows the window of whichever of its member or backup is speaking for the team, so it can miss that the other is at work. Open the team to see each one's status. A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
+                  "text": "A member waiting for an edit while its backup works may not appear in a folded group's attention marks."
                 },
                 {
                   "text": "When a task goes straight to a backup, its sidebar can name the backup without saying why; the reason is in the chief's note."
@@ -2519,43 +2694,62 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "On Windows, History can still show a synthesized italic if the chosen font has no italic face."
                 },
                 {
-                  "text": "No real-model harness checks were run for this alpha. An earlier 3.0.7 update’s Mac checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.13.4 and Muse Code 1.4.23-R8977.1; its Windows checks used Claude Code 2.1.326, Codex 0.169.0, Pi 1.5.2, Devin 3000.12.57 and Muse Code 1.4.20-R8619.1."
+                  "text": "After a restart, or a project Close and Resume, a task question asked in this version that nobody answered gives the chief one note and no later reminder. The task waits until the chief acts. A note returning an answer can say the task is working while it waits; the suggested commands work. If the question was waiting for a person's approval, its replacement note waits for approval too."
                 },
                 {
-                  "text": "Backup handoffs were checked two updates ago but were not run again for this alpha."
+                  "text": "A backup can say \"Takes its member's tasks\" while its member's model is only busy, or while another free member of the same tier would be chosen first."
                 },
                 {
-                  "text": "Sending a tell to an active agent, Pause, Resume after a quit, Finish and “Do with your own hands” were not run again on real harnesses."
+                  "text": "A member with no backup that is both on Vacation and out shows only \"On Vacation\"."
                 },
                 {
-                  "text": "A physical keyboard was not used for this alpha’s checks."
+                  "text": "An old turn's question that arrives after a new task is handed to the window can be mistaken for the new task's question. For Codex and Pi, that handover can be recorded before the new task's turn actually starts."
                 },
                 {
-                  "text": "The native Mac and Windows windows were checked for link hover, but links were not clicked in them; opening and the modifier keys were checked in page tests with a simulated app connection."
+                  "text": "A window left open after its task is accepted cannot ask another question until it is given another brief."
                 },
                 {
-                  "text": "The task sidebar was not checked with a screen reader or at widths under 540 pixels."
+                  "text": "Questions recorded before this release keep their older delivery path. After a task has moved, restarting with an older answer in flight can put the answer back at the former window. An older question in flight during a restart or reopen can remain admitted. Removing a paused member can cancel an older answer instead of carrying it to the next window."
                 },
                 {
-                  "text": "Terminal selection over colored text, the full 256-color and truecolor ranges, and inverted dim text were not audited for this alpha."
+                  "text": "Opening a project can time out if many slow model checks run one after another."
                 },
                 {
-                  "text": "Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
+                  "text": "A task drawer can say \"its member\" when it is describing a backup. The backup help text does not describe every exception for named, follow-up, paused or Vacation tasks."
                 },
                 {
-                  "text": "No long run was made for this alpha."
+                  "text": "A task once stayed queued after a backup was added; this could not be reproduced on either of two previous 3.0.7 updates, and its cause is unknown."
                 },
                 {
-                  "text": "The real Windows clipboard was not used for this alpha’s checks. Two updates ago, the Windows Ctrl+V check used a test paste event."
+                  "text": "No real-model harness runs were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harnesses installed on the test Mac were not live-tested for this update."
                 },
                 {
-                  "text": "Windows font synthesis was not audited for this alpha."
+                  "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update."
+                },
+                {
+                  "text": "The 30-minute and two-hour question reminders were checked with a simulated clock, not by waiting those intervals in real time."
+                },
+                {
+                  "text": "The check does not report using a physical keyboard, a screen reader or narrow task-drawer widths."
+                },
+                {
+                  "text": "Link clicking, terminal color and font edge cases were not checked for this release."
+                },
+                {
+                  "text": "No long run was made for this update."
+                },
+                {
+                  "text": "The Windows staff pictures used simulated board data."
+                },
+                {
+                  "text": "The check does not report using the real Windows clipboard."
                 }
               ]
             }
           }
         }
-      ]
+      ],
+      "coverage": "No live harness checks for this update."
     }
   ],
   "harnesses": [
@@ -2970,6 +3164,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
       kids = status === 'unmeasured'
         ? [el('span', { 'class': 't', text: WORDS[status] })]
         : [el('span', { 'class': 'sr', text: WORDS[status] + ': ' }), el('span', { 'class': 't', text: range(data) })];
+      if (str(release.coverage)) kids.push(el('span', { 'class': 'coverage', text: str(release.coverage) }));
       (Array.isArray(data.issues) ? data.issues : []).forEach(function(issue){
         if (!issue || !str(issue.text)) return;
         var n = issues.number(issue);

@@ -149,7 +149,7 @@ changes on its own clock, not the story's.
 
   ```
   updated
-  releases[]   version, channel (Stable, Alpha, Next), harnesses[]
+  releases[]   version, channel (Stable, Alpha, Next), coverage? (shown in each cell), harnesses[]
     harnesses[]   id, platforms { mac, windows }
       platforms.*   from, to, status, issues? [{ text, state? }]   status: supported, issues, newer,
                                                                   unsupported, unmeasured
@@ -178,7 +178,9 @@ changes on its own clock, not the story's.
   finish suite, 2 of 2 on each, which no task is on. A line the notes put under "Not checked for this
   release" is put on the cell it names, as the cell has no other place for it, and a line that names a
   build by its stage ("an alpha.1 conversation") says the build instead, as the check fails on a stage in
-  the data. A line that names no harness is put on every cell of the release.
+  the data. A line that names no harness is put on every cell of the release. An optional `coverage`
+  note is shown in each cell when a release has no new live-harness checks, so its earlier tested range
+  is not mistaken for a check of that release.
 - **Copy.** Releases are named by the version and the channel the app's updater names (`Stable`,
   `Alpha`), never by their stage, as everywhere on this site: the check fails on `alpha.N`, `rc.N` or
   "pre-release" in the data or on the page. "Not yet measured" is said where no figure exists, never a
