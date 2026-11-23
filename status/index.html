@@ -223,7 +223,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
      that watches each new version). The page below draws the table from it. -->
 <script type="application/json" id="status-data">
 {
-  "updated": "2026-11-22",
+  "updated": "2026-11-23",
   "releases": [
     {
       "version": "3.0.5",
@@ -427,7 +427,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Claude Code: ConsensFlow answers the added-folder question only for its own folders. A folder added by your own settings is yours to answer."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. On a loaded Mac, a hidden window can still take in a large flood too slowly. In five paired checks, the previous and current 3.0.7 updates each finished sending 64,000 lines within ten seconds in two of five trials. The cause is found, and a fix follows in the next alpha."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds."
                 },
                 {
                   "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it."
@@ -472,7 +472,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back."
                 },
                 {
-                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. For questions recorded before the preceding 3.0.7 update, an answer to a moved task's question can still go to its old window and remain undelivered."
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. For questions recorded before an earlier 3.0.7 update, an answer to a moved task's question can still go to its old window and remain undelivered."
                 },
                 {
                   "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
@@ -571,13 +571,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A member with no backup that is both on Vacation and out shows only \"On Vacation\"."
                 },
                 {
-                  "text": "An old turn's question that arrives after a new task is handed to the window can be mistaken for the new task's question. For Codex and Pi, that handover can be recorded before the new task's turn actually starts."
-                },
-                {
-                  "text": "A window left open after its task is accepted cannot ask another question until it is given another brief."
-                },
-                {
-                  "text": "Questions recorded before the preceding 3.0.7 update keep their older delivery path. After a task has moved, restarting with an older answer in flight can put the answer back at the former window. An older question in flight during a restart or reopen can remain admitted. Removing a paused member can cancel an older answer instead of carrying it to the next window."
+                  "text": "Questions recorded before an earlier 3.0.7 update keep their older delivery path. After a task has moved, restarting with an older answer in flight can put the answer back at the former window. An older question in flight during a restart or reopen can remain admitted. Removing a paused member can cancel an older answer instead of carrying it to the next window."
                 },
                 {
                   "text": "Opening a project can time out if many slow model checks run one after another."
@@ -589,16 +583,25 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A task once stayed queued after a backup was added; this could not be reproduced on either of two previous 3.0.7 updates, and its cause is unknown."
                 },
                 {
-                  "text": "Resume words can still wait behind a window's background work. The board now says what they wait for; a change to deliver them sooner follows later."
+                  "text": "Resume words can still wait behind a window's background work. On a Mac, a Claude Code window can take them after an interrupted tool use once the interrupt has settled, while its background agent runs. Other interrupted turns, shared Claude records, Windows, Codex, Devin and Muse Code can still have to wait. The board says what the words wait for."
                 },
                 {
                   "text": "When a window exits, a finished answer is kept only in the plain case: the task is working, the answer is settled, nothing is running, the member is not held, and no refusal is in view. A Codex turn that hit its count keeps no answer at exit."
                 },
                 {
+                  "text": "A question asked while ConsensFlow's connection to a window is being restored is filed when it is replayed."
+                },
+                {
+                  "text": "A turn whose last words are only \"Ending my turn to wait\" gets no note to go on. Work ended by closing a window gets no such note either."
+                },
+                {
+                  "text": "The app does not yet carry the licence notices of its third-party components. The next alpha adds them for every dependency."
+                },
+                {
                   "text": "No live harness runs or real-model checks were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harness versions installed on the test Mac were not live-tested for this update."
                 },
                 {
-                  "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update. The Mac and Windows resume checks used stand-ins."
+                  "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update."
                 },
                 {
                   "text": "The check did not report a real-time check of the 30-minute and two-hour question reminders."
@@ -656,7 +659,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Claude Code: ConsensFlow answers the added-folder question only for its own folders. A folder added by your own settings is yours to answer."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. On a loaded Mac, a hidden window can still take in a large flood too slowly. In five paired checks, the previous and current 3.0.7 updates each finished sending 64,000 lines within ten seconds in two of five trials. The cause is found, and a fix follows in the next alpha."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds."
                 },
                 {
                   "text": "Windows: when a member's window ends by itself, the chief's note may say only that the window is gone and how to resume the task, without the window's exit code and its last screen."
@@ -704,7 +707,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back."
                 },
                 {
-                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. For questions recorded before the preceding 3.0.7 update, an answer to a moved task's question can still go to its old window and remain undelivered."
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. For questions recorded before an earlier 3.0.7 update, an answer to a moved task's question can still go to its old window and remain undelivered."
                 },
                 {
                   "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
@@ -812,13 +815,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A member with no backup that is both on Vacation and out shows only \"On Vacation\"."
                 },
                 {
-                  "text": "An old turn's question that arrives after a new task is handed to the window can be mistaken for the new task's question. For Codex and Pi, that handover can be recorded before the new task's turn actually starts."
-                },
-                {
-                  "text": "A window left open after its task is accepted cannot ask another question until it is given another brief."
-                },
-                {
-                  "text": "Questions recorded before the preceding 3.0.7 update keep their older delivery path. After a task has moved, restarting with an older answer in flight can put the answer back at the former window. An older question in flight during a restart or reopen can remain admitted. Removing a paused member can cancel an older answer instead of carrying it to the next window."
+                  "text": "Questions recorded before an earlier 3.0.7 update keep their older delivery path. After a task has moved, restarting with an older answer in flight can put the answer back at the former window. An older question in flight during a restart or reopen can remain admitted. Removing a paused member can cancel an older answer instead of carrying it to the next window."
                 },
                 {
                   "text": "Opening a project can time out if many slow model checks run one after another."
@@ -830,16 +827,25 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A task once stayed queued after a backup was added; this could not be reproduced on either of two previous 3.0.7 updates, and its cause is unknown."
                 },
                 {
-                  "text": "Resume words can still wait behind a window's background work. The board now says what they wait for; a change to deliver them sooner follows later."
+                  "text": "Resume words can still wait behind a window's background work. On a Mac, a Claude Code window can take them after an interrupted tool use once the interrupt has settled, while its background agent runs. Other interrupted turns, shared Claude records, Windows, Codex, Devin and Muse Code can still have to wait. The board says what the words wait for."
                 },
                 {
                   "text": "When a window exits, a finished answer is kept only in the plain case: the task is working, the answer is settled, nothing is running, the member is not held, and no refusal is in view. A Codex turn that hit its count keeps no answer at exit."
                 },
                 {
+                  "text": "A question asked while ConsensFlow's connection to a window is being restored is filed when it is replayed."
+                },
+                {
+                  "text": "A turn whose last words are only \"Ending my turn to wait\" gets no note to go on. Work ended by closing a window gets no such note either."
+                },
+                {
+                  "text": "The app does not yet carry the licence notices of its third-party components. The next alpha adds them for every dependency."
+                },
+                {
                   "text": "No live harness runs or real-model checks were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harness versions installed on the test Mac were not live-tested for this update."
                 },
                 {
-                  "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update. The Mac and Windows resume checks used stand-ins."
+                  "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update."
                 },
                 {
                   "text": "The check did not report a real-time check of the 30-minute and two-hour question reminders."
@@ -893,7 +899,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. On a loaded Mac, a hidden window can still take in a large flood too slowly. In five paired checks, the previous and current 3.0.7 updates each finished sending 64,000 lines within ten seconds in two of five trials. The cause is found, and a fix follows in the next alpha."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds."
                 },
                 {
                   "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it."
@@ -941,7 +947,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back."
                 },
                 {
-                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. For questions recorded before the preceding 3.0.7 update, an answer to a moved task's question can still go to its old window and remain undelivered."
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. For questions recorded before an earlier 3.0.7 update, an answer to a moved task's question can still go to its old window and remain undelivered."
                 },
                 {
                   "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
@@ -1055,13 +1061,10 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A member with no backup that is both on Vacation and out shows only \"On Vacation\"."
                 },
                 {
-                  "text": "An old turn's question that arrives after a new task is handed to the window can be mistaken for the new task's question. For Codex and Pi, that handover can be recorded before the new task's turn actually starts."
+                  "text": "Codex and Pi: a task handover can be recorded before the new task's turn actually starts. A question asked in that gap can be filed under the new task."
                 },
                 {
-                  "text": "A window left open after its task is accepted cannot ask another question until it is given another brief."
-                },
-                {
-                  "text": "Questions recorded before the preceding 3.0.7 update keep their older delivery path. After a task has moved, restarting with an older answer in flight can put the answer back at the former window. An older question in flight during a restart or reopen can remain admitted. Removing a paused member can cancel an older answer instead of carrying it to the next window."
+                  "text": "Questions recorded before an earlier 3.0.7 update keep their older delivery path. After a task has moved, restarting with an older answer in flight can put the answer back at the former window. An older question in flight during a restart or reopen can remain admitted. Removing a paused member can cancel an older answer instead of carrying it to the next window."
                 },
                 {
                   "text": "Opening a project can time out if many slow model checks run one after another."
@@ -1073,19 +1076,28 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A task once stayed queued after a backup was added; this could not be reproduced on either of two previous 3.0.7 updates, and its cause is unknown."
                 },
                 {
-                  "text": "Resume words can still wait behind a window's background work. The board now says what they wait for; a change to deliver them sooner follows later."
+                  "text": "Resume words can still wait behind a window's background work. On a Mac, a Claude Code window can take them after an interrupted tool use once the interrupt has settled, while its background agent runs. Other interrupted turns, shared Claude records, Windows, Codex, Devin and Muse Code can still have to wait. The board says what the words wait for."
                 },
                 {
                   "text": "When a window exits, a finished answer is kept only in the plain case: the task is working, the answer is settled, nothing is running, the member is not held, and no refusal is in view. A Codex turn that hit its count keeps no answer at exit."
                 },
                 {
-                  "text": "Codex on a Mac: after a Homebrew update, new Codex windows can fail to open with \"Cannot read native Codex instructions safely\" until macOS finishes its first check of the new program. Run `codex --version` once in a terminal and let it finish; this clears the problem. A fix follows."
+                  "text": "Codex on a Mac: after a Homebrew update, new Codex windows can still fail to open with \"Cannot read native Codex instructions safely\" if macOS's first check of the new program takes longer than both start attempts. The refusal names the possible first-run check; running `codex --version` in a terminal and letting it finish can allow that check to complete. If Codex starts but takes too long to prepare its sessions, the refusal says so instead."
+                },
+                {
+                  "text": "A question asked while ConsensFlow's connection to a window is being restored is filed when it is replayed."
+                },
+                {
+                  "text": "A turn whose last words are only \"Ending my turn to wait\" gets no note to go on. Work ended by closing a window gets no such note either."
+                },
+                {
+                  "text": "The app does not yet carry the licence notices of its third-party components. The next alpha adds them for every dependency."
                 },
                 {
                   "text": "No live harness runs or real-model checks were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harness versions installed on the test Mac were not live-tested for this update."
                 },
                 {
-                  "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update. The Mac and Windows resume checks used stand-ins."
+                  "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update."
                 },
                 {
                   "text": "The check did not report a real-time check of the 30-minute and two-hour question reminders."
@@ -1140,7 +1152,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. On a loaded Mac, a hidden window can still take in a large flood too slowly. In five paired checks, the previous and current 3.0.7 updates each finished sending 64,000 lines within ten seconds in two of five trials. The cause is found, and a fix follows in the next alpha."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds."
                 },
                 {
                   "text": "Windows: when a member's window ends by itself, the chief's note may say only that the window is gone and how to resume the task, without the window's exit code and its last screen."
@@ -1194,7 +1206,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back."
                 },
                 {
-                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. For questions recorded before the preceding 3.0.7 update, an answer to a moved task's question can still go to its old window and remain undelivered."
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. For questions recorded before an earlier 3.0.7 update, an answer to a moved task's question can still go to its old window and remain undelivered."
                 },
                 {
                   "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
@@ -1320,13 +1332,10 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A member with no backup that is both on Vacation and out shows only \"On Vacation\"."
                 },
                 {
-                  "text": "An old turn's question that arrives after a new task is handed to the window can be mistaken for the new task's question. For Codex and Pi, that handover can be recorded before the new task's turn actually starts."
+                  "text": "Codex and Pi: a task handover can be recorded before the new task's turn actually starts. A question asked in that gap can be filed under the new task."
                 },
                 {
-                  "text": "A window left open after its task is accepted cannot ask another question until it is given another brief."
-                },
-                {
-                  "text": "Questions recorded before the preceding 3.0.7 update keep their older delivery path. After a task has moved, restarting with an older answer in flight can put the answer back at the former window. An older question in flight during a restart or reopen can remain admitted. Removing a paused member can cancel an older answer instead of carrying it to the next window."
+                  "text": "Questions recorded before an earlier 3.0.7 update keep their older delivery path. After a task has moved, restarting with an older answer in flight can put the answer back at the former window. An older question in flight during a restart or reopen can remain admitted. Removing a paused member can cancel an older answer instead of carrying it to the next window."
                 },
                 {
                   "text": "Opening a project can time out if many slow model checks run one after another."
@@ -1338,16 +1347,25 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A task once stayed queued after a backup was added; this could not be reproduced on either of two previous 3.0.7 updates, and its cause is unknown."
                 },
                 {
-                  "text": "Resume words can still wait behind a window's background work. The board now says what they wait for; a change to deliver them sooner follows later."
+                  "text": "Resume words can still wait behind a window's background work. On a Mac, a Claude Code window can take them after an interrupted tool use once the interrupt has settled, while its background agent runs. Other interrupted turns, shared Claude records, Windows, Codex, Devin and Muse Code can still have to wait. The board says what the words wait for."
                 },
                 {
                   "text": "When a window exits, a finished answer is kept only in the plain case: the task is working, the answer is settled, nothing is running, the member is not held, and no refusal is in view. A Codex turn that hit its count keeps no answer at exit."
                 },
                 {
+                  "text": "A question asked while ConsensFlow's connection to a window is being restored is filed when it is replayed."
+                },
+                {
+                  "text": "A turn whose last words are only \"Ending my turn to wait\" gets no note to go on. Work ended by closing a window gets no such note either."
+                },
+                {
+                  "text": "The app does not yet carry the licence notices of its third-party components. The next alpha adds them for every dependency."
+                },
+                {
                   "text": "No live harness runs or real-model checks were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harness versions installed on the test Mac were not live-tested for this update."
                 },
                 {
-                  "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update. The Mac and Windows resume checks used stand-ins."
+                  "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update."
                 },
                 {
                   "text": "The check did not report a real-time check of the 30-minute and two-hour question reminders."
@@ -1401,7 +1419,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. On a loaded Mac, a hidden window can still take in a large flood too slowly. In five paired checks, the previous and current 3.0.7 updates each finished sending 64,000 lines within ten seconds in two of five trials. The cause is found, and a fix follows in the next alpha."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds."
                 },
                 {
                   "text": "Pi: if a compaction does not stop when ConsensFlow asks it to at 300 seconds, a task given back to that member meanwhile keeps the window, and its messages wait until you close the window from the board. The task is then paused and the chief is told, and resuming it goes on in a new window on the same conversation."
@@ -1449,7 +1467,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back."
                 },
                 {
-                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. For questions recorded before the preceding 3.0.7 update, an answer to a moved task's question can still go to its old window and remain undelivered."
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. For questions recorded before an earlier 3.0.7 update, an answer to a moved task's question can still go to its old window and remain undelivered."
                 },
                 {
                   "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
@@ -1551,13 +1569,10 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A member with no backup that is both on Vacation and out shows only \"On Vacation\"."
                 },
                 {
-                  "text": "An old turn's question that arrives after a new task is handed to the window can be mistaken for the new task's question. For Codex and Pi, that handover can be recorded before the new task's turn actually starts."
+                  "text": "Codex and Pi: a task handover can be recorded before the new task's turn actually starts. A question asked in that gap can be filed under the new task."
                 },
                 {
-                  "text": "A window left open after its task is accepted cannot ask another question until it is given another brief."
-                },
-                {
-                  "text": "Questions recorded before the preceding 3.0.7 update keep their older delivery path. After a task has moved, restarting with an older answer in flight can put the answer back at the former window. An older question in flight during a restart or reopen can remain admitted. Removing a paused member can cancel an older answer instead of carrying it to the next window."
+                  "text": "Questions recorded before an earlier 3.0.7 update keep their older delivery path. After a task has moved, restarting with an older answer in flight can put the answer back at the former window. An older question in flight during a restart or reopen can remain admitted. Removing a paused member can cancel an older answer instead of carrying it to the next window."
                 },
                 {
                   "text": "Pi's Mac Local Network hint is conditional for some errors; the error may have another cause. A previous loss of Local Network access after an update has not been reproduced or explained."
@@ -1572,16 +1587,25 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A task once stayed queued after a backup was added; this could not be reproduced on either of two previous 3.0.7 updates, and its cause is unknown."
                 },
                 {
-                  "text": "Resume words can still wait behind a window's background work. The board now says what they wait for; a change to deliver them sooner follows later."
+                  "text": "Resume words can still wait behind a window's background work. On a Mac, a Claude Code window can take them after an interrupted tool use once the interrupt has settled, while its background agent runs. Other interrupted turns, shared Claude records, Windows, Codex, Devin and Muse Code can still have to wait. The board says what the words wait for."
                 },
                 {
                   "text": "When a window exits, a finished answer is kept only in the plain case: the task is working, the answer is settled, nothing is running, the member is not held, and no refusal is in view. A Codex turn that hit its count keeps no answer at exit."
                 },
                 {
+                  "text": "A question asked while ConsensFlow's connection to a window is being restored is filed when it is replayed."
+                },
+                {
+                  "text": "A turn whose last words are only \"Ending my turn to wait\" gets no note to go on. Work ended by closing a window gets no such note either."
+                },
+                {
+                  "text": "The app does not yet carry the licence notices of its third-party components. The next alpha adds them for every dependency."
+                },
+                {
                   "text": "No live harness runs or real-model checks were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harness versions installed on the test Mac were not live-tested for this update."
                 },
                 {
-                  "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update. The Mac and Windows resume checks used stand-ins."
+                  "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update."
                 },
                 {
                   "text": "The check did not report a real-time check of the 30-minute and two-hour question reminders."
@@ -1639,7 +1663,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. On a loaded Mac, a hidden window can still take in a large flood too slowly. In five paired checks, the previous and current 3.0.7 updates each finished sending 64,000 lines within ten seconds in two of five trials. The cause is found, and a fix follows in the next alpha."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds."
                 },
                 {
                   "text": "Pi: if a compaction does not stop when ConsensFlow asks it to at 300 seconds, a task given back to that member meanwhile keeps the window, and its messages wait until you close the window from the board. The task is then paused and the chief is told, and resuming it goes on in a new window on the same conversation."
@@ -1690,7 +1714,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back."
                 },
                 {
-                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. For questions recorded before the preceding 3.0.7 update, an answer to a moved task's question can still go to its old window and remain undelivered."
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. For questions recorded before an earlier 3.0.7 update, an answer to a moved task's question can still go to its old window and remain undelivered."
                 },
                 {
                   "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
@@ -1801,13 +1825,10 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A member with no backup that is both on Vacation and out shows only \"On Vacation\"."
                 },
                 {
-                  "text": "An old turn's question that arrives after a new task is handed to the window can be mistaken for the new task's question. For Codex and Pi, that handover can be recorded before the new task's turn actually starts."
+                  "text": "Codex and Pi: a task handover can be recorded before the new task's turn actually starts. A question asked in that gap can be filed under the new task."
                 },
                 {
-                  "text": "A window left open after its task is accepted cannot ask another question until it is given another brief."
-                },
-                {
-                  "text": "Questions recorded before the preceding 3.0.7 update keep their older delivery path. After a task has moved, restarting with an older answer in flight can put the answer back at the former window. An older question in flight during a restart or reopen can remain admitted. Removing a paused member can cancel an older answer instead of carrying it to the next window."
+                  "text": "Questions recorded before an earlier 3.0.7 update keep their older delivery path. After a task has moved, restarting with an older answer in flight can put the answer back at the former window. An older question in flight during a restart or reopen can remain admitted. Removing a paused member can cancel an older answer instead of carrying it to the next window."
                 },
                 {
                   "text": "Opening a project can time out if many slow model checks run one after another."
@@ -1819,16 +1840,25 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A task once stayed queued after a backup was added; this could not be reproduced on either of two previous 3.0.7 updates, and its cause is unknown."
                 },
                 {
-                  "text": "Resume words can still wait behind a window's background work. The board now says what they wait for; a change to deliver them sooner follows later."
+                  "text": "Resume words can still wait behind a window's background work. On a Mac, a Claude Code window can take them after an interrupted tool use once the interrupt has settled, while its background agent runs. Other interrupted turns, shared Claude records, Windows, Codex, Devin and Muse Code can still have to wait. The board says what the words wait for."
                 },
                 {
                   "text": "When a window exits, a finished answer is kept only in the plain case: the task is working, the answer is settled, nothing is running, the member is not held, and no refusal is in view. A Codex turn that hit its count keeps no answer at exit."
                 },
                 {
+                  "text": "A question asked while ConsensFlow's connection to a window is being restored is filed when it is replayed."
+                },
+                {
+                  "text": "A turn whose last words are only \"Ending my turn to wait\" gets no note to go on. Work ended by closing a window gets no such note either."
+                },
+                {
+                  "text": "The app does not yet carry the licence notices of its third-party components. The next alpha adds them for every dependency."
+                },
+                {
                   "text": "No live harness runs or real-model checks were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harness versions installed on the test Mac were not live-tested for this update."
                 },
                 {
-                  "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update. The Mac and Windows resume checks used stand-ins."
+                  "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update."
                 },
                 {
                   "text": "The check did not report a real-time check of the 30-minute and two-hour question reminders."
@@ -1891,7 +1921,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Devin 3000.12: when a Devin member is stopped early in a turn, while Devin is still thinking (a pause, for example), its window reads as working for up to 30 seconds after the message it was given, so what comes next for it, such as the chief's question after a pause, goes in up to 30 seconds late."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. On a loaded Mac, a hidden window can still take in a large flood too slowly. In five paired checks, the previous and current 3.0.7 updates each finished sending 64,000 lines within ten seconds in two of five trials. The cause is found, and a fix follows in the next alpha."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds."
                 },
                 {
                   "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it."
@@ -1936,7 +1966,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back."
                 },
                 {
-                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. For questions recorded before the preceding 3.0.7 update, an answer to a moved task's question can still go to its old window and remain undelivered."
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. For questions recorded before an earlier 3.0.7 update, an answer to a moved task's question can still go to its old window and remain undelivered."
                 },
                 {
                   "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
@@ -2029,13 +2059,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A member with no backup that is both on Vacation and out shows only \"On Vacation\"."
                 },
                 {
-                  "text": "An old turn's question that arrives after a new task is handed to the window can be mistaken for the new task's question. For Codex and Pi, that handover can be recorded before the new task's turn actually starts."
-                },
-                {
-                  "text": "A window left open after its task is accepted cannot ask another question until it is given another brief."
-                },
-                {
-                  "text": "Questions recorded before the preceding 3.0.7 update keep their older delivery path. After a task has moved, restarting with an older answer in flight can put the answer back at the former window. An older question in flight during a restart or reopen can remain admitted. Removing a paused member can cancel an older answer instead of carrying it to the next window."
+                  "text": "Questions recorded before an earlier 3.0.7 update keep their older delivery path. After a task has moved, restarting with an older answer in flight can put the answer back at the former window. An older question in flight during a restart or reopen can remain admitted. Removing a paused member can cancel an older answer instead of carrying it to the next window."
                 },
                 {
                   "text": "Opening a project can time out if many slow model checks run one after another."
@@ -2047,7 +2071,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A task once stayed queued after a backup was added; this could not be reproduced on either of two previous 3.0.7 updates, and its cause is unknown."
                 },
                 {
-                  "text": "Resume words can still wait behind a window's background work. The board now says what they wait for; a change to deliver them sooner follows later."
+                  "text": "Resume words can still wait behind a window's background work. On a Mac, a Claude Code window can take them after an interrupted tool use once the interrupt has settled, while its background agent runs. Other interrupted turns, shared Claude records, Windows, Codex, Devin and Muse Code can still have to wait. The board says what the words wait for."
                 },
                 {
                   "text": "When a window exits, a finished answer is kept only in the plain case: the task is working, the answer is settled, nothing is running, the member is not held, and no refusal is in view. A Codex turn that hit its count keeps no answer at exit."
@@ -2056,10 +2080,19 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Devin: a refusal that leaves its record byte for byte as before is not read as new."
                 },
                 {
+                  "text": "A question asked while ConsensFlow's connection to a window is being restored is filed when it is replayed."
+                },
+                {
+                  "text": "A turn whose last words are only \"Ending my turn to wait\" gets no note to go on. Work ended by closing a window gets no such note either."
+                },
+                {
+                  "text": "The app does not yet carry the licence notices of its third-party components. The next alpha adds them for every dependency."
+                },
+                {
                   "text": "No live harness runs or real-model checks were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harness versions installed on the test Mac were not live-tested for this update."
                 },
                 {
-                  "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update. The Mac and Windows resume checks used stand-ins."
+                  "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update."
                 },
                 {
                   "text": "The check did not report a real-time check of the 30-minute and two-hour question reminders."
@@ -2120,7 +2153,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Devin 3000.12: when a Devin member is stopped early in a turn, while Devin is still thinking (a pause, for example), its window reads as working for up to 30 seconds after the message it was given, so what comes next for it, such as the chief's question after a pause, goes in up to 30 seconds late."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. On a loaded Mac, a hidden window can still take in a large flood too slowly. In five paired checks, the previous and current 3.0.7 updates each finished sending 64,000 lines within ten seconds in two of five trials. The cause is found, and a fix follows in the next alpha."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds."
                 },
                 {
                   "text": "Windows: when a member's window ends by itself, the chief's note may say only that the window is gone and how to resume the task, without the window's exit code and its last screen."
@@ -2171,7 +2204,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back."
                 },
                 {
-                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. For questions recorded before the preceding 3.0.7 update, an answer to a moved task's question can still go to its old window and remain undelivered."
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. For questions recorded before an earlier 3.0.7 update, an answer to a moved task's question can still go to its old window and remain undelivered."
                 },
                 {
                   "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
@@ -2270,13 +2303,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A member with no backup that is both on Vacation and out shows only \"On Vacation\"."
                 },
                 {
-                  "text": "An old turn's question that arrives after a new task is handed to the window can be mistaken for the new task's question. For Codex and Pi, that handover can be recorded before the new task's turn actually starts."
-                },
-                {
-                  "text": "A window left open after its task is accepted cannot ask another question until it is given another brief."
-                },
-                {
-                  "text": "Questions recorded before the preceding 3.0.7 update keep their older delivery path. After a task has moved, restarting with an older answer in flight can put the answer back at the former window. An older question in flight during a restart or reopen can remain admitted. Removing a paused member can cancel an older answer instead of carrying it to the next window."
+                  "text": "Questions recorded before an earlier 3.0.7 update keep their older delivery path. After a task has moved, restarting with an older answer in flight can put the answer back at the former window. An older question in flight during a restart or reopen can remain admitted. Removing a paused member can cancel an older answer instead of carrying it to the next window."
                 },
                 {
                   "text": "Opening a project can time out if many slow model checks run one after another."
@@ -2288,7 +2315,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A task once stayed queued after a backup was added; this could not be reproduced on either of two previous 3.0.7 updates, and its cause is unknown."
                 },
                 {
-                  "text": "Resume words can still wait behind a window's background work. The board now says what they wait for; a change to deliver them sooner follows later."
+                  "text": "Resume words can still wait behind a window's background work. On a Mac, a Claude Code window can take them after an interrupted tool use once the interrupt has settled, while its background agent runs. Other interrupted turns, shared Claude records, Windows, Codex, Devin and Muse Code can still have to wait. The board says what the words wait for."
                 },
                 {
                   "text": "When a window exits, a finished answer is kept only in the plain case: the task is working, the answer is settled, nothing is running, the member is not held, and no refusal is in view. A Codex turn that hit its count keeps no answer at exit."
@@ -2297,10 +2324,19 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Devin: a refusal that leaves its record byte for byte as before is not read as new."
                 },
                 {
+                  "text": "A question asked while ConsensFlow's connection to a window is being restored is filed when it is replayed."
+                },
+                {
+                  "text": "A turn whose last words are only \"Ending my turn to wait\" gets no note to go on. Work ended by closing a window gets no such note either."
+                },
+                {
+                  "text": "The app does not yet carry the licence notices of its third-party components. The next alpha adds them for every dependency."
+                },
+                {
                   "text": "No live harness runs or real-model checks were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harness versions installed on the test Mac were not live-tested for this update."
                 },
                 {
-                  "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update. The Mac and Windows resume checks used stand-ins."
+                  "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update."
                 },
                 {
                   "text": "The check did not report a real-time check of the 30-minute and two-hour question reminders."
@@ -2354,7 +2390,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. On a loaded Mac, a hidden window can still take in a large flood too slowly. In five paired checks, the previous and current 3.0.7 updates each finished sending 64,000 lines within ten seconds in two of five trials. The cause is found, and a fix follows in the next alpha."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds."
                 },
                 {
                   "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it."
@@ -2399,7 +2435,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back."
                 },
                 {
-                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. For questions recorded before the preceding 3.0.7 update, an answer to a moved task's question can still go to its old window and remain undelivered."
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. For questions recorded before an earlier 3.0.7 update, an answer to a moved task's question can still go to its old window and remain undelivered."
                 },
                 {
                   "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
@@ -2498,13 +2534,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A member with no backup that is both on Vacation and out shows only \"On Vacation\"."
                 },
                 {
-                  "text": "An old turn's question that arrives after a new task is handed to the window can be mistaken for the new task's question. For Codex and Pi, that handover can be recorded before the new task's turn actually starts."
-                },
-                {
-                  "text": "A window left open after its task is accepted cannot ask another question until it is given another brief."
-                },
-                {
-                  "text": "Questions recorded before the preceding 3.0.7 update keep their older delivery path. After a task has moved, restarting with an older answer in flight can put the answer back at the former window. An older question in flight during a restart or reopen can remain admitted. Removing a paused member can cancel an older answer instead of carrying it to the next window."
+                  "text": "Questions recorded before an earlier 3.0.7 update keep their older delivery path. After a task has moved, restarting with an older answer in flight can put the answer back at the former window. An older question in flight during a restart or reopen can remain admitted. Removing a paused member can cancel an older answer instead of carrying it to the next window."
                 },
                 {
                   "text": "Opening a project can time out if many slow model checks run one after another."
@@ -2516,16 +2546,25 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A task once stayed queued after a backup was added; this could not be reproduced on either of two previous 3.0.7 updates, and its cause is unknown."
                 },
                 {
-                  "text": "Resume words can still wait behind a window's background work. The board now says what they wait for; a change to deliver them sooner follows later."
+                  "text": "Resume words can still wait behind a window's background work. On a Mac, a Claude Code window can take them after an interrupted tool use once the interrupt has settled, while its background agent runs. Other interrupted turns, shared Claude records, Windows, Codex, Devin and Muse Code can still have to wait. The board says what the words wait for."
                 },
                 {
                   "text": "When a window exits, a finished answer is kept only in the plain case: the task is working, the answer is settled, nothing is running, the member is not held, and no refusal is in view. A Codex turn that hit its count keeps no answer at exit."
                 },
                 {
+                  "text": "A question asked while ConsensFlow's connection to a window is being restored is filed when it is replayed."
+                },
+                {
+                  "text": "A turn whose last words are only \"Ending my turn to wait\" gets no note to go on. Work ended by closing a window gets no such note either."
+                },
+                {
+                  "text": "The app does not yet carry the licence notices of its third-party components. The next alpha adds them for every dependency."
+                },
+                {
                   "text": "No live harness runs or real-model checks were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harness versions installed on the test Mac were not live-tested for this update."
                 },
                 {
-                  "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update. The Mac and Windows resume checks used stand-ins."
+                  "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update."
                 },
                 {
                   "text": "The check did not report a real-time check of the 30-minute and two-hour question reminders."
@@ -2580,7 +2619,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. On a loaded Mac, a hidden window can still take in a large flood too slowly. In five paired checks, the previous and current 3.0.7 updates each finished sending 64,000 lines within ten seconds in two of five trials. The cause is found, and a fix follows in the next alpha."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds."
                 },
                 {
                   "text": "Windows: when a member's window ends by itself, the chief's note may say only that the window is gone and how to resume the task, without the window's exit code and its last screen."
@@ -2631,7 +2670,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Backups: after a restart, a task that returned to the board can show a second handover note. A backup can be given a task at the very moment its member's quota comes back."
                 },
                 {
-                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. For questions recorded before the preceding 3.0.7 update, an answer to a moved task's question can still go to its old window and remain undelivered."
+                  "text": "Backups: if you reopened the old window and it is already mid-turn when a task moves, that turn can finish in the old window. For questions recorded before an earlier 3.0.7 update, an answer to a moved task's question can still go to its old window and remain undelivered."
                 },
                 {
                   "text": "Backups: a busy model's spent tries are forgotten after a restart, so it can be tried again before the task moves."
@@ -2739,13 +2778,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A member with no backup that is both on Vacation and out shows only \"On Vacation\"."
                 },
                 {
-                  "text": "An old turn's question that arrives after a new task is handed to the window can be mistaken for the new task's question. For Codex and Pi, that handover can be recorded before the new task's turn actually starts."
-                },
-                {
-                  "text": "A window left open after its task is accepted cannot ask another question until it is given another brief."
-                },
-                {
-                  "text": "Questions recorded before the preceding 3.0.7 update keep their older delivery path. After a task has moved, restarting with an older answer in flight can put the answer back at the former window. An older question in flight during a restart or reopen can remain admitted. Removing a paused member can cancel an older answer instead of carrying it to the next window."
+                  "text": "Questions recorded before an earlier 3.0.7 update keep their older delivery path. After a task has moved, restarting with an older answer in flight can put the answer back at the former window. An older question in flight during a restart or reopen can remain admitted. Removing a paused member can cancel an older answer instead of carrying it to the next window."
                 },
                 {
                   "text": "Opening a project can time out if many slow model checks run one after another."
@@ -2757,16 +2790,25 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A task once stayed queued after a backup was added; this could not be reproduced on either of two previous 3.0.7 updates, and its cause is unknown."
                 },
                 {
-                  "text": "Resume words can still wait behind a window's background work. The board now says what they wait for; a change to deliver them sooner follows later."
+                  "text": "Resume words can still wait behind a window's background work. On a Mac, a Claude Code window can take them after an interrupted tool use once the interrupt has settled, while its background agent runs. Other interrupted turns, shared Claude records, Windows, Codex, Devin and Muse Code can still have to wait. The board says what the words wait for."
                 },
                 {
                   "text": "When a window exits, a finished answer is kept only in the plain case: the task is working, the answer is settled, nothing is running, the member is not held, and no refusal is in view. A Codex turn that hit its count keeps no answer at exit."
                 },
                 {
+                  "text": "A question asked while ConsensFlow's connection to a window is being restored is filed when it is replayed."
+                },
+                {
+                  "text": "A turn whose last words are only \"Ending my turn to wait\" gets no note to go on. Work ended by closing a window gets no such note either."
+                },
+                {
+                  "text": "The app does not yet carry the licence notices of its third-party components. The next alpha adds them for every dependency."
+                },
+                {
                   "text": "No live harness runs or real-model checks were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harness versions installed on the test Mac were not live-tested for this update."
                 },
                 {
-                  "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update. The Mac and Windows resume checks used stand-ins."
+                  "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update."
                 },
                 {
                   "text": "The check did not report a real-time check of the 30-minute and two-hour question reminders."
