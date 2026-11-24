@@ -223,7 +223,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
      that watches each new version). The page below draws the table from it. -->
 <script type="application/json" id="status-data">
 {
-  "updated": "2026-11-23",
+  "updated": "2026-11-24",
   "releases": [
     {
       "version": "3.0.5",
@@ -427,7 +427,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Claude Code: ConsensFlow answers the added-folder question only for its own folders. A folder added by your own settings is yours to answer."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds. In the check for this update, on a Mac under load, it finished within ten seconds in three of five trials, and the update before it, run the same way, in none; two trials read 17,000 and 9,000 lines."
                 },
                 {
                   "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it."
@@ -526,9 +526,6 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "While one window's program is starting, reads and controls of other windows must wait for that launch. A slow launch can delay their updates."
                 },
                 {
-                  "text": "The trace in events.jsonl can contain a line for a ledger event that was later rolled back, so a line there alone does not prove the event committed."
-                },
-                {
                   "text": "Claude Code, Codex, Pi and Muse Code: if a first model call lasts over two minutes and the window's screen stays quiet, ConsensFlow can pause the task as if its turn had never begun. This is read from the code; it has not been seen on a real board."
                 },
                 {
@@ -595,10 +592,19 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A turn whose last words are only \"Ending my turn to wait\" gets no note to go on. Work ended by closing a window gets no such note either."
                 },
                 {
-                  "text": "The app does not yet carry the licence notices of its third-party components. The next alpha adds them for every dependency."
+                  "text": "Mac, Local Network: the relaunch through macOS's launcher acts only from the update after this one; the update from the one before uses the older relaunch, and a Mac may need Local Network allowed again after it. The relaunch through the launcher, and whether it keeps the decision, has not been seen in a real update, and a loss of Local Network access after an update has not been explained. The notice shows once per version, on macOS 15 and later, only on a home used before. If the helper is killed, open ConsensFlow from the Finder."
                 },
                 {
-                  "text": "No live harness runs or real-model checks were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harness versions installed on the test Mac were not live-tested for this update."
+                  "text": "Admin, Harnesses shows the command that updates a harness for you to copy and run yourself; the section does not run it or install anything."
+                },
+                {
+                  "text": "A cancel that meets a full disk can leave its task cancelled with its holding's end still open."
+                },
+                {
+                  "text": "The app does not yet carry the licence notices of its third-party components."
+                },
+                {
+                  "text": "No live harness runs or real-model checks were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harness versions installed on the test Mac were not live-tested for this update. The Harnesses screens were checked with stand-in harnesses."
                 },
                 {
                   "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update."
@@ -613,10 +619,16 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Link clicking, terminal color and font edge cases were not checked for this update."
                 },
                 {
+                  "text": "This update was not opened on a copy of a real ledger."
+                },
+                {
                   "text": "No long run was made for this update."
                 },
                 {
-                  "text": "The check did not report a check of the actual macOS Local Network permission prompt or whether permission is retained across an update."
+                  "text": "The normal in-app update through the relaunch helper, and the Local Network permission after it, were not checked: the helper was run on its own against a packaged app, and the update smokes restart the app directly."
+                },
+                {
+                  "text": "The Local Network notice's Settings button was opened on macOS 27 only, not on macOS 15 or 26."
                 },
                 {
                   "text": "The Mac update tests skipped the Node fallback because the starting apps did not ship Node. Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
@@ -659,7 +671,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Claude Code: ConsensFlow answers the added-folder question only for its own folders. A folder added by your own settings is yours to answer."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds. In the check for this update, on a Mac under load, it finished within ten seconds in three of five trials, and the update before it, run the same way, in none; two trials read 17,000 and 9,000 lines."
                 },
                 {
                   "text": "Windows: when a member's window ends by itself, the chief's note may say only that the window is gone and how to resume the task, without the window's exit code and its last screen."
@@ -764,9 +776,6 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "While one window's program is starting, reads and controls of other windows must wait for that launch. A slow launch can delay their updates."
                 },
                 {
-                  "text": "The trace in events.jsonl can contain a line for a ledger event that was later rolled back, so a line there alone does not prove the event committed."
-                },
-                {
                   "text": "Claude Code, Codex, Pi and Muse Code: if a first model call lasts over two minutes and the window's screen stays quiet, ConsensFlow can pause the task as if its turn had never begun. This is read from the code; it has not been seen on a real board."
                 },
                 {
@@ -839,10 +848,16 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A turn whose last words are only \"Ending my turn to wait\" gets no note to go on. Work ended by closing a window gets no such note either."
                 },
                 {
-                  "text": "The app does not yet carry the licence notices of its third-party components. The next alpha adds them for every dependency."
+                  "text": "Admin, Harnesses shows the command that updates a harness for you to copy and run yourself; the section does not run it or install anything."
                 },
                 {
-                  "text": "No live harness runs or real-model checks were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harness versions installed on the test Mac were not live-tested for this update."
+                  "text": "A cancel that meets a full disk can leave its task cancelled with its holding's end still open."
+                },
+                {
+                  "text": "The app does not yet carry the licence notices of its third-party components."
+                },
+                {
+                  "text": "No live harness runs or real-model checks were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harness versions installed on the test Mac were not live-tested for this update. The Harnesses screens were checked with stand-in harnesses."
                 },
                 {
                   "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update."
@@ -855,6 +870,9 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                 },
                 {
                   "text": "Link clicking, terminal color and font edge cases were not checked for this update."
+                },
+                {
+                  "text": "This update was not opened on a copy of a real ledger."
                 },
                 {
                   "text": "No long run was made for this update."
@@ -899,7 +917,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds. In the check for this update, on a Mac under load, it finished within ten seconds in three of five trials, and the update before it, run the same way, in none; two trials read 17,000 and 9,000 lines."
                 },
                 {
                   "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it."
@@ -1004,9 +1022,6 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "While one window's program is starting, reads and controls of other windows must wait for that launch. A slow launch can delay their updates."
                 },
                 {
-                  "text": "The trace in events.jsonl can contain a line for a ledger event that was later rolled back, so a line there alone does not prove the event committed."
-                },
-                {
                   "text": "Claude Code, Codex, Pi and Muse Code: if a first model call lasts over two minutes and the window's screen stays quiet, ConsensFlow can pause the task as if its turn had never begun. This is read from the code; it has not been seen on a real board."
                 },
                 {
@@ -1091,10 +1106,19 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A turn whose last words are only \"Ending my turn to wait\" gets no note to go on. Work ended by closing a window gets no such note either."
                 },
                 {
-                  "text": "The app does not yet carry the licence notices of its third-party components. The next alpha adds them for every dependency."
+                  "text": "Mac, Local Network: the relaunch through macOS's launcher acts only from the update after this one; the update from the one before uses the older relaunch, and a Mac may need Local Network allowed again after it. The relaunch through the launcher, and whether it keeps the decision, has not been seen in a real update, and a loss of Local Network access after an update has not been explained. The notice shows once per version, on macOS 15 and later, only on a home used before. If the helper is killed, open ConsensFlow from the Finder."
                 },
                 {
-                  "text": "No live harness runs or real-model checks were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harness versions installed on the test Mac were not live-tested for this update."
+                  "text": "Admin, Harnesses shows the command that updates a harness for you to copy and run yourself; the section does not run it or install anything."
+                },
+                {
+                  "text": "A cancel that meets a full disk can leave its task cancelled with its holding's end still open."
+                },
+                {
+                  "text": "The app does not yet carry the licence notices of its third-party components."
+                },
+                {
+                  "text": "No live harness runs or real-model checks were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harness versions installed on the test Mac were not live-tested for this update. The Harnesses screens were checked with stand-in harnesses."
                 },
                 {
                   "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update."
@@ -1109,10 +1133,16 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Link clicking, terminal color and font edge cases were not checked for this update."
                 },
                 {
+                  "text": "This update was not opened on a copy of a real ledger."
+                },
+                {
                   "text": "No long run was made for this update."
                 },
                 {
-                  "text": "The check did not report a check of the actual macOS Local Network permission prompt or whether permission is retained across an update."
+                  "text": "The normal in-app update through the relaunch helper, and the Local Network permission after it, were not checked: the helper was run on its own against a packaged app, and the update smokes restart the app directly."
+                },
+                {
+                  "text": "The Local Network notice's Settings button was opened on macOS 27 only, not on macOS 15 or 26."
                 },
                 {
                   "text": "The Mac update tests skipped the Node fallback because the starting apps did not ship Node. Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
@@ -1152,7 +1182,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds. In the check for this update, on a Mac under load, it finished within ten seconds in three of five trials, and the update before it, run the same way, in none; two trials read 17,000 and 9,000 lines."
                 },
                 {
                   "text": "Windows: when a member's window ends by itself, the chief's note may say only that the window is gone and how to resume the task, without the window's exit code and its last screen."
@@ -1266,9 +1296,6 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "While one window's program is starting, reads and controls of other windows must wait for that launch. A slow launch can delay their updates."
                 },
                 {
-                  "text": "The trace in events.jsonl can contain a line for a ledger event that was later rolled back, so a line there alone does not prove the event committed."
-                },
-                {
                   "text": "Claude Code, Codex, Pi and Muse Code: if a first model call lasts over two minutes and the window's screen stays quiet, ConsensFlow can pause the task as if its turn had never begun. This is read from the code; it has not been seen on a real board."
                 },
                 {
@@ -1359,10 +1386,16 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A turn whose last words are only \"Ending my turn to wait\" gets no note to go on. Work ended by closing a window gets no such note either."
                 },
                 {
-                  "text": "The app does not yet carry the licence notices of its third-party components. The next alpha adds them for every dependency."
+                  "text": "Admin, Harnesses shows the command that updates a harness for you to copy and run yourself; the section does not run it or install anything."
                 },
                 {
-                  "text": "No live harness runs or real-model checks were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harness versions installed on the test Mac were not live-tested for this update."
+                  "text": "A cancel that meets a full disk can leave its task cancelled with its holding's end still open."
+                },
+                {
+                  "text": "The app does not yet carry the licence notices of its third-party components."
+                },
+                {
+                  "text": "No live harness runs or real-model checks were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harness versions installed on the test Mac were not live-tested for this update. The Harnesses screens were checked with stand-in harnesses."
                 },
                 {
                   "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update."
@@ -1375,6 +1408,9 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                 },
                 {
                   "text": "Link clicking, terminal color and font edge cases were not checked for this update."
+                },
+                {
+                  "text": "This update was not opened on a copy of a real ledger."
                 },
                 {
                   "text": "No long run was made for this update."
@@ -1419,7 +1455,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds. In the check for this update, on a Mac under load, it finished within ten seconds in three of five trials, and the update before it, run the same way, in none; two trials read 17,000 and 9,000 lines."
                 },
                 {
                   "text": "Pi: if a compaction does not stop when ConsensFlow asks it to at 300 seconds, a task given back to that member meanwhile keeps the window, and its messages wait until you close the window from the board. The task is then paused and the chief is told, and resuming it goes on in a new window on the same conversation."
@@ -1524,9 +1560,6 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "While one window's program is starting, reads and controls of other windows must wait for that launch. A slow launch can delay their updates."
                 },
                 {
-                  "text": "The trace in events.jsonl can contain a line for a ledger event that was later rolled back, so a line there alone does not prove the event committed."
-                },
-                {
                   "text": "Claude Code, Codex, Pi and Muse Code: if a first model call lasts over two minutes and the window's screen stays quiet, ConsensFlow can pause the task as if its turn had never begun. This is read from the code; it has not been seen on a real board."
                 },
                 {
@@ -1575,7 +1608,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Questions recorded before an earlier 3.0.7 update keep their older delivery path. After a task has moved, restarting with an older answer in flight can put the answer back at the former window. An older question in flight during a restart or reopen can remain admitted. Removing a paused member can cancel an older answer instead of carrying it to the next window."
                 },
                 {
-                  "text": "Pi's Mac Local Network hint is conditional for some errors; the error may have another cause. A previous loss of Local Network access after an update has not been reproduced or explained."
+                  "text": "Pi's Mac Local Network hint is conditional for some errors; the error may have another cause."
                 },
                 {
                   "text": "Opening a project can time out if many slow model checks run one after another."
@@ -1599,10 +1632,19 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A turn whose last words are only \"Ending my turn to wait\" gets no note to go on. Work ended by closing a window gets no such note either."
                 },
                 {
-                  "text": "The app does not yet carry the licence notices of its third-party components. The next alpha adds them for every dependency."
+                  "text": "Mac, Local Network: the relaunch through macOS's launcher acts only from the update after this one; the update from the one before uses the older relaunch, and a Mac may need Local Network allowed again after it. The relaunch through the launcher, and whether it keeps the decision, has not been seen in a real update, and a loss of Local Network access after an update has not been explained. The notice shows once per version, on macOS 15 and later, only on a home used before. If the helper is killed, open ConsensFlow from the Finder."
                 },
                 {
-                  "text": "No live harness runs or real-model checks were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harness versions installed on the test Mac were not live-tested for this update."
+                  "text": "Admin, Harnesses shows the command that updates a harness for you to copy and run yourself; the section does not run it or install anything."
+                },
+                {
+                  "text": "A cancel that meets a full disk can leave its task cancelled with its holding's end still open."
+                },
+                {
+                  "text": "The app does not yet carry the licence notices of its third-party components."
+                },
+                {
+                  "text": "No live harness runs or real-model checks were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harness versions installed on the test Mac were not live-tested for this update. The Harnesses screens were checked with stand-in harnesses."
                 },
                 {
                   "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update."
@@ -1617,10 +1659,16 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Link clicking, terminal color and font edge cases were not checked for this update."
                 },
                 {
+                  "text": "This update was not opened on a copy of a real ledger."
+                },
+                {
                   "text": "No long run was made for this update."
                 },
                 {
-                  "text": "The check did not report a check of the actual macOS Local Network permission prompt or whether permission is retained across an update."
+                  "text": "The normal in-app update through the relaunch helper, and the Local Network permission after it, were not checked: the helper was run on its own against a packaged app, and the update smokes restart the app directly."
+                },
+                {
+                  "text": "The Local Network notice's Settings button was opened on macOS 27 only, not on macOS 15 or 26."
                 },
                 {
                   "text": "The Mac update tests skipped the Node fallback because the starting apps did not ship Node. Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
@@ -1663,7 +1711,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds. In the check for this update, on a Mac under load, it finished within ten seconds in three of five trials, and the update before it, run the same way, in none; two trials read 17,000 and 9,000 lines."
                 },
                 {
                   "text": "Pi: if a compaction does not stop when ConsensFlow asks it to at 300 seconds, a task given back to that member meanwhile keeps the window, and its messages wait until you close the window from the board. The task is then paused and the chief is told, and resuming it goes on in a new window on the same conversation."
@@ -1774,9 +1822,6 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "While one window's program is starting, reads and controls of other windows must wait for that launch. A slow launch can delay their updates."
                 },
                 {
-                  "text": "The trace in events.jsonl can contain a line for a ledger event that was later rolled back, so a line there alone does not prove the event committed."
-                },
-                {
                   "text": "Claude Code, Codex, Pi and Muse Code: if a first model call lasts over two minutes and the window's screen stays quiet, ConsensFlow can pause the task as if its turn had never begun. This is read from the code; it has not been seen on a real board."
                 },
                 {
@@ -1852,10 +1897,16 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A turn whose last words are only \"Ending my turn to wait\" gets no note to go on. Work ended by closing a window gets no such note either."
                 },
                 {
-                  "text": "The app does not yet carry the licence notices of its third-party components. The next alpha adds them for every dependency."
+                  "text": "Admin, Harnesses shows the command that updates a harness for you to copy and run yourself; the section does not run it or install anything."
                 },
                 {
-                  "text": "No live harness runs or real-model checks were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harness versions installed on the test Mac were not live-tested for this update."
+                  "text": "A cancel that meets a full disk can leave its task cancelled with its holding's end still open."
+                },
+                {
+                  "text": "The app does not yet carry the licence notices of its third-party components."
+                },
+                {
+                  "text": "No live harness runs or real-model checks were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harness versions installed on the test Mac were not live-tested for this update. The Harnesses screens were checked with stand-in harnesses."
                 },
                 {
                   "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update."
@@ -1868,6 +1919,9 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                 },
                 {
                   "text": "Link clicking, terminal color and font edge cases were not checked for this update."
+                },
+                {
+                  "text": "This update was not opened on a copy of a real ledger."
                 },
                 {
                   "text": "No long run was made for this update."
@@ -1921,7 +1975,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Devin 3000.12: when a Devin member is stopped early in a turn, while Devin is still thinking (a pause, for example), its window reads as working for up to 30 seconds after the message it was given, so what comes next for it, such as the chief's question after a pause, goes in up to 30 seconds late."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds. In the check for this update, on a Mac under load, it finished within ten seconds in three of five trials, and the update before it, run the same way, in none; two trials read 17,000 and 9,000 lines."
                 },
                 {
                   "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it."
@@ -2020,9 +2074,6 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "While one window's program is starting, reads and controls of other windows must wait for that launch. A slow launch can delay their updates."
                 },
                 {
-                  "text": "The trace in events.jsonl can contain a line for a ledger event that was later rolled back, so a line there alone does not prove the event committed."
-                },
-                {
                   "text": "A long chief role can need several reads, especially with long staff rules or full paths. Each part except the last gives the command for the next."
                 },
                 {
@@ -2086,10 +2137,19 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A turn whose last words are only \"Ending my turn to wait\" gets no note to go on. Work ended by closing a window gets no such note either."
                 },
                 {
-                  "text": "The app does not yet carry the licence notices of its third-party components. The next alpha adds them for every dependency."
+                  "text": "Mac, Local Network: the relaunch through macOS's launcher acts only from the update after this one; the update from the one before uses the older relaunch, and a Mac may need Local Network allowed again after it. The relaunch through the launcher, and whether it keeps the decision, has not been seen in a real update, and a loss of Local Network access after an update has not been explained. The notice shows once per version, on macOS 15 and later, only on a home used before. If the helper is killed, open ConsensFlow from the Finder."
                 },
                 {
-                  "text": "No live harness runs or real-model checks were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harness versions installed on the test Mac were not live-tested for this update."
+                  "text": "Admin, Harnesses shows the command that updates a harness for you to copy and run yourself; the section does not run it or install anything."
+                },
+                {
+                  "text": "A cancel that meets a full disk can leave its task cancelled with its holding's end still open."
+                },
+                {
+                  "text": "The app does not yet carry the licence notices of its third-party components."
+                },
+                {
+                  "text": "No live harness runs or real-model checks were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harness versions installed on the test Mac were not live-tested for this update. The Harnesses screens were checked with stand-in harnesses."
                 },
                 {
                   "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update."
@@ -2104,10 +2164,16 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Link clicking, terminal color and font edge cases were not checked for this update."
                 },
                 {
+                  "text": "This update was not opened on a copy of a real ledger."
+                },
+                {
                   "text": "No long run was made for this update."
                 },
                 {
-                  "text": "The check did not report a check of the actual macOS Local Network permission prompt or whether permission is retained across an update."
+                  "text": "The normal in-app update through the relaunch helper, and the Local Network permission after it, were not checked: the helper was run on its own against a packaged app, and the update smokes restart the app directly."
+                },
+                {
+                  "text": "The Local Network notice's Settings button was opened on macOS 27 only, not on macOS 15 or 26."
                 },
                 {
                   "text": "The Mac update tests skipped the Node fallback because the starting apps did not ship Node. Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
@@ -2153,7 +2219,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Devin 3000.12: when a Devin member is stopped early in a turn, while Devin is still thinking (a pause, for example), its window reads as working for up to 30 seconds after the message it was given, so what comes next for it, such as the chief's question after a pause, goes in up to 30 seconds late."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds. In the check for this update, on a Mac under load, it finished within ten seconds in three of five trials, and the update before it, run the same way, in none; two trials read 17,000 and 9,000 lines."
                 },
                 {
                   "text": "Windows: when a member's window ends by itself, the chief's note may say only that the window is gone and how to resume the task, without the window's exit code and its last screen."
@@ -2258,9 +2324,6 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "While one window's program is starting, reads and controls of other windows must wait for that launch. A slow launch can delay their updates."
                 },
                 {
-                  "text": "The trace in events.jsonl can contain a line for a ledger event that was later rolled back, so a line there alone does not prove the event committed."
-                },
-                {
                   "text": "A long chief role can need several reads, especially with long staff rules or full paths. Each part except the last gives the command for the next."
                 },
                 {
@@ -2330,10 +2393,16 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A turn whose last words are only \"Ending my turn to wait\" gets no note to go on. Work ended by closing a window gets no such note either."
                 },
                 {
-                  "text": "The app does not yet carry the licence notices of its third-party components. The next alpha adds them for every dependency."
+                  "text": "Admin, Harnesses shows the command that updates a harness for you to copy and run yourself; the section does not run it or install anything."
                 },
                 {
-                  "text": "No live harness runs or real-model checks were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harness versions installed on the test Mac were not live-tested for this update."
+                  "text": "A cancel that meets a full disk can leave its task cancelled with its holding's end still open."
+                },
+                {
+                  "text": "The app does not yet carry the licence notices of its third-party components."
+                },
+                {
+                  "text": "No live harness runs or real-model checks were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harness versions installed on the test Mac were not live-tested for this update. The Harnesses screens were checked with stand-in harnesses."
                 },
                 {
                   "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update."
@@ -2346,6 +2415,9 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                 },
                 {
                   "text": "Link clicking, terminal color and font edge cases were not checked for this update."
+                },
+                {
+                  "text": "This update was not opened on a copy of a real ledger."
                 },
                 {
                   "text": "No long run was made for this update."
@@ -2390,7 +2462,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds. In the check for this update, on a Mac under load, it finished within ten seconds in three of five trials, and the update before it, run the same way, in none; two trials read 17,000 and 9,000 lines."
                 },
                 {
                   "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it."
@@ -2489,9 +2561,6 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "While one window's program is starting, reads and controls of other windows must wait for that launch. A slow launch can delay their updates."
                 },
                 {
-                  "text": "The trace in events.jsonl can contain a line for a ledger event that was later rolled back, so a line there alone does not prove the event committed."
-                },
-                {
                   "text": "Claude Code, Codex, Pi and Muse Code: if a first model call lasts over two minutes and the window's screen stays quiet, ConsensFlow can pause the task as if its turn had never begun. This is read from the code; it has not been seen on a real board."
                 },
                 {
@@ -2558,10 +2627,19 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A turn whose last words are only \"Ending my turn to wait\" gets no note to go on. Work ended by closing a window gets no such note either."
                 },
                 {
-                  "text": "The app does not yet carry the licence notices of its third-party components. The next alpha adds them for every dependency."
+                  "text": "Mac, Local Network: the relaunch through macOS's launcher acts only from the update after this one; the update from the one before uses the older relaunch, and a Mac may need Local Network allowed again after it. The relaunch through the launcher, and whether it keeps the decision, has not been seen in a real update, and a loss of Local Network access after an update has not been explained. The notice shows once per version, on macOS 15 and later, only on a home used before. If the helper is killed, open ConsensFlow from the Finder."
                 },
                 {
-                  "text": "No live harness runs or real-model checks were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harness versions installed on the test Mac were not live-tested for this update."
+                  "text": "Admin, Harnesses shows the command that updates a harness for you to copy and run yourself; the section does not run it or install anything."
+                },
+                {
+                  "text": "A cancel that meets a full disk can leave its task cancelled with its holding's end still open."
+                },
+                {
+                  "text": "The app does not yet carry the licence notices of its third-party components."
+                },
+                {
+                  "text": "No live harness runs or real-model checks were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harness versions installed on the test Mac were not live-tested for this update. The Harnesses screens were checked with stand-in harnesses."
                 },
                 {
                   "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update."
@@ -2576,10 +2654,16 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Link clicking, terminal color and font edge cases were not checked for this update."
                 },
                 {
+                  "text": "This update was not opened on a copy of a real ledger."
+                },
+                {
                   "text": "No long run was made for this update."
                 },
                 {
-                  "text": "The check did not report a check of the actual macOS Local Network permission prompt or whether permission is retained across an update."
+                  "text": "The normal in-app update through the relaunch helper, and the Local Network permission after it, were not checked: the helper was run on its own against a packaged app, and the update smokes restart the app directly."
+                },
+                {
+                  "text": "The Local Network notice's Settings button was opened on macOS 27 only, not on macOS 15 or 26."
                 },
                 {
                   "text": "The Mac update tests skipped the Node fallback because the starting apps did not ship Node. Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
@@ -2619,7 +2703,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds. In the check for this update, on a Mac under load, it finished within ten seconds in three of five trials, and the update before it, run the same way, in none; two trials read 17,000 and 9,000 lines."
                 },
                 {
                   "text": "Windows: when a member's window ends by itself, the chief's note may say only that the window is gone and how to resume the task, without the window's exit code and its last screen."
@@ -2727,9 +2811,6 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "While one window's program is starting, reads and controls of other windows must wait for that launch. A slow launch can delay their updates."
                 },
                 {
-                  "text": "The trace in events.jsonl can contain a line for a ledger event that was later rolled back, so a line there alone does not prove the event committed."
-                },
-                {
                   "text": "Claude Code, Codex, Pi and Muse Code: if a first model call lasts over two minutes and the window's screen stays quiet, ConsensFlow can pause the task as if its turn had never begun. This is read from the code; it has not been seen on a real board."
                 },
                 {
@@ -2802,10 +2883,16 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A turn whose last words are only \"Ending my turn to wait\" gets no note to go on. Work ended by closing a window gets no such note either."
                 },
                 {
-                  "text": "The app does not yet carry the licence notices of its third-party components. The next alpha adds them for every dependency."
+                  "text": "Admin, Harnesses shows the command that updates a harness for you to copy and run yourself; the section does not run it or install anything."
                 },
                 {
-                  "text": "No live harness runs or real-model checks were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harness versions installed on the test Mac were not live-tested for this update."
+                  "text": "A cancel that meets a full disk can leave its task cancelled with its holding's end still open."
+                },
+                {
+                  "text": "The app does not yet carry the licence notices of its third-party components."
+                },
+                {
+                  "text": "No live harness runs or real-model checks were made for this update. The version range shown was last checked with an earlier 3.0.7 update; the harness versions installed on the test Mac were not live-tested for this update. The Harnesses screens were checked with stand-in harnesses."
                 },
                 {
                   "text": "Backup handoffs, sending a tell to an active agent, Pause, Resume after a quit, Finish and \"Do with your own hands\" were not run on real harnesses for this update."
@@ -2818,6 +2905,9 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                 },
                 {
                   "text": "Link clicking, terminal color and font edge cases were not checked for this update."
+                },
+                {
+                  "text": "This update was not opened on a copy of a real ledger."
                 },
                 {
                   "text": "No long run was made for this update."
