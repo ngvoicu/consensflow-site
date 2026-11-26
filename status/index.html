@@ -223,7 +223,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
      that watches each new version). The page below draws the table from it. -->
 <script type="application/json" id="status-data">
 {
-  "updated": "2026-11-24",
+  "updated": "2026-11-26",
   "releases": [
     {
       "version": "3.0.5",
@@ -403,7 +403,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
                 },
                 {
-                  "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
+                  "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys you type, or a file you drop, while ConsensFlow reloads its page may not be sent; ConsensFlow then tells you in a note that names the window. With more than 64 such notes open at once, the oldest become one note that names no window. On a Mac, a key typed at the very moment the page unloads can be lost with no note: after a reload, check that your last typing appeared."
                 },
                 {
                   "text": "An uncertain terminal write holds the window until the project restarts. A bracketed paste is admitted in one piece, but a write failure can still leave part of it in the window; check what appeared before sending it again."
@@ -427,10 +427,10 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Claude Code: ConsensFlow answers the added-folder question only for its own folders. A folder added by your own settings is yours to answer."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds. In the check for this update, on a Mac under load, it finished within ten seconds in three of five trials, and the update before it, run the same way, in none; two trials read 17,000 and 9,000 lines."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, an earlier 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and the next one in four; the trials ran under different loads. In the slowest trial of the next one, at a high load, 25,000 lines were read in ten seconds. In the check for the previous 3.0.7 update, on a Mac under load, that update finished within ten seconds in three of five trials, and the update before it, run the same way, in none; two trials read 17,000 and 9,000 lines. In the check for this update, run in turns on one Mac, the previous update finished within ten seconds in 15 of 15 trials and this one in 14 of 15; the one that did not read 33,000 of the 64,000 lines in ten seconds."
                 },
                 {
-                  "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it."
+                  "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it. cf task finish does the same when the last turn wrote no words: it takes the placeholder, \"(the agent ended its turn without a written answer)\", as the task's result."
                 },
                 {
                   "text": "After ConsensFlow's daemon is started again, a member whose model was busy a moment before reads \"Out of quota until\" a time up to five minutes away, with Try again now. ConsensFlow tries it again at that time by itself; a press tries it at once, and if the model is still busy the member is held again."
@@ -523,7 +523,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Claude Code: if a hook's quoted reason ends with the same warning sentence as Claude's countdown, two different dialogs can be mistaken for one. The second may go untold and an earlier decline may be sent to it."
                 },
                 {
-                  "text": "While one window's program is starting, reads and controls of other windows must wait for that launch. A slow launch can delay their updates."
+                  "text": "While one window's program is starting, reads and controls of other windows wait for that launch. Some of a launch's other reads, such as ConsensFlow's settings file and the project's path, still run on the daemon's own thread with no time limit, so a slow launch can delay the board's updates."
                 },
                 {
                   "text": "Claude Code, Codex, Pi and Muse Code: if a first model call lasts over two minutes and the window's screen stays quiet, ConsensFlow can pause the task as if its turn had never begun. This is read from the code; it has not been seen on a real board."
@@ -592,7 +592,16 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A turn whose last words are only \"Ending my turn to wait\" gets no note to go on. Work ended by closing a window gets no such note either."
                 },
                 {
-                  "text": "Mac, Local Network: the relaunch through macOS's launcher acts only from the update after this one; the update from the one before uses the older relaunch, and a Mac may need Local Network allowed again after it. The relaunch through the launcher, and whether it keeps the decision, has not been seen in a real update, and a loss of Local Network access after an update has not been explained. The notice shows once per version, on macOS 15 and later, only on a home used before. If the helper is killed, open ConsensFlow from the Finder."
+                  "text": "Mac, Local Network: the update from the previous 3.0.7 update to this one is the first to restart the app through macOS's launcher, and neither it nor the Local Network decision after it has been seen in a real update; a Mac may need Local Network allowed again after it, and a loss of Local Network access after an update has not been explained. The notice shows once per version, on macOS 15 and later, only on a home used before. If the helper is killed, open ConsensFlow from the Finder."
+                },
+                {
+                  "text": "Claude Code: a command typed into a window that calls no model and is not one of /clear, /compact, /effort, /model and /reload-skills may leave that window reading as working, with its messages held, until a prompt typed there ends a turn. After ten minutes you are told that the window may be misread. /mcp and /plugin are not affected. This is read from the code; which commands do it has not been checked on a real window."
+                },
+                {
+                  "text": "At the update, a staff with two members in one role and tier keeps both: that slot shows them, with its rule, until you mend it. A Critical brief saved before the update keeps its old first line wherever it is read again."
+                },
+                {
+                  "text": "A Close while a harness is in its own start-up check waits for that check, up to about three minutes for Codex. Log lines still queued when the daemon's process is killed are lost."
                 },
                 {
                   "text": "Admin, Harnesses shows the command that updates a harness for you to copy and run yourself; the section does not run it or install anything."
@@ -619,16 +628,16 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Link clicking, terminal color and font edge cases were not checked for this update."
                 },
                 {
-                  "text": "This update was not opened on a copy of a real ledger."
+                  "text": "Typing and a paste across a page reload were checked by tests, not in the packaged Mac app, which has no reload control."
                 },
                 {
                   "text": "No long run was made for this update."
                 },
                 {
-                  "text": "The normal in-app update through the relaunch helper, and the Local Network permission after it, were not checked: the helper was run on its own against a packaged app, and the update smokes restart the app directly."
+                  "text": "The normal in-app update through the relaunch helper, and the Local Network permission after it, were not checked: the update checks restart the app directly."
                 },
                 {
-                  "text": "The Local Network notice's Settings button was opened on macOS 27 only, not on macOS 15 or 26."
+                  "text": "The Local Network notice was seen to show once on a home used before and not again at the next start; its Settings button was not checked for this update."
                 },
                 {
                   "text": "The Mac update tests skipped the Node fallback because the starting apps did not ship Node. Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
@@ -647,7 +656,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
                 },
                 {
-                  "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
+                  "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys you type, or a file you drop, while ConsensFlow reloads its page may not be sent; ConsensFlow then tells you in a note that names the window. With more than 64 such notes open at once, the oldest become one note that names no window. On a Mac, a key typed at the very moment the page unloads can be lost with no note: after a reload, check that your last typing appeared."
                 },
                 {
                   "text": "An uncertain terminal write holds the window until the project restarts. A bracketed paste is admitted in one piece, but a write failure can still leave part of it in the window; check what appeared before sending it again."
@@ -671,13 +680,13 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Claude Code: ConsensFlow answers the added-folder question only for its own folders. A folder added by your own settings is yours to answer."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds. In the check for this update, on a Mac under load, it finished within ten seconds in three of five trials, and the update before it, run the same way, in none; two trials read 17,000 and 9,000 lines."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, an earlier 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and the next one in four; the trials ran under different loads. In the slowest trial of the next one, at a high load, 25,000 lines were read in ten seconds. In the check for the previous 3.0.7 update, on a Mac under load, that update finished within ten seconds in three of five trials, and the update before it, run the same way, in none; two trials read 17,000 and 9,000 lines. In the check for this update, run in turns on one Mac, the previous update finished within ten seconds in 15 of 15 trials and this one in 14 of 15; the one that did not read 33,000 of the 64,000 lines in ten seconds."
                 },
                 {
                   "text": "Windows: when a member's window ends by itself, the chief's note may say only that the window is gone and how to resume the task, without the window's exit code and its last screen."
                 },
                 {
-                  "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it."
+                  "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it. cf task finish does the same when the last turn wrote no words: it takes the placeholder, \"(the agent ended its turn without a written answer)\", as the task's result."
                 },
                 {
                   "text": "After ConsensFlow's daemon is started again, a member whose model was busy a moment before reads \"Out of quota until\" a time up to five minutes away, with Try again now. ConsensFlow tries it again at that time by itself; a press tries it at once, and if the model is still busy the member is held again."
@@ -773,7 +782,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Claude Code: if a hook's quoted reason ends with the same warning sentence as Claude's countdown, two different dialogs can be mistaken for one. The second may go untold and an earlier decline may be sent to it."
                 },
                 {
-                  "text": "While one window's program is starting, reads and controls of other windows must wait for that launch. A slow launch can delay their updates."
+                  "text": "While one window's program is starting, reads and controls of other windows wait for that launch. Some of a launch's other reads, such as ConsensFlow's settings file and the project's path, still run on the daemon's own thread with no time limit, so a slow launch can delay the board's updates."
                 },
                 {
                   "text": "Claude Code, Codex, Pi and Muse Code: if a first model call lasts over two minutes and the window's screen stays quiet, ConsensFlow can pause the task as if its turn had never begun. This is read from the code; it has not been seen on a real board."
@@ -848,6 +857,18 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A turn whose last words are only \"Ending my turn to wait\" gets no note to go on. Work ended by closing a window gets no such note either."
                 },
                 {
+                  "text": "Claude Code: a command typed into a window that calls no model and is not one of /clear, /compact, /effort, /model and /reload-skills may leave that window reading as working, with its messages held, until a prompt typed there ends a turn. After ten minutes you are told that the window may be misread. /mcp and /plugin are not affected. This is read from the code; which commands do it has not been checked on a real window."
+                },
+                {
+                  "text": "At the update, a staff with two members in one role and tier keeps both: that slot shows them, with its rule, until you mend it. A Critical brief saved before the update keeps its old first line wherever it is read again."
+                },
+                {
+                  "text": "Windows: the installer stops while ConsensFlow is open and asks you to quit ConsensFlow first; run it again after quitting."
+                },
+                {
+                  "text": "A Close while a harness is in its own start-up check waits for that check, up to about three minutes for Codex. Log lines still queued when the daemon's process is killed are lost."
+                },
+                {
                   "text": "Admin, Harnesses shows the command that updates a harness for you to copy and run yourself; the section does not run it or install anything."
                 },
                 {
@@ -872,7 +893,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Link clicking, terminal color and font edge cases were not checked for this update."
                 },
                 {
-                  "text": "This update was not opened on a copy of a real ledger."
+                  "text": "Typing and a paste across a page reload were checked by tests, not in the packaged Mac app, which has no reload control."
                 },
                 {
                   "text": "No long run was made for this update."
@@ -896,7 +917,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
                 },
                 {
-                  "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
+                  "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys you type, or a file you drop, while ConsensFlow reloads its page may not be sent; ConsensFlow then tells you in a note that names the window. With more than 64 such notes open at once, the oldest become one note that names no window. On a Mac, a key typed at the very moment the page unloads can be lost with no note: after a reload, check that your last typing appeared."
                 },
                 {
                   "text": "An uncertain terminal write holds the window until the project restarts. A bracketed paste is admitted in one piece, but a write failure can still leave part of it in the window; check what appeared before sending it again."
@@ -917,10 +938,10 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds. In the check for this update, on a Mac under load, it finished within ten seconds in three of five trials, and the update before it, run the same way, in none; two trials read 17,000 and 9,000 lines."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, an earlier 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and the next one in four; the trials ran under different loads. In the slowest trial of the next one, at a high load, 25,000 lines were read in ten seconds. In the check for the previous 3.0.7 update, on a Mac under load, that update finished within ten seconds in three of five trials, and the update before it, run the same way, in none; two trials read 17,000 and 9,000 lines. In the check for this update, run in turns on one Mac, the previous update finished within ten seconds in 15 of 15 trials and this one in 14 of 15; the one that did not read 33,000 of the 64,000 lines in ten seconds."
                 },
                 {
-                  "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it."
+                  "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it. cf task finish does the same when the last turn wrote no words: it takes the placeholder, \"(the agent ended its turn without a written answer)\", as the task's result."
                 },
                 {
                   "text": "After ConsensFlow's daemon is started again, a member whose model was busy a moment before reads \"Out of quota until\" a time up to five minutes away, with Try again now. ConsensFlow tries it again at that time by itself; a press tries it at once, and if the model is still busy the member is held again."
@@ -1019,7 +1040,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Codex: a board delivery that reaches Codex at the same moment a person starts a turn in that window may go into the turn already underway. This is read from the code and has not been reproduced on a real window."
                 },
                 {
-                  "text": "While one window's program is starting, reads and controls of other windows must wait for that launch. A slow launch can delay their updates."
+                  "text": "While one window's program is starting, reads and controls of other windows wait for that launch. Some of a launch's other reads, such as ConsensFlow's settings file and the project's path, still run on the daemon's own thread with no time limit, so a slow launch can delay the board's updates."
                 },
                 {
                   "text": "Claude Code, Codex, Pi and Muse Code: if a first model call lasts over two minutes and the window's screen stays quiet, ConsensFlow can pause the task as if its turn had never begun. This is read from the code; it has not been seen on a real board."
@@ -1106,7 +1127,16 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A turn whose last words are only \"Ending my turn to wait\" gets no note to go on. Work ended by closing a window gets no such note either."
                 },
                 {
-                  "text": "Mac, Local Network: the relaunch through macOS's launcher acts only from the update after this one; the update from the one before uses the older relaunch, and a Mac may need Local Network allowed again after it. The relaunch through the launcher, and whether it keeps the decision, has not been seen in a real update, and a loss of Local Network access after an update has not been explained. The notice shows once per version, on macOS 15 and later, only on a home used before. If the helper is killed, open ConsensFlow from the Finder."
+                  "text": "Mac, Local Network: the update from the previous 3.0.7 update to this one is the first to restart the app through macOS's launcher, and neither it nor the Local Network decision after it has been seen in a real update; a Mac may need Local Network allowed again after it, and a loss of Local Network access after an update has not been explained. The notice shows once per version, on macOS 15 and later, only on a home used before. If the helper is killed, open ConsensFlow from the Finder."
+                },
+                {
+                  "text": "At the update, a staff with two members in one role and tier keeps both: that slot shows them, with its rule, until you mend it. A Critical brief saved before the update keeps its old first line wherever it is read again."
+                },
+                {
+                  "text": "A Close while a harness is in its own start-up check waits for that check, up to about three minutes for Codex. Log lines still queued when the daemon's process is killed are lost."
+                },
+                {
+                  "text": "Codex: a shell policy with include_only still drops ConsensFlow's variables and the window's mark."
                 },
                 {
                   "text": "Admin, Harnesses shows the command that updates a harness for you to copy and run yourself; the section does not run it or install anything."
@@ -1133,16 +1163,16 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Link clicking, terminal color and font edge cases were not checked for this update."
                 },
                 {
-                  "text": "This update was not opened on a copy of a real ledger."
+                  "text": "Typing and a paste across a page reload were checked by tests, not in the packaged Mac app, which has no reload control."
                 },
                 {
                   "text": "No long run was made for this update."
                 },
                 {
-                  "text": "The normal in-app update through the relaunch helper, and the Local Network permission after it, were not checked: the helper was run on its own against a packaged app, and the update smokes restart the app directly."
+                  "text": "The normal in-app update through the relaunch helper, and the Local Network permission after it, were not checked: the update checks restart the app directly."
                 },
                 {
-                  "text": "The Local Network notice's Settings button was opened on macOS 27 only, not on macOS 15 or 26."
+                  "text": "The Local Network notice was seen to show once on a home used before and not again at the next start; its Settings button was not checked for this update."
                 },
                 {
                   "text": "The Mac update tests skipped the Node fallback because the starting apps did not ship Node. Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
@@ -1161,7 +1191,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
                 },
                 {
-                  "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
+                  "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys you type, or a file you drop, while ConsensFlow reloads its page may not be sent; ConsensFlow then tells you in a note that names the window. With more than 64 such notes open at once, the oldest become one note that names no window. On a Mac, a key typed at the very moment the page unloads can be lost with no note: after a reload, check that your last typing appeared."
                 },
                 {
                   "text": "An uncertain terminal write holds the window until the project restarts. A bracketed paste is admitted in one piece, but a write failure can still leave part of it in the window; check what appeared before sending it again."
@@ -1182,13 +1212,13 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds. In the check for this update, on a Mac under load, it finished within ten seconds in three of five trials, and the update before it, run the same way, in none; two trials read 17,000 and 9,000 lines."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, an earlier 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and the next one in four; the trials ran under different loads. In the slowest trial of the next one, at a high load, 25,000 lines were read in ten seconds. In the check for the previous 3.0.7 update, on a Mac under load, that update finished within ten seconds in three of five trials, and the update before it, run the same way, in none; two trials read 17,000 and 9,000 lines. In the check for this update, run in turns on one Mac, the previous update finished within ten seconds in 15 of 15 trials and this one in 14 of 15; the one that did not read 33,000 of the 64,000 lines in ten seconds."
                 },
                 {
                   "text": "Windows: when a member's window ends by itself, the chief's note may say only that the window is gone and how to resume the task, without the window's exit code and its last screen."
                 },
                 {
-                  "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it."
+                  "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it. cf task finish does the same when the last turn wrote no words: it takes the placeholder, \"(the agent ended its turn without a written answer)\", as the task's result."
                 },
                 {
                   "text": "Shift+Enter on Windows does nothing in Codex, Devin and Muse Code: those three read the key ConsensFlow can send safely as one they bind to nothing."
@@ -1293,7 +1323,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Codex: a board delivery that reaches Codex at the same moment a person starts a turn in that window may go into the turn already underway. This is read from the code and has not been reproduced on a real window."
                 },
                 {
-                  "text": "While one window's program is starting, reads and controls of other windows must wait for that launch. A slow launch can delay their updates."
+                  "text": "While one window's program is starting, reads and controls of other windows wait for that launch. Some of a launch's other reads, such as ConsensFlow's settings file and the project's path, still run on the daemon's own thread with no time limit, so a slow launch can delay the board's updates."
                 },
                 {
                   "text": "Claude Code, Codex, Pi and Muse Code: if a first model call lasts over two minutes and the window's screen stays quiet, ConsensFlow can pause the task as if its turn had never begun. This is read from the code; it has not been seen on a real board."
@@ -1386,6 +1416,18 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A turn whose last words are only \"Ending my turn to wait\" gets no note to go on. Work ended by closing a window gets no such note either."
                 },
                 {
+                  "text": "At the update, a staff with two members in one role and tier keeps both: that slot shows them, with its rule, until you mend it. A Critical brief saved before the update keeps its old first line wherever it is read again."
+                },
+                {
+                  "text": "Windows: the installer stops while ConsensFlow is open and asks you to quit ConsensFlow first; run it again after quitting."
+                },
+                {
+                  "text": "A Close while a harness is in its own start-up check waits for that check, up to about three minutes for Codex. Log lines still queued when the daemon's process is killed are lost."
+                },
+                {
+                  "text": "Codex: a shell policy with include_only still drops ConsensFlow's variables and the window's mark."
+                },
+                {
                   "text": "Admin, Harnesses shows the command that updates a harness for you to copy and run yourself; the section does not run it or install anything."
                 },
                 {
@@ -1410,7 +1452,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Link clicking, terminal color and font edge cases were not checked for this update."
                 },
                 {
-                  "text": "This update was not opened on a copy of a real ledger."
+                  "text": "Typing and a paste across a page reload were checked by tests, not in the packaged Mac app, which has no reload control."
                 },
                 {
                   "text": "No long run was made for this update."
@@ -1434,7 +1476,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
                 },
                 {
-                  "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
+                  "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys you type, or a file you drop, while ConsensFlow reloads its page may not be sent; ConsensFlow then tells you in a note that names the window. With more than 64 such notes open at once, the oldest become one note that names no window. On a Mac, a key typed at the very moment the page unloads can be lost with no note: after a reload, check that your last typing appeared."
                 },
                 {
                   "text": "An uncertain terminal write holds the window until the project restarts. A bracketed paste is admitted in one piece, but a write failure can still leave part of it in the window; check what appeared before sending it again."
@@ -1455,13 +1497,13 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds. In the check for this update, on a Mac under load, it finished within ten seconds in three of five trials, and the update before it, run the same way, in none; two trials read 17,000 and 9,000 lines."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, an earlier 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and the next one in four; the trials ran under different loads. In the slowest trial of the next one, at a high load, 25,000 lines were read in ten seconds. In the check for the previous 3.0.7 update, on a Mac under load, that update finished within ten seconds in three of five trials, and the update before it, run the same way, in none; two trials read 17,000 and 9,000 lines. In the check for this update, run in turns on one Mac, the previous update finished within ten seconds in 15 of 15 trials and this one in 14 of 15; the one that did not read 33,000 of the 64,000 lines in ten seconds."
                 },
                 {
                   "text": "Pi: if a compaction does not stop when ConsensFlow asks it to at 300 seconds, a task given back to that member meanwhile keeps the window, and its messages wait until you close the window from the board. The task is then paused and the chief is told, and resuming it goes on in a new window on the same conversation."
                 },
                 {
-                  "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it."
+                  "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it. cf task finish does the same when the last turn wrote no words: it takes the placeholder, \"(the agent ended its turn without a written answer)\", as the task's result."
                 },
                 {
                   "text": "After ConsensFlow's daemon is started again, a member whose model was busy a moment before reads \"Out of quota until\" a time up to five minutes away, with Try again now. ConsensFlow tries it again at that time by itself; a press tries it at once, and if the model is still busy the member is held again."
@@ -1557,7 +1599,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Pi: if automatic recovery after a reply hits its output limit stays silent for more than two minutes while it compacts, ConsensFlow can fail the task while Pi is still recovering. This is read from the code; such a long recovery has not been observed."
                 },
                 {
-                  "text": "While one window's program is starting, reads and controls of other windows must wait for that launch. A slow launch can delay their updates."
+                  "text": "While one window's program is starting, reads and controls of other windows wait for that launch. Some of a launch's other reads, such as ConsensFlow's settings file and the project's path, still run on the daemon's own thread with no time limit, so a slow launch can delay the board's updates."
                 },
                 {
                   "text": "Claude Code, Codex, Pi and Muse Code: if a first model call lasts over two minutes and the window's screen stays quiet, ConsensFlow can pause the task as if its turn had never begun. This is read from the code; it has not been seen on a real board."
@@ -1632,7 +1674,13 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A turn whose last words are only \"Ending my turn to wait\" gets no note to go on. Work ended by closing a window gets no such note either."
                 },
                 {
-                  "text": "Mac, Local Network: the relaunch through macOS's launcher acts only from the update after this one; the update from the one before uses the older relaunch, and a Mac may need Local Network allowed again after it. The relaunch through the launcher, and whether it keeps the decision, has not been seen in a real update, and a loss of Local Network access after an update has not been explained. The notice shows once per version, on macOS 15 and later, only on a home used before. If the helper is killed, open ConsensFlow from the Finder."
+                  "text": "Mac, Local Network: the update from the previous 3.0.7 update to this one is the first to restart the app through macOS's launcher, and neither it nor the Local Network decision after it has been seen in a real update; a Mac may need Local Network allowed again after it, and a loss of Local Network access after an update has not been explained. The notice shows once per version, on macOS 15 and later, only on a home used before. If the helper is killed, open ConsensFlow from the Finder."
+                },
+                {
+                  "text": "At the update, a staff with two members in one role and tier keeps both: that slot shows them, with its rule, until you mend it. A Critical brief saved before the update keeps its old first line wherever it is read again."
+                },
+                {
+                  "text": "A Close while a harness is in its own start-up check waits for that check, up to about three minutes for Codex. Log lines still queued when the daemon's process is killed are lost."
                 },
                 {
                   "text": "Admin, Harnesses shows the command that updates a harness for you to copy and run yourself; the section does not run it or install anything."
@@ -1659,16 +1707,16 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Link clicking, terminal color and font edge cases were not checked for this update."
                 },
                 {
-                  "text": "This update was not opened on a copy of a real ledger."
+                  "text": "Typing and a paste across a page reload were checked by tests, not in the packaged Mac app, which has no reload control."
                 },
                 {
                   "text": "No long run was made for this update."
                 },
                 {
-                  "text": "The normal in-app update through the relaunch helper, and the Local Network permission after it, were not checked: the helper was run on its own against a packaged app, and the update smokes restart the app directly."
+                  "text": "The normal in-app update through the relaunch helper, and the Local Network permission after it, were not checked: the update checks restart the app directly."
                 },
                 {
-                  "text": "The Local Network notice's Settings button was opened on macOS 27 only, not on macOS 15 or 26."
+                  "text": "The Local Network notice was seen to show once on a home used before and not again at the next start; its Settings button was not checked for this update."
                 },
                 {
                   "text": "The Mac update tests skipped the Node fallback because the starting apps did not ship Node. Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
@@ -1690,7 +1738,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
                 },
                 {
-                  "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
+                  "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys you type, or a file you drop, while ConsensFlow reloads its page may not be sent; ConsensFlow then tells you in a note that names the window. With more than 64 such notes open at once, the oldest become one note that names no window. On a Mac, a key typed at the very moment the page unloads can be lost with no note: after a reload, check that your last typing appeared."
                 },
                 {
                   "text": "An uncertain terminal write holds the window until the project restarts. A bracketed paste is admitted in one piece, but a write failure can still leave part of it in the window; check what appeared before sending it again."
@@ -1711,7 +1759,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds. In the check for this update, on a Mac under load, it finished within ten seconds in three of five trials, and the update before it, run the same way, in none; two trials read 17,000 and 9,000 lines."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, an earlier 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and the next one in four; the trials ran under different loads. In the slowest trial of the next one, at a high load, 25,000 lines were read in ten seconds. In the check for the previous 3.0.7 update, on a Mac under load, that update finished within ten seconds in three of five trials, and the update before it, run the same way, in none; two trials read 17,000 and 9,000 lines. In the check for this update, run in turns on one Mac, the previous update finished within ten seconds in 15 of 15 trials and this one in 14 of 15; the one that did not read 33,000 of the 64,000 lines in ten seconds."
                 },
                 {
                   "text": "Pi: if a compaction does not stop when ConsensFlow asks it to at 300 seconds, a task given back to that member meanwhile keeps the window, and its messages wait until you close the window from the board. The task is then paused and the chief is told, and resuming it goes on in a new window on the same conversation."
@@ -1720,7 +1768,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Windows: when a member's window ends by itself, the chief's note may say only that the window is gone and how to resume the task, without the window's exit code and its last screen."
                 },
                 {
-                  "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it."
+                  "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it. cf task finish does the same when the last turn wrote no words: it takes the placeholder, \"(the agent ended its turn without a written answer)\", as the task's result."
                 },
                 {
                   "text": "After ConsensFlow's daemon is started again, a member whose model was busy a moment before reads \"Out of quota until\" a time up to five minutes away, with Try again now. ConsensFlow tries it again at that time by itself; a press tries it at once, and if the model is still busy the member is held again."
@@ -1819,7 +1867,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Pi: if automatic recovery after a reply hits its output limit stays silent for more than two minutes while it compacts, ConsensFlow can fail the task while Pi is still recovering. This is read from the code; such a long recovery has not been observed."
                 },
                 {
-                  "text": "While one window's program is starting, reads and controls of other windows must wait for that launch. A slow launch can delay their updates."
+                  "text": "While one window's program is starting, reads and controls of other windows wait for that launch. Some of a launch's other reads, such as ConsensFlow's settings file and the project's path, still run on the daemon's own thread with no time limit, so a slow launch can delay the board's updates."
                 },
                 {
                   "text": "Claude Code, Codex, Pi and Muse Code: if a first model call lasts over two minutes and the window's screen stays quiet, ConsensFlow can pause the task as if its turn had never begun. This is read from the code; it has not been seen on a real board."
@@ -1897,6 +1945,15 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A turn whose last words are only \"Ending my turn to wait\" gets no note to go on. Work ended by closing a window gets no such note either."
                 },
                 {
+                  "text": "At the update, a staff with two members in one role and tier keeps both: that slot shows them, with its rule, until you mend it. A Critical brief saved before the update keeps its old first line wherever it is read again."
+                },
+                {
+                  "text": "Windows: the installer stops while ConsensFlow is open and asks you to quit ConsensFlow first; run it again after quitting."
+                },
+                {
+                  "text": "A Close while a harness is in its own start-up check waits for that check, up to about three minutes for Codex. Log lines still queued when the daemon's process is killed are lost."
+                },
+                {
                   "text": "Admin, Harnesses shows the command that updates a harness for you to copy and run yourself; the section does not run it or install anything."
                 },
                 {
@@ -1921,7 +1978,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Link clicking, terminal color and font edge cases were not checked for this update."
                 },
                 {
-                  "text": "This update was not opened on a copy of a real ledger."
+                  "text": "Typing and a paste across a page reload were checked by tests, not in the packaged Mac app, which has no reload control."
                 },
                 {
                   "text": "No long run was made for this update."
@@ -1948,7 +2005,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
                 },
                 {
-                  "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
+                  "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys you type, or a file you drop, while ConsensFlow reloads its page may not be sent; ConsensFlow then tells you in a note that names the window. With more than 64 such notes open at once, the oldest become one note that names no window. On a Mac, a key typed at the very moment the page unloads can be lost with no note: after a reload, check that your last typing appeared."
                 },
                 {
                   "text": "An uncertain terminal write holds the window until the project restarts. A bracketed paste is admitted in one piece, but a write failure can still leave part of it in the window; check what appeared before sending it again."
@@ -1975,10 +2032,10 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Devin 3000.12: when a Devin member is stopped early in a turn, while Devin is still thinking (a pause, for example), its window reads as working for up to 30 seconds after the message it was given, so what comes next for it, such as the chief's question after a pause, goes in up to 30 seconds late."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds. In the check for this update, on a Mac under load, it finished within ten seconds in three of five trials, and the update before it, run the same way, in none; two trials read 17,000 and 9,000 lines."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, an earlier 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and the next one in four; the trials ran under different loads. In the slowest trial of the next one, at a high load, 25,000 lines were read in ten seconds. In the check for the previous 3.0.7 update, on a Mac under load, that update finished within ten seconds in three of five trials, and the update before it, run the same way, in none; two trials read 17,000 and 9,000 lines. In the check for this update, run in turns on one Mac, the previous update finished within ten seconds in 15 of 15 trials and this one in 14 of 15; the one that did not read 33,000 of the 64,000 lines in ten seconds."
                 },
                 {
-                  "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it."
+                  "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it. cf task finish does the same when the last turn wrote no words: it takes the placeholder, \"(the agent ended its turn without a written answer)\", as the task's result."
                 },
                 {
                   "text": "Devin: in a window opened again on a cut session that nobody has typed into, a switch to another conversation made at the very moment a message goes in, or made with the mouse alone, is not seen, and that message can go into the conversation switched to."
@@ -2071,7 +2128,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Devin on a Mac: a command Devin starts directly, without a shell, is not counted as the turn's work. A pause can leave it running without naming it."
                 },
                 {
-                  "text": "While one window's program is starting, reads and controls of other windows must wait for that launch. A slow launch can delay their updates."
+                  "text": "While one window's program is starting, reads and controls of other windows wait for that launch. Some of a launch's other reads, such as ConsensFlow's settings file and the project's path, still run on the daemon's own thread with no time limit, so a slow launch can delay the board's updates."
                 },
                 {
                   "text": "A long chief role can need several reads, especially with long staff rules or full paths. Each part except the last gives the command for the next."
@@ -2137,7 +2194,13 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A turn whose last words are only \"Ending my turn to wait\" gets no note to go on. Work ended by closing a window gets no such note either."
                 },
                 {
-                  "text": "Mac, Local Network: the relaunch through macOS's launcher acts only from the update after this one; the update from the one before uses the older relaunch, and a Mac may need Local Network allowed again after it. The relaunch through the launcher, and whether it keeps the decision, has not been seen in a real update, and a loss of Local Network access after an update has not been explained. The notice shows once per version, on macOS 15 and later, only on a home used before. If the helper is killed, open ConsensFlow from the Finder."
+                  "text": "Mac, Local Network: the update from the previous 3.0.7 update to this one is the first to restart the app through macOS's launcher, and neither it nor the Local Network decision after it has been seen in a real update; a Mac may need Local Network allowed again after it, and a loss of Local Network access after an update has not been explained. The notice shows once per version, on macOS 15 and later, only on a home used before. If the helper is killed, open ConsensFlow from the Finder."
+                },
+                {
+                  "text": "At the update, a staff with two members in one role and tier keeps both: that slot shows them, with its rule, until you mend it. A Critical brief saved before the update keeps its old first line wherever it is read again."
+                },
+                {
+                  "text": "A Close while a harness is in its own start-up check waits for that check, up to about three minutes for Codex. Log lines still queued when the daemon's process is killed are lost."
                 },
                 {
                   "text": "Admin, Harnesses shows the command that updates a harness for you to copy and run yourself; the section does not run it or install anything."
@@ -2164,16 +2227,16 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Link clicking, terminal color and font edge cases were not checked for this update."
                 },
                 {
-                  "text": "This update was not opened on a copy of a real ledger."
+                  "text": "Typing and a paste across a page reload were checked by tests, not in the packaged Mac app, which has no reload control."
                 },
                 {
                   "text": "No long run was made for this update."
                 },
                 {
-                  "text": "The normal in-app update through the relaunch helper, and the Local Network permission after it, were not checked: the helper was run on its own against a packaged app, and the update smokes restart the app directly."
+                  "text": "The normal in-app update through the relaunch helper, and the Local Network permission after it, were not checked: the update checks restart the app directly."
                 },
                 {
-                  "text": "The Local Network notice's Settings button was opened on macOS 27 only, not on macOS 15 or 26."
+                  "text": "The Local Network notice was seen to show once on a home used before and not again at the next start; its Settings button was not checked for this update."
                 },
                 {
                   "text": "The Mac update tests skipped the Node fallback because the starting apps did not ship Node. Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
@@ -2192,7 +2255,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
                 },
                 {
-                  "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
+                  "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys you type, or a file you drop, while ConsensFlow reloads its page may not be sent; ConsensFlow then tells you in a note that names the window. With more than 64 such notes open at once, the oldest become one note that names no window. On a Mac, a key typed at the very moment the page unloads can be lost with no note: after a reload, check that your last typing appeared."
                 },
                 {
                   "text": "An uncertain terminal write holds the window until the project restarts. A bracketed paste is admitted in one piece, but a write failure can still leave part of it in the window; check what appeared before sending it again."
@@ -2219,13 +2282,13 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Devin 3000.12: when a Devin member is stopped early in a turn, while Devin is still thinking (a pause, for example), its window reads as working for up to 30 seconds after the message it was given, so what comes next for it, such as the chief's question after a pause, goes in up to 30 seconds late."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds. In the check for this update, on a Mac under load, it finished within ten seconds in three of five trials, and the update before it, run the same way, in none; two trials read 17,000 and 9,000 lines."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, an earlier 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and the next one in four; the trials ran under different loads. In the slowest trial of the next one, at a high load, 25,000 lines were read in ten seconds. In the check for the previous 3.0.7 update, on a Mac under load, that update finished within ten seconds in three of five trials, and the update before it, run the same way, in none; two trials read 17,000 and 9,000 lines. In the check for this update, run in turns on one Mac, the previous update finished within ten seconds in 15 of 15 trials and this one in 14 of 15; the one that did not read 33,000 of the 64,000 lines in ten seconds."
                 },
                 {
                   "text": "Windows: when a member's window ends by itself, the chief's note may say only that the window is gone and how to resume the task, without the window's exit code and its last screen."
                 },
                 {
-                  "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it."
+                  "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it. cf task finish does the same when the last turn wrote no words: it takes the placeholder, \"(the agent ended its turn without a written answer)\", as the task's result."
                 },
                 {
                   "text": "Devin: in a window opened again on a cut session that nobody has typed into, a switch to another conversation made at the very moment a message goes in, or made with the mouse alone, is not seen, and that message can go into the conversation switched to."
@@ -2321,7 +2384,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A long paste into a window that is slow to read can split an Escape-led key such as an arrow or a paste marker. The harness can receive a lone Escape, which can interrupt its turn. This has been measured on both Mac and Windows."
                 },
                 {
-                  "text": "While one window's program is starting, reads and controls of other windows must wait for that launch. A slow launch can delay their updates."
+                  "text": "While one window's program is starting, reads and controls of other windows wait for that launch. Some of a launch's other reads, such as ConsensFlow's settings file and the project's path, still run on the daemon's own thread with no time limit, so a slow launch can delay the board's updates."
                 },
                 {
                   "text": "A long chief role can need several reads, especially with long staff rules or full paths. Each part except the last gives the command for the next."
@@ -2393,6 +2456,15 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A turn whose last words are only \"Ending my turn to wait\" gets no note to go on. Work ended by closing a window gets no such note either."
                 },
                 {
+                  "text": "At the update, a staff with two members in one role and tier keeps both: that slot shows them, with its rule, until you mend it. A Critical brief saved before the update keeps its old first line wherever it is read again."
+                },
+                {
+                  "text": "Windows: the installer stops while ConsensFlow is open and asks you to quit ConsensFlow first; run it again after quitting."
+                },
+                {
+                  "text": "A Close while a harness is in its own start-up check waits for that check, up to about three minutes for Codex. Log lines still queued when the daemon's process is killed are lost."
+                },
+                {
                   "text": "Admin, Harnesses shows the command that updates a harness for you to copy and run yourself; the section does not run it or install anything."
                 },
                 {
@@ -2417,7 +2489,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Link clicking, terminal color and font edge cases were not checked for this update."
                 },
                 {
-                  "text": "This update was not opened on a copy of a real ledger."
+                  "text": "Typing and a paste across a page reload were checked by tests, not in the packaged Mac app, which has no reload control."
                 },
                 {
                   "text": "No long run was made for this update."
@@ -2441,7 +2513,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
                 },
                 {
-                  "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
+                  "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys you type, or a file you drop, while ConsensFlow reloads its page may not be sent; ConsensFlow then tells you in a note that names the window. With more than 64 such notes open at once, the oldest become one note that names no window. On a Mac, a key typed at the very moment the page unloads can be lost with no note: after a reload, check that your last typing appeared."
                 },
                 {
                   "text": "An uncertain terminal write holds the window until the project restarts. A bracketed paste is admitted in one piece, but a write failure can still leave part of it in the window; check what appeared before sending it again."
@@ -2462,10 +2534,10 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds. In the check for this update, on a Mac under load, it finished within ten seconds in three of five trials, and the update before it, run the same way, in none; two trials read 17,000 and 9,000 lines."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, an earlier 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and the next one in four; the trials ran under different loads. In the slowest trial of the next one, at a high load, 25,000 lines were read in ten seconds. In the check for the previous 3.0.7 update, on a Mac under load, that update finished within ten seconds in three of five trials, and the update before it, run the same way, in none; two trials read 17,000 and 9,000 lines. In the check for this update, run in turns on one Mac, the previous update finished within ten seconds in 15 of 15 trials and this one in 14 of 15; the one that did not read 33,000 of the 64,000 lines in ten seconds."
                 },
                 {
-                  "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it."
+                  "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it. cf task finish does the same when the last turn wrote no words: it takes the placeholder, \"(the agent ended its turn without a written answer)\", as the task's result."
                 },
                 {
                   "text": "After ConsensFlow's daemon is started again, a member whose model was busy a moment before reads \"Out of quota until\" a time up to five minutes away, with Try again now. ConsensFlow tries it again at that time by itself; a press tries it at once, and if the model is still busy the member is held again."
@@ -2558,7 +2630,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Muse Code: a project's compaction size above 512,000 tokens is not passed to a member; Muse uses its own point instead."
                 },
                 {
-                  "text": "While one window's program is starting, reads and controls of other windows must wait for that launch. A slow launch can delay their updates."
+                  "text": "While one window's program is starting, reads and controls of other windows wait for that launch. Some of a launch's other reads, such as ConsensFlow's settings file and the project's path, still run on the daemon's own thread with no time limit, so a slow launch can delay the board's updates."
                 },
                 {
                   "text": "Claude Code, Codex, Pi and Muse Code: if a first model call lasts over two minutes and the window's screen stays quiet, ConsensFlow can pause the task as if its turn had never begun. This is read from the code; it has not been seen on a real board."
@@ -2627,7 +2699,13 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A turn whose last words are only \"Ending my turn to wait\" gets no note to go on. Work ended by closing a window gets no such note either."
                 },
                 {
-                  "text": "Mac, Local Network: the relaunch through macOS's launcher acts only from the update after this one; the update from the one before uses the older relaunch, and a Mac may need Local Network allowed again after it. The relaunch through the launcher, and whether it keeps the decision, has not been seen in a real update, and a loss of Local Network access after an update has not been explained. The notice shows once per version, on macOS 15 and later, only on a home used before. If the helper is killed, open ConsensFlow from the Finder."
+                  "text": "Mac, Local Network: the update from the previous 3.0.7 update to this one is the first to restart the app through macOS's launcher, and neither it nor the Local Network decision after it has been seen in a real update; a Mac may need Local Network allowed again after it, and a loss of Local Network access after an update has not been explained. The notice shows once per version, on macOS 15 and later, only on a home used before. If the helper is killed, open ConsensFlow from the Finder."
+                },
+                {
+                  "text": "At the update, a staff with two members in one role and tier keeps both: that slot shows them, with its rule, until you mend it. A Critical brief saved before the update keeps its old first line wherever it is read again."
+                },
+                {
+                  "text": "A Close while a harness is in its own start-up check waits for that check, up to about three minutes for Codex. Log lines still queued when the daemon's process is killed are lost."
                 },
                 {
                   "text": "Admin, Harnesses shows the command that updates a harness for you to copy and run yourself; the section does not run it or install anything."
@@ -2654,16 +2732,16 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Link clicking, terminal color and font edge cases were not checked for this update."
                 },
                 {
-                  "text": "This update was not opened on a copy of a real ledger."
+                  "text": "Typing and a paste across a page reload were checked by tests, not in the packaged Mac app, which has no reload control."
                 },
                 {
                   "text": "No long run was made for this update."
                 },
                 {
-                  "text": "The normal in-app update through the relaunch helper, and the Local Network permission after it, were not checked: the helper was run on its own against a packaged app, and the update smokes restart the app directly."
+                  "text": "The normal in-app update through the relaunch helper, and the Local Network permission after it, were not checked: the update checks restart the app directly."
                 },
                 {
-                  "text": "The Local Network notice's Settings button was opened on macOS 27 only, not on macOS 15 or 26."
+                  "text": "The Local Network notice was seen to show once on a home used before and not again at the next start; its Settings button was not checked for this update."
                 },
                 {
                   "text": "The Mac update tests skipped the Node fallback because the starting apps did not ship Node. Updating from the older 3.0.0 test release and returning to its older background service were not checked this time."
@@ -2682,7 +2760,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "If a terminal write fails, typing and messages to that window can stop until the project is restarted. Some or all of the last input may already have reached the window, so check it before sending it again."
                 },
                 {
-                  "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys not yet admitted when the page reloads are lost."
+                  "text": "A lost typing call or paste is not retried, and the notice that typing may be missing can appear even if the input arrived. Keys you type, or a file you drop, while ConsensFlow reloads its page may not be sent; ConsensFlow then tells you in a note that names the window. With more than 64 such notes open at once, the oldest become one note that names no window. On a Mac, a key typed at the very moment the page unloads can be lost with no note: after a reload, check that your last typing appeared."
                 },
                 {
                   "text": "An uncertain terminal write holds the window until the project restarts. A bracketed paste is admitted in one piece, but a write failure can still leave part of it in the window; check what appeared before sending it again."
@@ -2703,13 +2781,13 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "An older ledger's repaired Working timer starts when the ledger opens, not when the answer first went on its way."
                 },
                 {
-                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, the previous 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and this 3.0.7 update in four; the trials ran under different loads. In the slowest this 3.0.7 update trial, at a high load, 25,000 lines were read in ten seconds. In the check for this update, on a Mac under load, it finished within ten seconds in three of five trials, and the update before it, run the same way, in none; two trials read 17,000 and 9,000 lines."
+                  "text": "While the app is hidden, or the screen is locked, a window that prints a great deal can be read slowly, sometimes about once a second, so the board learns of that window's work late. It catches up when the app is shown. A large flood can still be too slow on a loaded Mac. In five trials for each release, an earlier 3.0.7 update finished sending 64,000 lines within ten seconds in two trials and the next one in four; the trials ran under different loads. In the slowest trial of the next one, at a high load, 25,000 lines were read in ten seconds. In the check for the previous 3.0.7 update, on a Mac under load, that update finished within ten seconds in three of five trials, and the update before it, run the same way, in none; two trials read 17,000 and 9,000 lines. In the check for this update, run in turns on one Mac, the previous update finished within ten seconds in 15 of 15 trials and this one in 14 of 15; the one that did not read 33,000 of the 64,000 lines in ten seconds."
                 },
                 {
                   "text": "Windows: when a member's window ends by itself, the chief's note may say only that the window is gone and how to resume the task, without the window's exit code and its last screen."
                 },
                 {
-                  "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it."
+                  "text": "A turn whose last answer holds no words (seen on a Devin member after Devin summarised its own conversation: only tokens such as <end_of_image>) is delivered to the chief as the task's result. Read a result before you accept it. cf task finish does the same when the last turn wrote no words: it takes the placeholder, \"(the agent ended its turn without a written answer)\", as the task's result."
                 },
                 {
                   "text": "Shift+Enter on Windows does nothing in Codex, Devin and Muse Code: those three read the key ConsensFlow can send safely as one they bind to nothing."
@@ -2808,7 +2886,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Muse Code: a project's compaction size above 512,000 tokens is not passed to a member; Muse uses its own point instead."
                 },
                 {
-                  "text": "While one window's program is starting, reads and controls of other windows must wait for that launch. A slow launch can delay their updates."
+                  "text": "While one window's program is starting, reads and controls of other windows wait for that launch. Some of a launch's other reads, such as ConsensFlow's settings file and the project's path, still run on the daemon's own thread with no time limit, so a slow launch can delay the board's updates."
                 },
                 {
                   "text": "Claude Code, Codex, Pi and Muse Code: if a first model call lasts over two minutes and the window's screen stays quiet, ConsensFlow can pause the task as if its turn had never begun. This is read from the code; it has not been seen on a real board."
@@ -2883,6 +2961,15 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "A turn whose last words are only \"Ending my turn to wait\" gets no note to go on. Work ended by closing a window gets no such note either."
                 },
                 {
+                  "text": "At the update, a staff with two members in one role and tier keeps both: that slot shows them, with its rule, until you mend it. A Critical brief saved before the update keeps its old first line wherever it is read again."
+                },
+                {
+                  "text": "Windows: the installer stops while ConsensFlow is open and asks you to quit ConsensFlow first; run it again after quitting."
+                },
+                {
+                  "text": "A Close while a harness is in its own start-up check waits for that check, up to about three minutes for Codex. Log lines still queued when the daemon's process is killed are lost."
+                },
+                {
                   "text": "Admin, Harnesses shows the command that updates a harness for you to copy and run yourself; the section does not run it or install anything."
                 },
                 {
@@ -2907,7 +2994,7 @@ footer{padding:clamp(56px,8vw,96px) 0 56px}
                   "text": "Link clicking, terminal color and font edge cases were not checked for this update."
                 },
                 {
-                  "text": "This update was not opened on a copy of a real ledger."
+                  "text": "Typing and a paste across a page reload were checked by tests, not in the packaged Mac app, which has no reload control."
                 },
                 {
                   "text": "No long run was made for this update."
