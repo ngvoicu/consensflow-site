@@ -1,0 +1,38 @@
+# ConsensFlow
+
+> A software factory, staffed by AI coding agents. A desktop app. You give the goal to a Chief of Staff; it plans the work on a board, and a staff in nine roles takes the tasks, each in a terminal of its own, in the coding agents you already use, with your own logins.
+
+This is ConsensFlow's site, consensflow.ngvoicu.dev. The coding agents it runs: Claude Code, Codex, Pi, Devin and Muse Code. The staff's nine roles: workers, frontend designers, architects, researchers, advisors, reviewers, testers, integrators and an image designer. Mac with Apple silicon, macOS 13.5 or later; Windows 10 or 11, 64-bit. No passwords stored, no API keys. ConsensFlow is free, and its source is on GitHub under the MIT license, with every release and its notes.
+
+## Get it
+
+The latest alpha, from the repository's releases: https://github.com/ngvoicu/consensflow/releases (the DMG for Mac, `x64-setup.exe` for Windows).
+
+Or install from a terminal.
+
+Mac:
+
+```sh
+curl -fsSL https://consensflow.ngvoicu.dev/install.sh | sh -s -- --alpha
+```
+
+Windows, PowerShell:
+
+```powershell
+$env:CONSENSFLOW_CHANNEL = 'alpha'; irm https://consensflow.ngvoicu.dev/install.ps1 | iex
+```
+
+## Before you start
+
+- Agents work with full permissions in their windows, as they would if you ran them yourself. Your protection is the review, the chief's acceptance and, if you turn it on, your approval. Use ConsensFlow on projects kept in version control.
+- Every agent, the chief and its staff alike, starts with its harness's MCP servers and connectors, skills, settings and customizations, as it would if you ran it yourself. The staff use them with full permissions while you aren't watching, so keep in a harness only what you would let any agent use.
+
+## Pages
+
+- [Home](https://consensflow.ngvoicu.dev/): What ConsensFlow is and does: who does what in the software factory, how it works, what is new in 3.0.7, what it does, your data, and the downloads and install commands.
+- [Supported versions](https://consensflow.ngvoicu.dev/status/): Which versions of Claude Code, Codex, Pi, Devin and Muse Code each ConsensFlow release supports on Mac and Windows, with the known issues and the newer versions not tested yet.
+
+## Repository
+
+- [README](https://github.com/ngvoicu/consensflow#readme): The ConsensFlow repository on GitHub, its README.
+- [Releases](https://github.com/ngvoicu/consensflow/releases): The ConsensFlow repository's releases on GitHub: the installers for Mac and Windows, and each release's notes.

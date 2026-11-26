@@ -210,6 +210,17 @@ bring the two files onto `main` as they are; `npm run site:installers -- --check
 compares the `installers` branch with the app's. They install releases from 3.0.7 on, the first
 whose SHA256SUMS is signed.
 
+## For search engines and agents (`robots.txt`, `llms.txt`, `sitemap.xml`)
+
+- `robots.txt` allows everyone and gives the content signals (contentsignals.org): search, AI input
+  and AI training are all allowed, as on Gabriel's other sites.
+- `llms.txt`, for AI agents: the first section's lede, the systems, the install lines as the page
+  gives them (the downloads as `/releases`, never a release's own file), the page's two warnings
+  from Your data, the two pages (the Supported versions line is its meta description), and the
+  repository's README and releases. Each page's head links it (`rel="describedby"`). When the lede,
+  the install lines or a page change, change it too.
+- `sitemap.xml` lists the two pages, each with the `lastmod` A release (below) keeps.
+
 ## Every page opens clean (`tools/check-site.mjs`)
 
 The home page and Supported versions are each opened at 1280 and 390 px, light and dark, in
